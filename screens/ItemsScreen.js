@@ -4,6 +4,7 @@ import ItemDetailsRow from '../components/ItemDetailsRow';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import _ from 'lodash';
+import moment from 'moment';
 
 class ItemsScreen extends Component {
   itemsArray;
@@ -19,9 +20,9 @@ class ItemsScreen extends Component {
   }
   renderItem =({item})=> {
     console.log('IN ITEMSSREEN RENEDERITEM item', item);
+    item.date =moment(item.date).format("D/M/YYYY")
     return  (
        <ItemDetailsRow item={item} navigation={this.props.navigation}/>
-      // <Text>Hi ther</Text>
     )
   }
   test=(data) =>{
@@ -33,7 +34,6 @@ class ItemsScreen extends Component {
         <FlatList 
           data = {this.props.items}
           keyExtractor={this._keyExtractor}
-         
           renderItem={this.renderItem}
         />
     )

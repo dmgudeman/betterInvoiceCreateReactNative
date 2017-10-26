@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View,TouchableWithoutFeedback, } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import { connect } from 'react-redux';
 import { CardSection, Card, Button, Header } from './common';
 import * as actions from '../actions';
+import moment from 'moment';
 
 class ItemDetailsRow extends Component {
 
@@ -14,21 +15,86 @@ class ItemDetailsRow extends Component {
   }
 
   componentWillMount(){
-    console.log('ITEMSDETAILSROW ', this.props);
+    console.log('ITEMSDETAILSROWXXXXXXXX ', this.props);
   }
+
+  goToItemEdit= () => { 
+    const {coId} = this.props.navigation.state.params.params;
+    const { navigate } = this.props.navigation;
+    navigate('itemEdit',{ coId })
+  }
+
   render() {
-    const{date, hours, amount, description } = this.props.item
+    const{date, hours, amount, description, total } = this.props.item;
     return (
-      <View >
+      <Card>
+          
         <CardSection>
-          <Text> {date} {hours} {amount}</Text>
+        <TouchableWithoutFeedback onPress={this.goToItemEdit}>
+          <View style={ styles.topRowContentStyle}>
+            <View style={styles.topRowSectionStyle}>
+              <Text>DATE</Text>
+              <Text style={styles.topRowTextStyle}>{date}</Text>
+            </View>
+            <View style={styles.topRowSectionStyle}>
+              <Text>HOURS</Text>
+              <Text style={styles.topRowTextStyle}>{hours}</Text>
+            </View>
+            <View style={styles.topRowSectionStyle}>
+              <Text>AMOUNT</Text>
+              <Text style={styles.topRowTextStyle}>{amount}</Text>
+            </View>
+            <View style={styles.topRowSectionStyle}>
+              <Text>TOTAL</Text>
+              <Text style={styles.topRowTextStyle}>{total}</Text>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
         </CardSection>
         <CardSection>
-          <Text>{description}</Text>
+        <TouchableWithoutFeedback onPress={this.goToItemEdit}>
+          <View style={styles.bottomRowContentStyle}>
+            <Text style={styles.bottomRowTextStyle}>{description}</Text>
+          </View>
+        </TouchableWithoutFeedback>
         </CardSection>
-      </View>
-      
+      </Card>
     )
+  }
+}
+
+
+const styles = {
+  containerStyle:{
+     border: 1
+  },
+  topRowContentStyle:{
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 35,
+  },
+  topRowSectionStyle: {
+    flex:1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    
+  },
+  topRowTextStyle: {
+    flex: 1,
+    textAlign: 'center'
+  },
+  bottomRowContentStyle: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    height: 35,
+  },
+  bottomRowTextStyle: {
+    flex: 1
   }
 }
 
