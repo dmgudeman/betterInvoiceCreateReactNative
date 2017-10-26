@@ -21,7 +21,10 @@ class ItemDetailsRow extends Component {
     return (
       <View >
         <CardSection>
-          <Text> {date} {hours}</Text>
+          <Text> {date} {hours} {amount}</Text>
+        </CardSection>
+        <CardSection>
+          <Text>{description}</Text>
         </CardSection>
       </View>
       
