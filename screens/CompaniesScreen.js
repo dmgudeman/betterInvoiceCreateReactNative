@@ -29,8 +29,7 @@ class CompaniesScreen extends Component {
     headerRight:
         <Button
           title= "+Business"
-          onPress={() => {
-            navigation.navigate('secondary')} 
+          onPress={()=>{navigation.navigate('companyCreate')} 
           }
         />
     }
