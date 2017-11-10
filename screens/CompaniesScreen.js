@@ -23,17 +23,17 @@ class CompaniesScreen extends Component {
     // console.log('CompaniesScreen componentWillMount this.props', this.props);
   }
   
-  static navigationOptions = ({ navigation }) => {
-    return {
-    title: 'Companies',
-    headerRight:
-        <Button
-          title= "+Business"
-          onPress={()=>{navigation.navigate('companyCreate')} 
-          }
-        />
-    }
-  }
+  // static navigationOptions = ({ navigation }) => {
+  //   return {
+  //   title: 'Companies',
+  //   headerRight:
+  //       <Button
+  //         title= "+Business"
+  //         onPress={()=>{navigation.navigate('companyCreate')} 
+  //         }
+  //       />
+  //   }
+  // }
 
   renderItem =({item, index})=> {
     // console.log('CompaniesScreen renderItem  this.props =', this.props);

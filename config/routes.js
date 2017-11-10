@@ -1,3 +1,5 @@
+import React from 'react';
+import { Button } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 
 import AuthScreen from '../screens/AuthScreen';
@@ -16,7 +18,20 @@ import MyDatePicker from '../components/MyDatePicker';
 
 export default StackNavigator({
   auth:          { screen: AuthScreen },
-  companies:     { screen: CompaniesScreen },
+  companies:     { 
+    screen: CompaniesScreen,
+    navigationOptions: ({ navigation }) => {
+      return {
+      title: 'Companies',
+      headerRight:
+          <Button
+            title= "+Business"
+            onPress={()=>{navigation.navigate('companyCreate')} 
+            }
+          />
+      }
+    }
+  },
   companyCreate: { screen: CompanyCreateScreen },
   companyEdit:   { screen: CompanyEditScreen },
   items:         { screen: ItemsScreen },
