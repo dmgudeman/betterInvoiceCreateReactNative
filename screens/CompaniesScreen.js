@@ -49,8 +49,8 @@ class CompaniesScreen extends Component {
      <View> 
         <FlatList 
           data = {this.props.companies}
-          keyExtractor={this._keyExtractor}
           renderItem={this.renderItem}
+          keyExtractor={ item => item }
         />
       </View>
     )

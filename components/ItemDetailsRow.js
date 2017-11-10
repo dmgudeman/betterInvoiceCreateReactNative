@@ -28,7 +28,6 @@ class ItemDetailsRow extends Component {
     const{date, hours, amount, description, total } = this.props.item;
     return (
       <Card>
-          
         <CardSection>
         <TouchableWithoutFeedback onPress={this.goToItemEdit}>
           <View style={ styles.topRowContentStyle}>

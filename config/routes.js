@@ -1,3 +1,5 @@
+import { StackNavigator } from 'react-navigation';
+
 import AuthScreen from '../screens/AuthScreen';
 import CompanyCreateScreen from '../screens/CompanyCreateScreen';
 import CompanyEditScreen from '../screens/CompanyEditScreen';
@@ -11,7 +13,8 @@ import ListItem from '../components/ListItem';
 import TestScreen from '../screens/TestScreen';
 import MyDatePicker from '../components/MyDatePicker';
 
-export const Routes = { 
+
+export default StackNavigator({
   auth:          { screen: AuthScreen },
   companies:     { screen: CompaniesScreen },
   companyCreate: { screen: CompanyCreateScreen },
@@ -23,6 +26,5 @@ export const Routes = {
   invoices:      { screen: InvoicesScreen },
   invoiceEdit:   { screen: InvoiceEditScreen },
   datePicker:    { screen: MyDatePicker },
-
-}
-export default Routes;
+  
+});

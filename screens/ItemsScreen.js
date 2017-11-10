@@ -33,7 +33,7 @@ class ItemsScreen extends Component {
     return (
         <FlatList 
           data = {this.props.items}
-          keyExtractor={this._keyExtractor}
+          keyExtractor={() => this._keyExtractor}
           renderItem={this.renderItem}
         />
     )
