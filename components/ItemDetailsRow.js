@@ -6,6 +6,7 @@ import { CardSection, Card, Button, Header } from './common';
 import * as actions from '../actions';
 import moment from 'moment';
 
+
 class ItemDetailsRow extends Component {
 
   constructor(props) {
@@ -19,13 +20,16 @@ class ItemDetailsRow extends Component {
   }
 
   goToItemEdit= () => { 
-    const {coId} = this.props.navigation.state.params.params;
-    const { navigate } = this.props.navigation;
-    navigate('itemEdit',{ coId })
+    const item = this.props.item;
+    console.log('goToItemEdit item', item);
+    // console.log('goToItemEdit pushed: ', this.props.navigation);
+    const { navigate } = this.props.navigation
+    navigate('itemEdit', {item})
   }
 
   render() {
     const{date, hours, amount, description, total } = this.props.item;
+
     return (
       <Card>
         <CardSection>

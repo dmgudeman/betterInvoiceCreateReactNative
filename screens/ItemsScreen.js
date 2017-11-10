@@ -19,17 +19,17 @@ class ItemsScreen extends Component {
     // this.props.fetchItems(this.props.fUserId, this.props.coId)
   }
   renderItem =({item})=> {
-    console.log('IN ITEMSSREEN RENEDERITEM item', item);
+    // console.log('IN ITEMSSREEN RENEDERITEM item', item);
     item.date =moment(item.date).format("D/M/YYYY")
     return  (
        <ItemDetailsRow item={item} navigation={this.props.navigation}/>
     )
   }
-  test=(data) =>{
-    console.log('THIS IS A TEST', data);
-  }
+  // test=(data) =>{
+  //   console.log('THIS IS A TEST', data);
+  // }
   render() {
-     console.log('this.props.itemsssss', this.props.items);  
+    //  console.log('this.props.itemsssss', this.props.items);  
     return (
         <FlatList 
           data = {this.props.items}
@@ -40,15 +40,13 @@ class ItemsScreen extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log('State in ItemsScreen', state);
   const coId = Object.keys(state.companies.companies)[0];
-
   const  fUserId = state.auth.fUserId;
   const items = _.map(state.companies.companies[coId].items, (val, id) => {
     return { ...val, id};
   });
   
-  console.log('ITEMSSSSSS', items, 'coId', coId);
+  // console.log('ITEMSSSSSS', items, 'coId', coId);
  
   return { fUserId, coId, items};
 }

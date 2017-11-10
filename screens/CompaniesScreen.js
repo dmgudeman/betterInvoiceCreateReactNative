@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { Button } from 'react-native-elements';
+import { StackNavigator } from 'react-navigation';
 
 import { View, Text, ListView, FlatList } from 'react-native';
 import { AsyncStorage } from 'react-native';
@@ -23,6 +25,17 @@ class CompaniesScreen extends Component {
     return  (
     <ListItem company={item} navigation={this.props.navigation}/>
     )
+  }
+  static navigationOptions = ({ navigation }) => {
+    return {
+    title: 'Companies',
+    headerRight:
+        <Button
+          title= "+Business"
+          onPress={()=>{navigation.navigate('companyCreate')} 
+          }
+        />
+    }
   }
 
   render() {

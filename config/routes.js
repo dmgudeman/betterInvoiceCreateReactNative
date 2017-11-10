@@ -21,18 +21,7 @@ export default StackNavigator(
     auth:          { screen: AuthScreen },
     companies:     { 
       screen: CompaniesScreen,
-      navigationOptions: ({ navigation }) => {
-        return {
-        title: 'Companies',
-        headerRight:
-            <Button
-              title= "+Business"
-              onPress={()=>{navigation.navigate('companyCreate')} 
-              }
-            />,
-        headerLeft: () => null,
-        }
-      }
+     
     },
     companyCreate: { screen: CompanyCreateScreen },
     companyEdit:   { screen: CompanyEditScreen },
@@ -40,9 +29,9 @@ export default StackNavigator(
     itemCreate:    { screen: ItemCreateScreen },
     itemEdit:      { 
       screen: ItemEditScreen,
-      navigationOptions: {
-        title: 'Edit Item'
-      }
+      navigationOptions: ({ navigation }) => ({
+        item: navigation.state.params.item
+      })
     },
     ListItem:      { screen: ListItem },
     invoices:      { screen: InvoicesScreen },

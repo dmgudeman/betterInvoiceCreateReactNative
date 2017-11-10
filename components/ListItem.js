@@ -4,6 +4,7 @@ import {NavigationActions} from 'react-navigation';
 import { CardSection, Card, Button, Header } from './common';
 // import { Card, Button } from 'react-native-elements';
 import ItemEditScreen from '../screens/ItemEditScreen'; 
+import ItemCreateScreen from '../screens/ItemCreateScreen';
 import { MainNavigator } from '../App';
 
 const setParamsAction = ( params, key ) => {NavigationActions.setParams({
@@ -27,7 +28,7 @@ class ListItem extends Component {
         <CardSection>
           <View style={styles.buttonRowStyle}>
             <Button style={ styles.buttonContentStyle } onPress={() => { 
-              navigate('items',{params: { coId:this.props.company.id}})} }>Details</Button>
+              navigate('items',{coId:this.props.company.id})} }>Details</Button>
             <Button style={ styles.buttonContentStyle } onPress={() => { navigate('invoices')} }>Invoices</Button>
             <Button style={ styles.buttonContentStyle } onPress={() => { navigate('invoiceEdit')} }>+Invoice</Button>
             <Button style={ styles.buttonContentStyle } onPress={() => { 

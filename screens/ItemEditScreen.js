@@ -16,9 +16,14 @@ import * as actions from '../actions'
 // import {react-timezone} from 'react-timezone';
 
 
-class ItemCreateScreen extends Component {
+class ItemEditScreen extends Component {
  
-
+  
+  componentDidMount() {
+    console.log('ITEMEDITSCREEN componentDidMount this.props', this.props);
+  }
+   
+  
   onSubmit = () => {
     const { fUserId, coId, date, hours, amount, description, hourly } = this.props
     let total = (
@@ -58,6 +63,7 @@ class ItemCreateScreen extends Component {
       />
         <FormLabel>Hours</FormLabel>
         <FormInput 
+          value={this.props.hours}
           onChangeText={(value) => { 
               this.props.itemUpdate('hours', value) 
             }
@@ -82,14 +88,15 @@ class ItemCreateScreen extends Component {
 
 const mapStateToProps = state => {
   const coId = Object.keys(state.companies.companies)[0];
-  console.log('state', state);
-  console.log('state.companies',Object.keys(state.companies.companies)[0]);
-  console.log('state.companies.companies[0].hourly',state.companies.companies[coId].hourly);
+  // console.log('ITEMEDITSCREEN mapStateToProps state', state);
+  // console.log('state', state);
+  // console.log('state.companies',Object.keys(state.companies.companies)[0]);
+  // console.log('state.companies.companies[0].hourly',state.companies.companies[coId].hourly);
   const { date, hours, amount, description } = state.item;
   const  fUserId = state.auth.fUserId;
   const hourly = state.companies.companies[coId].hourly;
  
-  console.log('coIdddddddddddd', coId);
+  // console.log('coIdddddddddddd', coId);
   return { date, hours, amount, description, hourly, fUserId, coId};
 }
-export default connect(mapStateToProps, actions)(ItemCreateScreen);
+export default connect(mapStateToProps, actions)(ItemEditScreen);

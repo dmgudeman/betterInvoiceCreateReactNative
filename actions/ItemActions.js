@@ -22,3 +22,6 @@ export const itemUpdate = (prop, value)=> {
     payload: { prop, value}
   }
 }
+export const hoursUpdate = () => ({
+   type: HOURS_UPDATE
+});
