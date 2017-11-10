@@ -16,31 +16,40 @@ import TestScreen from '../screens/TestScreen';
 import MyDatePicker from '../components/MyDatePicker';
 
 
-export default StackNavigator({
-  auth:          { screen: AuthScreen },
-  companies:     { 
-    screen: CompaniesScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-      title: 'Companies',
-      headerRight:
-          <Button
-            title= "+Business"
-            onPress={()=>{navigation.navigate('companyCreate')} 
-            }
-          />,
-      headerLeft: () => null,
+export default StackNavigator(
+  {
+    auth:          { screen: AuthScreen },
+    companies:     { 
+      screen: CompaniesScreen,
+      navigationOptions: ({ navigation }) => {
+        return {
+        title: 'Companies',
+        headerRight:
+            <Button
+              title= "+Business"
+              onPress={()=>{navigation.navigate('companyCreate')} 
+              }
+            />,
+        headerLeft: () => null,
+        }
       }
-    }
+    },
+    companyCreate: { screen: CompanyCreateScreen },
+    companyEdit:   { screen: CompanyEditScreen },
+    items:         { screen: ItemsScreen },
+    itemCreate:    { screen: ItemCreateScreen },
+    itemEdit:      { 
+      screen: ItemEditScreen,
+      navigationOptions: {
+        title: 'Edit Item'
+      }
+    },
+    ListItem:      { screen: ListItem },
+    invoices:      { screen: InvoicesScreen },
+    invoiceEdit:   { screen: InvoiceEditScreen },
+    datePicker:    { screen: MyDatePicker },
   },
-  companyCreate: { screen: CompanyCreateScreen },
-  companyEdit:   { screen: CompanyEditScreen },
-  items:         { screen: ItemsScreen },
-  itemCreate:    { screen: ItemCreateScreen },
-  itemEdit:      { screen: ItemEditScreen },
-  ListItem:      { screen: ListItem },
-  invoices:      { screen: InvoicesScreen },
-  invoiceEdit:   { screen: InvoiceEditScreen },
-  datePicker:    { screen: MyDatePicker },
-  
-});
+  {
+    mode: 'modal',
+  }
+);
