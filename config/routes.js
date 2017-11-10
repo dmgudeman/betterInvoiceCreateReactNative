@@ -28,7 +28,8 @@ export default StackNavigator({
             title= "+Business"
             onPress={()=>{navigation.navigate('companyCreate')} 
             }
-          />
+          />,
+      headerLeft: () => null,
       }
     }
   },

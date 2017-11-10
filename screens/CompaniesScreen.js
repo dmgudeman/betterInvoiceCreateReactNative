@@ -3,16 +3,11 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { View, Text, ListView, FlatList } from 'react-native';
-import { Button } from 'react-native-elements';
 import { AsyncStorage } from 'react-native';
 import * as actions from '../actions';
 import ListItem from '../components/ListItem'
 
 class CompaniesScreen extends Component {
-  
-  constructor(props) {
-    super(props);
-  }
   
   componentWillMount() {
     this.props.fetchCompanies(this.props.fUserId)
@@ -23,18 +18,6 @@ class CompaniesScreen extends Component {
     // console.log('CompaniesScreen componentWillMount this.props', this.props);
   }
   
-  // static navigationOptions = ({ navigation }) => {
-  //   return {
-  //   title: 'Companies',
-  //   headerRight:
-  //       <Button
-  //         title= "+Business"
-  //         onPress={()=>{navigation.navigate('companyCreate')} 
-  //         }
-  //       />
-  //   }
-  // }
-
   renderItem =({item, index})=> {
     // console.log('CompaniesScreen renderItem  this.props =', this.props);
     return  (
@@ -58,7 +41,7 @@ class CompaniesScreen extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('COmpanies screen state.auth', state.auth);
+  // console.log('COmpanies screen state.auth', state.auth);
   const companies = _.map(state.companies.companies, (val, id) => {
     return { ...val, id};
   });
