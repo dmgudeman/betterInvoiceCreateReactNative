@@ -7,39 +7,54 @@ import * as actions from '../actions';
 import moment from 'moment';
 
 
-const ItemDetailsRow = ({ item, onPress }) => (
+class ItemDetailsRow extends Component {
+ 
+
+  componentWillMount(){
+    console.log('ITEMSDETAILSROWXXXXXXXX ', this.props);
+    console.log('ITEMSDETAILROW this.props.onPress', this.props.onPress);
+
+  }
+
+  render() {
+    const {date, hours, amount, description, total } = this.props.item;
+    const x = this.props.onPress
+    return (
       <Card>
         <CardSection>
-        <TouchableWithoutFeedback onPress={onPress}>
+        <TouchableWithoutFeedback onPress={x()}>
           <View style={ styles.topRowContentStyle}>
             <View style={styles.topRowSectionStyle}>
               <Text>DATE</Text>
-              <Text style={styles.topRowTextStyle}>{item.date}</Text>
+              <Text style={styles.topRowTextStyle}>{date}</Text>
             </View>
             <View style={styles.topRowSectionStyle}>
               <Text>HOURS</Text>
-              <Text style={styles.topRowTextStyle}>{item.hours}</Text>
+              <Text style={styles.topRowTextStyle}>{hours}</Text>
             </View>
             <View style={styles.topRowSectionStyle}>
               <Text>AMOUNT</Text>
-              <Text style={styles.topRowTextStyle}>{item.amount}</Text>
+              <Text style={styles.topRowTextStyle}>{amount}</Text>
             </View>
             <View style={styles.topRowSectionStyle}>
               <Text>TOTAL</Text>
-              <Text style={styles.topRowTextStyle}>{item.total}</Text>
+              <Text style={styles.topRowTextStyle}>{total}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
         </CardSection>
         <CardSection>
-        <TouchableWithoutFeedback onPress={onPress}>
+        <TouchableWithoutFeedback onPress={this.goToItemEdit}>
           <View style={styles.bottomRowContentStyle}>
-            <Text style={styles.bottomRowTextStyle}>{item.description}</Text>
+            <Text style={styles.bottomRowTextStyle}>{description}</Text>
           </View>
         </TouchableWithoutFeedback>
         </CardSection>
       </Card>
-)
+    )
+  }
+}
+
 
 const styles = {
   containerStyle:{

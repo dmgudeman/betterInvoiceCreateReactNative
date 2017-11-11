@@ -8,21 +8,26 @@ import moment from 'moment';
 
 class ItemsScreen extends Component {
   itemsArray;
-  constructor(props) {
-    super(props);
-  }
-  
-  componentDidMount() {
+
+componentWillMount() {
     // console.log('this.props in ItemsScreen', [...this.props.items]);
     this.itemsArray = [...this.props.items]
-    // console.log('this.itemsArray', this.itemsArray);
-    // this.props.fetchItems(this.props.fUserId, this.props.coId)
+    console.log('ItemsScreen componentWillMount actions', actions);
   }
+
+  goToItemEdit = () => { 
+    console.log('goToItemEdit item');
+    // const { navigate } = this.props.navigation
+    // navigate('itemEdit', {item})
+  }
+
   renderItem =({item})=> {
-    // console.log('IN ITEMSSREEN RENEDERITEM item', item);
+    console.log('IN ITEMSSREEN RENEDERITEM item', item);
     item.date =moment(item.date).format("D/M/YYYY")
     return  (
-       <ItemDetailsRow item={item} navigation={this.props.navigation}/>
+       <ItemDetailsRow 
+         item={item} 
+         onPress={this.goToItemEdit}/>
     )
   }
   // test=(data) =>{
