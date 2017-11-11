@@ -29,9 +29,7 @@ export default StackNavigator(
     itemCreate:    { screen: ItemCreateScreen },
     itemEdit:      { 
       screen: ItemEditScreen,
-      navigationOptions: ({ navigation }) => ({
-        item: navigation.state.params.item
-      })
+     
     },
     ListItem:      { screen: ListItem },
     invoices:      { screen: InvoicesScreen },

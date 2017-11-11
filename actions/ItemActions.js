@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import thunk from 'redux-thunk';
-import {ITEM_UPDATE, ITEM_CREATE} from './types';
+import {ITEM_UPDATE, ITEM_CREATE, CHANGE_SELECTED_ITEM } from './types';
 import moment from 'moment';
 
 export const itemCreate = ({fUserId, coId, date, hours, amount, description, total}) => async dispatch => {
@@ -16,12 +16,19 @@ export const itemCreate = ({fUserId, coId, date, hours, amount, description, tot
  }
 
 export const itemUpdate = (prop, value)=> {
-  
   return {
     type: ITEM_UPDATE,
     payload: { prop, value}
-  }
+  };
 }
+
+export const changeSelectedItem = (item) => {
+  return {
+    type: CHANGE_SELECTED_ITEM,
+    item,
+  };
+}
+
 export const hoursUpdate = () => ({
    type: HOURS_UPDATE
 });
