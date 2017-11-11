@@ -7,11 +7,12 @@ import _ from 'lodash';
 import moment from 'moment';
 
 class ItemsScreen extends Component {
-  itemsArray;
+  // itemsArray;
+  _keyExtractor = (item, index) => index;
 
 componentWillMount() {
     // console.log('this.props in ItemsScreen', [...this.props.items]);
-    this.itemsArray = [...this.props.items]
+    // this.itemsArray = [...this.props.items]
   }
 
   goToItemEdit = (item) => {
@@ -38,7 +39,7 @@ componentWillMount() {
     return (
         <FlatList 
           data = {this.props.items}
-          keyExtractor={() => this._keyExtractor}
+          keyExtractor = {this._keyExtractor}
           renderItem={this.renderItem}
         />
     )

@@ -7,6 +7,6 @@ export const GET_USER_ID = 'get_user_id';
 export const FETCH_COMPANIES_SUCCESS ='fetch_companies_success';
 
 export const ITEM_CREATE = 'item_create';
+export const ITEM_EDIT = 'item_edit';
 export const ITEM_UPDATE = 'item_update';
-export const HOURS_UPDATE = 'hours_update';
 export const CHANGE_SELECTED_ITEM = 'change_selected_item';
