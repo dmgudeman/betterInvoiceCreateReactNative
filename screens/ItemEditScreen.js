@@ -17,12 +17,6 @@ import * as actions from '../actions'
 
 
 class ItemEditScreen extends Component {
- 
-  
-  componentDidMount() {
-    console.log('ITEMEDITSCREEN componentDidMount this.props', this.props);
-  }
-   
   
   onSubmit = () => {
     const { fUserId, coId, date, hours, amount, description, hourly } = this.props
@@ -87,16 +81,8 @@ class ItemEditScreen extends Component {
 }
 
 const mapStateToProps = state => {
-  const coId = Object.keys(state.companies.companies)[0];
   // console.log('ITEMEDITSCREEN mapStateToProps state', state);
-  // console.log('state', state);
-  // console.log('state.companies',Object.keys(state.companies.companies)[0]);
-  // console.log('state.companies.companies[0].hourly',state.companies.companies[coId].hourly);
-  const { date, hours, amount, description } = state.item;
-  const  fUserId = state.auth.fUserId;
-  const hourly = state.companies.companies[coId].hourly;
- 
-  // console.log('coIdddddddddddd', coId);
-  return { date, hours, amount, description, hourly, fUserId, coId};
+  const { coId, fUserId, total, date, hours, amount, description } = state.item.selectedItem;
+  return { date, hours, amount, description, hours, fUserId, coId};
 }
 export default connect(mapStateToProps, actions)(ItemEditScreen);

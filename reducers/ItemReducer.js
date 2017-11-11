@@ -9,8 +9,10 @@ export default (state = INITIAL_STATE, action) => {
     case ITEM_UPDATE:
       return { ...state, [action.payload.prop]: action.payload.value}
     case CHANGE_SELECTED_ITEM:{
-      console.log('ITEMREDUCERCHAMGE_SELECTED_ITEM action.payload', action.item);
-      return { ...state, item: action.item }
+      console.log('ITEMREDUCER CHAMGE_SELECTED_ITEM action.payload', action.item);
+      console.log('ITEMREDUCER CHAMGE_SELECTED_ITEM { ...state, item: action.item}', { ...state, selectedItem: action.item });
+      
+      return { ...state, selectedItem: action.item }
     }
     default:
       return state;

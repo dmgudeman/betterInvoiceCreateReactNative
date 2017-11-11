@@ -16,7 +16,7 @@ componentWillMount() {
 
   goToItemEdit = (item) => {
     this.props.dispatch(changeSelectedItem(item))
-    console.log('goToItemEdit item', item);
+  
     const { navigate } = this.props.navigation
     navigate('itemEdit')
   }
