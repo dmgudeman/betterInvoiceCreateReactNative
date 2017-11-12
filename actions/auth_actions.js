@@ -6,7 +6,7 @@ import firebase from 'firebase';
 import {
   FACEBOOK_LOGIN_SUCCESS,
   FACEBOOK_LOGIN_FAIL,
-  GET_USER_ID
+  // GET_USER_ID
 } from './types';
 
 // asynchronous action creator
@@ -43,8 +43,8 @@ const doFacebookLogin = async dispatch => {
  
 }
 
-export const getUserId = () => async dispatch => {
-     await console.log( "Hi ", state.fUserId);
-  return dispatch({type: GET_USER_ID, fUserId: state.fUserId})
+// export const getUserId = () => async dispatch => {
+//      await console.log( "Hi ", state.fUserId);
+//   return dispatch({type: GET_USER_ID, fUserId: state.fUserId})
 
-}
+// }

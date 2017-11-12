@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, AppRegistry} from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
-import reducers from './reducers';
+import reducers from './reducers/index';
 import firebase from 'firebase';
 
 import Navigator from './config/routes';

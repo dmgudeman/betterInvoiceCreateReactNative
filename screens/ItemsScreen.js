@@ -2,38 +2,43 @@ import React, { Component } from 'react';
 import { View, Text , FlatList, List, ListItem} from 'react-native';
 import ItemDetailsRow from '../components/ItemDetailsRow';
 import { connect } from 'react-redux';
-import { changeSelectedItem } from '../actions/ItemActions';
+import { selectItem } from '../actions/ItemActions';
 import _ from 'lodash';
 import moment from 'moment';
+import store from '../store'
 
 class ItemsScreen extends Component {
   // itemsArray;
-  _keyExtractor = (item, index) => index;
+
 
 componentWillMount() {
     // console.log('this.props in ItemsScreen', [...this.props.items]);
+    console.log('ITEMSCREEN componentWillMount this.props', this.props);
     // this.itemsArray = [...this.props.items]
   }
 
-  goToItemEdit = (item) => {
-    this.props.dispatch(changeSelectedItem(item))
+  goToItemEdit = (data) => {
+    console.log('ITEMS SCREEN goToItemEdit data', data);
+    // console.log('ITEMS SCREEN goToItemEdit data.coId', data.coId);
+    // console.log('ITEMS SCREEN goToItemEdit state)', store.getState());
+    this.props.selectItem(data);
   
     const { navigate } = this.props.navigation
     navigate('itemEdit')
   }
 
   renderItem =({item})=> {
-    // console.log('IN ITEMSSREEN RENEDERITEM item', item);
+     console.log('IN ITEMSSREEN RENEDERITEM {item}', {item});
     item.date = moment(item.date).format("D/M/YYYY")
     return  (
        <ItemDetailsRow 
          item={item} 
-         onPress={() => this.goToItemEdit(item)}/>
+         onPress={() => this.goToItemEdit({item})}/>
     )
   }
-  // test=(data) =>{
-  //   console.log('THIS IS A TEST', data);
-  // }
+  _keyExtractor = (item, index) => index;
+
+
   render() {
     //  console.log('this.props.itemsssss', this.props.items);  
     return (
@@ -56,4 +61,5 @@ const mapStateToProps = state => {
  
   return { fUserId, coId, items};
 }
-export default connect(mapStateToProps)(ItemsScreen);
+
+export default connect(mapStateToProps, {selectItem})(ItemsScreen);

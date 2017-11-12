@@ -10,13 +10,9 @@ import {
   FormValidationMessage, 
 }                           from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
-// import MyDatePicker from '../components/MyDatePicker';
 import DatePicker from 'react-native-datepicker';
 import Moment from 'react-moment';
 import * as actions from '../actions';
-console.log('actions', actions);
-// import {react-timezone} from 'react-timezone';
-
 
 class ItemEditScreen extends Component {
   
@@ -64,18 +60,20 @@ class ItemEditScreen extends Component {
         <FormLabel>Hours</FormLabel>
         <FormInput 
           value={this.props.hours}
-          onChangeText={(value) => { 
-              console.log('ITEMEDIT hours input newValue', value);
-              this.props.itemUpdate('hours', value)
+          onChangeText={(input) => { 
+              console.log('ITEMEDIT hours input', input);
+              this.props.changeItemHours( input)
             }
           }
         />
         <FormLabel>Amount</FormLabel>
         <FormInput 
+      value={this.props.amount}
         onChangeText={(value) => this.props.itemUpdate('amount', value)}
         />
         <FormLabel>Description</FormLabel>
-        <FormInput 
+        <FormInput
+        value={this.props.description}
         onChangeText={(value) => this.props.itemUpdate('description', value)}
         />
         <Button
@@ -87,14 +85,28 @@ class ItemEditScreen extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  // console.log('ITEMEDITSCREEN mapStateToProps state', state);
-  const { amount, coId, date, description, fUserId, hours, id,  total,  } = state.item;
-  return { amount, coId, date, description, fUserId, hours, id,  total, };
+const mapStateToProps = (state) => {
+  console.log('ITEMEDIT ItemEditScreen state', state);
+  const id = state.item.id;
+  const amount = state.item.amount
+  const coId = state.item.coId;
+  const date = state.item.date;
+  const description = state.item.description;
+  const fUserId = state.item.fUserId;
+  const hours = state.item.hours;
+ 
+  const total = state.item.total;
+
+  console.log('itemEdit mapStateToProps hours', hours );
+
+  // const { amount, coId, date, description, fUserId, hours, id,  total,  } = state.item.item;
+  return { 
+    amount, coId, date, description, fUserId, hours, id, total
+
+   };
 }
 const mapDispatchToProps = (dispatch) => {
-  const {itemUpdate} = actions;
-  console.log('itemUpdate in mapDispatchToPRops', itemUpdate);
-   return bindActionCreators({itemUpdate}, dispatch)
+  const {itemUpdate, changeItemHours} = actions;
+   return bindActionCreators({itemUpdate, changeItemHours}, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps )(ItemEditScreen);
