@@ -7,26 +7,26 @@ import * as actions from '../actions';
 import moment from 'moment';
 
 
-const ItemDetailsRow = ({ item, onPress }) => (
+const ItemDetailsRow = ({data, onPress }) => (
       <Card>
         <CardSection>
         <TouchableWithoutFeedback onPress={onPress}>
           <View style={ styles.topRowContentStyle}>
             <View style={styles.topRowSectionStyle}>
               <Text>DATE</Text>
-              <Text style={styles.topRowTextStyle}>{item.date}</Text>
+              <Text style={styles.topRowTextStyle}>{data.date}</Text>
             </View>
             <View style={styles.topRowSectionStyle}>
               <Text>HOURS</Text>
-              <Text style={styles.topRowTextStyle}>{item.hours}</Text>
+              <Text style={styles.topRowTextStyle}>{data.hours}</Text>
             </View>
             <View style={styles.topRowSectionStyle}>
               <Text>AMOUNT</Text>
-              <Text style={styles.topRowTextStyle}>{item.amount}</Text>
+              <Text style={styles.topRowTextStyle}>{data.amount}</Text>
             </View>
             <View style={styles.topRowSectionStyle}>
               <Text>TOTAL</Text>
-              <Text style={styles.topRowTextStyle}>{item.total}</Text>
+              <Text style={styles.topRowTextStyle}>{data.total}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -34,7 +34,7 @@ const ItemDetailsRow = ({ item, onPress }) => (
         <CardSection>
         <TouchableWithoutFeedback onPress={onPress}>
           <View style={styles.bottomRowContentStyle}>
-            <Text style={styles.bottomRowTextStyle}>{item.description}</Text>
+            <Text style={styles.bottomRowTextStyle}>{data.description}</Text>
           </View>
         </TouchableWithoutFeedback>
         </CardSection>

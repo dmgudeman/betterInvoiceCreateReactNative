@@ -61,7 +61,7 @@ class ItemEditScreen extends Component {
         <FormInput 
           value={this.props.hours}
           onChangeText={(input) => { 
-              console.log('ITEMEDIT hours input', input);
+              console.log('ITEMEDIT HOURS input', input);
               this.props.changeItemHours( input)
             }
           }
@@ -99,7 +99,7 @@ const mapStateToProps = (state) => {
 
   console.log('itemEdit mapStateToProps hours', hours );
 
-  // const { amount, coId, date, description, fUserId, hours, id,  total,  } = state.item.item;
+  // const { amount, coId, date, description, fUserId, hours, id,  total,  } = state.item;
   return { 
     amount, coId, date, description, fUserId, hours, id, total
 

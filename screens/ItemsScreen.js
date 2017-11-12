@@ -19,21 +19,28 @@ componentWillMount() {
 
   goToItemEdit = (data) => {
     console.log('ITEMS SCREEN goToItemEdit data', data);
-    // console.log('ITEMS SCREEN goToItemEdit data.coId', data.coId);
+    const {amount, coId, date, description, fUserId, hours, total, id}= data;
+    const item = {amount, coId, date, description, fUserId, hours, total, id};
+    console.log('ITEMS SCREEN goToItemEdit data', item);
     // console.log('ITEMS SCREEN goToItemEdit state)', store.getState());
-    this.props.selectItem(data);
+
+    this.props.selectItem(item)
   
     const { navigate } = this.props.navigation
     navigate('itemEdit')
   }
 
-  renderItem =({item})=> {
-     console.log('IN ITEMSSREEN RENEDERITEM {item}', {item});
-    item.date = moment(item.date).format("D/M/YYYY")
+  renderItem =(item)=> {
+     console.log('IN ITEMSSREEN RENEDERITEM item.index', item.index);
+     const data = this.props.items[item.index];
+    
+     console.log('data', data);
+
+    data.date = moment(data.date).format("D/M/YYYY")
     return  (
-       <ItemDetailsRow 
-         item={item} 
-         onPress={() => this.goToItemEdit({item})}/>
+       <ItemDetailsRow
+         data = {data} 
+         onPress={() => this.goToItemEdit(data)}/>
     )
   }
   _keyExtractor = (item, index) => index;
