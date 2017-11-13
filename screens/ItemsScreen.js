@@ -19,7 +19,7 @@ componentWillMount() {
 
   goToItemEdit = (data) => {
     // console.log('ITEMS SCREEN goToItemEdit data', data);
-    const {amount, coId, date, description, fUserId, hours, total, id}= data;
+    const {amount, coId, date, description, fUserId, hours, total, id} = data;
     const item = {amount, coId, date, description, fUserId, hours, total, id};
     // console.log('ITEMS SCREEN goToItemEdit item', item);
 
@@ -30,10 +30,16 @@ componentWillMount() {
   }
 
   renderItem =(item)=> {
-    //  console.log('IN ITEMSSREEN RENEDERITEM item.index', item.index);
-     const data = this.props.items[item.index];
+   
+    console.log('ItemsScreen renderItem item', item);
+    console.log('ItemsScreen renderItem item.date', item.date);
+    console.log('ItemsScreen renderItem item.item.date', item.item.date);
+    console.log('ItemsScreen this.props.items[item.index].date', this.props.items[item.index].date);
+
+    const data = this.props.items[item.index];
     
-    data.date = moment(data.date).format("D/M/YYYY")
+    data.date = moment(data.date).format("L")
+    console.log('ItemsScreen renderItem data.date', data.date);
     return  (
        <ItemDetailsRow
          data = {data} 
@@ -59,8 +65,6 @@ const mapStateToProps = state => {
   const items = _.map(state.companies.companies[coId].items, (val, id) => {
     return { ...val, id};
   });
-  
-  // console.log('ITEMSSSSSS', items, 'coId', coId);
  
   return { fUserId, coId, items};
 }

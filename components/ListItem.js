@@ -13,10 +13,7 @@ const setParamsAction = ( params, key ) => {NavigationActions.setParams({
 class ListItem extends Component {
   
   render() {
-    // console.log('ListItem renderr this.props = ', this.props);
     const { navigate } = this.props.navigation
-    // const { name, color, coId } = this.props.company
-    // console.log('TTTTTTTTTTTTTThis this.props', this.props);
 
     return (
       <Card color={this.props.company.color}>

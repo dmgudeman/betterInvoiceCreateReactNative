@@ -42,6 +42,7 @@ class itemEditScreen extends Component {
           mode="date"
           placeholder="select date"
           format="LL"
+          minDate="2017-01-01"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
           customStyles={{
