@@ -1,18 +1,18 @@
 
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { View, Text, DatePickerIOS }       from 'react-native';
-import { connect } from 'react-redux';
+import React, { Component }     from 'react';
+import { bindActionCreators }   from 'redux';
+import { View, Text, DatePickerIOS } from 'react-native';
+import { connect }              from 'react-redux';
 import { 
   Button,
   FormLabel, 
   FormInput, 
   FormValidationMessage, 
-}                           from 'react-native-elements';
-import { NavigationActions } from 'react-navigation';
-import DatePicker from 'react-native-datepicker';
-import Moment from 'react-moment';
-import * as actions from '../actions';
+}                               from 'react-native-elements';
+import { NavigationActions }    from 'react-navigation';
+import DatePicker               from 'react-native-datepicker';
+import Moment                   from 'react-moment';
+import * as actions             from '../actions';
 
 class itemEditScreen extends Component {
   
@@ -56,6 +56,7 @@ class itemEditScreen extends Component {
             }
         }}
         onDateChange={(value) => {
+          console.log('ItemEditScreen render date.value', value);
           this.props.itemUpdate('date',value )}
         }
       />
@@ -99,7 +100,7 @@ const mapStateToProps = (state) => {
   const hourly = state.companies.companies[coId].hourly;
 
   // const { amount, coId, date, description, fUserId, hours, id,  total,  } = state.item;
-  return { amount, coId, date, description, fUserId, hours, id, total, hourly};
+  return { amount, coId, date, description, fUserId, hours, id, total, hourly };
 }
 const mapDispatchToProps = (dispatch) => {
   const {itemUpdate, changeItemHours, itemSubmit} = actions;
