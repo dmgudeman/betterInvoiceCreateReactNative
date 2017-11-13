@@ -21,8 +21,8 @@ const InvoiceDetailsRow = ({data, onPress }) => (
               <Text style={styles.topRowTextStyle}>{data.coName}</Text>
             </View>
             <View style={styles.topRowSectionStyle}>
-              <Text>AMOUNT</Text>
-              <Text style={styles.topRowTextStyle}>{data.amount}</Text>
+              <Text>TOTAL</Text>
+              <Text style={styles.topRowTextStyle}>{data.total}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
