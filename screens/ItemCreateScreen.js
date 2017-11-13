@@ -8,29 +8,23 @@ import {
   FormValidationMessage, 
 }                           from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
-// import MyDatePicker from '../components/MyDatePicker';
 import DatePicker from 'react-native-datepicker';
 import Moment from 'react-moment';
 import * as actions from '../actions'
-// import {react-timezone} from 'react-timezone';
-
 
 class ItemCreateScreen extends Component {
- 
-  
-  // constructor(props) {
-  //   super(props);
-   
-    
-  // }
-  
 
   onSubmit = () => {
-    const { fUserId, coId, date, hours, amount, description, hourly } = this.props
-    let total = (
-      (hours - 0 ) * (hourly - 0)) + (amount - 0);
-   
-    this.props.itemCreate({ fUserId, coId, date, hours, amount, description, total})
+    const {amount, coId, date, description, fUserId, hourly, hours, total} = this.props
+    console.log('ITEMCREATESCREEN ONSUBMIT hours', hours);
+    console.log('ITEMCREATESCREEN ONSUBMIT hourly', hourly);
+    console.log('ITEMCREATESCREEN ONSUBMIT amount', amount);
+    const data  = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
+    console.log('ITEMCREATESCREEN ONSUBMIT data', data);
+    this.props.itemUpdate('total', data);
+    console.log('ITEMCREATESCREEN ONSUBMIT data', total);
+
+    this.props.itemSubmit({amount, coId, date, description, fUserId, hourly, hours, total});
     this.props.navigation.goBack();
   }
 
@@ -70,11 +64,11 @@ class ItemCreateScreen extends Component {
         />
         <FormLabel>Amount</FormLabel>
         <FormInput 
-        onChangeText={(value) => this.props.itemUpdate('amount', value)}
+          onChangeText={(value) => this.props.itemUpdate('amount', value)}
         />
         <FormLabel>Description</FormLabel>
         <FormInput 
-        onChangeText={(value) => this.props.itemUpdate('description', value)}
+          onChangeText={(value) => this.props.itemUpdate('description', value)}
         />
         <Button
           title= "Submit"
@@ -86,11 +80,15 @@ class ItemCreateScreen extends Component {
 }
 
 const mapStateToProps = state => {
+  const amount = state.item.amount || 0
   const coId = Object.keys(state.companies.companies)[0];
-  const { date, hours, amount, description } = state.item;
-  const  fUserId = state.auth.fUserId;
+  const date = state.item.date;
+  const description = state.item.description;
+  const fUserId = state.auth.fUserId;
+  const hours = state.item.hours;
   const hourly = state.companies.companies[coId].hourly;
- 
-  return { date, hours, amount, description, hourly, fUserId, coId};
+  const total = state.item.total;
+
+  return { amount, coId, date, description, fUserId, hourly, hours, total};
 }
 export default connect(mapStateToProps, actions)(ItemCreateScreen);

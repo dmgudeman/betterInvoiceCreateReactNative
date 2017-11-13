@@ -30,15 +30,10 @@ componentWillMount() {
   }
 
   renderItem =(item)=> {
-   
-    console.log('ItemsScreen renderItem item', item);
-    console.log('ItemsScreen renderItem item.date', item.date);
-    console.log('ItemsScreen renderItem item.item.date', item.item.date);
-    console.log('ItemsScreen this.props.items[item.index].date', this.props.items[item.index].date);
-
+    // console.log('ItemsScreen this.props.items[item.index].date', this.props.items[item.index].date);
     const data = this.props.items[item.index];
-    
-    data.date = moment(data.date).format("L")
+    console.log('ItemsScreen renderItem data', data);
+    data.date = moment(data.date).format("L");
     console.log('ItemsScreen renderItem data.date', data.date);
     return  (
        <ItemDetailsRow
@@ -65,7 +60,6 @@ const mapStateToProps = state => {
   const items = _.map(state.companies.companies[coId].items, (val, id) => {
     return { ...val, id};
   });
- 
   return { fUserId, coId, items};
 }
 

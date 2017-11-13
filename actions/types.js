@@ -7,7 +7,7 @@ export const FACEBOOK_LOGIN_FAIL = 'facebook_login_fail';
 export const FETCH_COMPANIES_SUCCESS ='fetch_companies_success';
 
 export const ITEM_CREATE = 'item_create';
-export const ITEM_SUBMIT = 'ITEM_SUBMIT';
+export const ITEM_EDIT = 'ITEM_EDIT';
 export const ITEM_UPDATE = 'item_update';
 export const CHANGE_SELECTED_ITEM = 'change_selected_item';
 export const CHANGE_ITEM_HOURS = 'CHANGE_ITEM_HOURS'

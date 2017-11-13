@@ -22,13 +22,13 @@ class itemEditScreen extends Component {
   }
   onSubmit = () => {
     console.log('ItemEditScreen onSubmit this.props', this.props);
-    const { amount, coId, date, description, fUserId, hours, id,  total, hourly  } = this.props
+    const { amount, coId, date, description, fUserId, hours, id, total, hourly } = this.props
 
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
     this.props.itemUpdate('total', data);
    
-    console.log('date111111111', amount, coId, date, description, fUserId, hours, id,  total, );
-    this.props.itemSubmit({ amount, coId, date, description, fUserId, hours, id,  total, })
+    console.log('date111111111', amount, coId, date, description, fUserId, hours, id, total, hourly  );
+    this.props.itemEdit({ amount, coId, date, description, fUserId, hours, id, total, hourly })
     this.props.navigation.goBack();
   }
 
@@ -104,7 +104,7 @@ const mapStateToProps = (state) => {
   return { amount, coId, date, description, fUserId, hours, id, total, hourly };
 }
 const mapDispatchToProps = (dispatch) => {
-  const {itemUpdate, changeItemHours, itemSubmit} = actions;
-  return bindActionCreators({itemUpdate, changeItemHours, itemSubmit}, dispatch)
+  const {itemUpdate, changeItemHours, itemEdit} = actions;
+  return bindActionCreators({itemUpdate, changeItemHours, itemEdit}, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps )(itemEditScreen);
