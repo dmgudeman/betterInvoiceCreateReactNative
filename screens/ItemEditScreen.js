@@ -72,7 +72,7 @@ class itemEditScreen extends Component {
           value={this.props.hours}
           onChangeText={(input) => { 
               console.log('itemEdit HOURS input', input);
-              this.props.changeItemHours( input)
+              this.props.itemUpdate('hours', value)
             }
           }
         />

@@ -59,14 +59,7 @@ export const changeItemHours = (value) => {
      hours: value
   }
 }
-// export const changeSelectedItem = (item2) => {
-//   const item= {...item2}
-//   console.log('ITEM ITEMACTIONS item ', item);
-//   return {
-//     type: CHANGE_SELECTED_ITEM,
-//     payload: {item:item},
-//   };
-// }
+
 export const selectItem = (item) => {
   console.log('ITEMACTIONS selectItem item', item);
   return {
