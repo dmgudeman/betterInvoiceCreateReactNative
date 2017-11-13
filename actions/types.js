@@ -18,4 +18,4 @@ export const INVOICE_EDIT = 'INVOICE_EDIT';
 export const INVOICE_UPDATE = 'item_update';
 export const CHANGE_SELECTED_INVOICE= 'change_selected_item';
 export const CHANGE_INVOICE_HOURS = 'CHANGE_ITEM_HOURS'
-export const SELECT_INVOICE = 'select_item';
+export const SELECT_INVOICE = 'select_invoice';
