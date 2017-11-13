@@ -18,11 +18,10 @@ componentWillMount() {
   }
 
   goToItemEdit = (data) => {
-    console.log('ITEMS SCREEN goToItemEdit data', data);
+    // console.log('ITEMS SCREEN goToItemEdit data', data);
     const {amount, coId, date, description, fUserId, hours, total, id}= data;
     const item = {amount, coId, date, description, fUserId, hours, total, id};
-    console.log('ITEMS SCREEN goToItemEdit data', item);
-    // console.log('ITEMS SCREEN goToItemEdit state)', store.getState());
+    // console.log('ITEMS SCREEN goToItemEdit item', item);
 
     this.props.selectItem(item)
   
@@ -31,11 +30,9 @@ componentWillMount() {
   }
 
   renderItem =(item)=> {
-     console.log('IN ITEMSSREEN RENEDERITEM item.index', item.index);
+    //  console.log('IN ITEMSSREEN RENEDERITEM item.index', item.index);
      const data = this.props.items[item.index];
     
-     console.log('data', data);
-
     data.date = moment(data.date).format("D/M/YYYY")
     return  (
        <ItemDetailsRow
@@ -47,7 +44,6 @@ componentWillMount() {
 
 
   render() {
-    //  console.log('this.props.itemsssss', this.props.items);  
     return (
         <FlatList 
           data = {this.props.items}

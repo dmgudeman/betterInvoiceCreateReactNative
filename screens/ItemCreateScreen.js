@@ -18,12 +18,11 @@ import * as actions from '../actions'
 class ItemCreateScreen extends Component {
  
   
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
    
-    console.log('PROPSSSSSSS', props);
     
-  }
+  // }
   
 
   onSubmit = () => {
@@ -31,7 +30,6 @@ class ItemCreateScreen extends Component {
     let total = (
       (hours - 0 ) * (hourly - 0)) + (amount - 0);
    
-    console.log('date111111111', fUserId, coId, date, hours, amount, description, total);
     this.props.itemCreate({ fUserId, coId, date, hours, amount, description, total})
     this.props.navigation.goBack();
   }
@@ -89,14 +87,10 @@ class ItemCreateScreen extends Component {
 
 const mapStateToProps = state => {
   const coId = Object.keys(state.companies.companies)[0];
-  // console.log('state', state);
-  // console.log('state.companies',Object.keys(state.companies.companies)[0]);
-  // console.log('state.companies.companies[0].hourly',state.companies.companies[coId].hourly);
   const { date, hours, amount, description } = state.item;
   const  fUserId = state.auth.fUserId;
   const hourly = state.companies.companies[coId].hourly;
  
-  console.log('coIdddddddddddd', coId);
   return { date, hours, amount, description, hourly, fUserId, coId};
 }
 export default connect(mapStateToProps, actions)(ItemCreateScreen);

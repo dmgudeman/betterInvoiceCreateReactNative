@@ -1,5 +1,5 @@
 import {
-  ITEM_CREATE, ITEM_EDIT, ITEM_UPDATE,   CHANGE_ITEM_HOURS, SELECT_ITEM
+  ITEM_CREATE, ITEM_SUBMIT, ITEM_UPDATE,   CHANGE_ITEM_HOURS, SELECT_ITEM
 } from '../actions/types';
 
 const INITIAL_STATE = {}
@@ -11,11 +11,11 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, item: action.item}
     }
     case ITEM_UPDATE:  { // For updating item fields
-      console.log('ITEM REDUCERS [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);
+      console.log('ITEM REDUCERS  ITEM UPDATE [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);
       return { ...state, [action.payload.prop]: action.payload.value}
     }
-    case ITEM_EDIT: { // For submitting an edited item
-      // console.log('ITEMREDUCER ITEM_EDIT action.payload', action.item);
+    case ITEM_SUBMIT: { // For submitting an edited item
+      // console.log('ITEMREDUCER ITEM_SUBMIT action.payload', action.item);
       return { ...state, item: action.item }
     }
     // case CHANGE_SELECTED_ITEM:{ // To identify the selected item in a list

@@ -14,19 +14,21 @@ import DatePicker from 'react-native-datepicker';
 import Moment from 'react-moment';
 import * as actions from '../actions';
 
-class ItemEditScreen extends Component {
+class itemEditScreen extends Component {
   
   componentWillMount() {
     const {dispatch} = this.props
-    console.log('ItemEditScreen componentWillMount this.props ', this.props);
+    console.log('itemEditScreen componentWillMount this.props ', this.props);
   }
   onSubmit = () => {
-    // const { amount, coId, date, description, fUserId, hours, id,  total,  } = this.props
-    let total = (
-      (hours - 0 ) * (hourly - 0)) + (amount - 0);
+    console.log('ItemEditScreen onSubmit this.props', this.props);
+    const { amount, coId, date, description, fUserId, hours, id,  total, hourly  } = this.props
+
+    const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
+    this.props.itemUpdate('total', data);
    
     console.log('date111111111', amount, coId, date, description, fUserId, hours, id,  total, );
-    this.props.itemEdit({ amount, coId, date, description, fUserId, hours, id,  total, })
+    this.props.itemSubmit({ amount, coId, date, description, fUserId, hours, id,  total, })
     this.props.navigation.goBack();
   }
 
@@ -61,7 +63,7 @@ class ItemEditScreen extends Component {
         <FormInput 
           value={this.props.hours}
           onChangeText={(input) => { 
-              console.log('ITEMEDIT HOURS input', input);
+              console.log('itemEdit HOURS input', input);
               this.props.changeItemHours( input)
             }
           }
@@ -86,7 +88,6 @@ class ItemEditScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('ITEMEDIT ItemEditScreen state', state);
   const id = state.item.id;
   const amount = state.item.amount
   const coId = state.item.coId;
@@ -94,19 +95,14 @@ const mapStateToProps = (state) => {
   const description = state.item.description;
   const fUserId = state.item.fUserId;
   const hours = state.item.hours;
- 
   const total = state.item.total;
-
-  console.log('itemEdit mapStateToProps hours', hours );
+  const hourly = state.companies.companies[coId].hourly;
 
   // const { amount, coId, date, description, fUserId, hours, id,  total,  } = state.item;
-  return { 
-    amount, coId, date, description, fUserId, hours, id, total
-
-   };
+  return { amount, coId, date, description, fUserId, hours, id, total, hourly};
 }
 const mapDispatchToProps = (dispatch) => {
-  const {itemUpdate, changeItemHours} = actions;
-   return bindActionCreators({itemUpdate, changeItemHours}, dispatch)
+  const {itemUpdate, changeItemHours, itemSubmit} = actions;
+  return bindActionCreators({itemUpdate, changeItemHours, itemSubmit}, dispatch)
 }
-export default connect(mapStateToProps, mapDispatchToProps )(ItemEditScreen);
+export default connect(mapStateToProps, mapDispatchToProps )(itemEditScreen);
