@@ -1,7 +1,11 @@
 
 import React, { Component }     from 'react';
 import { bindActionCreators }   from 'redux';
-import { View, Text, DatePickerIOS } from 'react-native';
+import { 
+  View, 
+  Text, 
+  DatePickerIOS 
+}                               from 'react-native';
 import { connect }              from 'react-redux';
 import { 
   Button,
@@ -12,6 +16,7 @@ import {
 import { NavigationActions }    from 'react-navigation';
 import DatePicker               from 'react-native-datepicker';
 import Moment                   from 'react-moment';
+import moment                   from 'moment';
 import * as actions             from '../actions';
 
 class itemEditScreen extends Component {
@@ -23,7 +28,8 @@ class itemEditScreen extends Component {
   onSubmit = () => {
     console.log('ItemEditScreen onSubmit this.props', this.props);
     const { amount, coId, date, description, fUserId, hours, id, total, hourly } = this.props
-
+    
+    this.props.itemUpdate('date', moment(date).format('MM-DD-YYYY h:mm A'));
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
     this.props.itemUpdate('total', data);
    

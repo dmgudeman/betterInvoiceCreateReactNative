@@ -19,10 +19,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, item: action.item }
     }
     
-    case CHANGE_ITEM_HOURS: {
-      console.log(' ITEM REDUCER CHANGE_ITEMS_HOURS action.hours', action.hours);
-      return  {...state, hours: action.hours} 
-    }
+    // case CHANGE_ITEM_HOURS: {
+    //   console.log(' ITEM REDUCER CHANGE_ITEMS_HOURS action.hours', action.hours);
+    //   return  {...state, hours: action.hours} 
+    // }
 
     case SELECT_ITEM: {
       console.log('ITEMREDUCER SELECT_ITEM action.item', action.item);

@@ -10,10 +10,11 @@ import {
  } from './types';
 import moment from 'moment';
 
-export const itemCreate = ({amount = 0, coId, date, description = '', fUserId, hourly = 0, hours = 0, total = 0}) => async dispatch => {
-  
-  let payload = { fUserId, coId, date, hours, amount, description, total }
+export const itemCreate = ({amount, coId, date, description, fUserId, hourly, hours, total}) => async dispatch => {
+  console.log();
+  let payload = { amount, coId, date, description, fUserId, hourly, hours, total} 
   payload.date = moment(payload.date).format();
+  payload.total = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
 
   let newItemKey = await firebase.database().ref().child('companies').child('items').push().key;
   payload.id = newItemKey;
@@ -39,6 +40,10 @@ export const itemEdit = ({amount = 0, coId, date, description = '', fUserId, hou
  }
 
 export const itemUpdate = (prop, value)=> {
+
+  if (prop === 'hours') {
+
+  }
 
   return {
     type: ITEM_UPDATE,

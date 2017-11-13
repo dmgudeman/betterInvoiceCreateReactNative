@@ -18,13 +18,14 @@ class ItemCreateScreen extends Component {
     const {amount, coId, date, description, fUserId, hourly, hours, total} = this.props
     console.log('ITEMCREATESCREEN ONSUBMIT hours', hours);
     console.log('ITEMCREATESCREEN ONSUBMIT hourly', hourly);
-    console.log('ITEMCREATESCREEN ONSUBMIT amount', amount);
+    console.log('ITEMCREATESCREEN ONSUBMIT fUserId', fUserId);
     const data  = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
     console.log('ITEMCREATESCREEN ONSUBMIT data', data);
     this.props.itemUpdate('total', data);
-    console.log('ITEMCREATESCREEN ONSUBMIT data', total);
+    console.log('ITEMCREATE ONSUBMIT this.props', this.props);
+    console.log('ITEMCREATESCREEN ONSUBMIT total', total);
 
-    this.props.itemSubmit({amount, coId, date, description, fUserId, hourly, hours, total});
+    this.props.itemCreate({amount, coId, date, description, fUserId, hourly, hours, total});
     this.props.navigation.goBack();
   }
 
@@ -33,24 +34,25 @@ class ItemCreateScreen extends Component {
       <View>
         <FormLabel>Date</FormLabel>
         <DatePicker
-          style={{width: 200}}
-          date={this.props.date}
-          mode="date"
-          placeholder="select date"
-          format="LL"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          customStyles={{
-            dateIcon: {
-              position: 'absolute',
-              left: 0,
-              top: 4,
-              marginLeft: 0
-            },
-            dateInput: {
-              marginLeft: 36
-            }
-        }}
+         style={{width: 200}}
+         date={this.props.date}
+         mode="date"
+         placeholder="select date"
+         format="LL"
+         minDate="2017-01-01"
+         confirmBtnText="Confirm"
+         cancelBtnText="Cancel"
+         customStyles={{
+           dateIcon: {
+             position: 'absolute',
+             left: 0,
+             top: 4,
+             marginLeft: 0
+           },
+           dateInput: {
+             marginLeft: 36
+           }
+       }}
         onDateChange={(value) => {
           this.props.itemUpdate('date',value )}
         }
