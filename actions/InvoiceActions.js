@@ -38,7 +38,11 @@ export const invoiceEdit = ({beginDate, companyKey, coName, createdAt, descripti
  }
 
 export const invoiceUpdate = (prop, value)=> {
-   console.log('invoiceActions invoiceUpdate prop, value:::::', prop, value);
+  console.log('invoiceActions 11111111invoiceUpdate prop, value:::::', prop, value);
+  if (prop === 'createdAt' || prop === 'beginDate' || prop === 'endDate'){
+     value = moment(value).format();
+  }
+   console.log('invoiceActions 22222222invoiceUpdate prop, value:::::', prop, value);
 
   return {
     type: INVOICE_UPDATE,

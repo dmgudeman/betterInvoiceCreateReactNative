@@ -12,7 +12,7 @@ export default (state = INITIAL_STATE, action) => {
     }
     case INVOICE_UPDATE:  { // For updating invoice fields
       console.log('invoice REDUCERS  invoice UPDATE [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);
-      return { ...state, [action.payload.prop]: action.payload.value}
+      return { ...state.invoice, [action.payload.prop]: action.payload.value}
     }
     case INVOICE_EDIT: { // For submitting an edited invoice
       console.log('invoice REDUCERS INVOICE_EDIT action.payload', action.invoice);

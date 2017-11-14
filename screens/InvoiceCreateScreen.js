@@ -60,10 +60,19 @@ class InvoiceCreateScreen extends Component {
     const {  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total} = this.props
     let items = this.filterByDateRange(beginDate, endDate);
     this.props.invoiceUpdate('items', items)
-    const formatDate = moment(createdAt).format();
+    const formatDate = moment().format();
     this.props.invoiceUpdate('createdAt', formatDate);
     console.log('InvoicecreateScren onSubmit createdAt', createdAt);
     console.log('INVOICECREATE ONSUBMIT items', items);
+
+    if (items){
+      let itemsArray = (Object).values(items);
+        itemsArray.forEach(i => {
+          console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiinvoiceTotal', invoiceTotal);
+          invoiceTotal = invoiceTotal + i.total;
+        });
+      this.invoice.total = invoiceTotal || 0;
+      }
    
     console.log('date111111111',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total );
     this.props.invoiceCreate({  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId,  invoiceKey, items, total})
@@ -117,9 +126,9 @@ class InvoiceCreateScreen extends Component {
 const mapStateToProps = (state) => {
   const companyKey = Object.keys(state.companies.companies)[0];
   const fUserId = state.auth.fUserId || '';
-  
   const beginDate = state.invoice.beginDate || moment().format();
-  const coName = state.invoice.coName || '';
+  const coName = state.companies.companies[companyKey].name || '';
+
   const createdAt= state.invoice.createdAt || moment().format;
   const description = state.invoice.description || '';
   const discount = state.invoice.discount || '';
