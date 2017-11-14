@@ -26,9 +26,10 @@ export default (state = INITIAL_STATE, action) => {
 
     case SELECT_INVOICE: {
       console.log('invoiceREDUCER SELECT_INVOICE action.invoice', action.invoice);
-      const {amount, coId, date, description, fUserId, hours, total, id}= action.invoice
-      const data = {amount, coId, date, description, fUserId, hours, total, id} 
-      return Object.assign({}, state.invoice, {amount, coId, date, description, fUserId, hours, total, id} )
+      // const {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total}= action.invoice
+      // const data = {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total} 
+      // return Object.assign({}, state.invoice, {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total} )
+      return Object.assign({}, state.invoice, action.invoice )
     }
     default:{
       return state;

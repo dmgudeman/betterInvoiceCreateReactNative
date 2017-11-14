@@ -19,8 +19,8 @@ componentWillMount() {
 
   goToInvoiceEdit = (data) => {
     // console.log('invoiceS SCREEN goToinvoiceEdit data', data);
-    const {amount, companyKey, date, description, fUserId, hours, total, invoiceKey} = data;
-    const invoice = {amount, companyKey, date, description, fUserId, hours, total, invoiceKey};
+    const {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total} = data;
+    const invoice = {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total};
     // console.log('invoiceS SCREEN goToinvoiceEdit invoice', invoice);
 
     this.props.selectInvoice(invoice)

@@ -8,16 +8,10 @@ import {
 import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
 
-export default class MyDatePicker extends Component {
-  constructor(props){
-    super(props)
-  }
-
-  render(){
-    return (
+const MyDatePicker = ({createdAt, invoiceUpdate}) => (
       <DatePicker
       style={{width: 200}}
-      date={this.props.date}
+      date={createdAt}
       mode="date"
       placeholder="select date"
       format="LL"
@@ -40,6 +34,8 @@ export default class MyDatePicker extends Component {
       this.props.invoiceUpdate('date',value )}
     }
   />
-    )
-  }
-}
+    
+  
+)
+
+export default MyDatePicker;

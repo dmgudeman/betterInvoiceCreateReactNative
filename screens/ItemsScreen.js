@@ -33,7 +33,7 @@ componentWillMount() {
     // console.log('ItemsScreen this.props.items[item.index].date', this.props.items[item.index].date);
     const data = this.props.items[item.index];
     console.log('ItemsScreen renderItem data', data);
-    data.date = moment(data.date).format("L");
+    // data.date = moment(data.date).format("L");
     console.log('ItemsScreen renderItem data.date', data.date);
     return  (
        <ItemDetailsRow

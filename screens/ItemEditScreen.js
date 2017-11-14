@@ -29,7 +29,7 @@ class itemEditScreen extends Component {
     console.log('ItemEditScreen onSubmit this.props', this.props);
     const { amount, coId, date, description, fUserId, hours, id, total, hourly } = this.props
     
-    this.props.itemUpdate('date', moment(date).format('MM-DD-YYYY h:mm A'));
+    // this.props.itemUpdate('date', moment(date).format('MM-DD-YYYY h:mm A'));
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
     this.props.itemUpdate('total', data);
    
