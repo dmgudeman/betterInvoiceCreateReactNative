@@ -19,16 +19,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, invoice: action.invoice }
     }
     
-    // case CHANGE_INVOICE_HOURS: {
-    //   console.log(' invoice REDUCER CHANGE_INVOICES_HOURS action.hours', action.hours);
-    //   return  {...state, hours: action.hours} 
-    // }
-
+    
     case SELECT_INVOICE: {
       console.log('invoiceREDUCER SELECT_INVOICE action.invoice', action.invoice);
-      // const {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total}= action.invoice
-      // const data = {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total} 
-      // return Object.assign({}, state.invoice, {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total} )
+     
       return Object.assign({}, state.invoice, action.invoice )
     }
     default:{

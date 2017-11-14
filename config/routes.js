@@ -33,7 +33,12 @@ export default StackNavigator(
     },
     ListItem:      { screen: ListItem },
     invoices:      { screen: InvoicesScreen },
-    invoiceEdit:   { screen: InvoiceEditScreen },
+    invoiceEdit:   { 
+      screen: InvoiceEditScreen,
+      navigationOptions: ({navigation}) => ({
+        title: `Edit Invoice`,
+      }),
+    },
     datePicker:    { screen: MyDatePicker },
   },
   {

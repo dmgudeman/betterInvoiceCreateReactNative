@@ -8,17 +8,16 @@ import {
  } from './types';
 import moment from 'moment';
 
-export const invoiceCreate = ({amount, coId, date, description, fUserId, hourly, hours, total}) => async dispatch => {
-  console.log();
-  let payload = { amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total} 
+export const invoiceCreate = ({beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total}) => async dispatch => {
+  console.log('invoiceActions invoiceCreate fUserId, companyKey, invoiceKey', fUserId, companyKey, invoiceKey);
+  let payload = {beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total} 
   payload.createdAt = moment(payload.date).format();
-  payload.total = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
 
   let newInvoiceKey = await firebase.database().ref().child('companies').child('invoices').push().key;
-  payload.id = newInvoiceKey;
+  payload.invoiceKey = newInvoiceKey;
   console.log('Invoice ACTIONS INVOICE_CREATE payload', payload);
   let updates = {};
-  updates['/users/'+ payload.fUserId + '/companies/'+ payload.coId + '/invoices/' + payload.id] = payload;
+  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey] = payload;
   await firebase.database().ref().update(updates);
 
   dispatch => {type: INVOICE_CREATE, { invoice: payload }}
