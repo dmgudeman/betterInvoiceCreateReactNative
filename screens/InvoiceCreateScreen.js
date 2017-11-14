@@ -85,13 +85,13 @@ const mapStateToProps = (state) => {
   const companyKey = Object.keys(state.companies.companies)[0];
   const fUserId = state.auth.fUserId || '';
   
-  const beginDate = state.invoice.beginDate || '';
+  const beginDate = state.invoice.beginDate || moment().format();
   const coName = state.invoice.coName || '';
   const createdAt= state.invoice.createdAt || '';
   const description = state.invoice.description || '';
   const discount = state.invoice.discount || '';
   const dueDate = state.invoice.dueDate || '';
-  const endDate = state.invoice.endDate || '';
+  const endDate = state.invoice.endDate || moment().format();
   const invoiceKey = state.invoice.invoiceKey || '';
   const total = state.invoice.total || '';
    console.log('XXXXXXXXXXXXXXXXXXX',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total);
