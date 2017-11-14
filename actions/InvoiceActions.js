@@ -11,7 +11,7 @@ import moment from 'moment';
 export const invoiceCreate = ({amount, coId, date, description, fUserId, hourly, hours, total}) => async dispatch => {
   console.log();
   let payload = { amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total} 
-  payload.date = moment(payload.date).format();
+  payload.createdAt = moment(payload.date).format();
   payload.total = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
 
   let newInvoiceKey = await firebase.database().ref().child('companies').child('invoices').push().key;
@@ -25,23 +25,21 @@ export const invoiceCreate = ({amount, coId, date, description, fUserId, hourly,
  }
 
  // used upon Submit
-export const invoiceEdit = ({amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total}) => async dispatch => {
+export const invoiceEdit = ({beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total}) => async dispatch => {
   
-  let payload = { amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total}
-  // payload.date = moment(payload.date).format();
+  let payload = { beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total}
+  payload.createdAt = moment(payload.createdAt).format();
+  console.log('InvoiceActions invoiceEdit payload', payload);
  
   let updates = {};
-  updates['/users/'+ payload.fUserId + '/companies/'+ payload.coId + '/invoices/' + payload.invoiceKey] = payload;
+  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey] = payload;
   await firebase.database().ref().update(updates);
 
   dispatch => {type: INVOICE_EDIT, {invoice: payload}}
  }
 
 export const invoiceUpdate = (prop, value)=> {
-
-  if (prop === 'hours') {
-
-  }
+   console.log('invoiceActions invoiceUpdate prop, value:::::', prop, value);
 
   return {
     type: INVOICE_UPDATE,

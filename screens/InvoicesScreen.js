@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text , FlatList, List, Listinvoice} from 'react-native';
 import InvoiceDetailsRow from '../components/InvoiceDetailsRow';
 import { connect } from 'react-redux';
-import { selectInvoice } from '../actions/InvoiceActions';
+import { selectInvoice, invoiceUpdate } from '../actions/InvoiceActions';
 import _ from 'lodash';
 import moment from 'moment';
 import store from '../store'
@@ -19,10 +19,12 @@ componentWillMount() {
 
   goToInvoiceEdit = (data) => {
     // console.log('invoiceS SCREEN goToinvoiceEdit data', data);
-    const {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total} = data;
-    const invoice = {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total};
+    const {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate,fUserId,  invoiceKey, total} = data;
+    const formatDate = moment(createdAt).format();
+    this.props.invoiceUpdate('createdAt', formatDate);
+    const invoice = {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, total};
     // console.log('invoiceS SCREEN goToinvoiceEdit invoice', invoice);
-
+    
     this.props.selectInvoice(invoice)
   
     const { navigate } = this.props.navigation
@@ -66,4 +68,4 @@ const mapStateToProps = state => {
   return { fUserId, companyKey, invoices};
 }
 
-export default connect(mapStateToProps, {selectInvoice})(InvoicesScreen);
+export default connect(mapStateToProps, {selectInvoice, invoiceUpdate})(InvoicesScreen);

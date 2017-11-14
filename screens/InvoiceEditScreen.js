@@ -24,32 +24,41 @@ class invoiceEditScreen extends Component {
   
   componentWillMount() {
     const {dispatch} = this.props
-    console.log('invoiceEditScreen componentWillMount this.props ', this.props);
+    // console.log('invoiceEditScreen componentWillMount this.props ', this.props);
   }
   onSubmit = () => {
-    console.log('InvoiceEditScreen onSubmit this.props', this.props);
-    const {  amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total} = this.props
+    // console.log('InvoiceEditScreen onSubmit this.props', this.props);
+    const {  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, total} = this.props
     
-    this.props.invoiceUpdate('createdAt', moment(date).format('MM-DD-YYYY h:mm A'));
-    const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
-    this.props.invoiceUpdate('total', data);
+    const formatDate = moment(createdAt).format();
+    this.props.invoiceUpdate('createdAt', formatDate);
+    console.log('InvoiceEditScren onSubmit createdAt', createdAt);
    
-    console.log('date111111111',  amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total );
-    this.props.invoiceEdit({  amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total})
+    console.log('date111111111',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total );
+    this.props.invoiceEdit({  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId,  invoiceKey, total})
     this.props.navigation.goBack();
   }
 
   render() {
     return (
-      <View>
-        <FormLabel>Created</FormLabel>
+      
+        <View>
+        <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
-          createdAt={this.props.createdAt}
+          beginDate={this.props.beginDate}
+          invoiceUpdate={this.props.invoiceUpdate}
+          />
+       
+       
+        <FormLabel>Stop Date</FormLabel>
+        <MyDatePicker 
+          endDate={this.props.endDate}
           invoiceUpdate={this.props.invoiceUpdate}
       />
-        <FormLabel>Company</FormLabel>
+      
+        <FormLabel>Discount</FormLabel>
         <FormInput 
-          value={this.props.coName}
+          value={this.props.discount}
           onChangeText={(input) => { 
               console.log('invoiceEdit coName input', input);
               this.props.invoiceUpdate('coName', value)
@@ -58,7 +67,7 @@ class invoiceEditScreen extends Component {
         />
         <FormLabel>Description</FormLabel>
         <FormInput 
-      value={this.props.amount}
+      value={this.props.description}
         onChangeText={(value) => this.props.invoiceUpdate('description', value)}
         />
        
@@ -72,10 +81,9 @@ class invoiceEditScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const fUserId = state.invoice.fUserId;
   
   const address = state.invoice.address;
-  const amount = state.invoice.amo
+  
   const beginDate = state.invoice.beginDate;
   const companyKey = state.invoice.companyKey;
   const coName = state.invoice.coName;
@@ -84,11 +92,12 @@ const mapStateToProps = (state) => {
   const discount = state.invoice.discount;
   const dueDate = state.invoice.dueDate;
   const endDate = state.invoice.endDate;
-  const invoiceKey = state.invoice.invoiceKey
+  const fUserId = state.invoice.fUserId;
+  const invoiceKey = state.invoice.invoiceKey;
   const total = state.invoice.total;
 
   // const { amount, coId, date, description, fUserId, hours, id,  total,  } = state.invoice;
-  return { amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, invoiceKey, total};
+  return { beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, total};
 }
 const mapDispatchToProps = (dispatch) => {
   const {invoiceUpdate, changeInvoiceHours, invoiceEdit} = actions;
