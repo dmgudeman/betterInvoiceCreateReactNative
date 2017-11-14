@@ -35,6 +35,8 @@ componentWillMount() {
     console.log('ItemsScreen renderItem data', data);
     // data.date = moment(data.date).format("L");
     console.log('ItemsScreen renderItem data.date', data.date);
+    data.date = moment(data.date).format("L");
+    console.log('ItemsScreen renderItem data.date', data.date);
     return  (
        <ItemDetailsRow
          data = {data} 

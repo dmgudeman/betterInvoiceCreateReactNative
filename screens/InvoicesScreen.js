@@ -30,11 +30,12 @@ componentWillMount() {
   }
 
   renderItem =(invoice)=> {
-    // console.log('invoicesScreen this.props.invoices[invoice.index].date', this.props.invoices[invoice.index].date);
+    console.log('invoicesScreen renderItem invoice', invoice);
+
     const data = this.props.invoices[invoice.index];
     console.log('invoicesScreen renderinvoice data', data);
-    data.date = moment(data.date).format("L");
-    console.log('invoicesScreen renderinvoice data.date', data.date);
+    data.createdAt = moment(data.createdAt).format("L");
+    console.log('invoicesScreen renderinvoice date.createdAt', data.createdAt);
     return  (
        <InvoiceDetailsRow
          data = {data} 
