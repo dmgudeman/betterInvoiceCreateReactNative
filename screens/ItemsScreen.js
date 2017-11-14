@@ -18,15 +18,17 @@ componentWillMount() {
   }
 
   goToItemEdit = (data) => {
-    // console.log('ITEMS SCREEN goToItemEdit data', data);
-    const {amount, coId, date, description, fUserId, hours, total, id} = data;
-    const item = {amount, coId, date, description, fUserId, hours, total, id};
+    console.log('ITEMS SCREEN goToItemEdit data', data);
+    console.log('ITEMS SCREEN goToItemEdit this.props', this.props);
+
+    const {amount, coId, coName, date, description, fUserId, hours, total, id} = data;
+    const item = {amount, coId, coName, date, description, fUserId, hours, total, id};
     // console.log('ITEMS SCREEN goToItemEdit item', item);
 
     this.props.selectItem(item)
   
     const { navigate } = this.props.navigation
-    navigate('itemEdit')
+    navigate('itemEdit', {coName})
   }
 
   renderItem =(item)=> {
@@ -58,11 +60,16 @@ componentWillMount() {
 }
 const mapStateToProps = state => {
   const coId = Object.keys(state.companies.companies)[0];
+  const coName = state.companies.companies[coId].name;
+  console.log('ItemsScreen mapStateToProps Object.keys(state.companies.companies)[0]', Object.keys(state.companies.companies)[0]);
+  console.log('ItemsScreen mapStateToProps coId', coId);
+  console.log('ItemsScreen mapStateToProps state', state);
+  console.log('ItemsScreen mapStateTOProps coName',coName);
   const  fUserId = state.auth.fUserId;
   const items = _.map(state.companies.companies[coId].items, (val, id) => {
     return { ...val, id};
   });
-  return { fUserId, coId, items};
+  return { fUserId, coId, items, coName};
 }
 
 export default connect(mapStateToProps, {selectItem})(ItemsScreen);

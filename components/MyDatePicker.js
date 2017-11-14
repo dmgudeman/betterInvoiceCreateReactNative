@@ -4,14 +4,15 @@ import {
   Text,
   View,
   PanResponder,
-  DatePickerIOS } from 'react-native';
-import DatePicker from 'react-native-datepicker';
-import moment from 'moment';
+  DatePickerIOS 
+}                      from 'react-native';
+import DatePicker      from 'react-native-datepicker';
+import moment          from 'moment';
 
-const MyDatePicker = ({createdAt, invoiceUpdate}) => (
+const MyDatePicker = ({date, onDateChange}) => (
       <DatePicker
       style={{width: 200}}
-      date={moment(createdAt).format("L")}
+      date={moment(date).format("L")}
       mode="date"
       placeholder="select date"
       format="L"
@@ -29,10 +30,8 @@ const MyDatePicker = ({createdAt, invoiceUpdate}) => (
           marginLeft: 36
         }
     }}
-    onDateChange={(value) => {
-      console.log('InvoiceEditScreen render date.value', value);
-      this.props.invoiceUpdate('date',value )}
-    }
+    onDateChange={(value) => onDateChange(value )}
+    
   />
     
   

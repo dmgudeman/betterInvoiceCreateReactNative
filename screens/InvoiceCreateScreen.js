@@ -27,16 +27,46 @@ class InvoiceCreateScreen extends Component {
 
     console.log('invoicecreateScreen componentWillMount this.props ', this.props);
   }
+  
+  filterByDateRange(beginDate, endDate) {
+    let imDate = '';
+    let bmDate = moment(beginDate).format();
+    let emDate = moment(endDate).format();
+    let filteredItems = [];
+    // console.log(`INVOICE_EDIT filterByDateRange this.items.length= ${JSON.stringify(this.items.length)}`);
+    // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
+    // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
+
+    if(this.items){
+      let itemsArray = (Object).values(this.items);
+      itemsArray.forEach(i => {
+        imDate = moment(i.date)
+        // console.log(`INVOICE_EDIT filterByDateRange imDate= ${JSON.stringify(imDate)}`);
+        // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
+        // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
+        // console.log(`INVOICE_EDIT filterByDateRange im.isSorA(bm, day)= ${imDate.isSameOrAfter(bmDate, 'day')}`);
+        if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
+          // console.log(`INVOICE_EDIT filterByDateRange is[i]= ${JSON.stringify(i)}`);
+          filteredItems.push(i)
+        }
+      })
+    }
+    console.log(`INVOICE_EDIT filterByDateRange filteredItems= ${JSON.stringify(filteredItems)}`);
+    if(filteredItems.length>0) return filteredItems;
+    return 0;
+  } 
   onSubmit = () => {
     // console.log('InvoicecreateScreen onSubmit this.props', this.props);
     const {  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total} = this.props
-    
+    let items = this.filterByDateRange(beginDate, endDate);
+    this.props.invoiceUpdate('items', items)
     const formatDate = moment(createdAt).format();
     this.props.invoiceUpdate('createdAt', formatDate);
     console.log('InvoicecreateScren onSubmit createdAt', createdAt);
+    console.log('INVOICECREATE ONSUBMIT items', items);
    
-    console.log('date111111111',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total );
-    this.props.invoiceCreate({  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId,  invoiceKey, total})
+    console.log('date111111111',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total );
+    this.props.invoiceCreate({  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId,  invoiceKey, items, total})
     this.props.navigation.goBack();
   }
 
@@ -47,14 +77,17 @@ class InvoiceCreateScreen extends Component {
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
           beginDate={this.props.beginDate}
-          invoiceUpdate={this.props.invoiceUpdate}
+          onDateChange={(value) => {
+            console.log('ItemEditScreen render beginDate.value', value);
+            this.props.invoiceUpdate('beginDate',value )}}
           />
-       
        
         <FormLabel>Stop Date</FormLabel>
         <MyDatePicker 
           endDate={this.props.endDate}
-          invoiceUpdate={this.props.invoiceUpdate}
+          onDateChange={(value) => {
+            console.log('ItemEditScreen render endDate.value', value);
+            this.props.invoiceUpdate('endDate',value )}}
       />
       
         <FormLabel>Discount</FormLabel>
@@ -87,7 +120,7 @@ const mapStateToProps = (state) => {
   
   const beginDate = state.invoice.beginDate || moment().format();
   const coName = state.invoice.coName || '';
-  const createdAt= state.invoice.createdAt || '';
+  const createdAt= state.invoice.createdAt || moment().format;
   const description = state.invoice.description || '';
   const discount = state.invoice.discount || '';
   const dueDate = state.invoice.dueDate || '';
