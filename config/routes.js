@@ -9,6 +9,7 @@ import CompaniesScreen from '../screens/CompaniesScreen';
 import ItemCreateScreen from '../screens/ItemCreateScreen';
 import ItemEditScreen from '../screens/ItemEditScreen';
 import ItemsScreen from '../screens/ItemsScreen';
+import InvoiceCreateScreen from '../screens/InvoiceCreateScreen';
 import InvoiceEditScreen from '../screens/InvoiceEditScreen';
 import InvoicesScreen from '../screens/InvoicesScreen';
 import ListItem from '../components/ListItem';
@@ -33,6 +34,7 @@ export default StackNavigator(
     },
     ListItem:      { screen: ListItem },
     invoices:      { screen: InvoicesScreen },
+    invoiceCreate: { screen: InvoiceCreateScreen },
     invoiceEdit:   { 
       screen: InvoiceEditScreen,
       navigationOptions: ({navigation}) => ({

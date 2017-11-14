@@ -27,7 +27,7 @@ class ListItem extends Component {
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               navigate('items',{coId:this.props.company.id})} }>Details</Button>
             <Button style={ styles.buttonContentStyle } onPress={() => { navigate('invoices')} }>Invoices</Button>
-            <Button style={ styles.buttonContentStyle } onPress={() => { navigate('invoiceEdit')} }>+Invoice</Button>
+            <Button style={ styles.buttonContentStyle } onPress={() => { navigate('invoiceCreate')} }>+Invoice</Button>
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               navigate('itemCreate',{params: { coId: this.props.company.id}} )}}>+Item</Button>
           </View>
