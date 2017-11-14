@@ -6,16 +6,16 @@ import {
   PanResponder,
   DatePickerIOS } from 'react-native';
 import DatePicker from 'react-native-datepicker';
-import Moment from 'moment';
+import moment from 'moment';
 
 const MyDatePicker = ({createdAt, invoiceUpdate}) => (
       <DatePicker
       style={{width: 200}}
-      date={createdAt}
+      date={moment(createdAt).format("L")}
       mode="date"
       placeholder="select date"
-      format="LL"
-      minDate="2017-01-01"
+      format="L"
+      minDate="01-01-2017"
       confirmBtnText="Confirm"
       cancelBtnText="Cancel"
       customStyles={{
