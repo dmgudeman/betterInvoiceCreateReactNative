@@ -28,6 +28,12 @@ class InvoiceCreateScreen extends Component {
 
     console.log('invoicecreateScreen componentWillMount this.props ', this.props);
   }
+  calcDueDate(date){
+    let a = moment(date);
+    a.add(this.props.paymentTerms, 'days');
+    this.dueDate = a.format(); 
+    return this.dueDate;
+  }
   
   filterByDateRange(beginDate, endDate) {
     let imDate = '';
@@ -57,7 +63,13 @@ class InvoiceCreateScreen extends Component {
     console.log('111111111111111InvoicecreateScreen onSubmit this.props', this.props);
     const {  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total} = this.props
     let  filteredItems = await this.filterByDateRange(beginDate, endDate);
-
+ 
+ 
+ ///////////////////////////
+    newDueDate = this.calcDueDate(this.createdAt);
+    this.props.invoiceUpdate('dueDate', newDueDate);
+    console.log('dueDate', this.props.dueDate);
+    /////////////////////
     await this.props.invoiceUpdate('items', filteredItems)
     // console.log('InvoicecreateScreen onSubmit this.props', this.props);
     // const formatDate = moment().format();
@@ -84,7 +96,7 @@ class InvoiceCreateScreen extends Component {
     console.log('date111111111',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total );
     console.log('3333333333333this.props', this.props);
     
-    await this.props.invoiceCreate({  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId,  invoiceKey, items, total: this.props.total })
+    await this.props.invoiceCreate({  beginDate, companyKey, coName, createdAt, description, discount, dueDate: this.props.dueDate, endDate, fUserId,  invoiceKey, items, total: this.props.total })
     await this.props.navigation.goBack();
   }
   render() {
@@ -137,6 +149,7 @@ const mapStateToProps = (state) => {
   const beginDate = state.invoice.beginDate || moment().format();
   const coName = state.companies.companies[companyKey].name || '';
   const items = state.companies.companies[companyKey].items || ''
+  const paymentTerms = state.companies.companies[companyKey].paymentTerms || '';
 
   const createdAt= state.invoice.createdAt || moment().format();
   const description = state.invoice.description || '';
@@ -145,8 +158,8 @@ const mapStateToProps = (state) => {
   const endDate = state.invoice.endDate || moment().format();
   const invoiceKey = state.invoice.invoiceKey || '';
   const total = state.invoice.total || '';
-   console.log('XXXXXXXXXXXXXXXXXXX',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total);
-  return { beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total};
+   console.log('XXXXXXXXXXXXXXXXXXX',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, paymentTerms, total);
+  return { beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, paymentTerms, total};
 } 
 const mapDispatchToProps = (dispatch) => {
   const {invoiceUpdate, changeInvoiceHours, invoiceCreate} = actions;
