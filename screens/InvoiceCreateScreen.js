@@ -105,7 +105,7 @@ class InvoiceCreateScreen extends Component {
         <View>
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
-          beginDate={this.props.beginDate}
+          date={this.props.beginDate}
           onDateChange={(value) => {
             console.log('ItemEditScreen render beginDate.value', value);
             this.props.invoiceUpdate('beginDate',value )}}
@@ -113,18 +113,19 @@ class InvoiceCreateScreen extends Component {
        
         <FormLabel>Stop Date</FormLabel>
         <MyDatePicker 
-          endDate={this.props.endDate}
+          date={this.props.endDate}
           onDateChange={(value) => {
             console.log('ItemEditScreen render endDate.value', value);
-            this.props.invoiceUpdate('endDate',value )}}
+            this.props.invoiceUpdate('endDate', value )}}
       />
       
+
         <FormLabel>Discount</FormLabel>
         <FormInput 
           value={this.props.discount}
-          onChangeText={(input) => { 
-              console.log('invoicecreate coName input', input);
-              this.props.invoiceUpdate('coName', value)
+          onChangeText={(value) => { 
+              console.log('invoicecreate coName input', value);
+              this.props.invoiceUpdate('discount', value)
             }
           }
         />
