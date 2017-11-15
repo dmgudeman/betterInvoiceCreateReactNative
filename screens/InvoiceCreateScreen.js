@@ -96,7 +96,7 @@ class InvoiceCreateScreen extends Component {
     console.log('date111111111',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total );
     console.log('3333333333333this.props', this.props);
     
-    await this.props.invoiceCreate({  beginDate, companyKey, coName, createdAt, description, discount, dueDate: this.props.dueDate, endDate, fUserId,  invoiceKey, items, total: this.props.total })
+    await this.props.invoiceCreate({  navigation: this.props.navigation, beginDate, companyKey, coName, createdAt, description, discount, dueDate: this.props.dueDate, endDate, fUserId,  invoiceKey, items, total: this.props.total })
     await this.props.navigation.goBack();
   }
   render() {

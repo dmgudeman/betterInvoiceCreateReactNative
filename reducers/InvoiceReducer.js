@@ -8,7 +8,7 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case INVOICE_CREATE:  { // For updating invoice fields
       console.log('invoice REDUCERS INVOICE_CREATE action.invoice', action.invoice);
-      return { ...state, invoice: action.invoice}
+      return Object.assign({}, state, INITIAL_STATE )
     }
     case INVOICE_UPDATE:  { // For updating invoice fields
       console.log('invoice REDUCERS  invoice UPDATE [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);

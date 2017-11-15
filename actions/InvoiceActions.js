@@ -9,7 +9,7 @@ import {
 import moment from 'moment';
 
 export const invoiceCreate = ({beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total}) => async dispatch => {
-  console.log('INVOICE ACTIONS INVOICECREATE .......... invoiceActions invoiceCreate fUserId, companyKey, invoiceKey, items, total', fUserId, companyKey, invoiceKey, items, total);
+  console.log('INVOICE ACTIONS INVOICECREATE ..........invoiceActions invoiceCreate fUserId, companyKey, invoiceKey, items, total', fUserId, companyKey, invoiceKey, items, total);
   let payload = {beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total} 
 
   let newInvoiceKey = await firebase.database().ref().child('companies').child('invoices').push().key;
