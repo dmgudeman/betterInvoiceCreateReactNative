@@ -7,6 +7,7 @@ import {
   DatePickerIOS 
 }                               from 'react-native';
 import { connect }              from 'react-redux';
+import thunk from 'redux-thunk';
 import { 
   Button,
   FormLabel, 
@@ -33,52 +34,59 @@ class InvoiceCreateScreen extends Component {
     let bmDate = moment(beginDate).format();
     let emDate = moment(endDate).format();
     let filteredItems = [];
-    // console.log(`INVOICE_EDIT filterByDateRange this.items.length= ${JSON.stringify(this.items.length)}`);
-    // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
-    // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
+   
 
-    if(this.items){
-      let itemsArray = (Object).values(this.items);
+    if(this.props.items){
+      let itemsArray = (Object).values(this.props.items);
+      console.log('INVOICECREATE this.items', this.props.items);
+      console.log('INVOICECREATE itemsArray', itemsArray);
       itemsArray.forEach(i => {
         imDate = moment(i.date)
-        // console.log(`INVOICE_EDIT filterByDateRange imDate= ${JSON.stringify(imDate)}`);
-        // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
-        // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
-        // console.log(`INVOICE_EDIT filterByDateRange im.isSorA(bm, day)= ${imDate.isSameOrAfter(bmDate, 'day')}`);
+       
         if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
-          // console.log(`INVOICE_EDIT filterByDateRange is[i]= ${JSON.stringify(i)}`);
+          
           filteredItems.push(i)
         }
       })
     }
-    console.log(`INVOICE_EDIT filterByDateRange filteredItems= ${JSON.stringify(filteredItems)}`);
+    console.log('filteredItems', filteredItems);
     if(filteredItems.length>0) return filteredItems;
     return 0;
   } 
-  onSubmit = () => {
+  onSubmit = async () => {
+    console.log('111111111111111InvoicecreateScreen onSubmit this.props', this.props);
+    const {  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total} = this.props
+    let  filteredItems = await this.filterByDateRange(beginDate, endDate);
+
+    await this.props.invoiceUpdate('items', filteredItems)
     // console.log('InvoicecreateScreen onSubmit this.props', this.props);
-    const {  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total} = this.props
-    let items = this.filterByDateRange(beginDate, endDate);
-    this.props.invoiceUpdate('items', items)
-    const formatDate = moment().format();
-    this.props.invoiceUpdate('createdAt', formatDate);
-    console.log('InvoicecreateScren onSubmit createdAt', createdAt);
+    // const formatDate = moment().format();
+    // this.props.invoiceUpdate('createdAt', formatDate);
+    console.log('22222222222222222InvoicecreateScreen onSubmit this.props', this.props);
     console.log('INVOICECREATE ONSUBMIT items', items);
 
     if (items){
-      let itemsArray = (Object).values(items);
-        itemsArray.forEach(i => {
+      console.log('items', items);
+      let invoiceTotal = 0 ;
+      let itemsArray = await (Object).values(items);
+      console.log('itemsArray ', itemsArray);
+        await itemsArray.forEach(i => {
           console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiinvoiceTotal', invoiceTotal);
           invoiceTotal = invoiceTotal + i.total;
         });
-      this.invoice.total = invoiceTotal || 0;
+      console.log('invoiceTotal', invoiceTotal);
+      if (invoiceTotal) {
+        await this.props.invoiceUpdate('total', invoiceTotal.toString());
+      } else {
+        await this.props.invoiceUpdate('total', 0);
       }
-   
+    }
     console.log('date111111111',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total );
-    this.props.invoiceCreate({  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId,  invoiceKey, items, total})
-    this.props.navigation.goBack();
+    console.log('3333333333333this.props', this.props);
+    
+    await this.props.invoiceCreate({  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId,  invoiceKey, items, total: this.props.total })
+    await this.props.navigation.goBack();
   }
-
   render() {
     return (
       
@@ -128,16 +136,17 @@ const mapStateToProps = (state) => {
   const fUserId = state.auth.fUserId || '';
   const beginDate = state.invoice.beginDate || moment().format();
   const coName = state.companies.companies[companyKey].name || '';
+  const items = state.companies.companies[companyKey].items || ''
 
-  const createdAt= state.invoice.createdAt || moment().format;
+  const createdAt= state.invoice.createdAt || moment().format();
   const description = state.invoice.description || '';
   const discount = state.invoice.discount || '';
   const dueDate = state.invoice.dueDate || '';
   const endDate = state.invoice.endDate || moment().format();
   const invoiceKey = state.invoice.invoiceKey || '';
   const total = state.invoice.total || '';
-   console.log('XXXXXXXXXXXXXXXXXXX',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total);
-  return { beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total};
+   console.log('XXXXXXXXXXXXXXXXXXX',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total);
+  return { beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total};
 } 
 const mapDispatchToProps = (dispatch) => {
   const {invoiceUpdate, changeInvoiceHours, invoiceCreate} = actions;
