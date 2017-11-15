@@ -22,6 +22,9 @@ export default StackNavigator(
     auth:          { screen: AuthScreen },
     companies:     { 
       screen: CompaniesScreen,
+      navigationOptions: {
+        headerLeft: null
+      }
      
     },
     companyCreate: { screen: CompanyCreateScreen },
