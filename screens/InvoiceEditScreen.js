@@ -23,8 +23,8 @@ import MyDatePicker             from '../components/MyDatePicker';
 class invoiceEditScreen extends Component {
   
   componentWillMount() {
-    const {dispatch} = this.props
-    // console.log('invoiceEditScreen componentWillMount this.props ', this.props);
+    // const {dispatch} = this.props
+    console.log('invoiceEditScreen componentWillMount this.props ', this.props);
   }
   onSubmit = () => {
     // console.log('InvoiceEditScreen onSubmit this.props', this.props);
@@ -32,9 +32,8 @@ class invoiceEditScreen extends Component {
     
     const formatDate = moment(createdAt).format();
     this.props.invoiceUpdate('createdAt', formatDate);
-    console.log('InvoiceEditScren onSubmit createdAt', createdAt);
    
-    console.log('date111111111',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total );
+    console.log('INVOICEEDIT onSubmit',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total );
     this.props.invoiceEdit({  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId,  invoiceKey, total})
     this.props.navigation.goBack();
   }
