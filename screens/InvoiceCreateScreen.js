@@ -18,7 +18,8 @@ import { NavigationActions }    from 'react-navigation';
 import DatePicker               from 'react-native-datepicker';
 import Moment                   from 'react-moment';
 import moment                   from 'moment';
-import * as actions             from '../actions';
+import * as actions             from '../actions'
+
 import MyDatePicker             from '../components/MyDatePicker';
 
 class InvoiceCreateScreen extends Component {

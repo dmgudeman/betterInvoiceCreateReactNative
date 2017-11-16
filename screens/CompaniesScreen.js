@@ -19,11 +19,11 @@ class CompaniesScreen extends Component {
     this.props.fetchCompanies(this.props.fUserId)
     // console.log('CompaniesScreen componentWillMount this.props', this.props);
   }
-  goToCompanyCreate =  () =>  {
+  // goToCompanyCreate =  () =>  {
 
 
-    navigation.navigate('companyCreate'); 
-  }
+  //   navigation.navigate('companyCreate'); 
+  // }
   
   renderItem =({item, index})=> {
     // console.log('CompaniesScreen renderItem  this.props =', this.props);
@@ -37,8 +37,7 @@ class CompaniesScreen extends Component {
     headerRight:
         <Button
           title= "+Business"
-          onPress={this.goToCompanyCreate}
-          
+          onPress={()=>{navigation.navigate('companyCreate')}}
         />
     }
   }
