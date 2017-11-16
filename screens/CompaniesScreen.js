@@ -19,10 +19,10 @@ class CompaniesScreen extends Component {
     this.props.fetchCompanies(this.props.fUserId)
     // console.log('CompaniesScreen componentWillMount this.props', this.props);
   }
-  goToCompanyCreate = async () =>  {
+  goToCompanyCreate =  () =>  {
 
 
-   await navigation.navigate('companyCreate'); 
+    navigation.navigate('companyCreate'); 
   }
   
   renderItem =({item, index})=> {

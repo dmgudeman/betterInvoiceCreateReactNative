@@ -20,8 +20,9 @@ import * as actions             from '../actions';
 class CompanyCreateScreen extends Component {
 
   componentWillMount() {
-    
+
   }
+  
 
   onPress() {
     RNGooglePlacePicker.show((response) => {
