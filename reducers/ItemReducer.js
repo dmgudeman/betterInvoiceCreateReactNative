@@ -11,7 +11,7 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, item: action.item}
     }
     case ITEM_UPDATE:  { // For updating item fields
-      console.log('ITEM REDUCERS  ITEM UPDATE [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);
+      // console.log('ITEM REDUCERS  ITEM UPDATE [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);
       return { ...state, [action.payload.prop]: action.payload.value}
     }
     case ITEM_EDIT: { // For submitting an edited item
@@ -25,10 +25,10 @@ export default (state = INITIAL_STATE, action) => {
     // }
 
     case SELECT_ITEM: {
-      console.log('ITEMREDUCER SELECT_ITEM action.item', action.item);
+      // console.log('ITEMREDUCER SELECT_ITEM action.item', action.item);
       const {amount, coId, date, description, fUserId, hours, total, id}= action.item
       const data = {amount, coId, date, description, fUserId, hours, total, id} 
-      console.log('state', state);
+      // console.log('state', state);
       return Object.assign({}, state.item, data )
     }
     default:{

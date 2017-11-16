@@ -8,12 +8,10 @@ import moment from 'moment';
 import store from '../store'
 
 class InvoicesScreen extends Component {
-  // invoicesArray;
-
 
 componentWillMount() {
     // console.log('this.props in invoicesScreen', [...this.props.invoices]);
-    console.log('invoiceSCREEN componentWillMount this.props', this.props);
+    // console.log('invoiceSCREEN componentWillMount this.props', this.props);
     // this.invoicesArray = [...this.props.invoices]
   }
 
@@ -32,12 +30,12 @@ componentWillMount() {
   }
 
   renderItem =(invoice)=> {
-    console.log('invoicesScreen renderItem invoice', invoice);
+    // console.log('invoicesScreen renderItem invoice', invoice);
 
     const data = this.props.invoices[invoice.index];
-    console.log('invoicesScreen renderinvoice data', data);
+    // console.log('invoicesScreen renderinvoice data', data);
     data.createdAt = moment(data.createdAt).format("L");
-    console.log('invoicesScreen renderinvoice date.createdAt', data.createdAt);
+    // console.log('invoicesScreen renderinvoice date.createdAt', data.createdAt);
     return  (
        <InvoiceDetailsRow
          data = {data} 

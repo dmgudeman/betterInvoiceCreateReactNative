@@ -2,13 +2,26 @@ import {
   INVOICE_CREATE, INVOICE_EDIT, INVOICE_UPDATE,   CHANGE_INVOICE_HOURS, SELECT_INVOICE
 } from '../actions/types';
 
-const INITIAL_STATE = {}
+const INITIAL_STATE = {
+  beginDate: '', 
+  companyKey: '', 
+  coName: '', 
+  createdAt: '', 
+  description: '', 
+  discount: '', 
+  dueDate: '', 
+  endDate: '', 
+  fUserId: '',
+  invoiceKey: '', 
+  items: '', 
+  total: 0,
+}
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case INVOICE_CREATE:  { // For updating invoice fields
-      console.log('invoice REDUCERS INVOICE_CREATE action.invoice', action.invoice);
-      return Object.assign({}, state, INITIAL_STATE )
+      console.log('invoice REDUCERS INVOICE_CREATE action.payload', action.payload);
+      return { ...state.invoice, ...INITIAL_STATE};
     }
     case INVOICE_UPDATE:  { // For updating invoice fields
       console.log('invoice REDUCERS  invoice UPDATE [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);

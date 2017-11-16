@@ -10,6 +10,14 @@ import {
   
 } from './types';
 
+
+export const commpanyCreate = () => async dispatch => {
+
+  let companyKey = await firebase.database().ref().child('companies').push().key;
+
+  dispatch => {type: COMPANY_CREATE, { companyKey: payload }}
+ }
+
 export const fetchCompanies = (fUserId) => async dispatch => {
    
    let companies = await firebase.database().ref('/users/' + fUserId + '/companies')
