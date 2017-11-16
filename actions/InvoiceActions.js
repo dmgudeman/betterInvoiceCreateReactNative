@@ -66,8 +66,17 @@ export const selectInvoice = (invoice) => {
 
 export const invoiceCreate = ({invoice})=> {
   let payload = {...invoice};
- console.log('INVOICEACTIONS INVOICECREATE payload', payload);
-  return {
+  console.log('INVOICEACTIONS INVOICECREATE payload', payload);
+ 
+  let newInvoiceKey =  firebase.database().ref().child('companies').child('invoices').push().key;
+  payload.invoiceKey = newInvoiceKey
+  console.log('Invoice ACTIONS INVOICE_CREATE payload', payload);
+  console.log('xxxxxxxxxxxxxxxxxxxx'+'/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey);
+  let updates = {};
+  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey] = payload;
+  firebase.database().ref().update(updates);
+  
+   return {
     type: INVOICE_CREATE,
     // payload: { }
   };

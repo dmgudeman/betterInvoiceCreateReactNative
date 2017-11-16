@@ -87,17 +87,16 @@ class InvoiceCreateScreen extends Component {
         this.props.invoiceUpdate('total', 0);
       }
     }
-    console.log('INVOICECREATE ONSUBMIT THIS.PROPS ',  this.props);
-    // console.log('3333333333333this.props', this.props);
-      // this.props.invoiceCreate({description: this.props.description})
-    // let invoice = {beginDate, companyKey, coName, createdAt,  
-    //   description: this.props.description, discount, 
-    //   dueDate: this.props.dueDate, endDate, fUserId,
-    //   invoiceKey, items: this.props.items, total: this.props.total}
-    let invoice = {...this.props}
-    console.log('INVOICECREATE ONSUBMIT THIS.PROPS  ------ after ', this.props);
+    // console.log('INVOICECREATE ONSUBMIT THIS.PROPS ',  this.props);
+    
+  
+    let invoice = {beginDate, companyKey, coName, createdAt,  
+      description: this.props.description, discount, 
+      dueDate: this.props.dueDate, endDate, fUserId,
+      invoiceKey, items: this.props.items, total: this.props.total}
+    // console.log('INVOICECREATE ONSUBMIT THIS.PROPS  ------ after ', this.props);
     this.props.invoiceCreate({invoice})
-    // await this.props.navigation.goBack();
+    await this.props.navigation.goBack();
   }
   render() {
     return (
@@ -163,7 +162,6 @@ const mapStateToProps = (state) => {
   const invoiceKey = state.invoice.invoiceKey || '';
   const items = state.invoice.items || '';
   const total = state.invoice.total || '';
-    // console.log('XXXXXXXXXXXXXXXXXXX',  beginDate, companyKey, coItems, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, coItems, paymentTerms, total);
   return { beginDate, companyKey, coItems, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, paymentTerms, total};
 } 
 const mapDispatchToProps = (dispatch) => {
