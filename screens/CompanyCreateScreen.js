@@ -56,7 +56,7 @@ class CompanyCreateScreen extends Component {
     return (
      <View>
       {/* <MyPicker5 style={styles.picker} /> */}
-        <MyPicker/> 
+        <MyPicker payload={'from companyCreate'}/> 
         <Text> hi there </Text>
         <TouchableOpacity onPress={this.onPress.bind(this)}>
           <Text style={{color: '#72c02c', fontSize: 20, fontWeight:'bold'}}>

@@ -5,8 +5,9 @@ import { View, Text } from 'react-native';
 class MyPicker extends Component {
 
   render () {
+    const {payload}=this.props;
     return (
-      <MyPickerItem payload={'second page'}/>
+      <MyPickerItem payload={payload}/>
     
     )
   }
