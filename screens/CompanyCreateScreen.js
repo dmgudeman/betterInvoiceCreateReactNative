@@ -14,8 +14,8 @@ import {
   FormInput, 
   FormValidationMessage, 
 }                               from 'react-native-elements';
-import MyPicker3                  from '../components/MyPicker3';
-// import MyPicker2                from '../components/MyPicker2';
+import MyPicker                  from '../components/MyPicker/MyPicker';
+// import MyPicker2               from '../components/MyPicker2';
 import RNGooglePlacePicker      from 'react-native-google-place-picker';
 import moment                   from 'moment';
 import * as actions             from '../actions';
@@ -52,13 +52,11 @@ class CompanyCreateScreen extends Component {
   }
 
   render() {
+    const navigation = this.props.navigation
     return (
      <View>
-      <MyPicker3 
-        style={styles.picker}
-        language = {this.state.language}
-        updateLanguage = {this.updateLanguage}
-      />
+      {/* <MyPicker5 style={styles.picker} /> */}
+        <MyPicker/> 
         <Text> hi there </Text>
         <TouchableOpacity onPress={this.onPress.bind(this)}>
           <Text style={{color: '#72c02c', fontSize: 20, fontWeight:'bold'}}>
@@ -94,6 +92,9 @@ const styles = StyleSheet.create({
   picker: {
     height: 20,
     width: 100
+  },
+  button: {
+    backgroundColor: 'white'
   }
 });
 
