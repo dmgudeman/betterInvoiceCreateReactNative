@@ -3,7 +3,7 @@ import {
   COMPANY_UPDATE,
 } from '../actions/types';
 
-const INITIAL_STATE ={}
+const INITIAL_STATE ={name: ''}
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -14,14 +14,8 @@ export default (state = INITIAL_STATE, action) => {
       console.log('CompaniesReducer FETCH_COMPANIES_SUCCESS action.payload', action.payload);
       return { ...state,  companies: action.payload}
     case COMPANY_UPDATE:{
-      let x;
-      console.log('COMPANIESREDUCER COMPANY_UPDATE action', action);
-      console.log('COMPANIESREDUCER COMPANY_UPDATE !state.companies.company',!state.companies.company);
-      // if(!state.companies.company){
-       
-      //   x = Object.assign({}, state.companies, {company:''});
-      //   console.log('COMPANIESREDUCER COMPANY_UPDATE x', x);
-      // }
+      // console.log('COMPANIESREDUCER COMPANY_UPDATE action', action);
+      // console.log('COMPANIESREDUCER COMPANY_UPDATE !state.companies.company',!state.companies.company);
       return Object.assign({}, state, {[action.payload.prop]: action.payload.value});
   }
     default:

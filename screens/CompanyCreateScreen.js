@@ -60,7 +60,8 @@ class CompanyCreateScreen extends Component {
         <TouchableOpacity>
           <TextInput style={{backgroundColor:'red', height: 50}}
             value={this.props.name}
-            onFocus={() => { navigation.navigate('myPicker')}}
+    
+            onFocus={() => { navigation.navigate('myPicker',{prop:'name'} )}}
             // onPress={()=>console.log('ButtonPressed')}
             editable={true}
           />
@@ -104,21 +105,20 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const company = state.company || null;
-  if (company) {
-  const active = state.company.active || true;
-  const address = state.company.address || '';
+  
+  const active = state.companies.active || true;
+  const address = state.companies.address || '';
   const location = state.location || null;
 
-  const color = state.company.color || 'blue';
+  const color = state.companies.color || 'blue';
   const fUserId = state.auth.fUserId || '';
-  const hourly = state.company.hourly || '';
-  const name = state.company.name || '';
-  const paymentTerms = state.company.paymentTerms || '30';
+  const hourly = state.companies.hourly || '';
+  const name = state.companies.name || '';
+  const paymentTerms = state.companies.paymentTerms || '30';
   const userId = state.auth.userId || '';
-  }
   
-  return {company};
+  
+  return { active, address, location, color, fUserId, hourly, name, paymentTerms, userId };
 } 
 const mapDispatchToProps = (dispatch) => {
   const {companyUpdate, companyCreate} = actions;
