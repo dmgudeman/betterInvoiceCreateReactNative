@@ -32,6 +32,7 @@
     "react-native-chooser": "^1.6.3",
     "react-native-datepicker": "^1.6.0",
     "react-native-elements": "^0.17.0",
+    "react-native-extended-stylesheet": "^0.8.0",
     "react-native-google-place-picker": "^1.2.1",
     "react-native-material-kit": "^0.4.1",
     "react-native-modal-dropdown": "^0.5.0",

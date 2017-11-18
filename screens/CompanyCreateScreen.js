@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View, 
   Text, 
+  TextInput,
   TouchableOpacity,
   Picker,
 }                               from 'react-native';
@@ -15,7 +16,7 @@ import {
   FormValidationMessage, 
 }                               from 'react-native-elements';
 import MyPicker                  from '../components/MyPicker/MyPicker';
-// import MyPicker2               from '../components/MyPicker2';
+import MyPicker3               from '../components/MyPicker3';
 import RNGooglePlacePicker      from 'react-native-google-place-picker';
 import moment                   from 'moment';
 import * as actions             from '../actions';
@@ -33,8 +34,6 @@ class CompanyCreateScreen extends Component {
 
   }
   
- 
-
   onPress() {
     RNGooglePlacePicker.show((response) => {
       if (response.didCancel) {
@@ -55,18 +54,24 @@ class CompanyCreateScreen extends Component {
     const navigation = this.props.navigation
     return (
      <View>
-      {/* <MyPicker5 style={styles.picker} /> */}
-        <MyPicker payload={'from companyCreate'}/> 
-        <Text> hi there </Text>
+        {/* <MyPicker labelText={'Hourly Rate'} optionsArray={["wee","must","win"]}/>  */}
+      
+        <FormLabel>Business Name</FormLabel>
+        <TouchableOpacity>
+          <TextInput style={{backgroundColor:'red', height: 50}}
+            value={this.props.name}
+            onFocus={() => { navigation.navigate('myPicker')}}
+            // onPress={()=>console.log('ButtonPressed')}
+            editable={true}
+          />
+        </TouchableOpacity>
         <TouchableOpacity onPress={this.onPress.bind(this)}>
           <Text style={{color: '#72c02c', fontSize: 20, fontWeight:'bold'}}>
             Click me to push Google Place Picker!
           </Text>
         </TouchableOpacity>
         <View style={styles.location}>
-          <Text style={{color: 'black', fontSize: 15}}>
-
-          </Text>
+          <Text style={{color: 'black', fontSize: 15}}> </Text>
         </View>
       </View>
     );

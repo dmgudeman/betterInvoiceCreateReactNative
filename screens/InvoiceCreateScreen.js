@@ -61,15 +61,15 @@ class InvoiceCreateScreen extends Component {
     return 0;
   } 
   onSubmit = async () => {
-    console.log('111111111111111InvoicecreateScreen onSubmit this.props', this.props);
+    // console.log('111111111111111InvoicecreateScreen onSubmit this.props', this.props);
     const {  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total} = this.props
     let  filteredItems = await this.filterByDateRange(beginDate, endDate);
     this.props.invoiceUpdate('items', filteredItems);
-    console.log('INVOICECREATE ONSUBMIT AFTER filterItems this.props.items', this.props.items );
+    // console.log('INVOICECREATE ONSUBMIT AFTER filterItems this.props.items', this.props.items );
     newDueDate = await this.calcDueDate(this.createdAt);
     this.props.invoiceUpdate('dueDate', newDueDate);
-    console.log('dueDate', this.props.dueDate);
-    console.log('22222222222222222InvoicecreateScreen onSubmit this.props', this.props);
+    // console.log('dueDate', this.props.dueDate);
+    // console.log('22222222222222222InvoicecreateScreen onSubmit this.props', this.props);
 
     if (this.props.items){
       let invoiceTotal = 0;

@@ -15,7 +15,7 @@ import InvoicesScreen from '../screens/InvoicesScreen';
 import ListItem from '../components/ListItem';
 import TestScreen from '../screens/TestScreen';
 import MyDatePicker from '../components/MyDatePicker';
-import MyPicker5 from '../components/MyPicker5';
+import MyPicker3 from '../components/MyPicker3';
 
 
 export default StackNavigator(
@@ -23,8 +23,6 @@ export default StackNavigator(
     auth:          { screen: AuthScreen },
     companies:     { 
       screen: CompaniesScreen,
-     
-     
     },
     companyCreate: { screen: CompanyCreateScreen },
     companyEdit:   { screen: CompanyEditScreen },
@@ -44,7 +42,7 @@ export default StackNavigator(
       }),
     },
     datePicker:    { screen: MyDatePicker },
-    myPicker:      { screen: MyPicker5 },
+    myPicker:      { screen: MyPicker3 },
   },
   {
     mode: 'modal',

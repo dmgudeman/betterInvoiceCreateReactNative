@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import {Option} from "react-native-chooser";
 
-class MyPickerItem extends Component {
-  componentWillMount() {
-    // const {payload} = this.props
+const MyPickerItem= ({option, renderItem}) => {
+  componentWillMount = ()=> {
+    console.log('MyPickerItem children', children );
+    console.log('MyPickerItem option', option);
   }
-  render () {
-    const {payload} = this.props;
-    return (
-      <View>
-        <Text>2nd apge {payload} </Text>
+  
+  return (
+      <View >
+        <TouchableWithoutFeedback onPress={renderItem}>
+        <Option value ={ `${option}`}>{option}</Option>
+        </TouchableWithoutFeedback>
       </View>
-
-    
-    )
-  }
-
+  )
 }
 
 export default MyPickerItem;

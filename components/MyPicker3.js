@@ -10,88 +10,30 @@ import {
 import Style from './style';
 
 class MyPicker3 extends Component {
-
-componentDidMount() {
-  modalVisible= false
-  // animatedHeight = new Animated.Value(0);
-  allowPointerEvents=  true;
-  cancelBtnText = "cancel";
-  confirmBtnText = "confirm";
-}
-
-_renderIcon() {
-  const {
-    showIcon,
-    iconSource,
-    iconComponent,
-    customStyles
-  } = this.props;
-
-  if (showIcon) {
-    if (iconComponent) {
-      return iconComponent;
-    }
-    return (
-      <Image
-        style={[Style.dateIcon, customStyles.dateIcon]}
-        source={iconSource}
-      />
-    );
+  state = {user: ''}
+  updateUser = (user) => {
+     this.setState({ user: user })
   }
-
-  return null;
-}
-render() {
- return ( 
-  
-  <TouchableHighlight
-    style={[styles.container]}
-    underlayColor={'transparent'}
-    onPress={console.log('buttonPressed')}
-  
-  >
-    
-               <Animated.View
-                    style={[Style.datePickerCon, {height: this.animatedHeight}, ]}
-                  >
-                    <View pointerEvents={this.props.allowPointerEvents ? 'auto' : 'none'}>
-                    <Picker selectedValue = {this.props.language} onValueChange = {this.props.updateLanguage}>
-                      <Picker.Item label = "Java" value = "java" />
-                      <Picker.Item label = "JavaScript" value = "js" />
-                    </Picker>
-                    </View>
-                    <TouchableHighlight
-                      underlayColor={'transparent'}
-                      onPress={this.onPressCancel}
-                      style={[Style.btnText, Style.btnCancel]}
-                    >
-                      <Text
-                        style={[Style.btnTextText, Style.btnTextCancel]}
-                      >
-                        {this.cancelBtnText}
-                      </Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                      underlayColor={'transparent'}
-                      onPress={this.onPressConfirm}
-                      style={[Style.btnText, Style.btnConfirm]}
-                     
-                    >
-                      <Text style={[Style.btnTextText]}>{this.confirmBtnText}</Text>
-                    </TouchableHighlight>
-                  </Animated.View>
-
-    
-  </ TouchableHighlight>
-
-  )}
-//  );
-// }
-}
-const styles = StyleSheet.create ({
-  container: {
-
+  render() {
+     return (
+        <View>
+           <Picker selectedValue = {this.state.user} onValueChange = {this.updateUser}>
+              <Picker.Item label = "Steve" value = "steve" />
+              <Picker.Item label = "Ellen" value = "ellen" />
+              <Picker.Item label = "Maria" value = "maria" />
+           </Picker>
+           <Text style = {styles.text}>{this.state.user}</Text>
+        </View>
+     )
   }
-});
+}
 
 export default MyPicker3;
+
+const styles = StyleSheet.create({
+  text: {
+     fontSize: 30,
+     alignSelf: 'center',
+     color: 'red'
+  }
+});
