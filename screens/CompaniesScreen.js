@@ -26,7 +26,8 @@ class CompaniesScreen extends Component {
   // }
   
   renderItem =({item, index})=> {
-    // console.log('CompaniesScreen renderItem  this.props =', this.props);
+    // console.log('CompaniesScreen renderItem  this.props.index =', this.props.companies);
+    console.log('COMPANIESSCREEN renderItem item, item.index', item.id);
     return  (
     <ListItem company={item} navigation={this.props.navigation}/>
     )
@@ -41,7 +42,10 @@ class CompaniesScreen extends Component {
         />
     }
   }
-
+  // _keyExtractor = () =>  (item, index) => {
+  //   console.log('COMPANIESSCREEN keyExtractor item, index', item,index);
+  //   return index;
+  // }
   render() {
     // console.log('CompaniesScreen render  this.props.companies =', this.props.companies);
     const navigation = this.props.navigation
@@ -50,7 +54,8 @@ class CompaniesScreen extends Component {
         <FlatList 
           data = {this.props.companies}
           renderItem={this.renderItem}
-          keyExtractor={ item => item }
+          keyExtractor={(item) => item.id}
+
         />
       </View>
     )

@@ -5,6 +5,7 @@ export const FACEBOOK_LOGIN_FAIL = 'facebook_login_fail';
 
 // export const FETCH_COMPANIES ='fetch_companies';
 export const FETCH_COMPANIES_SUCCESS ='fetch_companies_success';
+export const COMPANY_UPDATE = 'COMPANY_UPDATE';
 
 export const ITEM_CREATE = 'item_create';
 export const ITEM_EDIT = 'ITEM_EDIT';

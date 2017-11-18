@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect }              from 'react-redux';
+import { bindActionCreators }   from 'redux';
 import {
   View,
   Text,
@@ -8,27 +10,37 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import Style from './style';
+import * as actions             from '../actions';
+
 
 class MyPicker3 extends Component {
-  state = {user: ''}
-  updateUser = (user) => {
-     this.setState({ user: user })
-  }
+ 
   render() {
      return (
         <View>
-           <Picker selectedValue = {this.state.user} onValueChange = {this.updateUser}>
+           <Picker selectedValue = {this.props.name} onValueChange = {(value)=>{ this.props.companyUpdate('name',value )}}>
               <Picker.Item label = "Steve" value = "steve" />
               <Picker.Item label = "Ellen" value = "ellen" />
               <Picker.Item label = "Maria" value = "maria" />
            </Picker>
-           <Text style = {styles.text}>{this.state.user}</Text>
+           <Text style = {styles.text}>{this.props.name}</Text>
         </View>
      )
   }
 }
+const mapStateToProps = (state) => {
+  const company = state.companies.company || null;
+  if (company) {
+    const name = state.company.name || '';
+  }
+  return {company};
+} 
 
-export default MyPicker3;
+const mapDispatchToProps = (dispatch) => {
+  const {companyUpdate, companyCreate} = actions;
+  return bindActionCreators({companyUpdate, companyCreate}, dispatch)
+}
+export default connect(mapStateToProps, mapDispatchToProps )(MyPicker3);
 
 const styles = StyleSheet.create({
   text: {

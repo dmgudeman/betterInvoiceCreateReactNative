@@ -42,8 +42,10 @@ componentWillMount() {
          onPress={() => this.goToInvoiceEdit(data)}/>
     )
   }
-  _keyExtractor = (invoice, index) => index;
-
+  _keyExtractor = (invoice, index) => {
+    console.log('INVOICESSCREEN keyExtractor item, index', item,index);
+    return index;
+  }
 
   render() {
     return (

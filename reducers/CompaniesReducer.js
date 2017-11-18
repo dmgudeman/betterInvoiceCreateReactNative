@@ -1,7 +1,6 @@
 import {
-  FETCH_COMPANIES ,
   FETCH_COMPANIES_SUCCESS,
-  SELECT_ITEM
+  COMPANY_UPDATE,
 } from '../actions/types';
 
 const INITIAL_STATE ={}
@@ -14,6 +13,17 @@ export default (state = INITIAL_STATE, action) => {
     case FETCH_COMPANIES_SUCCESS:
       console.log('CompaniesReducer FETCH_COMPANIES_SUCCESS action.payload', action.payload);
       return { ...state,  companies: action.payload}
+    case COMPANY_UPDATE:{
+      let x;
+      console.log('COMPANIESREDUCER COMPANY_UPDATE action', action);
+      console.log('COMPANIESREDUCER COMPANY_UPDATE !state.companies.company',!state.companies.company);
+      // if(!state.companies.company){
+       
+      //   x = Object.assign({}, state.companies, {company:''});
+      //   console.log('COMPANIESREDUCER COMPANY_UPDATE x', x);
+      // }
+      return Object.assign({}, state, {[action.payload.prop]: action.payload.value});
+  }
     default:
       return state;
   }
