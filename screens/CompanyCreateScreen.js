@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const paymentTermsOptionsList = {option: "30", option: "15", option: "5"  }
+  const paymentTermsOptionsList = [{option: "30"}, {option: "15"}, {option: "5"}] ;
   const active = state.companies.active || true;
   const address = state.companies.address || '';
   const location = state.location || null;

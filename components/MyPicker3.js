@@ -26,8 +26,8 @@ class MyPicker3 extends Component {
              const navigation = this.props.navigation
              console.log('MYPICKER3 RENDER this.props.navigation.state.params.optionsList', this.props.navigation.state.params.optionsList);
              console.log('MYPICKER3 render this.props.optionsList', this.props.optionsList);
-              const options = _.map(this.props.optionsList, "option")
-            //  console.log('MYPICKER3 render options',x);
+              const options = _.map(this.props.navigation.state.params.optionsList, "option")
+             console.log('MYPICKER3 render options',options);
      return (
         <View>
            <Picker
