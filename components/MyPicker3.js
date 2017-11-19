@@ -16,10 +16,17 @@ import * as actions             from '../actions';
 class MyPicker3 extends Component {
   propName = this.props.navigation.state.params.prop; 
  
+  componetWillMount() {
+    this.props.optionsList = this.props.navigation.state.params.optionsList;
+    console.log('MYPICKER3 componentWillMount this.props.optionsList', this.props.optionsList );
+  
+  }
+ 
  render() {
              const navigation = this.props.navigation
-            //  console.log('MYPICKER3 render this.props.optionsArray', this.props.optionsArray);
-              const options = _.map(this.props.optionsArray, "option")
+             console.log('MYPICKER3 RENDER this.props.navigation.state.params.optionsList', this.props.navigation.state.params.optionsList);
+             console.log('MYPICKER3 render this.props.optionsList', this.props.optionsList);
+              const options = _.map(this.props.optionsList, "option")
             //  console.log('MYPICKER3 render options',x);
      return (
         <View>
@@ -37,9 +44,10 @@ class MyPicker3 extends Component {
 }
 const mapStateToProps = (state) => {
     const name = state.companies.name || '';
-    const optionsArray = [{option:'Mark'},{option:'Ted'},{option:'Randy'}]
+    // const optionsArray = [{option:'Mark'},{option:'Ted'},{option:'Randy'}]
+    const optionsList = ''
     
-  return {name, optionsArray};
+  return { name, optionsList};
 } 
 
 const mapDispatchToProps = (dispatch) => {

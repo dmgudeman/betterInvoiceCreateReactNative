@@ -22,6 +22,7 @@ import moment                   from 'moment';
 import * as actions             from '../actions';
 
 class CompanyCreateScreen extends Component {
+  paymentTermsOptionsList =''
   constructor() {
     super();
     this.state = {language: ''};
@@ -31,7 +32,8 @@ class CompanyCreateScreen extends Component {
   }
 
   componentWillMount() {
-
+    
+  
   }
   
   onPress() {
@@ -52,16 +54,14 @@ class CompanyCreateScreen extends Component {
 
   render() {
     const navigation = this.props.navigation
+    console.log('COMPANYCREATE RENDER this.props.paymentTermsOptionsList', this.props.paymentTermsOptionsList);
     return (
      <View>
-        {/* <MyPicker labelText={'Hourly Rate'} optionsArray={["wee","must","win"]}/>  */}
-      
-        <FormLabel>Business Name</FormLabel>
+        <FormLabel>Payment Terms</FormLabel>
         <TouchableOpacity>
           <TextInput style={{backgroundColor:'red', height: 50}}
             value={this.props.name}
-    
-            onFocus={() => { navigation.navigate('myPicker',{prop:'name'} )}}
+            onFocus={() => { navigation.navigate('myPicker',{prop:'name', optionsList: this.props.paymentTermsOptionsList} )}}
             // onPress={()=>console.log('ButtonPressed')}
             editable={true}
           />
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  
+  const paymentTermsOptionsList = {option: "30", option: "15", option: "5"  }
   const active = state.companies.active || true;
   const address = state.companies.address || '';
   const location = state.location || null;
@@ -118,7 +118,7 @@ const mapStateToProps = (state) => {
   const userId = state.auth.userId || '';
   
   
-  return { active, address, location, color, fUserId, hourly, name, paymentTerms, userId };
+  return { paymentTermsOptionsList, active, address, location, color, fUserId, hourly, name, paymentTerms, userId };
 } 
 const mapDispatchToProps = (dispatch) => {
   const {companyUpdate, companyCreate} = actions;
