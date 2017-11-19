@@ -15,8 +15,7 @@ import {
   FormInput, 
   FormValidationMessage, 
 }                               from 'react-native-elements';
-import MyPicker                  from '../components/MyPicker/MyPicker';
-import MyPicker3               from '../components/MyPicker3';
+import MyPicker                 from '../components/MyPicker/MyPicker';
 import RNGooglePlacePicker      from 'react-native-google-place-picker';
 import moment                   from 'moment';
 import * as actions             from '../actions';

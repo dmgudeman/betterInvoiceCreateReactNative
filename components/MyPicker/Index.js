@@ -1,7 +1,5 @@
 
-import MyPicker from './MyPicker';
+import MyPicker from './MyPicker.js';
 import styles from './styles';
-import MyPickerItem from './MyPickerItem';
-import MyPickerList from './MyPickerList';
 
-export { MyPicker, styles, MyPickerItem, MyPickerList};
+export { MyPicker, styles};

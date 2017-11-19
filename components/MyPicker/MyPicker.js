@@ -1,120 +1,60 @@
 import React, { Component } from 'react';
-import MyPickerItem from './MyPickerItem';
-import {Select, Option} from "react-native-chooser";
+import { connect }              from 'react-redux';
+import { bindActionCreators }   from 'redux';
 import {
-  StyleSheet,
-  Text,
   View,
-  FlatList
+  Text,
+  Picker,
+  StyleSheet,
+  Animated,
 } from 'react-native';
+import _ from 'lodash';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import styles from './styles';
+import * as actions             from '../../actions';
 
-const OPTION_ARRAY =[];
-
-export default class MyPicker extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {value : "Select Me Please"}
-  }
-
+class MyPicker extends Component {
+  propName = this.props.navigation.state.params.prop; 
+ 
+  componetWillMount() {
+    this.props.optionsList = this.props.navigation.state.params.optionsList;
+    console.log('MyPicker componentWillMount this.props.optionsList', this.props.optionsList );
   
-  onSelect(value, label) {
-    this.setState({value : value});
   }
-  renderItem =(option)=> {
-    console.log('MYPICKER renderItem option ', option);
-    return  (
-       <MyPickerItem
-         option = {option} 
-         renderItem={this.renderItem}
-         />
-    )
-  }
-  // _keyExtractor = (option, index) => index;
-
-  render() {
-    const {labelText} = this.props;
-    console.log('MYPICKER render this.props.optionsArray', this.props.optionsArray);
-    return (
-      <View style={styles.container}>
-      <Text style={styles.labelStyle}>{labelText} </Text>
-      
-        <Select
-            onSelect = {this.onSelect.bind(this)}
-            defaultText  = {this.state.value}
-            style = {{borderWidth : 1, borderColor : "green"}}
-            textStyle = {{}}
-            backdropStyle  = {{backgroundColor : "#d3d5d6"}}
-            optionListStyle = {{backgroundColor : "#F5FCFF"}}
-            onPress={this.renderItem}
-          >
-          <View>
-          <FlatList 
-            option = {this.props.optionsArray}
-            // keyExtractor = {this._keyExtractor}
-            renderItem={this.renderItem}
-           
-          />
-          {/* <Option value = "johnceena">Johnceena</Option>
-          <Option value = "undertaker">Undertaker</Option>
-          <Option value = "Daniel">Daniel</Option>
-          <Option value = "Roman">Roman</Option>
-          <Option value = "Stonecold">Stonecold</Option>
-          <Option value = "Rock">Rock</Option>
-          <Option value = "Sheild">Sheild</Option>
-          <Option value = "Orton">Orton</Option> */}
+ 
+ render() {
+             const navigation = this.props.navigation
+             console.log('MyPicker RENDER this.props.navigation.state.params.optionsList', this.props.navigation.state.params.optionsList);
+             console.log('MyPicker render this.props.optionsList', this.props.optionsList);
+              const options = _.map(this.props.navigation.state.params.optionsList, "option")
+             console.log('MyPicker render options',options);
+     return (
+        <View>
+           <Picker
+              selectedValue = {this.props[this.propName]} onValueChange = {(value)=>{ 
+                this.props.companyUpdate(this.propName, value )}
+              }
+            >
+            {options.map((value)=> <Picker.Item label={value} value={value} key={"money"+value}/>)}
+           </Picker>
+           <Text style = {styles.text}>{`Here ${this.props[this.propName]}`}</Text> 
         </View>
-        </Select>
-      </View>
-    );
+     )
   }
 }
-
-// const styles ={
-// container: {
-//   marginTop: 30,
-//   marginLeft: 30
-// },
-// textStyle: {
-//   color: 'red',
-//   marginLeft: 30,
-//   marginBottom:10,
-
-// },
-// inputStyle: {
-//   color: '#000',
-//   paddingRight: 5,
-//   paddingLeft: 5,
-//   fontSize: 18,
-//   lineHeight: 23,
-//   flex: 2
-// },
-// labelStyle: {
-//   fontSize: 18,
-//   paddingLeft: 20,
-//   flex: 1
-// },
-// containerStyle: {
-//   height: 40,
-//   flex: 1,
-//   flexDirection: 'row',
-//   alignItems: 'center',
-//   backgroundColor: 'green',
-//   paddingLeft: 10,
-//   paddingRight: 10,
-// }
-// }
-// class MyPicker extends Component {
-
-//   render () {
-//     const {payload}=this.props;
-//     return (
-//       <MyPickerItem payload={payload}/>
+const mapStateToProps = (state) => {
+    const name = state.companies.name || '';
+    // const optionsArray = [{option:'Mark'},{option:'Ted'},{option:'Randy'}]
+    const optionsList = ''
     
-//     )
-//   }
+  return { name, optionsList};
+} 
 
-// }
+const mapDispatchToProps = (dispatch) => {
+  const {companyUpdate, companyCreate} = actions;
+  return bindActionCreators({companyUpdate, companyCreate}, dispatch)
+}
+export default connect(mapStateToProps, mapDispatchToProps )(MyPicker);
 
-// export default MyPicker;
+
+
