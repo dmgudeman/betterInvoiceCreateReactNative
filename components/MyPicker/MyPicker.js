@@ -16,12 +16,6 @@ import * as actions             from '../../actions';
 class MyPicker extends Component {
   propName = this.props.navigation.state.params.prop; 
  
-  componetWillMount() {
-    this.props.optionsList = this.props.navigation.state.params.optionsList;
-    console.log('MyPicker componentWillMount this.props.optionsList', this.props.optionsList );
-  
-  }
- 
   render() {
     const navigation = this.props.navigation
     // console.log('MyPicker RENDER this.props.navigation.state.params.optionsList', this.props.navigation.state.params.optionsList);

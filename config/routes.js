@@ -3,7 +3,7 @@ import { Button } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 
 import AuthScreen from '../screens/AuthScreen';
-import CompanyCreateScreen from '../screens/CompanyCreateScreen';
+import {CompanyCreateScreen} from '../screens/CompanyCreateScreen';
 import CompanyEditScreen from '../screens/CompanyEditScreen';
 import CompaniesScreen from '../screens/CompaniesScreen';
 import ItemCreateScreen from '../screens/ItemCreateScreen';

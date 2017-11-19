@@ -15,10 +15,10 @@ import {
   FormInput, 
   FormValidationMessage, 
 }                               from 'react-native-elements';
-import MyPicker                 from '../components/MyPicker/MyPicker';
 import RNGooglePlacePicker      from 'react-native-google-place-picker';
 import moment                   from 'moment';
-import * as actions             from '../actions';
+import * as actions             from '../../actions';
+import { MyPicker  }            from '../../components/MyPicker/MyPicker';
 
 class CompanyCreateScreen extends Component {
   paymentTermsOptionsList =''
@@ -56,9 +56,10 @@ class CompanyCreateScreen extends Component {
     console.log('COMPANYCREATE RENDER this.props.paymentTermsOptionsList', this.props.paymentTermsOptionsList);
     return (
      <View>
-        <FormLabel>Payment Terms</FormLabel>
+        <FormLabel style={styles.formLabel}>Payment Terms</FormLabel>
+        <View style={styles.border}/>
         <TouchableOpacity>
-          <TextInput style={{backgroundColor:'red', height: 50}}
+          <TextInput style={styles.inputBox}
             value={this.props.name}
             onFocus={() => { navigation.navigate('myPicker',{prop:'name', optionsList: this.props.paymentTermsOptionsList} )}}
             // onPress={()=>console.log('ButtonPressed')}
@@ -83,7 +84,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    // backgroundColor: '#F5FCFF',
+  },
+
+  formLabel: {
+    fontSize: 20,
+    fontWeight: "600",
+    marginLeft: 30, 
+  },
+  inputBox: {
+     height: 50,
+     marginLeft: 15,
+     marginRight: 15,
+  },
+  border: {
+    height: 50,
+    width: StyleSheet.hairlineWidth,
+    backgroundColor: 'gray',
   },
   location: {
     backgroundColor: 'white',
