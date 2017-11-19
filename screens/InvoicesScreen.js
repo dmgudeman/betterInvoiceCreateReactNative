@@ -30,7 +30,7 @@ componentWillMount() {
   }
 
   renderItem =(invoice)=> {
-    // console.log('invoicesScreen renderItem invoice', invoice);
+    console.log('invoicesScreen renderItem invoice', invoice);
 
     const data = this.props.invoices[invoice.index];
     // console.log('invoicesScreen renderinvoice data', data);
@@ -42,16 +42,17 @@ componentWillMount() {
          onPress={() => this.goToInvoiceEdit(data)}/>
     )
   }
-  _keyExtractor = (invoice, index) => {
-    console.log('INVOICESSCREEN keyExtractor item, index', item,index);
-    return index;
-  }
+  // _keyExtractor = (invoice, index) => {
+  //   console.log('INVOICESSCREEN keyExtractor item, index', item,index);
+  //   return index;
+  // }
 
   render() {
+    console.log('INVOICES SCREEN render this.props.invoices', this.props.invoices);
     return (
         <FlatList 
           data = {this.props.invoices}
-          keyExtractor = {this._keyExtractor}
+          keyExtractor={(item) => item.id}
           renderItem={this.renderItem}
         />
     )

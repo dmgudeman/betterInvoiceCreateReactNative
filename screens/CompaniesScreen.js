@@ -25,9 +25,10 @@ class CompaniesScreen extends Component {
   //   navigation.navigate('companyCreate'); 
   // }
   
+
   renderItem =({item, index})=> {
     // console.log('CompaniesScreen renderItem  this.props.index =', this.props.companies);
-    console.log('COMPANIESSCREEN renderItem item, item.index', item.id);
+    // console.log('COMPANIESSCREEN renderItem item, item.id, index', item, item.id, index);
     return  (
     <ListItem company={item} navigation={this.props.navigation}/>
     )
