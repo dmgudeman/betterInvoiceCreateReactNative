@@ -1,25 +1,34 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback, Picker } from 'react-native';
-import MyPicker from './MyPicker';
+import { View, Text, TouchableWithoutFeedback, Picker, FlatList} from 'react-native';
+import MyPickerItem from './MyPicker/';
 // import {Option} from "react-native-chooser";
 
 const MyPickerList= ({optionsArray}) => {
+  console.log('MYPICKERLIST optionsArray', optionsArray)
   renderItem =({item, index})=> {
     console.log('invoicesScreen renderItem item, index, item.id ', item, item.id, index);
-    console.log('invoicesScreen renderItem  this.props.optionsArray[index].option',  `${this.props.optionsArray[index].option}`);
+    // console.log('invoicesScreen renderItem  this.props.optionsArray[index].option',  `${this.props.optionsArray[index].option}`);
     // console.log(this.props.optionsArray);
-    const option = this.props.optionsArray[index].option;
+    const option =optionsArray[index].option;
     return  (
-      <MyPickerItem option ={option} /> 
+      <Picker.Item label={option} value={option}/>
     )
    
   }
+ 
 return (
-  <FlatList 
-  data ={this.props.optionsArray}
+  // <View >
+  //    {console.log('MYPICKERLIST optionsArray', optionsArray)}
+  //    {this.renderItem()}
+  // </View>
+  // null
+  <Picker>
+  <FlatList
+  data ={optionsArray}
   renderItem={this.renderItem}
-  keyExtractor={(item) =>{item}}
-/>
+  keyExtractor={(item) =>{item}}/>
+  </Picker>
+
 )
 }
 

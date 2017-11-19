@@ -6,7 +6,7 @@ const MyPickerItem= ({option}) => {
  
   console.log('MYPICKERITEM option',option);
   return (
-        <Picker.Item label="steve" value="stteve"/>
+        <Picker.Item label={option} value={option}/>
         // <Picker.Item label = "Steve" value = "steve" />
       // <View>
       //   <Text> hi there {option}</Text>

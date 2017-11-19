@@ -10,15 +10,18 @@ import {
   Animated,
   TouchableHighlight,
 } from 'react-native';
+import _ from 'lodash';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import style from './style';
 import * as actions             from '../actions';
-import MyPickerList from  './MyPicker/MyPickerItem';
+import MyPickerList from  './MyPicker/MyPickerList'
 
 
 class MyPicker3 extends Component {
   propName = this.props.navigation.state.params.prop; 
   textBLock ='';
+  PickerItem = Picker.Item;
+  
   // optionsArray = this.props.navigation.state.params.optionsArray;
   componentWillMount() {
     console.log('myPicker3 componentDidMount this.propName', this.propName);
@@ -55,25 +58,35 @@ class MyPicker3 extends Component {
  render() {
              const navigation = this.props.navigation
              console.log('MYPICKER3 render this.props.optionsArray', this.props.optionsArray);
+             x = _.map(this.props.optionsArray, "option")
+             console.log('MYPICKER3 render options',x);
      return (
         <View>
+           {/* <MyPickerList optionsArray ={this.props.optionsArray} /> */}
          
          {/* <FlatList 
                   data ={this.props.optionsArray}
                   renderItem={this.renderItem}
                   keyExtractor={(item) =>{item}}
                 /> */}
+
            <Picker
               selectedValue = {this.props[this.propName]} onValueChange = {(value)=>{ 
                 this.props.companyUpdate(this.propName, value )}
               }
             >
-              {/* { <MyPickerList optionsArray ={this.props.optionsArray} />} */}
-              {this.textBLock}
+                {/* {this.props.optionsArray.map((value) => {console.log(value.option)}) */}
+                {/* {this.props.optionsArray.map((value) => {})} */}
                 
-              <Picker.Item label = "Steve" value = "steve" />
+               {/* <Picker.Item label={value.option} value={value.option} key={"thing"=value}/> */}
+               { x.map((value)=>
+              <Picker.Item label={value} value={value} key={"money"+value}/>
+            )}
+                
+              
+              {/* <Picker.Item label = "Steve" value = "steve" />
               <Picker.Item label = "Ellen" value = "ellen" />
-              <Picker.Item label = "Maria" value = "maria" />
+              <Picker.Item label = "Maria" value = "maria" /> */}
            </Picker>
            <Text style = {styles.text}>{`Here ${this.props[this.propName]}`}</Text> 
         </View>
