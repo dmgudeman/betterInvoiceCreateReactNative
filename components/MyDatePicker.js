@@ -10,6 +10,7 @@ import DatePicker      from 'react-native-datepicker';
 import moment          from 'moment';
 
 const MyDatePicker = ({date, onDateChange}) => (
+  <View>
       <DatePicker
       style={{width: 200}}
       date={moment(date).format("L")}
@@ -33,7 +34,7 @@ const MyDatePicker = ({date, onDateChange}) => (
     onDateChange={(value) => onDateChange(value )}
     
   />
-    
+  </View>  
   
 )
 

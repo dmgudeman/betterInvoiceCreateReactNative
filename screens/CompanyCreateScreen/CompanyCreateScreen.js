@@ -30,11 +30,6 @@ class CompanyCreateScreen extends Component {
     this.setState({language: lang});
   }
 
-  componentWillMount() {
-    
-  
-  }
-  
   onPress() {
     RNGooglePlacePicker.show((response) => {
       if (response.didCancel) {
@@ -56,16 +51,15 @@ class CompanyCreateScreen extends Component {
     console.log('COMPANYCREATE RENDER this.props.paymentTermsOptionsList', this.props.paymentTermsOptionsList);
     return (
      <View>
-        <FormLabel style={styles.formLabel}>Payment Terms</FormLabel>
-        <View style={styles.border}/>
+        <FormLabel>Payment Terms</FormLabel>
         <TouchableOpacity>
-          <TextInput style={styles.inputBox}
-            value={this.props.name}
-            onFocus={() => { navigation.navigate('myPicker',{prop:'name', optionsList: this.props.paymentTermsOptionsList} )}}
-            // onPress={()=>console.log('ButtonPressed')}
-            editable={true}
-          />
+        <FormInput 
+          value={this.props.name}
+          onFocus={() => { navigation.navigate('myPicker',{prop:'name', optionsList: this.props.paymentTermsOptionsList} )}}
+          editable={true}
+        />
         </TouchableOpacity>
+  
         <TouchableOpacity onPress={this.onPress.bind(this)}>
           <Text style={{color: '#72c02c', fontSize: 20, fontWeight:'bold'}}>
             Click me to push Google Place Picker!
@@ -80,22 +74,25 @@ class CompanyCreateScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: '#F5FCFF',
-  },
+  // container: {
+  //   flex: 1,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   // backgroundColor: '#F5FCFF',
+  // },
 
   formLabel: {
     fontSize: 20,
     fontWeight: "600",
     marginLeft: 30, 
+    height: 20,
+    backgroundColor: 'green',
   },
   inputBox: {
      height: 50,
      marginLeft: 15,
      marginRight: 15,
+     backgroundColor: 'red',
   },
   border: {
     height: 50,
