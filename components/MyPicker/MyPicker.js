@@ -22,32 +22,30 @@ class MyPicker extends Component {
   
   }
  
- render() {
-             const navigation = this.props.navigation
-             console.log('MyPicker RENDER this.props.navigation.state.params.optionsList', this.props.navigation.state.params.optionsList);
-             console.log('MyPicker render this.props.optionsList', this.props.optionsList);
-              const options = _.map(this.props.navigation.state.params.optionsList, "option")
-             console.log('MyPicker render options',options);
-     return (
-        <View>
-           <Picker
-              selectedValue = {this.props[this.propName]} onValueChange = {(value)=>{ 
-                this.props.companyUpdate(this.propName, value )}
-              }
-            >
-            {options.map((value)=> <Picker.Item label={value} value={value} key={"money"+value}/>)}
-           </Picker>
-           <Text style = {styles.text}>{`Here ${this.props[this.propName]}`}</Text> 
-        </View>
+  render() {
+    const navigation = this.props.navigation
+    // console.log('MyPicker RENDER this.props.navigation.state.params.optionsList', this.props.navigation.state.params.optionsList);
+    // console.log('MyPicker render this.props.optionsList', this.props.optionsList);
+    const options = _.map(navigation.state.params.optionsList, "option")
+    console.log('MyPicker render options',options);
+    return (
+      <View>
+        <Picker
+            selectedValue = {this.props[this.propName]} onValueChange = {(value)=>{ 
+              this.props.companyUpdate(this.propName, value )}
+            }
+        >
+          {options.map((value)=> <Picker.Item label={value} value={value} key={"money"+value}/>)}
+        </Picker>
+        <Text style = {styles.text}>{`Here ${this.props[this.propName]}`}</Text> 
+      </View>
      )
   }
 }
 const mapStateToProps = (state) => {
-    const name = state.companies.name || '';
-    // const optionsArray = [{option:'Mark'},{option:'Ted'},{option:'Randy'}]
-    const optionsList = ''
+  const name = state.companies.name || '';
     
-  return { name, optionsList};
+  return { name };
 } 
 
 const mapDispatchToProps = (dispatch) => {
