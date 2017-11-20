@@ -25,6 +25,7 @@ class CompanyCreateScreen extends Component {
   constructor() {
     super();
     this.state = {language: ''};
+    
   }
   updateLanguage = (lang) => {
     this.setState({language: lang});
@@ -49,13 +50,23 @@ class CompanyCreateScreen extends Component {
   render() {
     const navigation = this.props.navigation
     console.log('COMPANYCREATE RENDER this.props.paymentTermsOptionsList', this.props.paymentTermsOptionsList);
+    let name = "name"
+    let color = "color"
     return (
      <View>
         <FormLabel>Payment Terms</FormLabel>
         <TouchableOpacity>
         <FormInput 
-          value={this.props.name}
-          onFocus={() => { navigation.navigate('myPicker',{prop:'name', optionsList: this.props.paymentTermsOptionsList} )}}
+          value={this.props.paymentTerms}
+          onFocus={() => { navigation.navigate('myPicker',{prop:'paymentTerms', value: this.props.paymentTerms, optionsList: this.props.paymentTermsOptionsList} )}}
+          editable={true}
+        />
+        </TouchableOpacity>
+        <FormLabel>Color</FormLabel>
+        <TouchableOpacity>
+        <FormInput 
+          value={this.props.color}
+          onFocus={() => { navigation.navigate('myPicker',{ prop:'color', value: this.props.color, optionsList: [{option:"blue"},{option:"yellow"}]} )}}
           editable={true}
         />
         </TouchableOpacity>
