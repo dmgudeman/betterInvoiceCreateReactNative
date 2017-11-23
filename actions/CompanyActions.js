@@ -30,13 +30,13 @@ export const fetchCompanies = (fUserId) => async dispatch => {
   return { }
 } 
 
-  export const companyUpdate = (prop, value)=> {
-    console.log('companyActions 11111111companyUpdate prop, value:::::', prop, value);
-    console.log(``);
-    return {
-      type: COMPANY_UPDATE,
-      payload: { prop, value}
-    };
-  }
+export const companyUpdate = (prop, value)=> {
+  console.log('companyActions 11111111companyUpdate prop, value:::::', prop, value);
+  console.log(``);
+  return {
+    type: COMPANY_UPDATE,
+    payload: { prop, value}
+  };
+}
 
   

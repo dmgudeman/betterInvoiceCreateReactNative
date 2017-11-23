@@ -49,9 +49,9 @@ class CompanyCreateScreen extends Component {
 
   render() {
     const navigation = this.props.navigation
-    console.log('COMPANYCREATE RENDER this.props.paymentTermsOptionsList', this.props.paymentTermsOptionsList);
-    let name = "name"
-    let color = "color"
+    // console.log('COMPANYCREATE RENDER this.props.paymentTermsOptionsList', this.props.paymentTermsOptionsList);
+    // let name = "name"
+    // let color = "color"
     return (
      <View>
         <FormLabel>Payment Terms</FormLabel>
@@ -66,7 +66,7 @@ class CompanyCreateScreen extends Component {
         <TouchableOpacity>
         <FormInput 
           value={this.props.color}
-          onFocus={() => { navigation.navigate('myPicker',{ prop:'color', value: this.props.color, optionsList: [{option:"blue"},{option:"yellow"}]} )}}
+          onFocus={() => { navigation.navigate('myPicker',{ prop:'color', value: this.props.color, optionsList: [{option: ''},{option:"blue"},{option:"yellow"}]} )}}
           editable={true}
         />
         </TouchableOpacity>
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const paymentTermsOptionsList = [{option: "30"}, {option: "15"}, {option: "5"}] ;
+  const paymentTermsOptionsList = [{option: ''}, {option: "30"}, {option: "15"}, {option: "5"}] ;
   const active = state.companies.active || true;
   const address = state.companies.address || '';
   const location = state.location || null;
@@ -140,7 +140,6 @@ const mapStateToProps = (state) => {
   const name = state.companies.name || '';
   const paymentTerms = state.companies.paymentTerms || '30';
   const userId = state.auth.userId || '';
-  
   
   return { paymentTermsOptionsList, active, address, location, color, fUserId, hourly, name, paymentTerms, userId };
 } 

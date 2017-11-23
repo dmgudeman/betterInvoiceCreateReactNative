@@ -13,43 +13,58 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import styles from './styles';
 import * as actions             from '../../actions';
 
+const x = '';
+const pickedProp = ''
 class MyPicker extends Component {
-  propName = this.props.navigation.state.params.prop;  
-  propValue= this.props.navigation.state.params.value;
-  
 
   componentWillMount() {
-  this.props.companyUpdate(propName, this.propName)
-  this.props.companyUpdate(propValue, this.propValue );
+  // 
+  x = this.props.navigation.state.params.prop;  
+  pickedProp= this.props.navigation.state.params.value;
+  console.log('MYPICKER COMPONENTWILLMOUNT this.x', x);
+  console.log('MYPICKER COMPONENTWILLMOUNT this.pickedProp', pickedProp);
+  this.props.companyUpdate(x, pickedProp)
+  console.log('MYPICKER COMPONENTWILLMOUNT this.props', this.props);
   }
   render() {
     const navigation = this.props.navigation
-
+    let y = this.props.navigation.state.params.prop; 
     // console.log('MyPicker RENDER this.props.navigation.state.params.optionsList', this.props.navigation.state.params.optionsList);
     console.log('MyPicker render this.props', this.props);
+    console.log('x', x);
+              console.log('y', y); 
+              console.log('this.props.kkkkkk', this.props.k);
     const options = _.map(navigation.state.params.optionsList, "option")
-    console.log('MyPicker render this.props.propName', this.propName);
+
     return (
       <View>
         <Picker
-            selectedValue = {this.props[this.propName]} onValueChange = {(value)=>{ 
-              this.propValue = value;
-              this.props.companyUpdate(this.propName, value )}
-            }
+            selectedValue = {pickedProp} onValueChange = {(value)=>{
+              pickedProp = value;
+              console.log('pickedProp', pickedProp); 
+              console.log('yyyyyyyyyyyyy', y); 
+              console.log('vvvvvvvvv' , value);
+              console.log('this.props.kkkkkkkk', this.props.k);
+              this.props.companyUpdate( y, value );
+            } 
+          }
         >
           {options.map((value)=> <Picker.Item label={value} value={value} key={"money"+value}/>)}
         </Picker>
-        <Text style = {styles.text}>{`Here ${this.propValue}`}</Text> 
+        <Text style = {styles.text}>{`Here ${pickedProp}`}</Text> 
       </View>
      )
   }
 }
 const mapStateToProps = (state) => {
-   propName = '';
-   propValue = '';
+  k = state.companies[x] || '';
 
-  return {propName, propValue}
-} 
+  console.log('MAPSTATETOPROPS x', x);
+  console.log('MAPSTATETOPROPS pickedProp', pickedProp);
+  // [pickedProp] = state.companies[this.pickedProp] || '' ;
+
+  return {k}
+}
 
 const mapDispatchToProps = (dispatch) => {
   const {companyUpdate, companyCreate} = actions;
