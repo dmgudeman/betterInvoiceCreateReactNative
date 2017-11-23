@@ -18,22 +18,21 @@ const pickedProp = ''
 class MyPicker extends Component {
 
   componentWillMount() {
-  // 
   x = this.props.navigation.state.params.prop;  
   pickedProp= this.props.navigation.state.params.value;
-  console.log('MYPICKER COMPONENTWILLMOUNT this.x', x);
-  console.log('MYPICKER COMPONENTWILLMOUNT this.pickedProp', pickedProp);
+  // console.log('MYPICKER COMPONENTWILLMOUNT this.x', x);
+  // console.log('MYPICKER COMPONENTWILLMOUNT this.pickedProp', pickedProp);
   this.props.companyUpdate(x, pickedProp)
-  console.log('MYPICKER COMPONENTWILLMOUNT this.props', this.props);
+  // console.log('MYPICKER COMPONENTWILLMOUNT this.props', this.props);
   }
   render() {
     const navigation = this.props.navigation
     let y = this.props.navigation.state.params.prop; 
     // console.log('MyPicker RENDER this.props.navigation.state.params.optionsList', this.props.navigation.state.params.optionsList);
-    console.log('MyPicker render this.props', this.props);
-    console.log('x', x);
-              console.log('y', y); 
-              console.log('this.props.kkkkkk', this.props.k);
+    // console.log('MyPicker render this.props', this.props);
+    // console.log('x', x);
+    // console.log('y', y); 
+    // console.log('this.props.kkkkkk', this.props.k);
     const options = _.map(navigation.state.params.optionsList, "option")
 
     return (
@@ -41,10 +40,10 @@ class MyPicker extends Component {
         <Picker
             selectedValue = {pickedProp} onValueChange = {(value)=>{
               pickedProp = value;
-              console.log('pickedProp', pickedProp); 
-              console.log('yyyyyyyyyyyyy', y); 
-              console.log('vvvvvvvvv' , value);
-              console.log('this.props.kkkkkkkk', this.props.k);
+              // console.log('pickedProp', pickedProp); 
+              // console.log('yyyyyyyyyyyyy', y); 
+              // console.log('vvvvvvvvv' , value);
+              // console.log('this.props.kkkkkkkk', this.props.k);
               this.props.companyUpdate( y, value );
             } 
           }
@@ -58,11 +57,7 @@ class MyPicker extends Component {
 }
 const mapStateToProps = (state) => {
   k = state.companies[x] || '';
-
-  console.log('MAPSTATETOPROPS x', x);
-  console.log('MAPSTATETOPROPS pickedProp', pickedProp);
-  // [pickedProp] = state.companies[this.pickedProp] || '' ;
-
+  // console.log('MAPSTATETOPROPS x', x);
   return {k}
 }
 

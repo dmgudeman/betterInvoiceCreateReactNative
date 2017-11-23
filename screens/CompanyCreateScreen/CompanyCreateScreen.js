@@ -54,6 +54,20 @@ class CompanyCreateScreen extends Component {
     // let color = "color"
     return (
      <View>
+         <FormLabel>Name</FormLabel>
+        <TouchableOpacity>
+        <FormInput 
+          value={this.props.name}
+          onChangeText={(value) => this.props.companyUpdate('name', value)}
+        />
+        </TouchableOpacity> 
+        <FormLabel>Hourly</FormLabel> 
+        <TouchableOpacity>
+        <FormInput 
+          value={this.props.hourly}
+          onChangeText={(value) => this.props.companyUpdate('hourly', value)}
+        />
+        </TouchableOpacity>  
         <FormLabel>Payment Terms</FormLabel>
         <TouchableOpacity>
         <FormInput 
@@ -130,6 +144,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   const paymentTermsOptionsList = [{option: ''}, {option: "30"}, {option: "15"}, {option: "5"}] ;
+  const colorOptionsList = [{option:'blue', option:'green'}]
   const active = state.companies.active || true;
   const address = state.companies.address || '';
   const location = state.location || null;
