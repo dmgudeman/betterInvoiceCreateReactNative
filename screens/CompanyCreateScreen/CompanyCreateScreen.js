@@ -86,14 +86,6 @@ class CompanyCreateScreen extends Component {
         />
         </TouchableOpacity>
         <AddressInput />
-        <TouchableOpacity onPress={this.onPress.bind(this)}>
-          <Text style={{color: '#72c02c', fontSize: 20, fontWeight:'bold'}}>
-            Click me to push Google Place Picker!
-          </Text>
-        </TouchableOpacity>
-        <View style={styles.location}>
-          <Text style={{color: 'black', fontSize: 15}}> </Text>
-        </View>
       </View>
     );
   }
