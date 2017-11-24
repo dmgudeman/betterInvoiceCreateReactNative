@@ -19,6 +19,7 @@ import RNGooglePlacePicker      from 'react-native-google-place-picker';
 import moment                   from 'moment';
 import * as actions             from '../../actions';
 import { MyPicker  }            from '../../components/MyPicker/MyPicker';
+import AddressInput             from '../../components/AddressInput/AddressInput';
 
 class CompanyCreateScreen extends Component {
   paymentTermsOptionsList =''
@@ -84,7 +85,7 @@ class CompanyCreateScreen extends Component {
           editable={true}
         />
         </TouchableOpacity>
-  
+        <AddressInput />
         <TouchableOpacity onPress={this.onPress.bind(this)}>
           <Text style={{color: '#72c02c', fontSize: 20, fontWeight:'bold'}}>
             Click me to push Google Place Picker!
