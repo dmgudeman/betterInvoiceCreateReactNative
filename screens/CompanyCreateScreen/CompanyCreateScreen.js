@@ -82,7 +82,7 @@ class CompanyCreateScreen extends Component {
         <TouchableOpacity>
         <FormInput 
           value={this.props.color}
-          onFocus={() => { navigation.navigate('myPicker',{ prop:'color', value: this.props.color, optionsList: [{option: ''},{option:"blue"},{option:"yellow"}]} )}}
+          onFocus={() => { navigation.navigate('myPicker',{ prop:'color', value: this.props.color, optionsList: this.props.colorOptionsList} )}}
           editable={true}
         />
         </TouchableOpacity>
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   const paymentTermsOptionsList = [{option: ''}, {option: "30"}, {option: "15"}, {option: "5"}] ;
-  const colorOptionsList = [{option:'blue', option:'green'}]
+  const colorOptionsList = [{option:'blue', option:'green'},{option:'yellow'}, {option: 'purple'},{option: 'brown'},{option: 'red'}]
   const active = state.companies.active || true;
 
   const companyKey = state.companies.key || '';

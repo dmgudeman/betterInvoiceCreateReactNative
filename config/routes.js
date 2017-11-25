@@ -21,30 +21,25 @@ import MyPicker from '../components/MyPicker/MyPicker';
 export default StackNavigator(
   {
     auth:          { screen: AuthScreen },
-    companies:     { 
-      screen: CompaniesScreen,
-    },
+    companies:     { screen: CompaniesScreen },
     companyCreate: { screen: CompanyCreateScreen },
     companyEdit:   { screen: CompanyEditScreen },
     items:         { screen: ItemsScreen },
     itemCreate:    { screen: ItemCreateScreen },
-    itemEdit:      { 
-      screen: ItemEditScreen,
-     
-    },
+    itemEdit:      { screen: ItemEditScreen },
     ListItem:      { screen: ListItem },
     invoices:      { screen: InvoicesScreen },
     invoiceCreate: { screen: InvoiceCreateScreen },
     invoiceEdit:   { 
       screen: InvoiceEditScreen,
-      navigationOptions: ({navigation}) => ({
+      navigationOptions: {
         title: `Edit Invoice`,
-      }),
+      },
     },
     datePicker:    { screen: MyDatePicker },
     myPicker:      { screen: MyPicker },
   },
-  {
-    mode: 'modal',
-  }
+  // {
+  //   mode: 'modal',
+  // }
 );

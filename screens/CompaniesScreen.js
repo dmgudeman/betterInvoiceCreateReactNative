@@ -36,6 +36,7 @@ class CompaniesScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
     title: 'Companies',
+    headerLeft: null,
     headerRight:
         <Button
           title= "+Business"
