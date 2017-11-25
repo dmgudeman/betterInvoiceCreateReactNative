@@ -27,10 +27,11 @@ class CompanyCreateScreen extends Component {
     this.state = {language: ''};
     
   }
-  // updateLanguage = (lang) => {
-  //   this.setState({language: lang});
-  // }
-
+  static navigationOptions = ({ navigation }) => {
+    return {
+    title: 'New Company',
+    }
+  }
   onSubmit(props, companyCreate) {
     console.log('COMPANYCREATE SCREEN ONSUBMIT props', props);
     let payload = {

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Button } from 'react-native-elements';
-import TestScreen from './TestScreen';
+import { connect } from 'react-redux';
 
 class CompanyEditScreen extends Component {
 
@@ -22,5 +22,8 @@ class CompanyEditScreen extends Component {
       </View>
     )
   }
+}
+const mapStateToProps =  (state) => {
+  console.log('COMPANYEDIT MAPSTATETOPROPS state', state);
 }
 export default CompanyEditScreen;

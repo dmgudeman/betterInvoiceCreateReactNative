@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import {NavigationActions} from 'react-navigation';
+import { Text, View, TouchableWithoutFeedback } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { CardSection, Card, Button, Header } from './common';
 // import { Card, Button } from 'react-native-elements';
 import ItemEditScreen from '../screens/ItemEditScreen'; 
@@ -19,7 +19,7 @@ class ListItem extends Component {
       <Card color={this.props.company.color}>
         <CardSection>
           <View style={ styles.headerContentStyle}>
-            <Text style={styles.headerTextStyle}>{ this.props.company.name }</Text>
+            <Text style={styles.headerTextStyle} onPress={() => { navigate('companyEdit')} }>{ this.props.company.name }</Text>
           </View>
         </CardSection>
         <CardSection>

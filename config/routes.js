@@ -4,7 +4,7 @@ import { StackNavigator } from 'react-navigation';
 
 import AuthScreen from '../screens/AuthScreen';
 import {CompanyCreateScreen} from '../screens/CompanyCreateScreen';
-import CompanyEditScreen from '../screens/CompanyEditScreen';
+import CompanyEditScreen from '../screens/CompanyEditScreen/CompanyEditScreen';
 import CompaniesScreen from '../screens/CompaniesScreen';
 import ItemCreateScreen from '../screens/ItemCreateScreen';
 import ItemEditScreen from '../screens/ItemEditScreen';
