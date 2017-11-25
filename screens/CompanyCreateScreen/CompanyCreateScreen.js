@@ -33,9 +33,18 @@ class CompanyCreateScreen extends Component {
 
   onSubmit(props, companyCreate) {
     console.log('COMPANYCREATE SCREEN ONSUBMIT props', props);
-    console.log('COMPANYCREATE SCREEN ONSUBMIT companyCreate', companyCreate);
+    let payload = {
+      name:props.name, 
+      color:props.color, 
+      paymentTerms: props.paymentTerms, 
+      hourly: props.hourly, 
+      address: props.address, 
+      fUserId: props.fUserId,
+      companyKey: props.companyKey
+    }
 
-    companyCreate(props);
+    console.log('COMPANYCREATE SCREEN ONSUBMIT payload', payload);
+    companyCreate(payload);
   }
 
   render() {
@@ -141,6 +150,8 @@ const mapStateToProps = (state) => {
   const paymentTermsOptionsList = [{option: ''}, {option: "30"}, {option: "15"}, {option: "5"}] ;
   const colorOptionsList = [{option:'blue', option:'green'}]
   const active = state.companies.active || true;
+
+  const companyKey = state.companies.key || '';
   const address = state.companies.address || '';
   const location = state.location || null;
 
@@ -151,7 +162,9 @@ const mapStateToProps = (state) => {
   const paymentTerms = state.companies.paymentTerms || '30';
   const userId = state.auth.userId || '';
   
-  return { paymentTermsOptionsList, active, address, location, color, fUserId, hourly, name, paymentTerms, userId };
+  return { paymentTermsOptionsList, colorOptionsList, 
+           companyKey, active, address, location, color, 
+           fUserId, hourly, name, paymentTerms, userId };
 } 
 const mapDispatchToProps = (dispatch) => {
   const {companyUpdate, companyCreate} = actions;

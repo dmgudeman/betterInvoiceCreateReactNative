@@ -13,15 +13,33 @@ import {
 } from './types';
 
 
-export const companyCreate = (props) => {
+export const companyCreate = (company) => {
+
+  console.log('11111111companyactions companycreate company', company);
+  let payload = { ...company };
+  console.log('11111111companyactions companycreate payload', payload);
+  let newCompanyKey =  firebase.database().ref().child('companies').push().key;
+  payload.companyKey = newCompanyKey;
+  console.log('Company ACTIONS Company_CREATE newCompanyKey', newCompanyKey);
+  // payload.companyKey = newCompanyKey
+  console.log('Company ACTIONS Company_CREATE payload', payload);
+  console.log('xxxxxxxxxxxxxxxxxxxx'+'/users/'+ payload.fUserId + '/companies/'+ newCompanyKey);
+  let updates = {};
+  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey] = payload;
+  firebase.database().ref().update(updates);
+  
+   return {
+    type: COMPANY_CREATE,
+    // payload: { }
+  };
   // let companyKey = await firebase.database().ref().child('companies').push().key;
   // dispatch => {type: COMPANY_CREATE, { companyKey: payload }}
-  let payload = {name, color, paymentTerms, hours, address} = props
-  console.log('COMPANYACTIONS COMPANYCREATE payload', props);
-  return { 
-    type: COMPANY_CREATE,
-    payload
-  }
+
+  // console.log('COMPANYACTIONS COMPANYCREATE payload', props);
+  // return { 
+  //   type: COMPANY_CREATE,
+  //   payload
+  // }
  }
 
 export const fetchCompanies = (fUserId) => async dispatch => {
