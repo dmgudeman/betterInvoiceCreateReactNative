@@ -8,13 +8,20 @@ import {
   FETCH_COMPANIES_SUCCESS,
   SELECT_ITEM,
   COMPANY_UPDATE,
+  COMPANY_CREATE,
   
 } from './types';
 
 
-export const commpanyCreate = () => async dispatch => {
-  let companyKey = await firebase.database().ref().child('companies').push().key;
-  dispatch => {type: COMPANY_CREATE, { companyKey: payload }}
+export const companyCreate = (props) => {
+  // let companyKey = await firebase.database().ref().child('companies').push().key;
+  // dispatch => {type: COMPANY_CREATE, { companyKey: payload }}
+  let payload = {name, color, paymentTerms, hours, address} = props
+  console.log('COMPANYACTIONS COMPANYCREATE payload', props);
+  return { 
+    type: COMPANY_CREATE,
+    payload
+  }
  }
 
 export const fetchCompanies = (fUserId) => async dispatch => {

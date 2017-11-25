@@ -1,6 +1,7 @@
 import {
   FETCH_COMPANIES_SUCCESS,
   COMPANY_UPDATE,
+  COMPANY_CREATE,
 } from '../actions/types';
 
 const INITIAL_STATE ={}
@@ -18,6 +19,9 @@ export default (state = INITIAL_STATE, action) => {
       console.log('COMPANIESREDUCER COMPANY_UPDATE !state.companies.company',!state.companies.company);
       return Object.assign({}, state, {[action.payload.prop]: action.payload.value});
   }
+    case COMPANY_CREATE:{
+      console.log('COMPANIESREDUCER COMPANY CREATE', action.payload);
+    }
     default:
       return state;
   }

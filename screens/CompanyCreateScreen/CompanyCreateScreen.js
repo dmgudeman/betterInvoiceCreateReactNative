@@ -15,7 +15,6 @@ import {
   FormInput, 
   FormValidationMessage, 
 }                               from 'react-native-elements';
-import RNGooglePlacePicker      from 'react-native-google-place-picker';
 import moment                   from 'moment';
 import * as actions             from '../../actions';
 import { MyPicker  }            from '../../components/MyPicker/MyPicker';
@@ -23,33 +22,26 @@ import AddressInput             from '../../components/AddressInput/AddressInput
 
 class CompanyCreateScreen extends Component {
   paymentTermsOptionsList =''
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {language: ''};
     
   }
-  updateLanguage = (lang) => {
-    this.setState({language: lang});
-  }
+  // updateLanguage = (lang) => {
+  //   this.setState({language: lang});
+  // }
 
-  onPress() {
-    RNGooglePlacePicker.show((response) => {
-      if (response.didCancel) {
-        console.log('User cancelled GooglePlacePicker');
-      }
-      else if (response.error) {
-        console.log('GooglePlacePicker Error: ', response.error);
-      }
-      else {
-        this.setState({
-          location: response
-        });
-      }
-    })
+  onSubmit(props, companyCreate) {
+    console.log('COMPANYCREATE SCREEN ONSUBMIT props', props);
+    console.log('COMPANYCREATE SCREEN ONSUBMIT companyCreate', companyCreate);
+
+    companyCreate(props);
   }
 
   render() {
     const navigation = this.props.navigation
+    console.log('COMPANYCREATE SCREEN RENDER this.props', this.props);
+    console.log('COMPANYCREATE SCREEN RENDER this.props.companyUpdate', this.props.companyUpdate);
     // console.log('COMPANYCREATE RENDER this.props.paymentTermsOptionsList', this.props.paymentTermsOptionsList);
     // let name = "name"
     // let color = "color"
@@ -85,7 +77,17 @@ class CompanyCreateScreen extends Component {
           editable={true}
         />
         </TouchableOpacity>
-        <AddressInput />
+        <FormLabel>Address</FormLabel> 
+        <TouchableOpacity>
+        <FormInput 
+          value={this.props.address}
+          onChangeText={(value) => this.props.companyUpdate('address', value)}
+        />
+        </TouchableOpacity>  
+        <Button
+          title= "Submit"
+          onPress =  {() => this.onSubmit(this.props, this.props.companyCreate) }
+        />
       </View>
     );
   }
@@ -155,4 +157,4 @@ const mapDispatchToProps = (dispatch) => {
   const {companyUpdate, companyCreate} = actions;
   return bindActionCreators({companyUpdate, companyCreate}, dispatch)
 }
-export default connect(mapStateToProps, mapDispatchToProps )(CompanyCreateScreen);
+export default connect(mapStateToProps, actions )(CompanyCreateScreen);
