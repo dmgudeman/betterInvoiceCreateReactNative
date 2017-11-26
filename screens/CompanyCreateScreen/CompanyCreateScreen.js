@@ -46,6 +46,7 @@ class CompanyCreateScreen extends Component {
 
     console.log('COMPANYCREATE SCREEN ONSUBMIT payload', payload);
     companyCreate(payload);
+    this.props.navigation.navigate('companies', { ButtonDisabled: false})
   }
 
   render() {

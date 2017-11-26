@@ -4,29 +4,23 @@ import _ from 'lodash';
 import { Button } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 
-import { View, Text, ListView, FlatList } from 'react-native';
+import { View, Text, ListView, FlatList, TouchableOpacity } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import * as actions from '../actions';
 import ListItem from '../components/ListItem'
-
-class CompaniesScreen extends Component {
   
+class CompaniesScreen extends Component {
   componentWillMount() {
     this.props.fetchCompanies(this.props.fUserId)
-    // console.log('CompaniesScreen componentWillMount this.props', this.props);
+   
   }
   componentDidMount() {
     this.props.fetchCompanies(this.props.fUserId)
-    // console.log('CompaniesScreen componentWillMount this.props', this.props);
   }
-  // goToCompanyCreate =  () =>  {
-
-
-  //   navigation.navigate('companyCreate'); 
-  // }
   
-
   renderItem =({item, index})=> {
+
+    this.toggleButton = false
     // console.log('CompaniesScreen renderItem  this.props.index =', this.props.companies);
     // console.log('COMPANIESSCREEN renderItem item, item.id, index', item, item.id, index);
     return  (
@@ -40,14 +34,13 @@ class CompaniesScreen extends Component {
     headerRight:
         <Button
           title= "+Business"
-          onPress={()=>{navigation.navigate('companyCreate')}}
+          onPress= {()=>{
+             navigation.navigate('companyCreate')
+            }
+          }
         />
     }
   }
-  // _keyExtractor = () =>  (item, index) => {
-  //   console.log('COMPANIESSCREEN keyExtractor item, index', item,index);
-  //   return index;
-  // }
   render() {
     // console.log('CompaniesScreen render  this.props.companies =', this.props.companies);
     const navigation = this.props.navigation
@@ -69,10 +62,11 @@ const mapStateToProps = state => {
   const companies = _.map(state.companies.companies, (val, id) => {
     return { ...val, id};
   });
-
+  const ButtonDisabled = false
   return {
     fUserId: state.auth.fUserId,
-    companies
+    companies,
+    ButtonDisabled
   }
 }
 

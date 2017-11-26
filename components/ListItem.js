@@ -19,7 +19,8 @@ class ListItem extends Component {
       <Card color={this.props.company.color}>
         <CardSection>
           <View style={ styles.headerContentStyle}>
-            <Text style={styles.headerTextStyle} onPress={() => { navigate('companyEdit')} }>{ this.props.company.name }</Text>
+            <Text style={styles.headerTextStyle} onPress={() => 
+              { navigate('companyEdit',  {company: this.props.company})} }>{ this.props.company.name }</Text>
           </View>
         </CardSection>
         <CardSection>
