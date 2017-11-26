@@ -87,28 +87,34 @@ class CompanyEditScreen extends Component {
  
 
 const mapStateToProps = (state) => {
-  console.log('COMPANYEDIT MAPSTATETOPROPS state', state);
-  const paymentTermsOptionsList = [{option: ''}, {option: "30"}, {option: "15"}, {option: "5"}] ;
-  const colorOptionsList = [{option:'blue', option:'green'},{option:'yellow'}, {option: 'purple'},{option: 'brown'},{option: 'red'}]
-  const active = state.companies.active || true;
+  console.log('COMPANYEDIT MAPSTATETOPROPS state.companies.company', state.companies.company);
+  console.log('xxxxxxxxxxxxxxxxx', state.companies.company === undefined  );
+  console.log(state);
+  if (state.companies.company) {
+    // console.log('COMPANYEDIT MAPSTATETOPROPS state.companies.company.active', state.companies.company.active);
+    const paymentTermsOptionsList = [{option: ''}, {option: "30"}, {option: "15"}, {option: "5"}] ;
+    const colorOptionsList = [{option:'blue', option:'green'},{option:'yellow'}, {option: 'purple'},{option: 'brown'},{option: 'red'}]
+    const active = state.companies.company.active || true;
 
-  const companyKey = state.companies.key || '';
-  const address = state.companies.address || '';
-  const location = state.location || null;
+    const companyKey = state.companies.company.companyKey || '';
+    const address = state.companies.company.address || '';
+    const location = state.location || null;
 
-  const color = state.companies.color || 'blue';
-  const fUserId = state.auth.fUserId || '';
-  const hourly = state.companies.hourly || '';
-  const name = state.companies.name || '';
-  const paymentTerms = state.companies.paymentTerms || '30';
-  const userId = state.auth.userId || '';
-  console.log('COMPANYEDITSCREEN MAPSTATETOPROPS props', paymentTermsOptionsList, colorOptionsList, 
-  companyKey, active, address, location, color, 
-  fUserId, hourly, name, paymentTerms, userId);
-  
-  return { paymentTermsOptionsList, colorOptionsList, 
-           companyKey, active, address, location, color, 
-           fUserId, hourly, name, paymentTerms, userId };
+    const color = state.companies.company.color || 'blue';
+    const fUserId = state.auth.fUserId || '';
+    const hourly = state.companies.company.hourly || '';
+    const name = state.companies.company.name || '';
+    const paymentTerms = state.companies.company.paymentTerms || '30';
+    const userId = state.auth.userId || '';
+    console.log('COMPANYEDITSCREEN MAPSTATETOPROPS props', paymentTermsOptionsList, colorOptionsList, 
+    companyKey, active, address, location, color, 
+    fUserId, hourly, name, paymentTerms, userId);
+    
+    return { paymentTermsOptionsList, colorOptionsList, 
+            companyKey, active, address, location, color, 
+            fUserId, hourly, name, paymentTerms, userId };
+  }
+  return state;
 } 
 const mapDispatchToProps = (dispatch) => {
   const {companyUpdate, companyEdit} = actions;
