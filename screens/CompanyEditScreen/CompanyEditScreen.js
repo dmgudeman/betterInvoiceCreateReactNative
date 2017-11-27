@@ -57,7 +57,7 @@ class CompanyEditScreen extends Component {
         <TouchableOpacity>
         <FormInput 
           value={this.props.paymentTerms}
-          onFocus={() => { navigation.navigate('myPicker',{prop:'paymentTerms', value: this.props.paymentTerms, optionsList: this.props.paymentTermsOptionsList} )}}
+          onFocus={() => { this.props.navigation.navigate('myPicker',{prop:'paymentTerms', value: this.props.paymentTerms, optionsList: this.props.paymentTermsOptionsList} )}}
           editable={true}
         />
         </TouchableOpacity>
@@ -65,7 +65,7 @@ class CompanyEditScreen extends Component {
         <TouchableOpacity>
         <FormInput 
           value={this.props.color}
-          onFocus={() => { navigation.navigate('myPicker',{ prop:'color', value: this.props.color, optionsList: this.props.colorOptionsList} )}}
+          onFocus={() => { this.props.navigation.navigate('myPicker',{ prop:'color', value: this.props.color, optionsList: this.props.colorOptionsList} )}}
           editable={true}
         />
         </TouchableOpacity>
