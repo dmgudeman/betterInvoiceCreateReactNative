@@ -22,7 +22,8 @@ class CompanyEditScreen extends Component {
     this.props.companyUpdate('color', color);
     this.props.companyUpdate('hourly', hourly);
     this.props.companyUpdate('address', address);
-    console.log('COMPANYEDITSCREEN COMPONENETWILLMOUNT props object', {address, color, fUserId, hourly,id, name, paymentTerms }  );
+    this.props.companyUpdate('companyKey', id)
+    console.log('COMPANYEDITSCREEN COMPONENETWILLMOUNT props object', {address, color, fUserId, hourly, companyKey, name, paymentTerms }  );
   }
   onSubmit(props, companyEditSubmit) {
     console.log('COMPANYEdit SCREEN ONSUBMIT props', props)
@@ -88,7 +89,8 @@ class CompanyEditScreen extends Component {
         </TouchableOpacity>  
         <Button
           title= "Submit"
-          onPress =  {() => this.onSubmit(this.props, this.props.companyCreate) }
+          // onPress =  {() => this.onSubmit(this.props, this.props.companyEditSubmit) }
+          onPress =  {() => console.log('COMPANYEDITSCREEN SUBMIT BUTTON this.props', this.props)}
         />
       </View>
     )
@@ -106,7 +108,7 @@ const mapStateToProps = (state) => {
     const colorOptionsList = [{option:'blue', option:'green'},{option:'yellow'}, {option: 'purple'},{option: 'brown'},{option: 'red'}]
     const active = state.companies.active || true;
 
-    const companyKey = state.companiesKey || '';
+    const companyKey = state.companies.companyKey || '';
     const address = state.companies.address || '';
     const location = state.location || null;
 
@@ -126,8 +128,8 @@ const mapStateToProps = (state) => {
   }
   return state;
 } 
-const mapDispatchToProps = (dispatch) => {
-  const {companyUpdate, companyEditSubmit} = actions;
-  return bindActionCreators({companyUpdate, companyEditSubmit}, dispatch)
-}
+// const mapDispatchToProps = (dispatch) => {
+//   const {companyUpdate, companyEditSubmit} = actions;
+//   return bindActionCreators({companyUpdate, companyEditSubmit}, dispatch)
+// }
 export default connect(mapStateToProps, actions )(CompanyEditScreen);
