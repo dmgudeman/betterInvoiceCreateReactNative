@@ -38,7 +38,8 @@ class CompanyEditScreen extends Component {
     }
 
     console.log('COMPANYEdit SCREEN ONSUBMIT payload', payload);
-    companyEditSubmit(payload);
+    console.log('COMPANYEdit SCREEN ONSUBMIT companyEditSubmit', companyEditSubmit);
+    this.props.companyEditSubmit(payload);
   }
   
   render() {
@@ -89,8 +90,8 @@ class CompanyEditScreen extends Component {
         </TouchableOpacity>  
         <Button
           title= "Submit"
-          // onPress =  {() => this.onSubmit(this.props, this.props.companyEditSubmit) }
-          onPress =  {() => console.log('COMPANYEDITSCREEN SUBMIT BUTTON this.props', this.props)}
+          onPress =  {() => this.onSubmit(this.props, this.props.companyEditSubmit) }
+          // onPress =  {() => console.log('COMPANYEDITSCREEN SUBMIT BUTTON this.props', this.props)}
         />
       </View>
     )

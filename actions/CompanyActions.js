@@ -65,8 +65,13 @@ export const companyUpdate = (prop, value)=> {
   };
 }
 
-export const companyEditSubmit = () => {
-  console.log('companyEditSubmit');
+export const companyEditSubmit = (payload) => {
+
+  console.log('companyEditSubmit', payload);
+  return {
+    type: COMPANY_EDIT_SUBMIT,
+    payload: 'Hi there'
+  }
 }
 
   
