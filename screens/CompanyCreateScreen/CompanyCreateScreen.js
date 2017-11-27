@@ -21,6 +21,14 @@ import { MyPicker  }            from '../../components/MyPicker/MyPicker';
 import AddressInput             from '../../components/AddressInput/AddressInput';
 
 class CompanyCreateScreen extends Component {
+
+  componentWillMount() {
+    this.props.companyUpdate('name', '');
+    this.props.companyUpdate('paymentTerms', '');
+    this.props.companyUpdate('color', 'blue');
+    this.props.companyUpdate('hourly', '');
+    this.props.companyUpdate('address', '');
+  }
   paymentTermsOptionsList =''
   constructor(props) {
     super(props);
