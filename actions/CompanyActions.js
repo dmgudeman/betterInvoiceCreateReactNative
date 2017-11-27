@@ -9,6 +9,7 @@ import {
   SELECT_ITEM,
   COMPANY_UPDATE,
   COMPANY_CREATE,
+  COMPANY_EDIT_SUBMIT,
   
 } from './types';
 
@@ -62,6 +63,10 @@ export const companyUpdate = (prop, value)=> {
     type: COMPANY_UPDATE,
     payload: { prop, value}
   };
+}
+
+export const companyEditSubmit = () => {
+  console.log('companyEditSubmit');
 }
 
   

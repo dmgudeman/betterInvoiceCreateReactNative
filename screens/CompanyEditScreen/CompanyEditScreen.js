@@ -24,7 +24,7 @@ class CompanyEditScreen extends Component {
     this.props.companyUpdate('address', address);
     console.log('COMPANYEDITSCREEN COMPONENETWILLMOUNT props object', {address, color, fUserId, hourly,id, name, paymentTerms }  );
   }
-  onSubmit(props, companyEdit) {
+  onSubmit(props, companyEditSubmit) {
     console.log('COMPANYEdit SCREEN ONSUBMIT props', props)
     let payload = {
       name:props.name, 
@@ -37,7 +37,7 @@ class CompanyEditScreen extends Component {
     }
 
     console.log('COMPANYEdit SCREEN ONSUBMIT payload', payload);
-    companyEdit(payload);
+    companyEditSubmit(payload);
   }
   
   render() {
@@ -127,7 +127,7 @@ const mapStateToProps = (state) => {
   return state;
 } 
 const mapDispatchToProps = (dispatch) => {
-  const {companyUpdate, companyEdit} = actions;
-  return bindActionCreators({companyUpdate, companyEdit}, dispatch)
+  const {companyUpdate, companyEditSubmit} = actions;
+  return bindActionCreators({companyUpdate, companyEditSubmit}, dispatch)
 }
 export default connect(mapStateToProps, actions )(CompanyEditScreen);

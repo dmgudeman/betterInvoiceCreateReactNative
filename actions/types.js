@@ -7,6 +7,7 @@ export const FACEBOOK_LOGIN_FAIL = 'facebook_login_fail';
 export const FETCH_COMPANIES_SUCCESS ='fetch_companies_success';
 export const COMPANY_UPDATE = 'COMPANY_UPDATE';
 export const COMPANY_CREATE = 'COMPANY_CREATE';
+export const COMPANY_EDIT_SUBMIT = 'COMPANY_EDIT_SUBMIT';
 
 export const ITEM_CREATE = 'item_create';
 export const ITEM_EDIT = 'ITEM_EDIT';
