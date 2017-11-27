@@ -16,7 +16,6 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state,  companies: action.payload}
     case COMPANY_UPDATE:{
       console.log('COMPANIESREDUCER COMPANY_UPDATE action', action);
-      console.log('COMPANIESREDUCER COMPANY_UPDATE !state.companies.company',!state.companies.company);
       return Object.assign({}, state, {[action.payload.prop]: action.payload.value});
   }
     case COMPANY_CREATE:{
