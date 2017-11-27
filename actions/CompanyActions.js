@@ -65,12 +65,16 @@ export const companyUpdate = (prop, value)=> {
   };
 }
 
-export const companyEditSubmit = (payload) => {
-
-  console.log('companyEditSubmit', payload);
+export const companyEditSubmit = (company) => {
+  let payload = { ...company };
+  console.log('Company ACTIONS Company_CREATE payload', payload);
+  console.log('xxxxxxxxxxxxxxxxxxxx'+'/users/'+ payload.fUserId + '/companies/'+ payload.companyKey);
+  let updates = {};
+  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey] = payload;
+  firebase.database().ref().update(updates);
   return {
     type: COMPANY_EDIT_SUBMIT,
-    payload: 'Hi there'
+    payload
   }
 }
 
