@@ -61,41 +61,47 @@ class CompanyCreateScreen extends Component {
      <View>
          <FormLabel>Name</FormLabel>
         <TouchableOpacity>
-        <FormInput 
-          value={this.props.name}
-          onChangeText={(value) => this.props.companyUpdate('name', value)}
-        />
+          <FormInput 
+            value={this.props.name}
+            onChangeText={(value) => this.props.companyUpdate('name', value)}
+          />
         </TouchableOpacity> 
+
         <FormLabel>Hourly</FormLabel> 
         <TouchableOpacity>
-        <FormInput 
-          value={this.props.hourly}
-          onChangeText={(value) => this.props.companyUpdate('hourly', value)}
-        />
+          <FormInput 
+            value={this.props.hourly}
+            onChangeText={(value) => this.props.companyUpdate('hourly', value)}
+          />
         </TouchableOpacity>  
+
         <FormLabel>Payment Terms</FormLabel>
         <TouchableOpacity>
-        <FormInput 
-          value={this.props.paymentTerms}
-          onFocus={() => { navigation.navigate('myPicker',{prop:'paymentTerms', value: this.props.paymentTerms, optionsList: this.props.paymentTermsOptionsList} )}}
-          editable={true}
-        />
+          <FormInput 
+            value={this.props.paymentTerms}
+            onFocus={() => { navigation.navigate('myPicker',{prop:'paymentTerms', value: this.props.paymentTerms, optionsList: this.props.paymentTermsOptionsList} )}}
+            editable={true}
+          />
         </TouchableOpacity>
+
         <FormLabel>Color</FormLabel>
         <TouchableOpacity>
-        <FormInput 
-          value={this.props.color}
-          onFocus={() => { navigation.navigate('myPicker',{ prop:'color', value: this.props.color, optionsList: this.props.colorOptionsList} )}}
-          editable={true}
-        />
+          <FormInput 
+            value={this.props.color}
+            onFocus={() => { navigation.navigate('myPicker',{ prop:'color', value: this.props.color, optionsList: this.props.colorOptionsList} )}}
+            editable={true}
+          />
         </TouchableOpacity>
+
         <FormLabel>Address</FormLabel> 
         <TouchableOpacity>
-        <FormInput 
-          value={this.props.address}
-          onChangeText={(value) => this.props.companyUpdate('address', value)}
-        />
-        </TouchableOpacity>  
+          <FormInput 
+            value={this.props.address}
+            onFocus={() => { this.props.navigation.navigate('googlePlacesInput', {address:this.props.address})}}
+            editable={true}
+          />
+        </TouchableOpacity>   
+        
         <Button
           title= "Submit"
           onPress =  {() => this.onSubmit(this.props, this.props.companyCreate) }

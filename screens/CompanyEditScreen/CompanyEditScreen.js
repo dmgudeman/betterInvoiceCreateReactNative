@@ -78,6 +78,7 @@ class CompanyEditScreen extends Component {
           editable={true}
         />
         </TouchableOpacity>
+        
         <FormLabel>Address</FormLabel> 
         <TouchableOpacity>
         <FormInput 
