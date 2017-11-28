@@ -29,19 +29,18 @@ class CompanyCreateScreen extends Component {
     this.props.companyUpdate('hourly', '');
     this.props.companyUpdate('address', '');
   }
-  paymentTermsOptionsList =''
-  constructor(props) {
-    super(props);
-    this.state = {language: ''};
+  // paymentTermsOptionsList =''
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {language: ''};
     
-  }
+  // }
   static navigationOptions = ({ navigation }) => {
     return {
     title: 'New Company',
     }
   }
   onSubmit(props, companyCreate) {
-    console.log('COMPANYCREATE SCREEN ONSUBMIT props', props);
     let payload = {
       name:props.name, 
       color:props.color, 
@@ -52,18 +51,12 @@ class CompanyCreateScreen extends Component {
       companyKey: props.companyKey
     }
 
-    console.log('COMPANYCREATE SCREEN ONSUBMIT payload', payload);
     companyCreate(payload);
     this.props.navigation.navigate('companies', { ButtonDisabled: false})
   }
 
   render() {
     const navigation = this.props.navigation
-    console.log('COMPANYCREATE SCREEN RENDER this.props', this.props);
-    console.log('COMPANYCREATE SCREEN RENDER this.props.companyUpdate', this.props.companyUpdate);
-    // console.log('COMPANYCREATE RENDER this.props.paymentTermsOptionsList', this.props.paymentTermsOptionsList);
-    // let name = "name"
-    // let color = "color"
     return (
      <View>
          <FormLabel>Name</FormLabel>
@@ -113,13 +106,6 @@ class CompanyCreateScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   // backgroundColor: '#F5FCFF',
-  // },
-
   formLabel: {
     fontSize: 20,
     fontWeight: "600",

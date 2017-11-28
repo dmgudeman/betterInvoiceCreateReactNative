@@ -16,6 +16,7 @@ import ListItem from '../components/ListItem';
 import TestScreen from '../screens/TestScreen';
 import MyDatePicker from '../components/MyDatePicker';
 import MyPicker from '../components/MyPicker/MyPicker';
+import GooglePlacesInput from '../components/GooglePlacesInput';
 
 
 export default StackNavigator(
@@ -38,6 +39,7 @@ export default StackNavigator(
     },
     datePicker:    { screen: MyDatePicker },
     myPicker:      { screen: MyPicker },
+    googlePlacesInput: {screen: GooglePlacesInput}
   },
   // {
   //   mode: 'modal',

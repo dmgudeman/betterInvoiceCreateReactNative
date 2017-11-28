@@ -9,6 +9,8 @@ import {
 }                               from 'react-native-elements';
 import { connect, connectAdvanced } from 'react-redux';
 import * as actions from '../../actions';
+import GooglePlacesInput from '../../components/GooglePlacesInput';
+import styles from './styles';
 
 class CompanyEditScreen extends Component {
   
@@ -43,12 +45,7 @@ class CompanyEditScreen extends Component {
   }
   
   render() {
-    console.log('CompanyEditScreen render this.props', this.props);
-    if (this.props.company === undefined) console.log('RENDER THIS.PROPS.COMPANY IS UNDEFINED');
-    if (this.props.company){
-    console.log('CompanyEditScreen render this.props.company', this.props.company);
-    console.log('CompanyEditScreen render this.props.company.name', this.props.company.name);
-    }
+    // console.log('CompanyEditScreen render this.props', this.props);
     return (
       <View>
          <FormLabel>Name</FormLabel>
@@ -85,14 +82,29 @@ class CompanyEditScreen extends Component {
         <TouchableOpacity>
         <FormInput 
           value={this.props.address}
-          onChangeText={(value) => this.props.companyUpdate('address', value)}
+          onFocus={() => { this.props.navigation.navigate('googlePlacesInput', {address:this.props.address})}}
+          editable={true}
         />
         </TouchableOpacity>  
+        
+        {/* <FormLabel>Address</FormLabel> 
+        <TouchableOpacity>
+          
+        <FormInput 
+          value={this.props.address}
+          onChangeText={(value) => this.props.companyUpdate('address', value)}
+        />
+        </TouchableOpacity>   */}
         <Button
           title= "Submit"
           onPress =  {() => this.onSubmit(this.props, this.props.companyEditSubmit) }
           // onPress =  {() => console.log('COMPANYEDITSCREEN SUBMIT BUTTON this.props', this.props)}
-        />
+        /> 
+        {/* <Button
+          title= "location"
+          onPress =  {() => { this.props.navigation.navigate('googlePlacesInput')}}
+          // onPress =  {() => console.log('COMPANYEDITSCREEN SUBMIT BUTTON this.props', this.props)}
+        /> */}
       </View>
     )
   }
