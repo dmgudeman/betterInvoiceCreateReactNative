@@ -8,15 +8,26 @@ import { View, Text, ListView, FlatList, TouchableOpacity } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import * as actions from '../actions';
 import ListItem from '../components/ListItem'
+
+function goToCreateCompany(){
   
+    console.log('NAVIGATIONOPTIONS this.ButtonDisbled', this.ButtonDisabled);
+    // this.props.companyUpdate('ButtonDisabled', true);
+     navigation.navigate('companyCreate', {ButtonDisabled})
+  
+}
+
 class CompaniesScreen extends Component {
   componentWillMount() {
     this.props.fetchCompanies(this.props.fUserId)
-   
+    console.log('COMPANIESSCREEN COMPONENTWILLMOUNT this.props', this.props);
+    
+    
   }
   componentDidMount() {
     this.props.fetchCompanies(this.props.fUserId)
   }
+  
   
   renderItem =({item, index})=> {
 
@@ -34,10 +45,7 @@ class CompaniesScreen extends Component {
     headerRight:
         <Button
           title= "+Business"
-          onPress= {()=>{
-             navigation.navigate('companyCreate')
-            }
-          }
+          onPress= {console.log('IN NAVIGATIONOPTIONS', navigation) }
         />
     }
   }
@@ -50,7 +58,6 @@ class CompaniesScreen extends Component {
           data = {this.props.companies}
           renderItem={this.renderItem}
           keyExtractor={(item) => item.id}
-
         />
       </View>
     )

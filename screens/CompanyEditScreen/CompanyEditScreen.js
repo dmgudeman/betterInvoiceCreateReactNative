@@ -42,6 +42,7 @@ class CompanyEditScreen extends Component {
     console.log('COMPANYEdit SCREEN ONSUBMIT payload', payload);
     console.log('COMPANYEdit SCREEN ONSUBMIT companyEditSubmit', companyEditSubmit);
     this.props.companyEditSubmit(payload);
+    this.props.navigation.navigate(this.props.navigation.navigate('companies', {address:this.props.address}))
   }
   
   render() {

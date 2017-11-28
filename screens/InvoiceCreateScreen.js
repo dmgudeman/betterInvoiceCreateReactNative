@@ -142,6 +142,11 @@ class InvoiceCreateScreen extends Component {
           title= "Submit"
           onPress =  {this.onSubmit }
         />
+
+        <Button
+          title= "To WebView"
+          onPress ={ () => this.props.navigation.navigate('myWebView') }
+        />
       </View>
     )
   }

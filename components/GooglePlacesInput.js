@@ -13,7 +13,7 @@ const pickedProp = ''
 class GooglePlacesInput extends Component {
 
   componentWillMount() {
-    const {address} = this.props.navigation.state.params;  
+    const {address, ButtonDisabled} = this.props.navigation.state.params;  
     this.props.companyUpdate('address', address);
     console.log('GOOGLEPLACESINPUT COMPONENTWILLMOUNT this.props', this.props);
     }
@@ -28,12 +28,12 @@ class GooglePlacesInput extends Component {
       fetchDetails={true}
       renderDescription={row => row.description} // custom description render
       onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-        console.log(data, details);
-        this.props.companyUpdate( 'address', value );
+        console.log('IN GOOGLEPLACESINPUT', data.desciption, details);
+        this.props.companyUpdate( 'address', data.description);
       }}
       
       getDefaultValue={() => ''}
-      
+    
       query={{
         // available options: https://developers.google.com/places/web-service/autocomplete
         key: 'AIzaSyBWljFaxAI4nKp41Tihi3CnTpjsqiTY5Ik',

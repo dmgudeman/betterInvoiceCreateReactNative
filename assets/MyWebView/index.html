@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>title</title>
+  <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  </head>
+  <body>
+ <div id="root">
+    <!-- This element's contents will be replaced with your component. -->
+  </div> 
+<script type="text/babel">
+	console.log(window);
+  console.log(ReactDOM);
+  
+	ReactDOM.render(
+		<h1>Hello, world!</h1>,
+  		document.getElementById('root')
+	);
+</script>
+  </body>
+</html>
