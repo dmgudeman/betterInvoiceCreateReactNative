@@ -25,12 +25,12 @@ class WVContainer extends Component {
   }
 
   onMessage( event ) {
-    console.log( "REACTNATIVE onMessage  event.nativeEvent.data ", event.nativeEvent.data );
+    console.log( "REACTNATIVEEEEEEEEEEEEEEEEEEEonMessage  event.nativeEvent.data ", event.nativeEvent.data );
   }
 
   sendPostMessage() {
     console.log( "REACTNATIVE sendPostMessage this.props.coName", `${this.props.coName}` );
-    this.webView.postMessage( `${this.props.coName}`, {prop:'coName'} );
+    this.webView.postMessage( `${this.props.coName}`);
   }
   sendPostMessage2() {
     console.log( "REACTNATIVE sendPostMessage this.props.description", `${this.props.description}` );
@@ -46,7 +46,7 @@ class WVContainer extends Component {
         <WebView
           // source={{uri: 'https://github.com/facebook/react-native'}}
           ref={webView => {this.webView = webView; }}
-          onMessage={() =>this.onMessage()}
+          onMessage={() =>this.onMessage}
           source={ webapp}
           style={styles.webview}
           javaScriptEnabled={true}
@@ -70,7 +70,7 @@ class WVContainer extends Component {
           `
         }
         />
-        <TouchableHighlight style={{padding: 10, backgroundColor: 'blue', marginTop: 20}} onPress={() => this.sendPostMessage()}>
+        <TouchableHighlight style={{padding: 10, backgroundColor: 'blue', marginTop: 20}} onPress={() => this.sendPostMessage2()}>
           <Text style={{color: 'white', fontSize: 45}}>Send post message from react native</Text>
         </TouchableHighlight>
        </View>
