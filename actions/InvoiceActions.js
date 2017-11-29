@@ -14,7 +14,7 @@ export const invoiceEdit = ({beginDate, companyKey, coName, createdAt, descripti
   
   let payload = { beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total}
   payload.createdAt = moment(payload.createdAt).format();
-  console.log('InvoiceActions invoiceEdit payload', payload);
+  // console.log('InvoiceActions invoiceEdit payload', payload);
  
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey] = payload;
@@ -37,7 +37,7 @@ export const invoiceUpdate = (prop, value)=> {
 }
 
 export const selectInvoice = (invoice) => {
-  console.log('InvoiceACTIONS selectInvoice invoice', invoice);
+  // console.log('InvoiceACTIONS selectInvoice invoice', invoice);
   return {
     type: SELECT_INVOICE,
     invoice

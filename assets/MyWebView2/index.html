@@ -31,40 +31,44 @@
   <body>
   
   <button style="height:10%; width: 100%; font-size: 12;">Send post message from web</button>
+<div id='container'>
   <div>Post message log</div>
+  <div id="description"></div>
   <textarea style="height: 50%; width: 100%; font-size: 12" readonly></textarea>
-  <div>{this.props.description}</div>
-  
+</div>  
   <script>
 
   // this populates the textArea with the log object
-  var log = document.querySelector("textarea");
+  // var log = document.querySelector("textarea");
+  var log = document.getElementById("container")
+  var description = document.getElementById("description")
   
   // event emitter
-  document.querySelector("button").onclick = function() {
-      console.log("Send post message");
+  // document.querySelector("button").onclick = function() {
+  //     console.log("Send post message");
       
-      // logMessage goes to the textArea
-      logMessage("[IN INDEX.HTML document.querySelector('button').onclick] => Sending post message from web..");
+  //     // logMessage goes to the textArea
+  //     logMessage("[WEBVIEW] => Sending post message from web..");
       
-      // window.postMessage goes to the RN MyWebView parent 
-      window.postMessage("[In index.html document.querySelector('button').onclick] =>  Post message from web", "*");
-  }
+  //     // window.postMessage goes to the RN MyWebView parent 
+  //     window.postMessage("[WEBVIEW] =>  Post message from web", "*");
+  // }
   
   document.addEventListener("message", function(event) {
-      console.log("Received post message", event);
+      console.log("[WEBVIEW document.addEventListener event", event);
   
       logMessage(event.data);
   }, false);
-  window.addEventListener("message", function(event) {
-      console.log("Received post message", event);
-  
-      logMessage(event.data);
-  }, false);
+  // window.addEventListener("message", function(event) {
+  //     console.log("[WEBVIEW window.addEventListener event", event);
+  //     logMessage(event.data);
+  // }, false);
   
   // appends the log object with a date
   function logMessage(message) {
-      log.append((new Date()) + " " + message + "\n");
+      console.log("[WEBVIEW logMessage", message);
+
+      log.append(message + "\n");
   }
   
   </script>

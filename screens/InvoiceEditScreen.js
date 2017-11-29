@@ -24,7 +24,7 @@ class invoiceEditScreen extends Component {
   
   componentWillMount() {
     // const {dispatch} = this.props
-    console.log('invoiceEditScreen componentWillMount this.props ', this.props);
+    // console.log('invoiceEditScreen componentWillMount this.props ', this.props);
   }
   onSubmit = () => {
     // console.log('InvoiceEditScreen onSubmit this.props', this.props);
@@ -33,7 +33,7 @@ class invoiceEditScreen extends Component {
     const formatDate = moment(createdAt).format();
     this.props.invoiceUpdate('createdAt', formatDate);
    
-    console.log('INVOICEEDIT onSubmit',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total );
+    // console.log('INVOICEEDIT onSubmit',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total );
     this.props.invoiceEdit({  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId,  invoiceKey, total})
     this.props.navigation.goBack();
   }
@@ -59,7 +59,7 @@ class invoiceEditScreen extends Component {
         <FormInput 
           value={this.props.discount}
           onChangeText={(input) => { 
-              console.log('invoiceEdit coName input', input);
+              // console.log('invoiceEdit coName input', input);
               this.props.invoiceUpdate('coName', value)
             }
           }
@@ -84,7 +84,7 @@ class invoiceEditScreen extends Component {
           title= "To WebView2"
           onPress = { () =>{
             let description = this.props.description 
-            this.props.navigation.navigate('myWebView2',{invoice: {description}})
+            this.props.navigation.navigate('wvContainer',{invoice: {description}})
            }
           }
         />

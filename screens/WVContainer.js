@@ -7,36 +7,37 @@ const webapp = require('../assets/MyWebView2/index.html');
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
-class MyWebView2 extends Component {
+class WVContainer extends Component {
 
   constructor( props ) {
     super( props );
-
     this.webView = null;
-}
-componentWillMount() {
-  let navigator = this.props.navigation.state.params;
-   
-  console.log('MYWEBVIEW2 COMPONENTWILLMOUNT navigator.description', navigator.description);
-  console.log('MYWEBVIEW2 COMPONENTWILLMOUNT navigator', navigator);
-  const invoice = navigator.invoice;
-  this.props.companyUpdate('invoice', invoice);
-  console.log('MYWEBVIEW2 COMPONENTWILLMOUNT this.props', this.props);
-}
+  }
 
-onMessage( event ) {
-    console.log( "(Method in MyWebView2) On Message", event.nativeEvent.data );
-}
+  componentWillMount() {
+    let navigator = this.props.navigation.state.params;
+    
+    // console.log('WVContainer COMPONENTWILLMOUNT navigator.description', navigator.description);
+    // console.log('WVContainer COMPONENTWILLMOUNT navigator', navigator);
+    const invoice = navigator.invoice;
+    this.props.companyUpdate('invoice', invoice);
+    // console.log('WVContainer COMPONENTWILLMOUNT this.props', this.props);
+  }
 
-sendPostMessage() {
-    console.log( "Sending post message this.props", this.props );
-    this.webView.postMessage( `THTHTHTHTH" ${this.props.description}` );
-}
+  onMessage( event ) {
+    console.log( "REACTNATIVE onMessage  event.nativeEvent.data ", event.nativeEvent.data );
+  }
+
+  sendPostMessage() {
+    console.log( "REACTNATIVE sendPostMessage this.props", this.props );
+    this.webView.postMessage( `<div>THTHTHTHTH" ${this.props.description} ${this.props.coName}</div>` );
+  }
 
   render() {
     // this.webview.postMessage("Hello from RN");
    
     return (
+
       <View style={{flex:1, alignItems: 'flex-end'}}> 
         <WebView
           // source={{uri: 'https://github.com/facebook/react-native'}}
@@ -48,6 +49,9 @@ sendPostMessage() {
           domStorageEnabled={true}
           startInLoadingState={true}
           scalesPageToFit={true}
+          onLoad={()=>this.sendPostMessage}
+          // injectedJavaScript={`THTHTHTHTH" ${this.props.description} ${this.props.coName}`}
+          injectedJavaScript={"INJECTEDJAVASCRIPTTTTTTTTTTTTTT Hello from RN"}
           
         />
         <TouchableHighlight style={{padding: 10, backgroundColor: 'blue', marginTop: 20}} onPress={() => this.sendPostMessage()}>
@@ -59,16 +63,17 @@ sendPostMessage() {
 }
 
 const MapStateToProps = (state) => {
-  console.log('MYWEBVIEW2 MAPSTATETOPROPS state', state);
-  if (state.companies){
-  const description = state.companies.description || '';
-  return { description }
+  // console.log('WVContainer MAPSTATETOPROPS state', state);
+  if (state.invoice){
+    const description = state.invoice.description || '';
+    const coName = state.invoice.coName || '';
+    return { coName, description }
   } else {
     return state
   }
 }
 
-export default connect(MapStateToProps, actions)(MyWebView2);
+export default connect(MapStateToProps, actions)(WVContainer);
 
 const styles = {
   webview: {

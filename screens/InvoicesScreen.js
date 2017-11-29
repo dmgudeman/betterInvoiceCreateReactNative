@@ -30,7 +30,7 @@ componentWillMount() {
   }
 
   renderItem =(invoice)=> {
-    console.log('invoicesScreen renderItem invoice', invoice);
+    // console.log('invoicesScreen renderItem invoice', invoice);
 
     const data = this.props.invoices[invoice.index];
     // console.log('invoicesScreen renderinvoice data', data);
@@ -48,7 +48,7 @@ componentWillMount() {
   // }
 
   render() {
-    console.log('INVOICES SCREEN render this.props.invoices', this.props.invoices);
+    // console.log('INVOICES SCREEN render this.props.invoices', this.props.invoices);
     return (
         <FlatList 
           data = {this.props.invoices}
