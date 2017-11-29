@@ -38,12 +38,11 @@ class CompaniesScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
     title: 'Companies',
-    headerLeft: null,
     headerRight:
-      <Button
-        title= "+Business"
-        onPress= {navigation.navigate('companyCreate')}
-      />
+        <Button
+          title= "+Business"
+          onPress={()=>{navigation.navigate('companyCreate')}}
+        />
     }
   }
   render() {
