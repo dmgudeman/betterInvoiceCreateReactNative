@@ -19,8 +19,8 @@ componentWillMount() {
    
   console.log('MYWEBVIEW2 COMPONENTWILLMOUNT navigator.description', navigator.description);
   console.log('MYWEBVIEW2 COMPONENTWILLMOUNT navigator', navigator);
-  const description = navigator.description;
-  this.props.companyUpdate('description', description);
+  const invoice = navigator.invoice;
+  this.props.companyUpdate('invoice', invoice);
   console.log('MYWEBVIEW2 COMPONENTWILLMOUNT this.props', this.props);
 }
 
