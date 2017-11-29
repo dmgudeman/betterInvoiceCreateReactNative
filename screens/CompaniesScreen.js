@@ -42,7 +42,7 @@ class CompaniesScreen extends Component {
     headerRight:
       <Button
         title= "+Business"
-        onPress= {console.log('IN NAVIGATIONOPTIONS', navigation) }
+        onPress= {navigation.navigate('companyCreate')}
       />
     }
   }
