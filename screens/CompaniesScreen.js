@@ -11,7 +11,7 @@ import ListItem from '../components/ListItem'
 
 function goToCreateCompany(){
   
-    console.log('NAVIGATIONOPTIONS this.ButtonDisbled', this.ButtonDisabled);
+    // console.log('COMPANIESSCREEN NAVIGATIONOPTIONS this.ButtonDisbled', this.ButtonDisabled);
     // this.props.companyUpdate('ButtonDisabled', true);
      navigation.navigate('companyCreate', {ButtonDisabled})
   
@@ -20,22 +20,19 @@ function goToCreateCompany(){
 class CompaniesScreen extends Component {
   componentWillMount() {
     this.props.fetchCompanies(this.props.fUserId)
-    console.log('COMPANIESSCREEN COMPONENTWILLMOUNT this.props', this.props);
-    
-    
+    // console.log('COMPANIESSCREEN COMPONENTWILLMOUNT this.props', this.props);
   }
+
   componentDidMount() {
     this.props.fetchCompanies(this.props.fUserId)
   }
   
-  
   renderItem =({item, index})=> {
-
     this.toggleButton = false
     // console.log('CompaniesScreen renderItem  this.props.index =', this.props.companies);
     // console.log('COMPANIESSCREEN renderItem item, item.id, index', item, item.id, index);
     return  (
-    <ListItem company={item} navigation={this.props.navigation}/>
+      <ListItem company={item} navigation={this.props.navigation}/>
     )
   }
   static navigationOptions = ({ navigation }) => {
@@ -43,10 +40,10 @@ class CompaniesScreen extends Component {
     title: 'Companies',
     headerLeft: null,
     headerRight:
-        <Button
-          title= "+Business"
-          onPress= {console.log('IN NAVIGATIONOPTIONS', navigation) }
-        />
+      <Button
+        title= "+Business"
+        onPress= {console.log('IN NAVIGATIONOPTIONS', navigation) }
+      />
     }
   }
   render() {

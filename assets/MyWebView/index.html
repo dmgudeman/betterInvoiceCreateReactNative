@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
@@ -9,12 +9,16 @@
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
   </head>
   <body>
- <div id="root">
+ <div id="root"> -->
     <!-- This element's contents will be replaced with your component. -->
+ <!--    <div>
+      HHHHHHHHHHHHHHHHEEEEEELLLLLLLOOOOOO
+    </div>
+
   </div> 
 <script type="text/babel">
-	console.log(window);
-  console.log(ReactDOM);
+	console.log('WWWWWWWWIIIIIIIINNNNWWOOOOOWWWWW',window);
+  console.log('RRRRRRRRRRRRRRRRRRRReactDom',ReactDOM);
   
 	ReactDOM.render(
 		<h1>Hello, world!</h1>,
@@ -22,4 +26,47 @@
 	);
 </script>
   </body>
-</html>
+</html> -->
+<html>
+  <body>
+  
+  <button style="height:10%; width: 100%; font-size: 45;">Send post message from web</button>
+  <div>Post message log</div>
+  <textarea style="height: 20%; width: 100%; font-size: 45" readonly></textarea>
+  
+  <script>
+
+  // this populates the textArea with the log object
+  var log = document.querySelector("textarea");
+  
+  // event emitter
+  document.querySelector("button").onclick = function() {
+      console.log("Send post message");
+      
+      // logMessage goes to the textArea
+      logMessage("[IN INDEX.HTML document.querySelector('button').onclick] => Sending post message from web..");
+      
+      // window.postMessage goes to the RN MyWebView parent 
+      window.postMessage("[In index.html document.querySelector('button').onclick] =>  Post message from web", "*");
+  }
+  
+  document.addEventListener("message", function(event) {
+      console.log("Received post message", event);
+  
+      logMessage(event.data);
+  }, false);
+  window.addEventListener("message", function(event) {
+      console.log("Received post message", event);
+  
+      logMessage(event.data);
+  }, false);
+  
+  // appends the log object with a date
+  function logMessage(message) {
+      log.append((new Date()) + " " + message + "\n");
+  }
+  
+  </script>
+  
+  </body>
+  </html>
