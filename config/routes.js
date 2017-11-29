@@ -14,6 +14,7 @@ import InvoiceEditScreen from '../screens/InvoiceEditScreen';
 import InvoicesScreen from '../screens/InvoicesScreen';
 import ListItem from '../components/ListItem';
 import TestScreen from '../screens/TestScreen';
+import MyWebView2 from '../screens/MyWebView2';
 import MyWebView from '../screens/MyWebView';
 import MyDatePicker from '../components/MyDatePicker';
 import MyPicker from '../components/MyPicker/MyPicker';
@@ -41,7 +42,8 @@ export default StackNavigator(
     datePicker:        { screen: MyDatePicker },
     myPicker:          { screen: MyPicker },
     googlePlacesInput: { screen: GooglePlacesInput },
-    myWebView:         { screen: MyWebView }
+    myWebView:         { screen: MyWebView2 },
+    myWebView2:         { screen: MyWebView2 }
   },
   // {
   //   mode: 'modal',

@@ -147,6 +147,15 @@ class InvoiceCreateScreen extends Component {
           title= "To WebView"
           onPress ={ () => this.props.navigation.navigate('myWebView') }
         />
+
+        <Button
+          title= "To WebView2"
+          onPress ={ () =>{ 
+
+            this.props.navigation.navigate('myWebView2',{name: this.props.description})
+           }
+           }
+        />
       </View>
     )
   }
