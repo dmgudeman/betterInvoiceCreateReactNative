@@ -29,8 +29,12 @@ class WVContainer extends Component {
   }
 
   sendPostMessage() {
-    console.log( "REACTNATIVE sendPostMessage this.props", this.props );
-    this.webView.postMessage( `<div>THTHTHTHTH" ${this.props.description} ${this.props.coName}</div>` );
+    console.log( "REACTNATIVE sendPostMessage this.props.coName", `${this.props.coName}` );
+    this.webView.postMessage( `${this.props.coName}`, {prop:'coName'} );
+  }
+  sendPostMessage2() {
+    console.log( "REACTNATIVE sendPostMessage this.props.description", `${this.props.description}` );
+    this.webView.postMessage (`${this.props.description} ` );
   }
 
   render() {
@@ -42,17 +46,29 @@ class WVContainer extends Component {
         <WebView
           // source={{uri: 'https://github.com/facebook/react-native'}}
           ref={webView => {this.webView = webView; }}
-          onMessage={this.onMessage}
+          onMessage={() =>this.onMessage()}
           source={ webapp}
           style={styles.webview}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           startInLoadingState={true}
           scalesPageToFit={true}
-          onLoad={()=>this.sendPostMessage}
-          // injectedJavaScript={`THTHTHTHTH" ${this.props.description} ${this.props.coName}`}
-          injectedJavaScript={"INJECTEDJAVASCRIPTTTTTTTTTTTTTT Hello from RN"}
+          onLoad={()=>{
+            this.sendPostMessage();
+            this.sendPostMessage2();
+            let x = this.props.coName;
+          }
+            }
           
+          injectedJavaScript={`()=> {
+              console.log('HI THERE')
+              var p = document.getElementById('description');
+              var q = document.getElementById('name')
+              p.firstChild.nodeValue = "Description: "${this.props.description};
+              q.firstChild.nodeValue = "Name: "${this.props.name};
+            }
+          `
+        }
         />
         <TouchableHighlight style={{padding: 10, backgroundColor: 'blue', marginTop: 20}} onPress={() => this.sendPostMessage()}>
           <Text style={{color: 'white', fontSize: 45}}>Send post message from react native</Text>
