@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableWithoutFeedback } from 'react-native';
+import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation';
 import { CardSection, Card, Button, Header } from './common';
 // import { Card, Button } from 'react-native-elements';
 import ItemEditScreen from '../screens/ItemEditScreen'; 
 import ItemCreateScreen from '../screens/ItemCreateScreen';
 import { MainNavigator } from '../App';
+import * as actions from '../actions';
 
 const setParamsAction = ( params, key ) => {NavigationActions.setParams({
   params, key
@@ -27,7 +29,9 @@ class ListItem extends Component {
           <View style={styles.buttonRowStyle}>
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               navigate('items',{coId:this.props.company.id})} }>Details</Button>
-            <Button style={ styles.buttonContentStyle } onPress={() => { navigate('invoices')} }>Invoices</Button>
+            <Button style={ styles.buttonContentStyle } onPress={() => { 
+              this.props.setInvoices(this.props.company.invoices);
+              navigate('invoices')} }>Invoices</Button>
             <Button style={ styles.buttonContentStyle } onPress={() => { navigate('invoiceCreate')} }>+Invoice</Button>
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               navigate('itemCreate',{params: { coId: this.props.company.id}} )}}>+Item</Button>
@@ -64,4 +68,4 @@ const styles = {
   }
 }
 
-export default ListItem;
+export default connect(null, actions)(ListItem);

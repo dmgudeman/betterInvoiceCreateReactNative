@@ -61,7 +61,7 @@ componentWillMount() {
 const mapStateToProps = state => {
   const companyKey = Object.keys(state.companies.companies)[0];
   const  fUserId = state.auth.fUserId;
-  const invoices = _.map(state.companies.companies[companyKey].invoices, (val, id) => {
+  const invoices = _.map(state.invoice.invoices, (val, id) => {
   
     return { ...val, id};
   });
