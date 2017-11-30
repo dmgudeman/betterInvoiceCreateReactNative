@@ -43,7 +43,10 @@ class CompaniesScreen extends Component {
           title= "+Business"
           onPress={()=>{navigation.navigate('companyCreate')}}
         />
+        ,
+        headerLeft: null
     }
+   
   }
   render() {
     // console.log('CompaniesScreen render  this.props.companies =', this.props.companies);
