@@ -1,4 +1,3 @@
-
 <html>
     <head>
         <meta charset="UTF-8">
@@ -13,22 +12,6 @@
           <!-- This element's contents will be replaced with your component. -->
     </div> 
     <script type="text/babel">
-      
-      console.log(window);
-      console.log(ReactDOM);
-      // ReactDOM.render(
-      //   <div>
-      //     <div> Hello, world!</div>
-      //     <div>Hi there</div>
-      //     <div>Hi There 
-      //       <span id='container'></span>
-      //     </div>
-      //   </div>
-      //   ,
-      //     document.getElementById('root')
-      // );
-      var log = document.getElementById("container")
-      
 
       document.addEventListener("message", function(event) {
         let x = JSON.parse(event.data);
@@ -37,71 +20,21 @@
           <div> Hello, world!</div>
           <div>Hi there</div>
           <div>Hi There 
-            <span id='container'>{x.description}</span>
+            <span>{x.description}</span>
           </div>
         </div>
         ,
           document.getElementById('root')
       );
-        // let x = JSON.parse(event.data);
-        let y = x.coName
-        let z = x.description
-
-        logMessage(y);
-        logMessage(z);
+       
       }, false);
 
       function logMessage(message) {
         console.log("[WEBVIEW logMessage", message);
         log.append(message + "\n");
       }
-      // ReactDOM.render(
-      //   <textarea>HI THERE</textarea>,
-      //   document.getElementById('one')
-      // )
+     
     </script>
-   <!--     ///////////////////////// -->   
-   <!-- <div style="background-color: 'red'">
-<div id='container' style="font-size: 25">
-</div>
-</div>   -->
-  <!-- <script>
-  
-  // this populates the textArea with the log object
-  // var log = document.querySelector("textarea");
-  var log = document.getElementById("container")
-  // var description = document.getElementById("description");
-  // var name = document.getElementById("name");
-  
-  
-  // event emitter
-  // document.querySelector("button").onclick = function() {
-  //     console.log("Send post message");
-      
-  //     // logMessage goes to the textArea
-  //     logMessage("[WEBVIEW] => Sending post message from web..");
-      
-  //     // window.postMessage goes to the RN MyWebView parent 
-  //     window.postMessage("[WEBVIEW] =>  Post message from web", "*");
-  // }
-  
-  document.addEventListener("message", function(event) {
-    //  console.log("[WEBVIEW document.addEventListener event", event);
-      logMessage(event.data);
-  }, false);
-  // window.addEventListener("message", function(event) {
-  //     console.log("[WEBVIEW window.addEventListener event", event);
-  //     logMessage(event.data);
-  // }, false);
-  
-  // appends the log object with a date
-  function logMessage(message) {
-      console.log("[WEBVIEW logMessage", message);
-
-      log.append(message + "\n");
-  }
-  
-  </script> -->
   
   </body>
-  </html>
+</html>

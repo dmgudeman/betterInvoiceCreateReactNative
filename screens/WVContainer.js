@@ -34,11 +34,11 @@ class WVContainer extends Component {
     let x = JSON.stringify(this.props.invoice)
     this.webView.postMessage(x);
   }
-  sendPostMessage2() {
-    console.log( "REACTNATIVE sendPostMessage this.props.description", `${this.props.description}` );
-    this.webView.postMessage (`${this.props.description}` );
-    this.webView.invoice =  this.props.invoice
-  }
+  // sendPostMessage2() {
+  //   console.log( "REACTNATIVE sendPostMessage this.props.description", `${this.props.description}` );
+  //   this.webView.postMessage (`${this.props.description}` );
+  //   this.webView.invoice =  this.props.invoice
+  // }
 
   render() {
     // this.webview.postMessage("Hello from RN");
