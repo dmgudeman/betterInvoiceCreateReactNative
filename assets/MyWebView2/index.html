@@ -30,8 +30,11 @@
       );
       var log = document.getElementById("container")
       
+      
       document.addEventListener("message", function(event) {
-        logMessage(event.data);
+        let x = JSON.parse(event.data);
+        let y = x.coName
+        logMessage(y);
       }, false);
 
       function logMessage(message) {
