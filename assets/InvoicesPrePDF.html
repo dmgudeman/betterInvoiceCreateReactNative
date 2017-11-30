@@ -94,6 +94,12 @@
           <!-- This element's contents will be replaced with your component. -->
     </div> 
     <script type="text/babel">
+      const ListItem = (props) => {
+  // Correct! There is no need to specify the key here:
+        return <li>{props.value}</li>;
+
+      }
+      const test=()=><li>3. Hi there </li>
 
       document.addEventListener("message", function(event) {
         let x = JSON.parse(event.data);
@@ -110,9 +116,11 @@
                                   </td>
                                   
                                   <td>
-                                      Invoice #: 123
-                                      Created: January 1, 2015
-                                      Due: February 1, 2015
+                                      Invoice #: 
+                                      {x.invoiceKey}
+                                      Created: {x.createdAt}
+                                      Due: 
+                                      {x.dateDue}
                                   </td>
                               </tr>
                           </table>
@@ -124,9 +132,8 @@
                           <table>
                               <tr>
                                   <td>
-                                      {x.coName}, Inc.
-                                      12345 Sunny Road
-                                      Sunnyville, TX 12345
+                                      {x.coName}
+                                      {x.address}
                                   </td>
                                   
                                   <td>
@@ -207,10 +214,12 @@
                       </td>
                   </tr>
               </table>
+              <ul>
+                <li>1. Hi there</li>
+                {x.itemsArray.map((item) => <li>{item.total}</li>)}
+              </ul>
           </div>
-       
-      
-        ,
+          ,
           document.getElementById('root')
       );
        

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { WebView, TouchableHighlight, Text, View, StyleSheet, Dimensions } from 'react-native';
+import _ from 'lodash';
 import * as actions from '../actions';
 
 // const webapp = require('../assets/MyWebView2/index.html');
@@ -42,7 +43,14 @@ class WVContainer extends Component {
 
   render() {
     // this.webview.postMessage("Hello from RN");
-   
+
+    const payload = this.props.invoice;
+    const itemsArray = _.map(payload.items, (val, id) => {
+      
+        return { ...val, id};
+      });
+      payload.itemsArray = itemsArray;
+      console.log('WVContainer render payload', payload);
     return (
 
       <View style={{flex:1, alignItems: 'flex-end'}}> 
@@ -59,7 +67,7 @@ class WVContainer extends Component {
           onLoad={()=>{
             this.sendPostMessage();
             // this.sendPostMessage2();
-            invoice = this.props.invoice
+            invoice = payload
           }
           
             }
