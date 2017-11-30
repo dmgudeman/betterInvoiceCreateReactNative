@@ -21,6 +21,7 @@ componentWillMount() {
     console.log('ITEMS SCREEN goToItemEdit data', data);
     console.log('ITEMS SCREEN goToItemEdit this.props', this.props);
 
+
     const {amount, companyKey, coName, date, description, fUserId, hours, total, id} = data;
     const item = {amount, companyKey, coName, date, description, fUserId, hours, total, id};
     // console.log('ITEMS SCREEN goToItemEdit item', item);
@@ -69,6 +70,7 @@ const mapStateToProps = state => {
   const items = _.map(state.companies.company.items, (val, id) => {
     return { ...val, id};
   });
+  console.log('ITEMSSCREEN MAPSTATETOPROPS items', items);
   return { fUserId, companyKey, items, coName};
 }
 

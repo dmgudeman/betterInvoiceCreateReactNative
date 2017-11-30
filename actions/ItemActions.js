@@ -27,7 +27,7 @@ export const itemCreate = ({amount, companyKey, date, description, fUserId, hour
  }
 
  // used upon Submit
-export const itemEdit = ({amount = 0, companyKey, date, description = '', fUserId, hourly = 0, hours = 0, id, total = 0}) => async dispatch => {
+export const itemEdit = ({amount, companyKey, date, description, fUserId, hourly, hours, id, total}) => async dispatch => {
   
   let payload = { amount, companyKey, date, description, fUserId, hours, id, total, hourly }
   payload.date = moment(payload.date).format();

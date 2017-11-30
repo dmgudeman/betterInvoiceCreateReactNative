@@ -10,10 +10,16 @@ import {
 import { NavigationActions } from 'react-navigation';
 import DatePicker from 'react-native-datepicker';
 import Moment from 'react-moment';
+import moment from 'moment';
 import * as actions from '../actions'
 
 class ItemCreateScreen extends Component {
 
+  componentWillMount() {
+    const formatDate = moment().format('L');
+    console.log('mmmmmmmmmmmmmmmmmmmmformatDate', formatDate);
+    this.props.itemUpdate('date', formatDate)
+  }
   onSubmit = () => {
     const {amount, companyKey, date, description, fUserId, hourly, hours, total} = this.props
     console.log('ITEMCREATESCREEN ONSUBMIT hours', hours);
@@ -30,6 +36,7 @@ class ItemCreateScreen extends Component {
   }
 
   render() {
+    console.log('ITEMCREATESCREEN RENDER this.prop.date', this.props.date);
     return (
       <View>
         <FormLabel>Date</FormLabel>
@@ -89,7 +96,7 @@ const mapStateToProps = state => {
   const hourly =      state.companies.company.hourly;
   
   const amount =      state.item.amount || 0
-  const date =        state.item.date;
+  const date =        state.item.date || moment().format('L');
   const description = state.item.description;
   const hours =       state.item.hours;
   const total =       state.item.total;

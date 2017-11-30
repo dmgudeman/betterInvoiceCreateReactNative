@@ -30,7 +30,10 @@ class ListItem extends Component {
           <View style={styles.buttonRowStyle}>
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               this.props.setCompany(this.props.company)
-              navigate('items')}}>Details</Button>
+              navigate('items')}}>Items</Button>
+            <Button style={ styles.buttonContentStyle } onPress={() => { 
+              this.props.setCompany(this.props.company)
+              navigate('itemCreate')}}>+Item</Button>
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               this.props.setInvoices(this.props.company.invoices);
               navigate('invoices')} }>Invoices</Button>
@@ -38,9 +41,6 @@ class ListItem extends Component {
               console.log('LISTITEM RENDER this.props', this.props);
               this.props.setCompany(this.props.company)
               navigate('invoiceCreate')} }>+Invoice</Button>
-            <Button style={ styles.buttonContentStyle } onPress={() => { 
-              this.props.setCompany(this.props.company)
-              navigate('itemCreate')}}>+Item</Button>
           </View>
         </CardSection>
       </Card>

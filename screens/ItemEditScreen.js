@@ -22,14 +22,14 @@ import * as actions             from '../actions';
 class itemEditScreen extends Component {
   
   componentWillMount() {
-    const {dispatch} = this.props
     console.log('itemEditScreen componentWillMount this.props ', this.props);
+    
+   
   }
   onSubmit = () => {
     console.log('ItemEditScreen onSubmit this.props', this.props);
     const { amount, companyKey, date, description, fUserId, hours, id, total, hourly } = this.props
     
-    // this.props.itemUpdate('date', moment(date).format('MM-DD-YYYY h:mm A'));
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
     this.props.itemUpdate('total', data);
    
@@ -96,21 +96,22 @@ class itemEditScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const id = state.item.id;
-  const amount = state.item.amount
-  const companyKey = state.item.companyKey;
-  const date = state.item.date;
-  const description = state.item.description;
-  const fUserId = state.item.fUserId;
-  const hours = state.item.hours;
-  const total = state.item.total;
-  const hourly = state.companies.companies[companyKey].hourly;
+
+  const companyKey   = state.companies.company.companyKey;
+  const hourly       = state.companies.company.hourly;
+  const id           = state.item.id;
+  const amount       = state.item.amount
+  const date         = state.item.date;
+  const description  = state.item.description;
+  const fUserId      = state.item.fUserId;
+  const hours        = state.item.hours;
+  const total        = state.item.total;
 
   // const { amount, companyKey, date, description, fUserId, hours, id,  total,  } = state.item;
   return { amount, companyKey, date, description, fUserId, hours, id, total, hourly };
 }
-const mapDispatchToProps = (dispatch) => {
-  const {itemUpdate, changeItemHours, itemEdit} = actions;
-  return bindActionCreators({itemUpdate, changeItemHours, itemEdit}, dispatch)
-}
-export default connect(mapStateToProps, mapDispatchToProps )(itemEditScreen);
+// const mapDispatchToProps = (dispatch) => {
+//   const {itemUpdate, changeItemHours, itemEdit} = actions;
+//   return bindActionCreators({itemUpdate, changeItemHours, itemEdit}, dispatch)
+// }
+export default connect(mapStateToProps, actions)(itemEditScreen);
