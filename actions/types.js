@@ -20,3 +20,4 @@ export const INVOICE_CREATE = 'invoice_create';
 export const INVOICE_EDIT = 'invoice_edit';
 export const INVOICE_UPDATE = 'invoice_update';
 export const SELECT_INVOICE = 'select_invoice';
+export const SET_INVOICES = 'SET_INVOICES';

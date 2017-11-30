@@ -4,7 +4,8 @@ import {
   INVOICE_UPDATE, 
   INVOICE_EDIT,
   INVOICE_CREATE, 
-  SELECT_INVOICE
+  SELECT_INVOICE,
+  SET_INVOICES
  } from './types';
 import moment from 'moment';
 
@@ -22,7 +23,12 @@ export const invoiceEdit = ({beginDate, companyKey, coName, createdAt, descripti
 
   return dispatch => {type: INVOICE_EDIT, {invoice: payload}}
  }
-
+export const setInvoices = (invoices) => {
+  return {
+    type: SET_INVOICES,
+    invoices
+  }
+}
 export const invoiceUpdate = (prop, value)=> {
   // console.log('invoiceActions 11111111invoiceUpdate prop, value:::::', prop, value);
   if (prop === 'createdAt' || prop === 'beginDate' || prop === 'endDate'){

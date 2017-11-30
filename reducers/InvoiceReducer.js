@@ -1,5 +1,9 @@
 import {
-  INVOICE_CREATE, INVOICE_EDIT, INVOICE_UPDATE,   CHANGE_INVOICE_HOURS, SELECT_INVOICE
+  INVOICE_CREATE, 
+  INVOICE_EDIT, 
+  INVOICE_UPDATE,   
+  SELECT_INVOICE,
+  SET_INVOICES
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -37,6 +41,10 @@ export default (state = INITIAL_STATE, action) => {
       console.log('invoiceREDUCER SELECT_INVOICE action.invoice', action.invoice);
      
       return Object.assign({}, state.invoice, action.invoice )
+    }
+
+    case SET_INVOICES: {
+      return { ...state, invoices:action.invoices}
     }
     default:{
       return state;
