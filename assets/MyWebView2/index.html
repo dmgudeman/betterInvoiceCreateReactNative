@@ -17,24 +17,39 @@
       
       console.log(window);
       console.log(ReactDOM);
-      ReactDOM.render(
+      // ReactDOM.render(
+      //   <div>
+      //     <div> Hello, world!</div>
+      //     <div>Hi there</div>
+      //     <div>Hi There 
+      //       <span id='container'></span>
+      //     </div>
+      //   </div>
+      //   ,
+      //     document.getElementById('root')
+      // );
+      var log = document.getElementById("container")
+      
+
+      document.addEventListener("message", function(event) {
+        let x = JSON.parse(event.data);
+        ReactDOM.render(
         <div>
           <div> Hello, world!</div>
           <div>Hi there</div>
           <div>Hi There 
-            <span id='container'></span>
+            <span id='container'>{x.description}</span>
           </div>
         </div>
         ,
           document.getElementById('root')
       );
-      var log = document.getElementById("container")
-      
-      
-      document.addEventListener("message", function(event) {
-        let x = JSON.parse(event.data);
+        // let x = JSON.parse(event.data);
         let y = x.coName
+        let z = x.description
+
         logMessage(y);
+        logMessage(z);
       }, false);
 
       function logMessage(message) {
