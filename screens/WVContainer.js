@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { WebView, TouchableHighlight, Text, View, StyleSheet, Dimensions } from 'react-native';
 import * as actions from '../actions';
 
-const webapp = require('../assets/MyWebView2/index.html');
+// const webapp = require('../assets/MyWebView2/index.html');
+const webapp = require('../assets/InvoicesPrePDF.html')
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
@@ -15,12 +16,12 @@ class WVContainer extends Component {
   }
 
   componentWillMount() {
-    let navigator = this.props.navigation.state.params;
+    // let navigator = this.props.navigation.state.params;
     
-    // console.log('WVContainer COMPONENTWILLMOUNT navigator.description', navigator.description);
-    // console.log('WVContainer COMPONENTWILLMOUNT navigator', navigator);
-    const invoice = navigator.invoice;
-    this.props.companyUpdate('invoice', invoice);
+    // // console.log('WVContainer COMPONENTWILLMOUNT navigator.description', navigator.description);
+    // // console.log('WVContainer COMPONENTWILLMOUNT navigator', navigator);
+    // const invoice = navigator.invoice;
+    // this.props.companyUpdate('invoice', invoice);
     // console.log('WVContainer COMPONENTWILLMOUNT this.props', this.props);
   }
 
@@ -29,7 +30,7 @@ class WVContainer extends Component {
   }
 
   sendPostMessage() {
-    console.log( `REACTNATIVE sendPostMessage this.props.coName ${this.props.invoice}` );
+    console.log( 'REACTNATIVE sendPostMessage this.props.invoice', JSON.stringify(this.props.invoice) );
     let x = JSON.stringify(this.props.invoice)
     this.webView.postMessage(x);
   }
@@ -63,26 +64,26 @@ class WVContainer extends Component {
           
             }
           
-          injectedJavaScript={`()=> {
-              console.log('HI THERE')
-              var p = document.getElementById('description');
-              var q = document.getElementById('name')
-              p.firstChild.nodeValue = "Description: "${this.props.description};
-              q.firstChild.nodeValue = "Name: "${this.props.name};
-            }
-          `
-        }
+        //   injectedJavaScript={`()=> {
+        //       console.log('HI THERE')
+        //       var p = document.getElementById('description');
+        //       var q = document.getElementById('name')
+        //       p.firstChild.nodeValue = "Description: "${this.props.description};
+        //       q.firstChild.nodeValue = "Name: "${this.props.name};
+        //     }
+        //   `
+        // }
         />
-        <TouchableHighlight style={{padding: 10, backgroundColor: 'blue', marginTop: 20}} onPress={() => this.sendPostMessage()}>
+        {/* <TouchableHighlight style={{padding: 10, backgroundColor: 'blue', marginTop: 20}} onPress={() => this.sendPostMessage()}>
           <Text style={{color: 'white', fontSize: 45}}>Send post message from react native</Text>
-        </TouchableHighlight>
+        </TouchableHighlight> */}
        </View>
     );
   }
 }
 
 const MapStateToProps = (state) => {
-  // console.log('WVContainer MAPSTATETOPROPS state', state);
+  console.log('WVContainer MAPSTATETOPROPS state', state);
   if (state.invoice){
     const invoice = state.invoice;
     const description = state.invoice.description || '';
