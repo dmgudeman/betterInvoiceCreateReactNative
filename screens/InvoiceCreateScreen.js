@@ -98,7 +98,7 @@ class InvoiceCreateScreen extends Component {
       invoiceKey, items: this.props.items, total: this.props.total}
     // console.log('INVOICECREATE ONSUBMIT THIS.PROPS  ------ after ', this.props);
     this.props.invoiceCreate({invoice})
-    await this.props.navigation.goBack();
+    await this.props.navigation.navigate('companies');
   }
   render() {
     return (

@@ -27,14 +27,14 @@ class itemEditScreen extends Component {
   }
   onSubmit = () => {
     console.log('ItemEditScreen onSubmit this.props', this.props);
-    const { amount, coId, date, description, fUserId, hours, id, total, hourly } = this.props
+    const { amount, companyKey, date, description, fUserId, hours, id, total, hourly } = this.props
     
     // this.props.itemUpdate('date', moment(date).format('MM-DD-YYYY h:mm A'));
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
     this.props.itemUpdate('total', data);
    
-    console.log('date111111111', amount, coId, date, description, fUserId, hours, id, total, hourly  );
-    this.props.itemEdit({ amount, coId, date, description, fUserId, hours, id, total, hourly })
+    console.log('date111111111', amount, companyKey, date, description, fUserId, hours, id, total, hourly  );
+    this.props.itemEdit({ amount, companyKey, date, description, fUserId, hours, id, total, hourly })
     this.props.navigation.goBack();
   }
 
@@ -98,16 +98,16 @@ class itemEditScreen extends Component {
 const mapStateToProps = (state) => {
   const id = state.item.id;
   const amount = state.item.amount
-  const coId = state.item.coId;
+  const companyKey = state.item.companyKey;
   const date = state.item.date;
   const description = state.item.description;
   const fUserId = state.item.fUserId;
   const hours = state.item.hours;
   const total = state.item.total;
-  const hourly = state.companies.companies[coId].hourly;
+  const hourly = state.companies.companies[companyKey].hourly;
 
-  // const { amount, coId, date, description, fUserId, hours, id,  total,  } = state.item;
-  return { amount, coId, date, description, fUserId, hours, id, total, hourly };
+  // const { amount, companyKey, date, description, fUserId, hours, id,  total,  } = state.item;
+  return { amount, companyKey, date, description, fUserId, hours, id, total, hourly };
 }
 const mapDispatchToProps = (dispatch) => {
   const {itemUpdate, changeItemHours, itemEdit} = actions;

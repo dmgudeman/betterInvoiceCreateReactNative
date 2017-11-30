@@ -35,7 +35,7 @@ class invoiceEditScreen extends Component {
    
     // console.log('INVOICEEDIT onSubmit',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total );
     this.props.invoiceEdit({  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId,  invoiceKey, total})
-    this.props.navigation.goBack();
+    this.props.navigation.navigate('companies');
   }
 
   render() {
