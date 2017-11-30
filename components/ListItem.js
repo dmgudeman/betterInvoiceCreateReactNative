@@ -15,6 +15,7 @@ const setParamsAction = ( params, key ) => {NavigationActions.setParams({
 class ListItem extends Component {
   
   render() {
+
     const { navigate } = this.props.navigation
 
     return (
@@ -28,16 +29,20 @@ class ListItem extends Component {
         <CardSection>
           <View style={styles.buttonRowStyle}>
             <Button style={ styles.buttonContentStyle } onPress={() => { 
-              navigate('items',{coId:this.props.company.id})} }>Details</Button>
+              this.props.setCompany(this.props.company)
+              navigate('items')}}>Details</Button>
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               this.props.setInvoices(this.props.company.invoices);
               navigate('invoices')} }>Invoices</Button>
-            <Button style={ styles.buttonContentStyle } onPress={() => { navigate('invoiceCreate')} }>+Invoice</Button>
             <Button style={ styles.buttonContentStyle } onPress={() => { 
-              navigate('itemCreate',{params: { coId: this.props.company.id}} )}}>+Item</Button>
+              console.log('LISTITEM RENDER this.props', this.props);
+              this.props.setCompany(this.props.company)
+              navigate('invoiceCreate')} }>+Invoice</Button>
+            <Button style={ styles.buttonContentStyle } onPress={() => { 
+              this.props.setCompany(this.props.company)
+              navigate('itemCreate')}}>+Item</Button>
           </View>
         </CardSection>
-       
       </Card>
     );
   }

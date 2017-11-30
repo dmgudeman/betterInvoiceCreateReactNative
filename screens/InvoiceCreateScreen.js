@@ -25,6 +25,7 @@ import MyDatePicker             from '../components/MyDatePicker';
 class InvoiceCreateScreen extends Component {
   
   componentWillMount() {
+    console.log('INVOICECREATESCREEN COMPONENTWILLMOUNT this.props', this.props);
     this.props.invoiceUpdate('items', this.props.coItems );
     this.props.invoiceUpdate('createdAt', moment().format());
     this.props.invoiceUpdate('beginDate', moment().format());
@@ -162,12 +163,13 @@ class InvoiceCreateScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const companyKey = Object.keys(state.companies.companies)[0];
+  console.log('INVOICECREATESCREEN MAPSTATETOPROPS state', state );
+  const companyKey = state.companies.company.id || '';
   const fUserId = state.auth.fUserId || '';
   const beginDate = state.invoice.beginDate || moment().format();
-  const coName = state.companies.companies[companyKey].name || '';
-  const coItems = state.companies.companies[companyKey].items || '';
-  const paymentTerms = state.companies.companies[companyKey].paymentTerms || '';
+  const coName = state.companies.company.coName || '';
+  const coItems = state.companies.company.items || '';
+  const paymentTerms = state.companies.company.paymentTerms || '';
 
   const createdAt= state.invoice.createdAt || moment().format();
   const description = state.invoice.description || '';

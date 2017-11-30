@@ -28,7 +28,9 @@ class CompanyCreateScreen extends Component {
     this.props.companyUpdate('color', 'blue');
     this.props.companyUpdate('hourly', '');
     this.props.companyUpdate('address', '');
+    this.props.companyUpdate('companyKey',)
   }
+
   // paymentTermsOptionsList =''
   // constructor(props) {
   //   super(props);

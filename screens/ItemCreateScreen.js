@@ -15,7 +15,7 @@ import * as actions from '../actions'
 class ItemCreateScreen extends Component {
 
   onSubmit = () => {
-    const {amount, coId, date, description, fUserId, hourly, hours, total} = this.props
+    const {amount, companyKey, date, description, fUserId, hourly, hours, total} = this.props
     console.log('ITEMCREATESCREEN ONSUBMIT hours', hours);
     console.log('ITEMCREATESCREEN ONSUBMIT hourly', hourly);
     console.log('ITEMCREATESCREEN ONSUBMIT fUserId', fUserId);
@@ -25,7 +25,7 @@ class ItemCreateScreen extends Component {
     console.log('ITEMCREATE ONSUBMIT this.props', this.props);
     console.log('ITEMCREATESCREEN ONSUBMIT total', total);
 
-    this.props.itemCreate({amount, coId, date, description, fUserId, hourly, hours, total});
+    this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, total});
     this.props.navigation.goBack();
   }
 
@@ -82,15 +82,18 @@ class ItemCreateScreen extends Component {
 }
 
 const mapStateToProps = state => {
-  const amount = state.item.amount || 0
-  const coId = Object.keys(state.companies.companies)[0];
-  const date = state.item.date;
-  const description = state.item.description;
-  const fUserId = state.auth.fUserId;
-  const hours = state.item.hours;
-  const hourly = state.companies.companies[coId].hourly;
-  const total = state.item.total;
 
-  return { amount, coId, date, description, fUserId, hourly, hours, total};
+  const fUserId =     state.auth.fUserId;
+
+  const companyKey =  state.companies.company.id;
+  const hourly =      state.companies.company.hourly;
+  
+  const amount =      state.item.amount || 0
+  const date =        state.item.date;
+  const description = state.item.description;
+  const hours =       state.item.hours;
+  const total =       state.item.total;
+
+  return { amount, companyKey, date, description, fUserId, hourly, hours, total};
 }
 export default connect(mapStateToProps, actions)(ItemCreateScreen);

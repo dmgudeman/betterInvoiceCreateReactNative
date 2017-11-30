@@ -21,8 +21,8 @@ componentWillMount() {
     console.log('ITEMS SCREEN goToItemEdit data', data);
     console.log('ITEMS SCREEN goToItemEdit this.props', this.props);
 
-    const {amount, coId, coName, date, description, fUserId, hours, total, id} = data;
-    const item = {amount, coId, coName, date, description, fUserId, hours, total, id};
+    const {amount, companyKey, coName, date, description, fUserId, hours, total, id} = data;
+    const item = {amount, companyKey, coName, date, description, fUserId, hours, total, id};
     // console.log('ITEMS SCREEN goToItemEdit item', item);
 
     this.props.selectItem(item)
@@ -59,17 +59,17 @@ componentWillMount() {
   }
 }
 const mapStateToProps = state => {
-  const coId = Object.keys(state.companies.companies)[0];
-  const coName = state.companies.companies[coId].name;
-  console.log('ItemsScreen mapStateToProps Object.keys(state.companies.companies)[0]', Object.keys(state.companies.companies)[0]);
-  console.log('ItemsScreen mapStateToProps coId', coId);
-  console.log('ItemsScreen mapStateToProps state', state);
-  console.log('ItemsScreen mapStateTOProps coName',coName);
+  const companyKey = state.companies.company.id;
+  const coName = state.companies.company.name;
+  // console.log('ItemsScreen mapStateToProps Object.keys(state.companies.companies)[0]', Object.keys(state.companies.companies)[0]);
+  // console.log('ItemsScreen mapStateToProps companyKey', companyKey);
+  // console.log('ItemsScreen mapStateToProps state', state);
+  // console.log('ItemsScreen mapStateTOProps coName',coName);
   const  fUserId = state.auth.fUserId;
-  const items = _.map(state.companies.companies[coId].items, (val, id) => {
+  const items = _.map(state.companies.company.items, (val, id) => {
     return { ...val, id};
   });
-  return { fUserId, coId, items, coName};
+  return { fUserId, companyKey, items, coName};
 }
 
 export default connect(mapStateToProps, {selectItem})(ItemsScreen);

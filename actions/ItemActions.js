@@ -10,30 +10,30 @@ import {
  } from './types';
 import moment from 'moment';
 
-export const itemCreate = ({amount, coId, date, description, fUserId, hourly, hours, total}) => async dispatch => {
-  console.log();
-  let payload = { amount, coId, date, description, fUserId, hourly, hours, total} 
+export const itemCreate = ({amount, companyKey, date, description, fUserId, hourly, hours, total}) => async dispatch => {
+  let payload = { amount, companyKey, date, description, fUserId, hourly, hours, total} 
+  console.log('ITEMSACTIONS ITEMCREATE payload', payload);
   payload.date = moment(payload.date).format();
   payload.total = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
 
-  let newItemKey = await firebase.database().ref().child('companies').child('items').push().key;
+  let newItemKey = await firebase.database().ref().child('companies').child(companyKey).child('items').push().key;
   payload.id = newItemKey;
   console.log('ITEM ACTIONS ITEMCREATE payload', payload);
   let updates = {};
-  updates['/users/'+ payload.fUserId + '/companies/'+ payload.coId + '/items/' + payload.id] = payload;
+  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/items/' + payload.id] = payload;
   await firebase.database().ref().update(updates);
 
   dispatch => {type: ITEM_CREATE, { item: payload }}
  }
 
  // used upon Submit
-export const itemEdit = ({amount = 0, coId, date, description = '', fUserId, hourly = 0, hours = 0, id, total = 0}) => async dispatch => {
+export const itemEdit = ({amount = 0, companyKey, date, description = '', fUserId, hourly = 0, hours = 0, id, total = 0}) => async dispatch => {
   
-  let payload = { amount, coId, date, description, fUserId, hours, id, total, hourly }
+  let payload = { amount, companyKey, date, description, fUserId, hours, id, total, hourly }
   payload.date = moment(payload.date).format();
  
   let updates = {};
-  updates['/users/'+ payload.fUserId + '/companies/'+ payload.coId + '/items/' + payload.id] = payload;
+  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/items/' + payload.id] = payload;
   await firebase.database().ref().update(updates);
 
   dispatch => {type: ITEM_EDIT, {item: payload}}

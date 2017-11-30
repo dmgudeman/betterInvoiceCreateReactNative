@@ -5,7 +5,7 @@ import {
   INVOICE_EDIT,
   INVOICE_CREATE, 
   SELECT_INVOICE,
-  SET_INVOICES
+  SET_INVOICES,
  } from './types';
 import moment from 'moment';
 

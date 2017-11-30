@@ -10,6 +10,7 @@ import {
   COMPANY_UPDATE,
   COMPANY_CREATE,
   COMPANY_EDIT_SUBMIT,
+  SET_COMPANY
   
 } from './types';
 
@@ -78,4 +79,10 @@ export const companyEditSubmit = (company) => {
   }
 }
 
+export const setCompany = (company) => {
+  return {
+    type: SET_COMPANY,
+    company
+  }
+}
   

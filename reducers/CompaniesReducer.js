@@ -3,6 +3,7 @@ import {
   COMPANY_UPDATE,
   COMPANY_CREATE,
   COMPANY_EDIT_SUBMIT,
+  SET_COMPANY,
 } from '../actions/types';
 
 const INITIAL_STATE ={}
@@ -24,6 +25,10 @@ export default (state = INITIAL_STATE, action) => {
     }
     case COMPANY_EDIT_SUBMIT: {
       console.log('COMPANIESREDUCER COMPANY_EDIT_SUBMIT fired');
+    }
+    case SET_COMPANY: {
+      console.log('COMPANIESREDUCER SET_COMPANY action', action);
+      return { ...state, company: action.company}
     }
     default:
       return state;
