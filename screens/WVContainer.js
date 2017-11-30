@@ -29,12 +29,13 @@ class WVContainer extends Component {
   }
 
   sendPostMessage() {
-    console.log( "REACTNATIVE sendPostMessage this.props.coName", `${this.props.coName}` );
-    this.webView.postMessage( `${this.props.coName}`);
+    console.log( `REACTNATIVE sendPostMessage this.props.coName ${this.props.invoice.coName}` );
+    this.webView.postMessage( `${this.props.invoice.coName}`);
   }
   sendPostMessage2() {
     console.log( "REACTNATIVE sendPostMessage this.props.description", `${this.props.description}` );
-    this.webView.postMessage (`${this.props.description} ` );
+    this.webView.postMessage (`${this.props.description}` );
+    this.webView.invoice =  this.props.invoice
   }
 
   render() {
@@ -55,9 +56,10 @@ class WVContainer extends Component {
           scalesPageToFit={true}
           onLoad={()=>{
             this.sendPostMessage();
-            this.sendPostMessage2();
-            let x = this.props.coName;
+            // this.sendPostMessage2();
+            invoice = this.props.invoice
           }
+          
             }
           
           injectedJavaScript={`()=> {
@@ -70,7 +72,7 @@ class WVContainer extends Component {
           `
         }
         />
-        <TouchableHighlight style={{padding: 10, backgroundColor: 'blue', marginTop: 20}} onPress={() => this.sendPostMessage2()}>
+        <TouchableHighlight style={{padding: 10, backgroundColor: 'blue', marginTop: 20}} onPress={() => this.sendPostMessage()}>
           <Text style={{color: 'white', fontSize: 45}}>Send post message from react native</Text>
         </TouchableHighlight>
        </View>
@@ -81,9 +83,10 @@ class WVContainer extends Component {
 const MapStateToProps = (state) => {
   // console.log('WVContainer MAPSTATETOPROPS state', state);
   if (state.invoice){
+    const invoice = state.invoice;
     const description = state.invoice.description || '';
     const coName = state.invoice.coName || '';
-    return { coName, description }
+    return { coName, description, invoice }
   } else {
     return state
   }
