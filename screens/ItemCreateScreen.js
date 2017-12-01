@@ -18,8 +18,15 @@ import MyDatePicker from '../components/MyDatePicker';
 class ItemCreateScreen extends Component {
 
   componentWillMount() {
+    console.log('ITEMSCREATESCREEN COMPONENTWILLMOUNT this.props', this.props);
+    this.props.itemUpdate('date', moment().format()  )
+    this.props.itemUpdate('hours', '');
+    this.props.itemUpdate('amount', '');
+    this.props.itemUpdate('description', '');
+    this.props.itemTotalUpdate(0, 0, this.props.hourly)
    
   }
+
   onSubmit = () => {
     const {amount, companyKey, date, description, fUserId, hourly, hours, total} = this.props
     console.log('ITEMCREATESCREEN ONSUBMIT hours', hours);

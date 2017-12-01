@@ -124,7 +124,7 @@ class InvoiceCreateScreen extends Component {
         <View>
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
-          date={this.props.beginDate}
+          beginDate={this.props.beginDate}
           onDateChange={(value) => {
             // console.log('ItemEditScreen render beginDate.value', value);
             this.props.invoiceUpdate('beginDate',value )
@@ -134,7 +134,7 @@ class InvoiceCreateScreen extends Component {
        
         <FormLabel>Stop Date</FormLabel>
         <MyDatePicker 
-          date={this.props.endDate}
+          endDate={this.props.endDate}
           onDateChange={(value) => {
             // console.log('ItemEditScreen render endDate.value', value);
             this.props.invoiceUpdate('endDate', value )
@@ -184,16 +184,16 @@ const mapStateToProps = (state) => {
   console.log('INVOICECREATESCREEN MAPSTATETOPROPS state', state );
   const companyKey = state.companies.company.id || '';
   const fUserId = state.auth.fUserId || '';
-  const beginDate = state.invoice.beginDate || moment().format();
+  const beginDate = state.invoice.beginDate || '';
   const coName = state.companies.company.name || '';
   const coItems = state.companies.company.items || '';
   const paymentTerms = state.companies.company.paymentTerms || '';
 
-  const createdAt= state.invoice.createdAt || moment().format();
+  const createdAt= state.invoice.createdAt || '';
   const description = state.invoice.description || '';
   const discount = state.invoice.discount || '';
   const dueDate = state.invoice.dueDate || '';
-  const endDate = state.invoice.endDate || moment().format();
+  const endDate = state.invoice.endDate || '';
   const invoiceKey = state.invoice.invoiceKey || '';
   const items = state.invoice.items || '';
   const total = state.invoice.total || '';

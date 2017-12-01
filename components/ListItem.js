@@ -35,7 +35,7 @@ class ListItem extends Component {
               this.props.setCompany(this.props.company)
               navigate('itemCreate')}}>+Item</Button>
             <Button style={ styles.buttonContentStyle } onPress={() => { 
-              this.props.setInvoices(this.props.company.invoices);
+              this.props.setCompany(this.props.company);
               navigate('invoices')} }>Invoices</Button>
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               console.log('LISTITEM RENDER this.props', this.props);

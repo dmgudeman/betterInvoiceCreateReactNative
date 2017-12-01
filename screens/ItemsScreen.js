@@ -60,7 +60,7 @@ componentWillMount() {
   }
 }
 const mapStateToProps = state => {
-  const companyKey = state.companies.company.id;
+  const companyKey = state.companies.company.companyKey || state.companies.company.id;
   const coName = state.companies.company.name;
   // console.log('ItemsScreen mapStateToProps Object.keys(state.companies.companies)[0]', Object.keys(state.companies.companies)[0]);
   // console.log('ItemsScreen mapStateToProps companyKey', companyKey);

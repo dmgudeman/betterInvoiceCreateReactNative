@@ -28,13 +28,13 @@ class invoiceEditScreen extends Component {
   }
   onSubmit = () => {
     // console.log('InvoiceEditScreen onSubmit this.props', this.props);
-    const {  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, total} = this.props
+    // const {  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, items, total} = this.props
     
-    const formatDate = moment(createdAt).format();
-    this.props.invoiceUpdate('createdAt', formatDate);
+    // const formatDate = moment(createdAt).format();
+    // this.props.invoiceUpdate('createdAt', formatDate);
    
     // console.log('INVOICEEDIT onSubmit',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total );
-    this.props.invoiceEdit({  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId,  invoiceKey, total})
+    this.props.invoiceEdit({  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId,  invoiceKey, items, total})
     this.props.navigation.goBack();
   }
 
@@ -44,21 +44,29 @@ class invoiceEditScreen extends Component {
         <View>
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
-          beginDate={this.props.beginDate}
-          invoiceUpdate={this.props.invoiceUpdate}
+          value={this.props.beginDate}
+          onDateChange={(value) => {
+            console.log('ItemEditScreen render beginDate.value', value);
+            this.props.invoiceUpdate('beginDate',value )
+            }
+          }
           />
        
        
         <FormLabel>Stop Date</FormLabel>
         <MyDatePicker 
-          endDate={this.props.endDate}
-          invoiceUpdate={this.props.invoiceUpdate}
+          value={this.props.endDate}
+          onDateChange={(value) => {
+            console.log('ItemEditScreen render endDate.value', value);
+            this.props.invoiceUpdate('endDate', value )
+            }
+          }
       />
       
         <FormLabel>Discount</FormLabel>
         <FormInput 
           value={this.props.discount}
-          onChangeText={(input) => { 
+          onChangeText={(value) => { 
               // console.log('invoiceEdit coName input', input);
               this.props.invoiceUpdate('coName', value)
             }
@@ -107,10 +115,11 @@ const mapStateToProps = (state) => {
   const endDate = state.invoice.endDate;
   const fUserId = state.invoice.fUserId;
   const invoiceKey = state.invoice.invoiceKey;
+  const items = state.invoice.items;
   const total = state.invoice.total;
 
   // const { amount, companyKey, date, description, fUserId, hours, id,  total,  } = state.invoice;
-  return { beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, total};
+  return { beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, items, total};
 }
 const mapDispatchToProps = (dispatch) => {
   const {invoiceUpdate, changeInvoiceHours, invoiceEdit} = actions;

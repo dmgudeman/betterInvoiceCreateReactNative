@@ -25,7 +25,11 @@ class itemEditScreen extends Component {
   
   componentWillMount() {
     console.log('itemEditScreen componentWillMount this.props ', this.props);
-    
+    // this.props.itemUpdate('date', moment().format()  )
+    // this.props.itemUpdate('hours', '');
+    // this.props.itemUpdate('amount', '');
+    // this.props.itemUpdate('description', '');
+    // this.props.itemTotalUpdate(0, 0, this.props.hourly) 
    
   }
   onSubmit = () => {
