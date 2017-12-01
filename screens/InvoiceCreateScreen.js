@@ -4,7 +4,7 @@ import { bindActionCreators }   from 'redux';
 import { 
   View, 
   Text, 
-  DatePickerIOS 
+  Alert,
 }                               from 'react-native';
 import { connect }              from 'react-redux';
 import thunk from 'redux-thunk';
@@ -26,6 +26,8 @@ class InvoiceCreateScreen extends Component {
   
   componentWillMount() {
     console.log('INVOICECREATESCREEN COMPONENTWILLMOUNT this.props', this.props);
+    this.props.invoiceUpdate('description', '');
+    this.props.invoiceUpdate('discount', '');
     this.props.invoiceUpdate('items', this.props.coItems );
     this.props.invoiceUpdate('createdAt', moment().format());
     this.props.invoiceUpdate('beginDate', moment().format());
@@ -63,9 +65,19 @@ class InvoiceCreateScreen extends Component {
     return 0;
   } 
   onSubmit = async () => {
+
     // console.log('111111111111111InvoicecreateScreen onSubmit this.props', this.props);
     const {  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total} = this.props
     let  filteredItems = await this.filterByDateRange(beginDate, endDate);
+    if(!filteredItems) {
+      console.log('INVOICECREATE ONSUBMIT filteredItems', filteredItems);
+      Alert.alert(
+        'Invoice Items',
+        'There are no invoice items for this date range'
+        ,[{text: 'Cancel', onPress: () => this.props.navigation.navigate('companies')}]
+      )
+
+    } else {
     this.props.invoiceUpdate('items', filteredItems);
     // console.log('INVOICECREATE ONSUBMIT AFTER filterItems this.props.items', this.props.items );
     newDueDate = await this.calcDueDate(this.createdAt);
@@ -83,13 +95,14 @@ class InvoiceCreateScreen extends Component {
           invoiceTotal = invoiceTotal + i.total;
         });
       // console.log('invoiceTotal', invoiceTotal);
-      if (invoiceTotal) {
-        this.props.invoiceUpdate('total', invoiceTotal);
-
-      } else {
-        this.props.invoiceUpdate('total', 0);
       }
-    }
+      // if (invoiceTotal) {
+      //   this.props.invoiceUpdate('total', invoiceTotal);
+
+      // } else {
+      //   this.props.invoiceUpdate('total', 0);
+      // }
+    
     // console.log('INVOICECREATE ONSUBMIT THIS.PROPS ',  this.props);
     
   
@@ -100,6 +113,7 @@ class InvoiceCreateScreen extends Component {
     // console.log('INVOICECREATE ONSUBMIT THIS.PROPS  ------ after ', this.props);
     this.props.invoiceCreate({invoice})
     await this.props.navigation.navigate('companies');
+    }
   }
   render() {
     console.log('INVOICECREATESCREEN RENDER this.props', this.props);
