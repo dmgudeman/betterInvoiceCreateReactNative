@@ -21,7 +21,7 @@ componentWillMount() {
     const formatDate = moment(createdAt).format();
     this.props.invoiceUpdate('createdAt', formatDate);
     const invoice = {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, items, total};
-    console.log('invoiceS SCREEN goToinvoiceEdit invoice', invoice);
+    // console.log('invoiceS SCREEN goToinvoiceEdit invoice', invoice);
     
     this.props.selectInvoice(invoice)
   
