@@ -26,8 +26,8 @@ export default (state = INITIAL_STATE, action) => {
 
     case SELECT_ITEM: {
       // console.log('ITEMREDUCER SELECT_ITEM action.item', action.item);
-      const {amount, coId, date, description, fUserId, hours, total, id}= action.item
-      const data = {amount, coId, date, description, fUserId, hours, total, id} 
+      const {amount, companyKey, date, description, fUserId, hours, total, id}= action.item
+      const data = {amount, companyKey, date, description, fUserId, hours, total, id} 
       // console.log('state', state);
       return Object.assign({}, state.item, data )
     }

@@ -30,6 +30,7 @@ class InvoiceCreateScreen extends Component {
     this.props.invoiceUpdate('createdAt', moment().format());
     this.props.invoiceUpdate('beginDate', moment().format());
     this.props.invoiceUpdate('endDate', moment().format());
+    
   
   }
   calcDueDate(date){
@@ -101,6 +102,7 @@ class InvoiceCreateScreen extends Component {
     await this.props.navigation.navigate('companies');
   }
   render() {
+    console.log('INVOICECREATESCREEN RENDER this.props', this.props);
     return (
       
         <View>
@@ -167,7 +169,7 @@ const mapStateToProps = (state) => {
   const companyKey = state.companies.company.id || '';
   const fUserId = state.auth.fUserId || '';
   const beginDate = state.invoice.beginDate || moment().format();
-  const coName = state.companies.company.coName || '';
+  const coName = state.companies.company.name || '';
   const coItems = state.companies.company.items || '';
   const paymentTerms = state.companies.company.paymentTerms || '';
 
@@ -179,10 +181,11 @@ const mapStateToProps = (state) => {
   const invoiceKey = state.invoice.invoiceKey || '';
   const items = state.invoice.items || '';
   const total = state.invoice.total || '';
+  console.log('INVOICECREATESCREEN MAPSTATETOPROPS coName', coName );
   return { beginDate, companyKey, coItems, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, paymentTerms, total};
 } 
-const mapDispatchToProps = (dispatch) => {
-  const {invoiceUpdate, changeInvoiceHours, invoiceCreate} = actions;
-  return bindActionCreators({invoiceUpdate, changeInvoiceHours, invoiceCreate}, dispatch)
-}
-export default connect(mapStateToProps, mapDispatchToProps )(InvoiceCreateScreen);
+// const mapDispatchToProps = (dispatch) => {
+//   const {invoiceUpdate, changeInvoiceHours, invoiceCreate} = actions;
+//   return bindActionCreators({invoiceUpdate, changeInvoiceHours, invoiceCreate}, dispatch)
+// }
+export default connect(mapStateToProps, actions )(InvoiceCreateScreen);

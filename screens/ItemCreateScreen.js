@@ -13,12 +13,12 @@ import Moment from 'react-moment';
 import moment from 'moment';
 import * as actions from '../actions'
 
+import MyDatePicker from '../components/MyDatePicker';
+
 class ItemCreateScreen extends Component {
 
   componentWillMount() {
-    const formatDate = moment().format('L');
-    console.log('mmmmmmmmmmmmmmmmmmmmformatDate', formatDate);
-    this.props.itemUpdate('date', formatDate)
+   
   }
   onSubmit = () => {
     const {amount, companyKey, date, description, fUserId, hourly, hours, total} = this.props
@@ -36,34 +36,19 @@ class ItemCreateScreen extends Component {
   }
 
   render() {
-    console.log('ITEMCREATESCREEN RENDER this.prop.date', this.props.date);
+    console.log('ITEMCREATESCREEN RENDER this.prop', this.props);
     return (
       <View>
-        <FormLabel>Date</FormLabel>
-        <DatePicker
-         style={{width: 200}}
-         date={this.props.date}
-         mode="date"
-         placeholder="select date"
-         format="LL"
-         minDate="2017-01-01"
-         confirmBtnText="Confirm"
-         cancelBtnText="Cancel"
-         customStyles={{
-           dateIcon: {
-             position: 'absolute',
-             left: 0,
-             top: 4,
-             marginLeft: 0
-           },
-           dateInput: {
-             marginLeft: 36
-           }
-       }}
-        onDateChange={(value) => {
-          this.props.itemUpdate('date',value )}
-        }
-      />
+  
+        <FormLabel>Start Date</FormLabel>
+        <MyDatePicker 
+          date={this.props.date}
+          onDateChange={(value) => {
+            // console.log('ItemEditScreen render beginDate.value', value);
+            this.props.itemUpdate('date', value )
+            }
+          }
+        />
         <FormLabel>Hours</FormLabel>
         <FormInput 
           onChangeText={(value) => { 
@@ -89,18 +74,20 @@ class ItemCreateScreen extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log('ITEMCREATESCREEN MAPSTATETOPROPS state', state);
+  const fUserId =     state.auth.fUserId || '';
 
-  const fUserId =     state.auth.fUserId;
-
-  const companyKey =  state.companies.company.id;
+  const companyKey =  state.companies.company.companyKey || '';
   const hourly =      state.companies.company.hourly;
   
   const amount =      state.item.amount || 0
-  const date =        state.item.date || moment().format('L');
-  const description = state.item.description;
-  const hours =       state.item.hours;
-  const total =       state.item.total;
+  const date =        state.item.date || moment().format();
+  const description = state.item.description || '';
+  const hours =       state.item.hours || '';
+  const total =       state.item.total || '';
+  const item = { amount, companyKey, date, description, fUserId, hourly, hours, total}
 
+  console.log('ITEMCREATESCREEN MAPSTATETOPROPS item', item);
   return { amount, companyKey, date, description, fUserId, hourly, hours, total};
 }
 export default connect(mapStateToProps, actions)(ItemCreateScreen);

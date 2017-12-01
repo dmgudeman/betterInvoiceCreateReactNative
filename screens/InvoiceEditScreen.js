@@ -109,7 +109,7 @@ const mapStateToProps = (state) => {
   const invoiceKey = state.invoice.invoiceKey;
   const total = state.invoice.total;
 
-  // const { amount, coId, date, description, fUserId, hours, id,  total,  } = state.invoice;
+  // const { amount, companyKey, date, description, fUserId, hours, id,  total,  } = state.invoice;
   return { beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, total};
 }
 const mapDispatchToProps = (dispatch) => {

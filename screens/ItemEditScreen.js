@@ -19,6 +19,8 @@ import Moment                   from 'react-moment';
 import moment                   from 'moment';
 import * as actions             from '../actions';
 
+import MyDatePicker from '../components/MyDatePicker';
+
 class itemEditScreen extends Component {
   
   componentWillMount() {
@@ -39,39 +41,23 @@ class itemEditScreen extends Component {
   }
 
   render() {
+    console.log('ITEMEDITSCREEN RENDER this.props.hours', this.props.hours);
     return (
       <View>
-        <FormLabel>Date</FormLabel>
-        <DatePicker
-          style={{width: 200}}
+        <FormLabel>Start Date</FormLabel>
+        <MyDatePicker 
           date={this.props.date}
-          mode="date"
-          placeholder="select date"
-          format="LL"
-          minDate="2017-01-01"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          customStyles={{
-            dateIcon: {
-              position: 'absolute',
-              left: 0,
-              top: 4,
-              marginLeft: 0
-            },
-            dateInput: {
-              marginLeft: 36
+          onDateChange={(value) => {
+            // console.log('ItemEditScreen render beginDate.value', value);
+            this.props.itemUpdate('date', value )
             }
-        }}
-        onDateChange={(value) => {
-          console.log('ItemEditScreen render date.value', value);
-          this.props.itemUpdate('date',value )}
-        }
-      />
+          }
+        />
         <FormLabel>Hours</FormLabel>
         <FormInput 
-          value={this.props.hours}
-          onChangeText={(input) => { 
-              console.log('itemEdit HOURS input', input);
+          value={`${this.props.hours}`}
+          onChangeText={(value) => { 
+              console.log('itemEdit HOURS input', value);
               this.props.itemUpdate('hours', value)
             }
           }
@@ -96,16 +82,21 @@ class itemEditScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-
-  const companyKey   = state.companies.company.companyKey;
+  const fUserId      = state.auth.fUserId || '';
+  
+  const companyKey   = state.companies.company.companyKey || '';
   const hourly       = state.companies.company.hourly;
-  const id           = state.item.id;
-  const amount       = state.item.amount
-  const date         = state.item.date;
-  const description  = state.item.description;
-  const fUserId      = state.item.fUserId;
-  const hours        = state.item.hours;
-  const total        = state.item.total;
+  const id           = state.item.id || '';
+  
+  const amount =      state.item.amount || 0
+  const date =        state.item.date || moment().format();
+  const description = state.item.description || '';
+  const hours =       state.item.hours || '';
+  const total =       state.item.total || '';
+  const item = { amount, companyKey, date, description, fUserId, hourly, hours, total}
+  
+    console.log('ITEMCREATESCREEN MAPSTATETOPROPS item', item);
+  
 
   // const { amount, companyKey, date, description, fUserId, hours, id,  total,  } = state.item;
   return { amount, companyKey, date, description, fUserId, hours, id, total, hourly };
