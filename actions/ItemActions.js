@@ -1,12 +1,14 @@
 import firebase from 'firebase';
 import thunk from 'redux-thunk';
 import {
-  ITEM_UPDATE, 
+  ITEM_UPDATE,
+  ITEM_TOTAL_UPDATE, 
   ITEM_EDIT,
   ITEM_CREATE, 
   CHANGE_SELECTED_ITEM,
   CHANGE_ITEM_HOURS,
-  SELECT_ITEM
+  SELECT_ITEM,
+
  } from './types';
 import moment from 'moment';
 
@@ -39,12 +41,15 @@ export const itemEdit = ({amount, companyKey, date, description, fUserId, hourly
   dispatch => {type: ITEM_EDIT, {item: payload}}
  }
 
-export const itemUpdate = (prop, value)=> {
-
-  if (prop === 'hours') {
-
+ export const itemTotalUpdate = (hours, amount, hourly)=> {
+  let total = (hours * hourly) + (amount * 1);
+  return {
+    type: ITEM_TOTAL_UPDATE,
+    total
   }
+}
 
+export const itemUpdate = (prop, value)=> {
   return {
     type: ITEM_UPDATE,
     payload: { prop, value}

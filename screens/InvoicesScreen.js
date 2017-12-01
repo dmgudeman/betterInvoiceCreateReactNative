@@ -21,7 +21,7 @@ componentWillMount() {
     const formatDate = moment(createdAt).format();
     this.props.invoiceUpdate('createdAt', formatDate);
     const invoice = {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, items, total};
-    // console.log('invoiceS SCREEN goToinvoiceEdit invoice', invoice);
+    console.log('invoiceS SCREEN goToinvoiceEdit invoice', invoice);
     
     this.props.selectInvoice(invoice)
   
@@ -59,8 +59,9 @@ componentWillMount() {
   }
 }
 const mapStateToProps = state => {
-  const companyKey = Object.keys(state.companies.companies)[0];
-  const  fUserId = state.auth.fUserId;
+  const companyKey = state.companies.company.id;
+  const coName = state.companies.company.name;
+  const fUserId = state.auth.fUserId;
   const invoices = _.map(state.invoice.invoices, (val, id) => {
   
     return { ...val, id};

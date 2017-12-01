@@ -92,8 +92,10 @@ class InvoiceCreateScreen extends Component {
       // console.log('itemsArray ', itemsArray);
         itemsArray.forEach(i => {
           // console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiinvoiceTotal', invoiceTotal);
-          invoiceTotal = invoiceTotal + i.total;
+         invoiceTotal = invoiceTotal + i.total;
+
         });
+        this.props.invoiceUpdate('total', invoiceTotal)
       // console.log('invoiceTotal', invoiceTotal);
       }
       // if (invoiceTotal) {
@@ -112,7 +114,7 @@ class InvoiceCreateScreen extends Component {
       invoiceKey, items: this.props.items, total: this.props.total}
     // console.log('INVOICECREATE ONSUBMIT THIS.PROPS  ------ after ', this.props);
     this.props.invoiceCreate({invoice})
-    await this.props.navigation.navigate('companies');
+    await this.props.navigation.goBack();
     }
   }
   render() {

@@ -1,5 +1,10 @@
 import {
-  ITEM_CREATE, ITEM_EDIT, ITEM_UPDATE,   CHANGE_ITEM_HOURS, SELECT_ITEM
+  ITEM_CREATE, 
+  ITEM_EDIT, 
+  ITEM_UPDATE,
+  ITEM_TOTAL_UPDATE,   
+  CHANGE_ITEM_HOURS, 
+  SELECT_ITEM
 } from '../actions/types';
 
 const INITIAL_STATE = {}
@@ -13,6 +18,11 @@ export default (state = INITIAL_STATE, action) => {
     case ITEM_UPDATE:  { // For updating item fields
       // console.log('ITEM REDUCERS  ITEM UPDATE [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);
       return { ...state, [action.payload.prop]: action.payload.value}
+    }
+
+    case ITEM_TOTAL_UPDATE: {
+      console.log('INVOICEREDUCERS INVOICE_EDIT action.total', action.total);
+      return { ...state, total: action.total }
     }
     case ITEM_EDIT: { // For submitting an edited item
       console.log('ITEM REDUCERS ITEM_EDIT action.payload', action.item);

@@ -57,21 +57,26 @@ class itemEditScreen extends Component {
         <FormInput 
           value={`${this.props.hours}`}
           onChangeText={(value) => { 
-              console.log('itemEdit HOURS input', value);
-              this.props.itemUpdate('hours', value)
-            }
+            this.props.itemUpdate('hours', value) 
+            this.props.itemTotalUpdate( value, this.props.amount, this.props.hourly)
           }
+        }
         />
         <FormLabel>Amount</FormLabel>
         <FormInput 
-      value={this.props.amount}
-        onChangeText={(value) => this.props.itemUpdate('amount', value)}
+          value={this.props.amount}
+          onChangeText={(value) => {
+            this.props.itemUpdate('amount', value)
+            this.props.itemTotalUpdate( this.props.hours, value, this.props.hourly)
+            }
+          }
         />
         <FormLabel>Description</FormLabel>
         <FormInput
         value={this.props.description}
         onChangeText={(value) => this.props.itemUpdate('description', value)}
         />
+        <Text style={{marginLeft:40, fontSize: 25 }}>Total: ${this.props.total}</Text>
         <Button
           title= "Submit"
           onPress =  {this.onSubmit }

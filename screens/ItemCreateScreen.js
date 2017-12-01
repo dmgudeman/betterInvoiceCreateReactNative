@@ -53,16 +53,28 @@ class ItemCreateScreen extends Component {
         <FormInput 
           onChangeText={(value) => { 
               this.props.itemUpdate('hours', value) 
+              this.props.itemTotalUpdate( value, this.props.amount, this.props.hourly)
             }
           }
+          
         />
         <FormLabel>Amount</FormLabel>
         <FormInput 
-          onChangeText={(value) => this.props.itemUpdate('amount', value)}
+          onChangeText={(value) => {
+            this.props.itemUpdate('amount', value)
+            this.props.itemTotalUpdate( this.props.hours, value, this.props.hourly)
+            }
+          }
         />
         <FormLabel>Description</FormLabel>
         <FormInput 
           onChangeText={(value) => this.props.itemUpdate('description', value)}
+        />
+      
+        <Text style={{marginLeft:40, fontSize: 25 }}>Total: ${this.props.total}</Text>
+        <Button
+          title= "Submit"
+          onPress =  {this.onSubmit }
         />
         <Button
           title= "Submit"
