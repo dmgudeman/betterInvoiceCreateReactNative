@@ -25,11 +25,8 @@ import MyDatePicker             from '../components/MyDatePicker';
 class InvoiceCreateScreen extends Component {
   
   componentWillMount() {
-    this.props.invoiceUpdate('items', this.props.coItems );
-    this.props.invoiceUpdate('createdAt', moment().format());
-    this.props.invoiceUpdate('beginDate', moment().format());
-    this.props.invoiceUpdate('endDate', moment().format());
-  
+     const { companyKey, coItems, coName, paymentTerms, fUserId } = this.props;
+    this.props.invoiceCreateClear({ companyKey, coItems, coName, paymentTerms, fUserId });
   }
   calcDueDate(date){
     let a = moment(date);
@@ -100,6 +97,7 @@ class InvoiceCreateScreen extends Component {
     await this.props.navigation.goBack();
   }
   render() {
+  
     return (
       
         <View>
@@ -162,13 +160,14 @@ class InvoiceCreateScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const companyKey = state.companies.company.companyKey;
   const fUserId = state.auth.fUserId || '';
-  const beginDate = state.invoice.beginDate || moment().format();
-  const coName = state.companies.company.name || '';
+   
   const coItems = state.companies.company.items || '';
+  const companyKey = state.companies.company.companyKey;
+  const coName = state.companies.company.name || '';
   const paymentTerms = state.companies.company.paymentTerms || '';
 
+  const beginDate = state.invoice.beginDate || moment().format();
   const createdAt= state.invoice.createdAt || moment().format();
   const description = state.invoice.description || '';
   const discount = state.invoice.discount || '';
@@ -179,8 +178,8 @@ const mapStateToProps = (state) => {
   const total = state.invoice.total || '';
   return { beginDate, companyKey, coItems, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, paymentTerms, total};
 } 
-const mapDispatchToProps = (dispatch) => {
-  const {invoiceUpdate, changeInvoiceHours, invoiceCreate} = actions;
-  return bindActionCreators({invoiceUpdate, changeInvoiceHours, invoiceCreate}, dispatch)
-}
-export default connect(mapStateToProps, mapDispatchToProps )(InvoiceCreateScreen);
+// const mapDispatchToProps = (dispatch) => {
+//   const {invoiceUpdate, changeInvoiceHours, invoiceCreate, XX} = actions;
+//   return bindActionCreators({invoiceUpdate, changeInvoiceHours, invoiceCreate, XX}, dispatch)
+// }
+export default connect(mapStateToProps, actions)(InvoiceCreateScreen);

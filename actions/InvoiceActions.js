@@ -1,14 +1,14 @@
 import firebase from 'firebase';
 import thunk from 'redux-thunk';
 import {
-  INVOICE_UPDATE, 
-  INVOICE_EDIT,
   INVOICE_CREATE, 
+  INVOICE_CREATE_CLEAR,
+  INVOICE_EDIT,
+  INVOICE_UPDATE, 
   SELECT_INVOICE,
   SET_INVOICES,
  } from './types';
 import moment from 'moment';
-
 
  // used upon Submit
 export const invoiceEdit = ({beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total}) => async dispatch => {
@@ -23,6 +23,26 @@ export const invoiceEdit = ({beginDate, companyKey, coName, createdAt, descripti
 
   return dispatch => {type: INVOICE_EDIT, {invoice: payload}}
  }
+export const invoiceCreateClear = ({ companyKey, coItems, coName, fUserId })=>{
+  let invoice = {
+    beginDate:moment().format(), 
+    coItems, 
+    companyKey, 
+    coName, 
+    createdAt:moment().format(), 
+    description: '',
+    discount: '',
+    dueDate: '',
+    endDate: moment().format(),
+    fUserId,
+    invoiceKey: '',
+    total: ''
+  }
+ 
+  console.log('InvoiceActions invoiceCREATECLEAR payload', invoice);
+  return {type: INVOICE_CREATE_CLEAR, invoice}
+
+}
 export const setInvoices = (invoices) => {
   return {
     type: SET_INVOICES,
@@ -57,7 +77,7 @@ export const invoiceCreate = ({invoice})=> {
   let newInvoiceKey =  firebase.database().ref().child('companies').child('invoices').push().key;
   payload.invoiceKey = newInvoiceKey
   // console.log('Invoice ACTIONS INVOICE_CREATE payload', payload);
-  // console.log('xxxxxxxxxxxxxxxxxxxx'+'/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey);
+  // console.log(''+'/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey);
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey] = payload;
   firebase.database().ref().update(updates);

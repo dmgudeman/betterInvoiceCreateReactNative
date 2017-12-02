@@ -19,6 +19,7 @@ export const CHANGE_SELECTED_ITEM = 'change_selected_item';
 export const CHANGE_ITEM_HOURS = 'CHANGE_ITEM_HOURS'
 export const SELECT_ITEM = 'select_item';
 
+export const INVOICE_CREATE_CLEAR = 'INVOICE_CREATE_CLEAR';
 export const INVOICE_CREATE = 'invoice_create';
 export const INVOICE_EDIT = 'invoice_edit';
 export const INVOICE_UPDATE = 'invoice_update';
