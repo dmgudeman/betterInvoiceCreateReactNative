@@ -24,28 +24,22 @@ import MyDatePicker from '../components/MyDatePicker';
 class itemEditScreen extends Component {
   
   componentWillMount() {
-    console.log('itemEditScreen componentWillMount this.props ', this.props);
-    // this.props.itemUpdate('date', moment().format()  )
-    // this.props.itemUpdate('hours', '');
-    // this.props.itemUpdate('amount', '');
-    // this.props.itemUpdate('description', '');
-    // this.props.itemTotalUpdate(0, 0, this.props.hourly) 
-   
+    // console.log('itemEditScreen componentWillMount this.props ', this.props);
   }
   onSubmit = () => {
-    console.log('ItemEditScreen onSubmit this.props', this.props);
+    // console.log('ItemEditScreen onSubmit this.props', this.props);
     const { amount, companyKey, date, description, fUserId, hours, id, total, hourly } = this.props
     
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
     this.props.itemUpdate('total', data);
    
-    console.log('date111111111', amount, companyKey, date, description, fUserId, hours, id, total, hourly  );
+    // console.log('date111111111', amount, companyKey, date, description, fUserId, hours, id, total, hourly  );
     this.props.itemEdit({ amount, companyKey, date, description, fUserId, hours, id, total, hourly })
     this.props.navigation.goBack();
   }
 
   render() {
-    console.log('ITEMEDITSCREEN RENDER this.props.hours', this.props.hours);
+    // console.log('ITEMEDITSCREEN RENDER this.props.hours', this.props.hours);
     return (
       <View>
         <FormLabel>Start Date</FormLabel>
@@ -77,8 +71,8 @@ class itemEditScreen extends Component {
         />
         <FormLabel>Description</FormLabel>
         <FormInput
-        value={this.props.description}
-        onChangeText={(value) => this.props.itemUpdate('description', value)}
+          value={this.props.description}
+          onChangeText={(value) => this.props.itemUpdate('description', value)}
         />
         <Text style={{marginLeft:40, fontSize: 25 }}>Total: ${this.props.total}</Text>
         <Button
@@ -94,24 +88,18 @@ const mapStateToProps = (state) => {
   const fUserId      = state.auth.fUserId || '';
   
   const companyKey   = state.companies.company.companyKey || '';
-  const hourly       = state.companies.company.hourly;
+  const hourly       = state.companies.company.hourly || '';
+
   const id           = state.item.id || '';
-  
-  const amount =      state.item.amount || 0
-  const date =        state.item.date || moment().format();
+  const amount =      state.item.amount || '';
+  const date =        state.item.date || '';
   const description = state.item.description || '';
   const hours =       state.item.hours || '';
   const total =       state.item.total || '';
   const item = { amount, companyKey, date, description, fUserId, hourly, hours, total}
   
-    console.log('ITEMCREATESCREEN MAPSTATETOPROPS item', item);
-  
-
+  // console.log('ITEMCREATESCREEN MAPSTATETOPROPS item', item);
   // const { amount, companyKey, date, description, fUserId, hours, id,  total,  } = state.item;
   return { amount, companyKey, date, description, fUserId, hours, id, total, hourly };
 }
-// const mapDispatchToProps = (dispatch) => {
-//   const {itemUpdate, changeItemHours, itemEdit} = actions;
-//   return bindActionCreators({itemUpdate, changeItemHours, itemEdit}, dispatch)
-// }
 export default connect(mapStateToProps, actions)(itemEditScreen);

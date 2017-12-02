@@ -28,7 +28,7 @@ class invoiceEditScreen extends Component {
   }
   onSubmit = () => {
     // console.log('InvoiceEditScreen onSubmit this.props', this.props);
-    // const {  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, items, total} = this.props
+    const {  beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, items, total} = this.props
     
     // const formatDate = moment(createdAt).format();
     // this.props.invoiceUpdate('createdAt', formatDate);
@@ -44,9 +44,9 @@ class invoiceEditScreen extends Component {
         <View>
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
-          value={this.props.beginDate}
+          date={this.props.beginDate}
           onDateChange={(value) => {
-            console.log('ItemEditScreen render beginDate.value', value);
+            console.log('ItemEditScreen onDateChane beginDate.value', value);
             this.props.invoiceUpdate('beginDate',value )
             }
           }
@@ -55,7 +55,7 @@ class invoiceEditScreen extends Component {
        
         <FormLabel>Stop Date</FormLabel>
         <MyDatePicker 
-          value={this.props.endDate}
+          date={this.props.endDate}
           onDateChange={(value) => {
             console.log('ItemEditScreen render endDate.value', value);
             this.props.invoiceUpdate('endDate', value )
@@ -121,8 +121,8 @@ const mapStateToProps = (state) => {
   // const { amount, companyKey, date, description, fUserId, hours, id,  total,  } = state.invoice;
   return { beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, items, total};
 }
-const mapDispatchToProps = (dispatch) => {
-  const {invoiceUpdate, changeInvoiceHours, invoiceEdit} = actions;
-  return bindActionCreators({invoiceUpdate, changeInvoiceHours, invoiceEdit}, dispatch)
-}
-export default connect(mapStateToProps, mapDispatchToProps )(invoiceEditScreen);
+// const mapDispatchToProps = (dispatch) => {
+//   const {invoiceUpdate, changeInvoiceHours, invoiceEdit} = actions;
+//   return bindActionCreators({invoiceUpdate, changeInvoiceHours, invoiceEdit}, dispatch)
+// }
+export default connect(mapStateToProps, actions )(invoiceEditScreen);

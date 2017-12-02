@@ -66,7 +66,7 @@ class InvoiceCreateScreen extends Component {
   } 
   onSubmit = async () => {
 
-    // console.log('111111111111111InvoicecreateScreen onSubmit this.props', this.props);
+    console.log('111111111111111InvoicecreateScreen onSubmit this.props', this.props);
     const {  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total} = this.props
     let  filteredItems = await this.filterByDateRange(beginDate, endDate);
     if(!filteredItems) {
@@ -87,26 +87,12 @@ class InvoiceCreateScreen extends Component {
 
     if (this.props.items){
       let invoiceTotal = 0;
-      // console.log('this.props.items', this.props.items);
       let itemsArray = (Object).values(this.props.items);
-      // console.log('itemsArray ', itemsArray);
         itemsArray.forEach(i => {
-          // console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiinvoiceTotal', invoiceTotal);
          invoiceTotal = invoiceTotal + i.total;
-
         });
         this.props.invoiceUpdate('total', invoiceTotal)
-      // console.log('invoiceTotal', invoiceTotal);
       }
-      // if (invoiceTotal) {
-      //   this.props.invoiceUpdate('total', invoiceTotal);
-
-      // } else {
-      //   this.props.invoiceUpdate('total', 0);
-      // }
-    
-    // console.log('INVOICECREATE ONSUBMIT THIS.PROPS ',  this.props);
-    
   
     let invoice = {beginDate, companyKey, coName, createdAt,  
       description: this.props.description, discount, 
@@ -114,33 +100,33 @@ class InvoiceCreateScreen extends Component {
       invoiceKey, items: this.props.items, total: this.props.total}
     // console.log('INVOICECREATE ONSUBMIT THIS.PROPS  ------ after ', this.props);
     this.props.invoiceCreate({invoice})
-    await this.props.navigation.goBack();
+    await this.props.navigation.goBack('invoices');
     }
   }
   render() {
     console.log('INVOICECREATESCREEN RENDER this.props', this.props);
     return (
       
-        <View>
+      <View>
         <FormLabel>Start Date</FormLabel>
-        <MyDatePicker 
-          beginDate={this.props.beginDate}
+         <MyDatePicker
+          date={this.props.beginDate} 
           onDateChange={(value) => {
-            // console.log('ItemEditScreen render beginDate.value', value);
+            console.log('ItemEditScreen render beginDate.value', value);
             this.props.invoiceUpdate('beginDate',value )
             }
           }
         />
        
-        <FormLabel>Stop Date</FormLabel>
+      <FormLabel>Stop Date</FormLabel>
         <MyDatePicker 
-          endDate={this.props.endDate}
+          date={this.props.endDate} 
           onDateChange={(value) => {
             // console.log('ItemEditScreen render endDate.value', value);
             this.props.invoiceUpdate('endDate', value )
             }
           }
-        />
+        /> 
       
         <FormLabel>Discount</FormLabel>
         <FormInput 
@@ -182,22 +168,23 @@ class InvoiceCreateScreen extends Component {
 
 const mapStateToProps = (state) => {
   console.log('INVOICECREATESCREEN MAPSTATETOPROPS state', state );
-  const companyKey = state.companies.company.id || '';
   const fUserId = state.auth.fUserId || '';
-  const beginDate = state.invoice.beginDate || '';
-  const coName = state.companies.company.name || '';
-  const coItems = state.companies.company.items || '';
-  const paymentTerms = state.companies.company.paymentTerms || '';
 
+  const companyKey = state.companies.company.companyKey|| state.companies.company.id || '';
+  const coName = state.companies.company.name || '';
+
+  const beginDate = state.invoice.beginDate || '';
   const createdAt= state.invoice.createdAt || '';
+  const coItems = state.companies.company.items || '';
   const description = state.invoice.description || '';
   const discount = state.invoice.discount || '';
   const dueDate = state.invoice.dueDate || '';
   const endDate = state.invoice.endDate || '';
-  const invoiceKey = state.invoice.invoiceKey || '';
   const items = state.invoice.items || '';
+  const invoiceKey = state.invoice.invoiceKey || '';
+  const paymentTerms = state.companies.company.paymentTerms || '';
   const total = state.invoice.total || '';
-  console.log('INVOICECREATESCREEN MAPSTATETOPROPS coName', coName );
+  console.log('INVOICECREATESCREEN MAPSTATETOPROPS beginDate', beginDate );
   return { beginDate, companyKey, coItems, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, paymentTerms, total};
 } 
 // const mapDispatchToProps = (dispatch) => {

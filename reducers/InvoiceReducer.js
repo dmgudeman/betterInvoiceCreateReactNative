@@ -25,7 +25,7 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case INVOICE_CREATE:  { // For updating invoice fields
       console.log('INVOICEREDUCERS INVOICE_CREATE action.payload', action.payload);
-      return { ...state.invoice, ...INITIAL_STATE};
+      return { ...state, invoice: action.item};
     }
     case INVOICE_UPDATE:  { // For updating invoice fields
       console.log('INVOICEREDUCERS  invoice UPDATE [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);

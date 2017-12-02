@@ -62,8 +62,5 @@ export const invoiceCreate = ({invoice})=> {
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey] = payload;
   firebase.database().ref().update(updates);
   
-   return {
-    type: INVOICE_CREATE,
-    // payload: { }
-  };
+  dispatch => {type: ITEM_CREATE, { invoice: payload }}
 }
