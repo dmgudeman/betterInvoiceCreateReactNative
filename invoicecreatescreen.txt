@@ -162,12 +162,12 @@ class InvoiceCreateScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const companyKey = state.companies.company.companyKey;
+  const companyKey = Object.keys(state.companies.companies)[0];
   const fUserId = state.auth.fUserId || '';
   const beginDate = state.invoice.beginDate || moment().format();
-  const coName = state.companies.company.name || '';
-  const coItems = state.companies.company.items || '';
-  const paymentTerms = state.companies.company.paymentTerms || '';
+  const coName = state.companies.companies[companyKey].name || '';
+  const coItems = state.companies.companies[companyKey].items || '';
+  const paymentTerms = state.companies.companies[companyKey].paymentTerms || '';
 
   const createdAt= state.invoice.createdAt || moment().format();
   const description = state.invoice.description || '';
