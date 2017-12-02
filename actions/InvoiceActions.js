@@ -50,17 +50,32 @@ export const selectInvoice = (invoice) => {
   }
 } 
 
-export const invoiceCreate = ({invoice})=> {
-  let payload = {...invoice};
-  // console.log('INVOICEACTIONS INVOICECREATE payload', payload);
+export const invoiceCreate = (data)=> async dispatch => {
+  let x;
+  let payload = {...data};
  
-  let newInvoiceKey =  firebase.database().ref().child('companies').child('invoices').push().key;
-  payload.invoiceKey = newInvoiceKey
-  // console.log('Invoice ACTIONS INVOICE_CREATE payload', payload);
-  // console.log('xxxxxxxxxxxxxxxxxxxx'+'/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey);
+x.beginDate =payload.beginDate;
+x.coName=payload.coName;
+x.companyKey=payload.companyKey ; 
+x.createdAt=payload.createdAt ;
+x.description=payload.description ;
+x.discount=payload.discount ;
+x.dueDate=payload.dueDate ;
+x.endDate=payload.endDate ;
+x.fUserId=payload.fUserId ;
+x.invoiceKey=payload.invoiceKey ; 
+x.items=payload. items;
+x.paymentTerms=payload.paymentTerms ; 
+x.total=payload.total ;
+
+  let newInvoiceKey =  firebase.database().ref().child('companies').child(x.companyKey).child('invoices').push().key;
+  console.log('Invoice ACTIONS INVOICE_CREATE x', x);
+  console.log('xxxxxxxxxxxxxxxxxxxx'+'/users/'+ x.fUserId + '/companies/'+x.companyKey + '/invoices/' + x.invoiceKey);
   let updates = {};
-  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey] = payload;
-  firebase.database().ref().update(updates);
-  
-  dispatch => {type: ITEM_CREATE, { invoice: payload }}
+  let url = '/users/'+ x.fUserId + '/companies/'+ x.companyKey + '/invoices/' + x.invoiceKey
+  console.log('INVOICEACTIONS INVOICECREATE x', x);
+  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey] = x;
+  await firebase.database().ref().update(updates);
+
+  return dispatch => {type: INVOICE_CREATE, {invoice: x}}
 }

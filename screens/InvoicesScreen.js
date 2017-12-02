@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { selectInvoice, invoiceUpdate } from '../actions/InvoiceActions';
 import _ from 'lodash';
 import moment from 'moment';
+import * as actions from '../actions';
 import store from '../store'
 
 class InvoicesScreen extends Component {
@@ -71,4 +72,4 @@ const mapStateToProps = state => {
   return { companyKey, coName, fUserId, invoices};
 }
 
-export default connect(mapStateToProps, {selectInvoice, invoiceUpdate})(InvoicesScreen);
+export default connect(mapStateToProps, actions)(InvoicesScreen);

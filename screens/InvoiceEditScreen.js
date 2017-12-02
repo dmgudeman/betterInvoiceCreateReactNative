@@ -24,7 +24,7 @@ class invoiceEditScreen extends Component {
   
   componentWillMount() {
     // const {dispatch} = this.props
-    // console.log('invoiceEditScreen componentWillMount this.props ', this.props);
+    console.log('invoiceEditScreen componentWillMount this.props ', this.props);
   }
   onSubmit = () => {
     // console.log('InvoiceEditScreen onSubmit this.props', this.props);
@@ -46,7 +46,7 @@ class invoiceEditScreen extends Component {
         <MyDatePicker 
           date={this.props.beginDate}
           onDateChange={(value) => {
-            console.log('ItemEditScreen onDateChane beginDate.value', value);
+            // console.log('ItemEditScreen onDateChane beginDate.value', value);
             this.props.invoiceUpdate('beginDate',value )
             }
           }
@@ -57,7 +57,7 @@ class invoiceEditScreen extends Component {
         <MyDatePicker 
           date={this.props.endDate}
           onDateChange={(value) => {
-            console.log('ItemEditScreen render endDate.value', value);
+            // console.log('ItemEditScreen render endDate.value', value);
             this.props.invoiceUpdate('endDate', value )
             }
           }
@@ -68,7 +68,7 @@ class invoiceEditScreen extends Component {
           value={this.props.discount}
           onChangeText={(value) => { 
               // console.log('invoiceEdit coName input', input);
-              this.props.invoiceUpdate('coName', value)
+              this.props.invoiceUpdate('discount', value)
             }
           }
         />
