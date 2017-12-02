@@ -140,6 +140,8 @@ class InvoiceCreateScreen extends Component {
           onPress =  {this.onSubmit }
         />
 
+       }
+        />
       </View>
     )
   }
