@@ -83,10 +83,6 @@ class ItemCreateScreen extends Component {
           title= "Submit"
           onPress =  {this.onSubmit }
         />
-        <Button
-          title= "Submit"
-          onPress =  {this.onSubmit }
-        />
       </View>
     )
   }

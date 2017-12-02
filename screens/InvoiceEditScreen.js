@@ -84,12 +84,7 @@ class invoiceEditScreen extends Component {
         />
 
         <Button
-          title= "To WebView"
-          onPress ={ () => this.props.navigation.navigate('myWebView') }
-        />
-
-        <Button
-          title= "To WebView2"
+          title= "Publish Invoice"
           onPress = { () =>{
             let description = this.props.description 
             this.props.navigation.navigate('wvContainer')

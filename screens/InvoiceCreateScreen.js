@@ -110,7 +110,6 @@ class InvoiceCreateScreen extends Component {
             }
           }
         />
-       
         <FormLabel>Stop Date</FormLabel>
         <MyDatePicker 
           date={this.props.endDate}
@@ -142,12 +141,7 @@ class InvoiceCreateScreen extends Component {
         />
 
         <Button
-          title= "To WebView"
-          onPress ={ () => this.props.navigation.navigate('myWebView') }
-        />
-
-        <Button
-          title= "To WebView2"
+          title= "Publish Invoice"
           onPress ={ () =>{ 
 
             this.props.navigation.navigate('myWebView2',{name: this.props.description})
