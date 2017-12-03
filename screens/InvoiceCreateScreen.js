@@ -4,7 +4,6 @@ import { bindActionCreators }   from 'redux';
 import { 
   View, 
   Text, 
-  // DatePickerIOS 
   Alert,
 }                               from 'react-native';
 import { connect }              from 'react-redux';
@@ -26,19 +25,21 @@ import MyDatePicker             from '../components/MyDatePicker';
 class InvoiceCreateScreen extends Component {
   
   componentWillMount() {
-     const { companyKey, coItems, coName, paymentTerms, fUserId } = this.props;
-    this.props.invoiceCreateClear({ companyKey, coItems, coName, paymentTerms, fUserId });
+     const { companyKey, coItems, coName, fUserId, paymentTerms } = this.props;
+    this.props.invoiceCreateClear({ companyKey, coItems, coName, fUserId, paymentTerms });
   }
   calcDueDate(date){
-    
-    console.log('INVOICECREATESCREEN CALCDUEDATE this.props.createdAt', this.props.createdAt); 
-    let a = moment(this.props.createdAt);
-    a.add(this.props.paymentTerms, 'days');
-    let dueDate = a._i;
-    console.log('INVOICECREATESCREEN CALCDUEDATE a._i', a._i); 
-    console.log('INVOICECREATESCREEN CALCDUEDATE a', a); 
-    this.props.invoiceUpdate('dueDate', dueDate);
+    console.log('INVOICECREATESCREEN CALCDUEDATE date',date);
+    console.log('INVOICECREATESCREEN CALCDUEDATE this.props.paymentTerms', this.props.paymentTerms);
+    console.log('INVOICECREATESCREEN CALCDUEDATE this.props.createdAt', this.props.createdAt);
+    let a = moment(date);
+    console.log('INVOICECREATESCREEN CALCDUEDATE a', a);
+    a.add(this.props.paymentTerms *1, 'days');
+    let dueDate = a.format(); 
+    console.log('INVOICECREATESCREEN CALCDUEDATE dueDate', dueDate);
+    return dueDate;
   }
+
   
   filterByDateRange(beginDate, endDate, coItems) {
     let imDate = '';
@@ -59,11 +60,13 @@ class InvoiceCreateScreen extends Component {
     this.props.invoiceUpdate('items', filteredItems);
   }
   filteredItemsAlert(){
-    if(!this.props.items) {
+    if(this.props.items && this.props.items.length === 0) {
+      console.log('INVOICECREATESCREEN FILTEREDITEMSALERT this.props.items.length', this.props.items.length);
+      console.log('INVOICECREATESCREEN FILTEREDITEMSALERT this.props.items.length');
       Alert.alert(
         'Invoice Items',
         'There are no invoice items for this date range'
-        ,[{text: 'Cancel', onPress: () => this.props.navigation.navigate('companies')}]
+        ,[{text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}]
       )
 
     } else {
@@ -75,7 +78,7 @@ class InvoiceCreateScreen extends Component {
         // console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiinvoiceTotal', invoiceTotal);
         invoiceTotal = invoiceTotal + i.total;
         });
-      // console.log('invoiceTotal', invoiceTotal);
+      console.log('invoiceTotal', invoiceTotal);
       this.props.invoiceUpdate('total', invoiceTotal);
     }
   }
@@ -97,12 +100,9 @@ class InvoiceCreateScreen extends Component {
   }
   onSubmit = async () => {
     const {  beginDate, companyKey, coItems, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total} = this.props
-    console.log('CREATEINVOICESCREEN onSubmit createdAt,', createdAt, );
-    console.log('CREATEINVOICESCREEN onSubmit beginDate', beginDate);
-    console.log('CREATEINVOICESCREEN onSubmit  endDate', endDate);
     await this.filterByDateRange(beginDate, endDate, coItems);
     await this.filteredItemsAlert();
-    await this.calcDueDate(createdAt);
+    await this.props.invoiceUpdate('dueDate', newDueDate);
     await this.calcInvoiceTotal();
    
   
@@ -114,7 +114,7 @@ class InvoiceCreateScreen extends Component {
     }
     
     this.props.invoiceCreate({invoice})
-    await this.props.navigation.goBack();
+    // await this.props.navigation.goBack();
   }
   render() {
   
@@ -123,20 +123,18 @@ class InvoiceCreateScreen extends Component {
         <View>
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
-          date={this.props.beginDate}
+          date={ moment(this.props.beginDate).format('MM/DD/YYYY') }
           onDateChange={(value) => {
-            // console.log('ItemEditScreen render beginDate.value', value);
-            this.props.invoiceUpdate('beginDate',value )
+            this.props.invoiceUpdate('beginDate',moment(value).toDate().toUTCString() )
             }
           }
         />
         <FormLabel>Stop Date</FormLabel>
         <MyDatePicker 
-          date={this.props.endDate}
-          onDateChange={(value) => {
-            // console.log('ItemEditScreen render endDate.value', value);
-            this.props.invoiceUpdate('endDate', value )
-            }
+           date={ moment(this.props.beginDate).format('MM/DD/YYYY') }
+           onDateChange={(value) => {
+             this.props.invoiceUpdate('endDate',moment(value).toDate().toUTCString() )
+             }
           }
         />
       

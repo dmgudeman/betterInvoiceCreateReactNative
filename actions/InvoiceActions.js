@@ -10,6 +10,11 @@ import {
  } from './types';
 import moment from 'moment';
 
+// THE OTHER WAY TO GET RFC_@*@@ compliance
+const DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
+// use with
+// moment().format(DATE_RFC2822);
+
  // used upon Submit
 export const invoiceEdit = ({beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total}) => async dispatch => {
   
@@ -23,22 +28,28 @@ export const invoiceEdit = ({beginDate, companyKey, coName, createdAt, descripti
 
   return dispatch => {type: INVOICE_EDIT, {invoice: payload}}
  }
-export const invoiceCreateClear = ({ companyKey, coItems, coName, fUserId })=>{
+export const invoiceCreateClear = ({ companyKey, coItems, coName,  fUserId, paymentTerms, })=>{
   let invoice = {
-    beginDate:moment().format(), 
+    // beginDate: moment().toDate().toUTCString(),
+    beginDate: moment().format(DATE_RFC2822),
     coItems, 
     companyKey, 
     coName, 
-    createdAt:moment().format(), 
+    // createdAt: moment().toDate().toUTCString(),
+    createdAt: moment().format(DATE_RFC2822),
     description: '',
     discount: '',
     dueDate: '',
-    endDate: moment().format(),
+    // endDate: moment().toDate().toUTCString(),
+    endDate: moment().format(DATE_RFC2822),
     fUserId,
     invoiceKey: '',
+    items: '',
+    paymentTerms,
     total: ''
   }
  
+
   console.log('InvoiceActions invoiceCREATECLEAR payload', invoice);
   return {type: INVOICE_CREATE_CLEAR, invoice}
 

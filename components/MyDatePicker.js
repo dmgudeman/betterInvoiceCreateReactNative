@@ -9,14 +9,16 @@ import {
 import DatePicker      from 'react-native-datepicker';
 import moment          from 'moment';
 
+const DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
+
 const MyDatePicker = ({date, onDateChange}) => (
   <View>
       <DatePicker
       style={{width: 200}}
-      date={moment(date).format("L")}
+      date={ date}
       mode="date"
       placeholder="select date"
-      format="L"
+      format="MM/DD/YYYY"
       minDate="01-01-2017"
       confirmBtnText="Confirm"
       cancelBtnText="Cancel"
@@ -31,7 +33,9 @@ const MyDatePicker = ({date, onDateChange}) => (
           marginLeft: 36
         }
     }}
-    onDateChange={(value) => onDateChange(value )}
+    onDateChange={(value) => {
+      console.log('MYDATEPICKER ONDATECHANGE value', value);
+      onDateChange(value )}}
     
   />
   </View>  
