@@ -49,11 +49,10 @@ class ItemCreateScreen extends Component {
   
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
-          date={this.props.date}
-          onDateChange={(value) => {
-            // console.log('ItemEditScreen render beginDate.value', value);
-            this.props.itemUpdate('date', value )
-            }
+           date={ moment(this.props.date).format('MM/DD/YYYY') }
+           onDateChange={(value) => {
+             this.props.itemUpdate('date', moment(value).toDate().toUTCString() )
+             }
           }
         />
         <FormLabel>Hours</FormLabel>
