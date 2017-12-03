@@ -104,6 +104,7 @@ class CompanyCreateScreen extends Component {
           />
         </TouchableOpacity>   
         
+
         <Button
           title= "Submit"
           onPress =  {() => this.onSubmit(this.props, this.props.companyCreate) }
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   const paymentTermsOptionsList = [{option: ''}, {option: "30"}, {option: "15"}, {option: "5"}] ;
-  const colorOptionsList = [{option:'blue', option:'green'},{option:'yellow'}, {option: 'purple'},{option: 'brown'},{option: 'red'}]
+  const colorOptionsList = [{option:'blue'}, {option:'green'},{option:'yellow'}, {option: 'purple'},{option: 'brown'},{option: 'red'}]
   const active = state.companies.active || true;
 
   const companyKey = state.companies.key || '';
