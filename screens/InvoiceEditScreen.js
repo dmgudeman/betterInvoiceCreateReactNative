@@ -44,10 +44,9 @@ class invoiceEditScreen extends Component {
         <View>
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
-          date={this.props.beginDate}
+          date={ moment(this.props.beginDate).format('MM/DD/YYYY') }
           onDateChange={(value) => {
-            // console.log('ItemEditScreen onDateChane beginDate.value', value);
-            this.props.invoiceUpdate('beginDate',value )
+            this.props.invoiceUpdate('beginDate',moment(value).toDate().toUTCString() )
             }
           }
           />
@@ -55,12 +54,11 @@ class invoiceEditScreen extends Component {
        
         <FormLabel>Stop Date</FormLabel>
         <MyDatePicker 
-          date={this.props.endDate}
-          onDateChange={(value) => {
-            // console.log('ItemEditScreen render endDate.value', value);
-            this.props.invoiceUpdate('endDate', value )
-            }
-          }
+         date={ moment(this.props.beginDate).format('MM/DD/YYYY') }
+         onDateChange={(value) => {
+           this.props.invoiceUpdate('endDate',moment(value).toDate().toUTCString() )
+           }
+         }
       />
       
         <FormLabel>Discount</FormLabel>

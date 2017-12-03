@@ -34,8 +34,8 @@ const MyDatePicker = ({date, onDateChange}) => (
         }
     }}
     onDateChange={(value) => {
-      console.log('MYDATEPICKER ONDATECHANGE value', value);
-      onDateChange(value )}}
+      console.log('MYDATEPICKER ONDATECHANGE value', moment(value).format(DATE_RFC2822));
+      onDateChange(moment(value).format(DATE_RFC2822) )}}
     
   />
   </View>  

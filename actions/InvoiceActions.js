@@ -28,6 +28,7 @@ export const invoiceEdit = ({beginDate, companyKey, coName, createdAt, descripti
 
   return dispatch => {type: INVOICE_EDIT, {invoice: payload}}
  }
+ 
 export const invoiceCreateClear = ({ companyKey, coItems, coName,  fUserId, paymentTerms, })=>{
   let invoice = {
     // beginDate: moment().toDate().toUTCString(),

@@ -28,16 +28,16 @@ class InvoiceCreateScreen extends Component {
      const { companyKey, coItems, coName, fUserId, paymentTerms } = this.props;
     this.props.invoiceCreateClear({ companyKey, coItems, coName, fUserId, paymentTerms });
   }
-  calcDueDate(date){
-    console.log('INVOICECREATESCREEN CALCDUEDATE date',date);
+  calcDueDate(){
+    console.log('INVOICECREATESCREEN CALCDUEDATE date', this.props.createdAt);
     console.log('INVOICECREATESCREEN CALCDUEDATE this.props.paymentTerms', this.props.paymentTerms);
     console.log('INVOICECREATESCREEN CALCDUEDATE this.props.createdAt', this.props.createdAt);
-    let a = moment(date);
+    let a = moment(this.props.createdAt);
     console.log('INVOICECREATESCREEN CALCDUEDATE a', a);
     a.add(this.props.paymentTerms *1, 'days');
     let dueDate = a.format(); 
     console.log('INVOICECREATESCREEN CALCDUEDATE dueDate', dueDate);
-    return dueDate;
+    this.props.invoiceUpdate('dueDate', dueDate)
   }
 
   
@@ -46,7 +46,7 @@ class InvoiceCreateScreen extends Component {
     let bmDate = moment(beginDate).format();
     let emDate = moment(endDate).format();
     let filteredItems = [];
-    let itemsArray = (Object).values(filteredItems);
+    let itemsArray = (Object).values(this.props.coItems);
       // console.log('INVOICECREATE FILTERBYDATERANGE this.props.items', this.props.items);
       // console.log('INVOICECREATE FILTERBYDATERANGE itemsArray', itemsArray);
     itemsArray.forEach(i => {
@@ -60,7 +60,7 @@ class InvoiceCreateScreen extends Component {
     this.props.invoiceUpdate('items', filteredItems);
   }
   filteredItemsAlert(){
-    if(this.props.items && this.props.items.length === 0) {
+    if(this.props.coItems && this.props.coItems.length === 0) {
       console.log('INVOICECREATESCREEN FILTEREDITEMSALERT this.props.items.length', this.props.items.length);
       console.log('INVOICECREATESCREEN FILTEREDITEMSALERT this.props.items.length');
       Alert.alert(
@@ -102,7 +102,7 @@ class InvoiceCreateScreen extends Component {
     const {  beginDate, companyKey, coItems, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total} = this.props
     await this.filterByDateRange(beginDate, endDate, coItems);
     await this.filteredItemsAlert();
-    await this.props.invoiceUpdate('dueDate', newDueDate);
+    await this.calcDueDate();
     await this.calcInvoiceTotal();
    
   
@@ -112,9 +112,9 @@ class InvoiceCreateScreen extends Component {
       dueDate: this.props.dueDate, endDate, fUserId,
       invoiceKey, items: this.props.items, total: this.props.total
     }
-    
+    console.log('INVOICECREATESCREEN ONSUBMITTTTTTTTTTTTTTTTTTT invoice', invoice);
     this.props.invoiceCreate({invoice})
-    // await this.props.navigation.goBack();
+    await this.props.navigation.goBack();
   }
   render() {
   
@@ -131,7 +131,7 @@ class InvoiceCreateScreen extends Component {
         />
         <FormLabel>Stop Date</FormLabel>
         <MyDatePicker 
-           date={ moment(this.props.beginDate).format('MM/DD/YYYY') }
+           date={ moment(this.props.endDate).format('MM/DD/YYYY') }
            onDateChange={(value) => {
              this.props.invoiceUpdate('endDate',moment(value).toDate().toUTCString() )
              }
