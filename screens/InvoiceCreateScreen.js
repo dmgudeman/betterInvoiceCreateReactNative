@@ -35,22 +35,25 @@ class InvoiceCreateScreen extends Component {
     return this.dueDate;
   }
   
-  filterByDateRange(beginDate, endDate) {
+  filterByDateRange(beginDate, endDate, coItems) {
     let imDate = '';
     let bmDate = moment(beginDate).format();
     let emDate = moment(endDate).format();
     let filteredItems = [];
    
 
-    if(this.props.items){
-      let itemsArray = (Object).values(this.props.items);
+    if(coItems){
+      let itemsArray = (Object).values(coItems);
       // console.log('INVOICECREATE FILTERBYDATERANGE this.props.items', this.props.items);
       // console.log('INVOICECREATE FILTERBYDATERANGE itemsArray', itemsArray);
       itemsArray.forEach(i => {
         imDate = moment(i.date);
         if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
           filteredItems.push(i);
+        
         }
+        console.log('INVOICECREATESCREEN FILTERBYDATERANGE filteredItems', filteredItems);
+        this.props.invoiceUpdate('items', filteredItems)
       })
     }
     // console.log('INVOICECREATE FILTERBYDATERANGE', filteredItems);
@@ -58,11 +61,13 @@ class InvoiceCreateScreen extends Component {
     return 0;
   } 
   onSubmit = async () => {
-    // console.log('111111111111111InvoicecreateScreen onSubmit this.props', this.props);
-    const {  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total} = this.props
-    let  filteredItems = await this.filterByDateRange(beginDate, endDate);
+    const {  beginDate, companyKey, coItems, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total} = this.props
+    console.log('111111111111111InvoicecreateScreen onSubmit this.props.coItems', this.props.coItems);
+    
+
+    let  filteredItems = await this.filterByDateRange(beginDate, endDate, coItems);
     this.props.invoiceUpdate('items', filteredItems);
-    // console.log('INVOICECREATE ONSUBMIT AFTER filterItems this.props.items', this.props.items );
+    console.log('INVOICECREATE ONSUBMIT AFTER filterItems this.props.items', this.props.items );
     newDueDate = await this.calcDueDate(this.createdAt);
     this.props.invoiceUpdate('dueDate', newDueDate);
     // console.log('dueDate', this.props.dueDate);
@@ -72,9 +77,9 @@ class InvoiceCreateScreen extends Component {
       let invoiceTotal = 0;
       // console.log('this.props.items', this.props.items);
       let itemsArray = (Object).values(this.props.items);
-      // console.log('itemsArray ', itemsArray);
+      console.log('itemsArray ', itemsArray);
         itemsArray.forEach(i => {
-          // console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiinvoiceTotal', invoiceTotal);
+          console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiinvoiceTotal', invoiceTotal);
           invoiceTotal = invoiceTotal + i.total;
         });
       // console.log('invoiceTotal', invoiceTotal);
