@@ -22,6 +22,7 @@ export default (state = INITIAL_STATE, action) => {
   }
     case COMPANY_CREATE:{
       console.log('COMPANIESREDUCER COMPANY CREATE', action.payload);
+      return { ...state, companies: action.payload }
     }
     case COMPANY_EDIT_SUBMIT: {
       console.log('COMPANIESREDUCER COMPANY_EDIT_SUBMIT fired');

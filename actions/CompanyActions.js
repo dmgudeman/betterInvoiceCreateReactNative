@@ -32,7 +32,7 @@ export const companyCreate = (company) => {
   
    return {
     type: COMPANY_CREATE,
-    // payload: { }
+   payload: { payload }
   };
   // let companyKey = await firebase.database().ref().child('companies').push().key;
   // dispatch => {type: COMPANY_CREATE, { companyKey: payload }}

@@ -43,18 +43,30 @@ class CompanyCreateScreen extends Component {
     title: 'New Company',
     }
   }
-  onSubmit(props, companyCreate) {
-    let payload = {
-      name:props.name, 
-      color:props.color, 
-      paymentTerms: props.paymentTerms, 
-      hourly: props.hourly, 
-      address: props.address, 
-      fUserId: props.fUserId,
-      companyKey: props.companyKey
-    }
+  x = (f,g) => {
+    colorHexPicker(f, g);}
+  
 
-    companyCreate(payload);
+  onSubmit = async (props, companyCreate) => {
+    await this.x(this.props.color, this.props.companyUpdate);
+
+    console.log('COMPANYCREATESCREEN ONSUBMIT this.props.hex', this.props.hex);
+    console.log('COMPANYCREATESCREEN ONSUBMIT this.props', this.props);
+
+    let payload = {
+      name:this.props.name, 
+      color:this.props.color, 
+      hex: this.props.hex,
+      paymentTerms: this.props.paymentTerms, 
+      hourly: this.props.hourly, 
+      address: this.props.address, 
+      fUserId: this.props.fUserId,
+      companyKey: this.props.companyKey
+    }
+    console.log('COMPANYCREATESCREEN ONSUBMIT payload', payload );
+
+
+    await companyCreate(payload);
     this.props.navigation.navigate('companies', { ButtonDisabled: false})
   }
 
@@ -162,16 +174,18 @@ const mapStateToProps = (state) => {
   const address = state.companies.address || '';
   const location = state.location || null;
 
-  const color = state.companies.color || 'blue';
+  const color = state.companies.color || '';
   const fUserId = state.auth.fUserId || '';
+  const hex = state.companies.hex || '';
   const hourly = state.companies.hourly || '';
   const name = state.companies.name || '';
   const paymentTerms = state.companies.paymentTerms || '30';
   const userId = state.auth.userId || '';
-  
+  console.log('COMPANYCREATESCREEN MAPSTATETOPROPS state.companies.hex', state.companies.hex);
+  console.log('COMPANYCREATESCREEN MAPSTATETOPROPS hex', hex);
   return { paymentTermsOptionsList, colorOptionsList, 
            companyKey, active, address, location, color, 
-           fUserId, hourly, name, paymentTerms, userId };
+           fUserId, hex, hourly, name, paymentTerms, userId };
 } 
 const mapDispatchToProps = (dispatch) => {
   const {companyUpdate, companyCreate} = actions;

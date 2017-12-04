@@ -16,14 +16,15 @@ const setParamsAction = ( params, key ) => {NavigationActions.setParams({
 class ListItem extends Component {
    
   render() {
-    if(this.props.color) {
-      colorHexPicker(this.props.color, this.props.companyUpdate)
-    }
-    // console.log('LISITEM RENDER this.props', this.props);
+    // if(this.props.color) {
+    //   colorHexPicker(this.props.color, this.props.companyUpdate)
+    // }
+    console.log('LISITEM RENDER this.props', this.props);
     const { navigate } = this.props.navigation
+    const color = this.props.company.hex || this.props.company.color;
     
     return (
-      <Card color={this.props.company.color}>
+      <Card color={color}>
        {/* <Card color={"#3498db"}> */}
         <CardSection>
           <View style={ styles.headerContentStyle}>
