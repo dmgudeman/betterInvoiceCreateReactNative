@@ -18,6 +18,7 @@ import {
 import moment                   from 'moment';
 import * as actions             from '../../actions';
 import { MyPicker  }            from '../../components/MyPicker/MyPicker';
+import colorHexPicker           from '../../assets/ColorHexUpdater';
 import AddressInput             from '../../components/AddressInput/AddressInput';
 
 class CompanyCreateScreen extends Component {
@@ -90,7 +91,8 @@ class CompanyCreateScreen extends Component {
         <TouchableOpacity>
           <FormInput 
             value={this.props.color}
-            onFocus={() => { navigation.navigate('myPicker',{ prop:'color', value: this.props.color, optionsList: this.props.colorOptionsList} )}}
+            onFocus={() => { 
+              navigation.navigate('myPicker',{ prop:'color', value: this.props.color, optionsList: this.props.colorOptionsList} )}}
             editable={true}
           />
         </TouchableOpacity>

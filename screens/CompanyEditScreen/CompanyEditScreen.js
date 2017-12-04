@@ -120,7 +120,7 @@ const mapStateToProps = (state) => {
   if (state.companies) {
     // console.log('COMPANYEDIT MAPSTATETOPROPS state.companies.active', state.companies.active);
     const paymentTermsOptionsList = [{option: ''}, {option: "30"}, {option: "15"}, {option: "5"}] ;
-    const colorOptionsList = [{option:'blue', option:'green'},{option:'yellow'}, {option: 'purple'},{option: 'brown'},{option: 'red'}]
+    const colorOptionsList = [{option:'blue'}, {option:'green'},{option:'yellow'}, {option: 'purple'},{option: 'brown'},{option: 'red'}]
     const active = state.companies.active || true;
 
     const companyKey = state.companies.companyKey || '';

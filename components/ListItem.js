@@ -8,18 +8,23 @@ import ItemEditScreen from '../screens/ItemEditScreen';
 import ItemCreateScreen from '../screens/ItemCreateScreen';
 import { MainNavigator } from '../App';
 import * as actions from '../actions';
+import colorHexPicker           from '../assets/ColorHexUpdater';
 
 const setParamsAction = ( params, key ) => {NavigationActions.setParams({
   params, key
 })}
 class ListItem extends Component {
-  
+   
   render() {
-
+    if(this.props.color) {
+      colorHexPicker(this.props.color, this.props.companyUpdate)
+    }
+    // console.log('LISITEM RENDER this.props', this.props);
     const { navigate } = this.props.navigation
-
+    
     return (
       <Card color={this.props.company.color}>
+       {/* <Card color={"#3498db"}> */}
         <CardSection>
           <View style={ styles.headerContentStyle}>
             <Text style={styles.headerTextStyle} onPress={() => 
@@ -72,5 +77,8 @@ const styles = {
     flex: 1,
   }
 }
-
+mapStateToProps = (state) => {
+  const color = state.companies.company.color || '';
+  const hex = state.companies.company.hex || '';
+}
 export default connect(null, actions)(ListItem);
