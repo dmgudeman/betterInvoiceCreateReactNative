@@ -25,3 +25,5 @@ export const INVOICE_EDIT = 'invoice_edit';
 export const INVOICE_UPDATE = 'invoice_update';
 export const SELECT_INVOICE = 'select_invoice';
 export const SET_INVOICES = 'SET_INVOICES';
+
+export const UTILS_UPDATE = 'UTILS_UPDATE';

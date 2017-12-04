@@ -43,15 +43,12 @@ class CompanyCreateScreen extends Component {
     title: 'New Company',
     }
   }
-  x = (f,g) => {
-    colorHexPicker(f, g);}
-  
 
   onSubmit = async (props, companyCreate) => {
-    await this.x(this.props.color, this.props.companyUpdate);
-
-    console.log('COMPANYCREATESCREEN ONSUBMIT this.props.hex', this.props.hex);
-    console.log('COMPANYCREATESCREEN ONSUBMIT this.props', this.props);
+    await colorHexPicker(this.props.color, this.props.companyUpdate);
+  
+    // console.log('COMPANYCREATESCREEN ONSUBMIT this.props.hex', this.props.hex);
+    // console.log('COMPANYCREATESCREEN ONSUBMIT this.props', this.props);
 
     let payload = {
       name:this.props.name, 
@@ -63,11 +60,10 @@ class CompanyCreateScreen extends Component {
       fUserId: this.props.fUserId,
       companyKey: this.props.companyKey
     }
-    console.log('COMPANYCREATESCREEN ONSUBMIT payload', payload );
-
 
     await companyCreate(payload);
-    this.props.navigation.navigate('companies', { ButtonDisabled: false})
+    await this.props.utilsUpdate('buttonDisabled', false)
+    this.props.navigation.navigate('companies')
   }
 
   render() {
@@ -187,8 +183,8 @@ const mapStateToProps = (state) => {
            companyKey, active, address, location, color, 
            fUserId, hex, hourly, name, paymentTerms, userId };
 } 
-const mapDispatchToProps = (dispatch) => {
-  const {companyUpdate, companyCreate} = actions;
-  return bindActionCreators({companyUpdate, companyCreate}, dispatch)
-}
+// const mapDispatchToProps = (dispatch) => {
+//   const {companyUpdate, companyCreate} = actions;
+//   return bindActionCreators({companyUpdate, companyCreate}, dispatch)
+// }
 export default connect(mapStateToProps, actions )(CompanyCreateScreen);
