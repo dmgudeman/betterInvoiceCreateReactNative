@@ -37,10 +37,10 @@ class MyPicker extends Component {
     // console.log('x', x);
     // console.log('y', y); 
     // console.log('this.props.kkkkkk', this.props.k);
-
+    const { prop, value, list, listName } = this.props;
     return (
       <View>
-        {/* <Picker
+         <Picker
             selectedValue = {pickerValue} onValueChange = {(value)=>{
               picker = value;
             } 
@@ -48,18 +48,21 @@ class MyPicker extends Component {
         >
           {options.map((value)=> <Picker.Item label={value} value={value} key={"money"+value}/>)}
         </Picker>
-        <Text style = {styles.text}>{`Here ${pickerProp}`}</Text>  */}
+        <Text style = {styles.text}>{`Here ${pickerProp}`}</Text> 
         <Text>Hi There</Text>
       </View>
      )
   }
 }
 const mapStateToProps = (state) => {
+  const prop = state.companies.prop;
   const value  = state.companies.value
   const list = state.companies.list
+  const listName = state.companies.prop
+
   console.log('MYPICKER MAPSTATETOPROPS state', state);
   
-  return { list, value}
+  return { prop, list,listName, value}
 }
 
 export default connect(mapStateToProps, actions)(MyPicker);
