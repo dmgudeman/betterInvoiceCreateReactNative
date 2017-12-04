@@ -98,8 +98,11 @@ class CompanyCreateScreen extends Component {
             onFocus={(value) => { 
               console.log('pppppppppppppppppppppppppppppppppppppppp', paymentTerms);
               companyUpdate('paymentTermsOptionsList', paymentTermsOptionsList);
+              companyUpdate('list', paymentTermsOptionsList )
+              companyUpdate('listName', 'paymentTermsOptionsList')
+              //can't use companyUpdate for paymentTerms it returns a proxy
               // companyUpdate('paymentTerms', value)
-              navigation.navigate('myPicker',{})
+              navigation.navigate('myPicker',{prop:'paymentTerms', value: this.props.paymentTerms} )
               }
             }
             editable={true}
@@ -114,6 +117,7 @@ class CompanyCreateScreen extends Component {
             onFocus={(value) => { 
               companyUpdate('colorOptionsList',colorOptionsList);
               companyUpdate('color', value);
+
               navigation.navigate('myPicker');
               }
             }

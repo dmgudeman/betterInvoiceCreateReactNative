@@ -20,9 +20,16 @@ const pickerProp = ''
 class MyPicker extends Component {
 
   componentWillMount() {
-  // console.log('MYPICKER COMPONENTWILLMOUNT this.x', x);
-  // console.log('MYPICKER COMPONENTWILLMOUNT this.pickerProp', pickerProp);
-  // console.log('MYPICKER COMPONENTWILLMOUNT this.props', this.props);
+    console.log('MYPICKER COMPONENTWILLMOUNT tthis.props.navigation.state.params.prop;',this.props.navigation.state.params.prop  );
+    console.log('MYPICKER COMPONENTWILLMOUNT tthis.props.navigation.state.params.value;',this.props.navigation.state.params.value );
+    prop =this.props.navigation.state.params.prop;  
+    value = this.props.navigation.state.params.value;
+    // console.log('MYPICKER COMPONENTWILLMOUNT this.x', x);
+    // console.log('MYPICKER COMPONENTWILLMOUNT this.pickedProp', pickedProp);
+    this.props.companyUpdate(prop, value);
+    this.props.companyUpdate('prop', prop);
+    this.props.companyUpdate('value',value)
+  
   }
   render() {
     // console.log('MyPicker RENDER this.props.navigation.state.params.optionsList', this.props.navigation.state.params.optionsList);
@@ -48,9 +55,11 @@ class MyPicker extends Component {
   }
 }
 const mapStateToProps = (state) => {
+  const value  = state.companies.value
+  const list = state.companies.list
   console.log('MYPICKER MAPSTATETOPROPS state', state);
   
-  return {}
+  return { list, value}
 }
 
 export default connect(mapStateToProps, actions)(MyPicker);
