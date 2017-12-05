@@ -132,29 +132,27 @@ class CompanyCreateScreen extends Component {
 
         <FormLabel>Color</FormLabel>
         <TouchableOpacity>
-        <ModalSelector
-                    data={data}
-                    initValue="Select something yummy!"
-                    // supportedOrientations={['landscape']}
-                    onChange={(option)=>{ 
-                      console.log('pppppppppppppppppppppppppppppppppppppppp',color);
-                      // companyUpdate('paymentTermsOptionsList', colorOptionsList);
-                      // companyUpdate('list', colorOptionsList )
-                      // companyUpdate('listName', 'colorOptionsList')
-                      companyUpdate('color', option.label)
-                    }
-                  }
-                  >
-
-          <FormInput 
-            value={this.props.color}
-            style={{borderWidth:1, borderColor:'#ccc', padding:10, height:30}}
-            editable={false}
-            placeholder="color"
-            editable={true}
-          />
-          </ModalSelector>
-        </TouchableOpacity>
+          <ModalSelector
+            data={data}
+            initValue="Select something yummy!"
+            // supportedOrientations={['landscape']}
+            onChange={(option)=>{ 
+              console.log('pppppppppppppppppppppppppppppppppppppppp',color);
+              // companyUpdate('paymentTermsOptionsList', colorOptionsList);
+              // companyUpdate('list', colorOptionsList )
+              // companyUpdate('listName', 'colorOptionsList')
+              companyUpdate('color', option.label)
+            }
+          }
+          >
+        <FormInput 
+          value={this.props.color} 
+          editable={false}
+          placeholder="color"
+          editable={true}
+        />
+        </ModalSelector>
+      </TouchableOpacity>
 
         <FormLabel>Address</FormLabel> 
         <TouchableOpacity>
