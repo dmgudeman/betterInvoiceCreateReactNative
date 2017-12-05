@@ -102,7 +102,7 @@ class CompanyCreateScreen extends Component {
               companyUpdate('listName', 'paymentTermsOptionsList')
               //can't use companyUpdate for paymentTerms it returns a proxy
               // companyUpdate('paymentTerms', value)
-              navigation.navigate('myPicker',{prop:'paymentTerms', value: this.props.paymentTerms} )
+              navigation.navigate('myPicker',{prop:'paymentTerms', propValue: this.props.paymentTerms} )
               }
             }
             editable={true}
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const paymentTermsOptionsList = [{option: ''}, {option: "30"}, {option: "15"}, {option: "5"}] ;
+  const paymentTermsOptionsList = ["30", "15", "5"] ;
   const colorOptionsList = [{option:'blue'}, {option:'green'},{option:'yellow'}, {option: 'purple'},{option: 'brown'},{option: 'red'}]
   const active = state.companies.active || true;
 

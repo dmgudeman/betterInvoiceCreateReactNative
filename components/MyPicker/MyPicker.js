@@ -13,22 +13,23 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import styles from './styles';
 import * as actions             from '../../actions';
 
-const x = '';
-const pickerProp = ''
+
 
 
 class MyPicker extends Component {
+     options = _.map(this.props.navigation.state.params.optionsList, "option")
 
   componentWillMount() {
     console.log('MYPICKER COMPONENTWILLMOUNT tthis.props.navigation.state.params.prop;',this.props.navigation.state.params.prop  );
-    console.log('MYPICKER COMPONENTWILLMOUNT tthis.props.navigation.state.params.value;',this.props.navigation.state.params.value );
+    console.log('MYPICKER COMPONENTWILLMOUNT tthis.props.navigation.state.params.value;',this.props.navigation.state.params.propValue );
     prop =this.props.navigation.state.params.prop;  
-    value = this.props.navigation.state.params.value;
+    propValue = this.props.navigation.state.params.value;
     // console.log('MYPICKER COMPONENTWILLMOUNT this.x', x);
-    // console.log('MYPICKER COMPONENTWILLMOUNT this.pickedProp', pickedProp);
-    this.props.companyUpdate(prop, value);
+    // console.log('MYPICKER COMPONENTWILLMOUNT this.propValue', propValue);
+    this.props.companyUpdate(prop, propValue);
     this.props.companyUpdate('prop', prop);
-    this.props.companyUpdate('value',value)
+    this.props.companyUpdate('propValue', propValue)
+    // const options = _.map(this.props.navigation.state.params.optionsList, "option")
   
   }
   render() {
@@ -37,18 +38,28 @@ class MyPicker extends Component {
     // console.log('x', x);
     // console.log('y', y); 
     // console.log('this.props.kkkkkk', this.props.k);
-    const { prop, value, list, listName } = this.props;
+    const { prop, propValue, list, listName } = this.props;
+    console.log('MYPICKER RENDER list', list);
     return (
       <View>
          <Picker
-            selectedValue = {pickerValue} onValueChange = {(value)=>{
-              picker = value;
+            selectedValue = {propValue} 
+            onValueChange = {(value)=>{
+              try{
+                console.log('llllllllllllllllllllllllllllllllll',list);
+              this.props.companyUpdate(prop, value);
+              this.props.companyUpdate('propValue', value)
+              } catch (e) {
+                console.log('error in render in MyPicker', e);
+              }
+              // propValue = value;
             } 
           }
-        >
-          {options.map((value)=> <Picker.Item label={value} value={value} key={"money"+value}/>)}
+          >
+          {this.props.list.map((value)=> <Picker.Item label={value} value={value} key={"money"+value}/>)}
+        
         </Picker>
-        <Text style = {styles.text}>{`Here ${pickerProp}`}</Text> 
+        <Text style = {styles.text}>{`Here ${propValue}`}</Text> 
         <Text>Hi There</Text>
       </View>
      )
@@ -56,13 +67,14 @@ class MyPicker extends Component {
 }
 const mapStateToProps = (state) => {
   const prop = state.companies.prop;
-  const value  = state.companies.value
+  const propValue  = state.companies.propValue
   const list = state.companies.list
   const listName = state.companies.prop
 
+
   console.log('MYPICKER MAPSTATETOPROPS state', state);
   
-  return { prop, list,listName, value}
+  return {  list, listName, prop, propValue}
 }
 
 export default connect(mapStateToProps, actions)(MyPicker);
