@@ -28,8 +28,8 @@ class CompanyCreateScreen extends Component {
     this.props.companyUpdate('paymentTerms', '');
     this.props.companyUpdate('color', 'blue');
     this.props.companyUpdate('hourly', '');
-    this.props.companyUpdate('address', '');
-    this.props.companyUpdate('companyKey',)
+    this.props.companyUpdate('address', '123');
+    this.props.companyUpdate('companyKey','')
   }
 
   // paymentTermsOptionsList =''
@@ -72,6 +72,7 @@ class CompanyCreateScreen extends Component {
       companyUpdate, paymentTerms, paymentTermsOptionsList, colorOptionsList} = this.props;
     console.log('nammmmmmmmmmeeeeeee', paymentTerms);
     console.log('COMPANYCREATESCREEN RENDER this.props', this.props);
+    console.log('addrrrrrrrrrrrreeeeeeeeesssssssssss', address);
   
     return (
      <View>
@@ -115,10 +116,13 @@ class CompanyCreateScreen extends Component {
           <FormInput 
             value={this.props.color}
             onFocus={(value) => { 
-              companyUpdate('colorOptionsList',colorOptionsList);
-              companyUpdate('color', value);
-
-              navigation.navigate('myPicker');
+              console.log('pppppppppppppppppppppppppppppppppppppppp',color);
+              companyUpdate('paymentTermsOptionsList', colorOptionsList);
+              companyUpdate('list', colorOptionsList )
+              companyUpdate('listName', 'colorOptionsList')
+              //can't use companyUpdate for paymentTerms it returns a proxy
+              // companyUpdate('paymentTerms', value)
+              navigation.navigate('myPicker',{prop:'color', propValue: this.props.color} )
               }
             }
             editable={true}
@@ -129,9 +133,11 @@ class CompanyCreateScreen extends Component {
         <TouchableOpacity>
           <FormInput 
             value={address}
-            onFocus={() => { 
-              this.props.navigation.navigate('googlePlacesInput')
+            onFocus={(value) => { 
+              console.log('COMPANYCREATESCREEN ADDRESS INPUT', address);
+              console.log('COMPANYCREATESCREEN ADDRESS VALUE', value);
               companyUpdate('address', value)
+              this.props.navigation.navigate('googlePlacesInput')
             }}
             editable={true}
           />
@@ -186,17 +192,16 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   const paymentTermsOptionsList = ["30", "15", "5"] ;
-  const colorOptionsList = [{option:'blue'}, {option:'green'},{option:'yellow'}, {option: 'purple'},{option: 'brown'},{option: 'red'}]
+  const colorOptionsList = ['blue', 'green', 'yellow', 'purple', 'brown', 'red']
+ 
   const active = state.companies.active || true;
-
-  const companyKey = state.companies.key || '';
   const address = state.companies.address || '';
-  const location = state.location || null;
-
   const color = state.companies.color || '';
+  const companyKey = state.companies.key || '';
   const fUserId = state.auth.fUserId || '';
   const hex = state.companies.hex || '';
   const hourly = state.companies.hourly || '';
+  const location = state.location || null;
   const name = state.companies.name || '';
   const paymentTerms = state.companies.paymentTerms || '30';
   const userId = state.auth.userId || '';

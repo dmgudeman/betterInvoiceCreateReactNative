@@ -13,9 +13,7 @@ const pickedProp = ''
 class GooglePlacesInput extends Component {
 
   componentWillMount() {
-    const {address, ButtonDisabled} = this.props.navigation.state.params;  
-    this.props.companyUpdate('address', address);
-    console.log('GOOGLEPLACESINPUT COMPONENTWILLMOUNT this.props', this.props);
+    
     }
   render() {
   return (
