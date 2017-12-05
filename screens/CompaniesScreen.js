@@ -8,7 +8,7 @@ import { View, Text, ListView, FlatList, TouchableOpacity } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import * as actions from '../actions';
 import ListItem from '../components/ListItem'
-import { Header, Button } from '../components/common';
+import { Button } from '../components/common';
 
 function goToCreateCompany(){
   
@@ -17,6 +17,20 @@ function goToCreateCompany(){
      navigation.navigate('companyCreate', {ButtonDisabled})
   
 }
+const debounce =(func, wait, immediate) => {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
 
 class CompaniesScreen extends Component {
   componentWillMount() {
@@ -36,35 +50,47 @@ class CompaniesScreen extends Component {
       <ListItem company={item} navigation={this.props.navigation}/>
     )
   }
-  // static navigationOptions = ({ navigation }) => {
-  //   return {
-  //   title: 'Companies',
-  //   headerRight:
-  //       <Button
-  //         title= "+Business"
-  //         onPress={()=>{navigation.navigate('companyCreate')}}
-  //       />
-  //       ,
-  //       headerLeft: null
-  //   }
+  // Returns a function, that, as long as it continues to be invoked, will not
+// be triggered. The function will be called after it stops being called for
+// N milliseconds. If `immediate` is passed, trigger the function on the
+// leading edge, instead of the trailing.
+debounce =(func, wait, immediate) => {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
+
+  static navigationOptions = ({ navigation }) => {
+    // let  myEfficientFn = debounce(function() {
+    //   ()=>{navigation.navigate('companyCreate')}
+    // }, 250);
+    return {
+    title: 'Companies',
+    headerRight:
+        <Button
+          title= "+Business"
+          // onPress={myEfficientFn}
+          onPress={()=>{navigation.navigate('companyCreate')}}
+        />
+        ,
+        headerLeft: null
+    }
    
-  // }
+  }
   render() {
     // console.log('CompaniesScreen render  this.props.companies =', this.props.companies);
     const navigation = this.props.navigation
     return (
      <View>
-        <Header 
-          headerText={"Companies"} 
-          leftButtonText={"+Business"}
-          leftButtonStyle={
-            {backGroundColor:'#8e44ad',
-             color: '#bdc3c7'
-            }
-          }
-        
-        >
-        </Header>
         <FlatList 
           data = {this.props.companies}
           renderItem={this.renderItem}

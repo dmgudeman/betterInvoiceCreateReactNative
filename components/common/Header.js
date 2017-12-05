@@ -5,8 +5,8 @@ import { HeaderButton } from './';
 
 
 // make a component
-const Header = (props) => {
-  const { textStyle, viewStyle, rightButtonStyle} = styles;
+const Header = (props)=>{
+  const { textStyle, viewStyle} = styles;
   console.log('HEADER props.leftButtonStyle', props.leftButtonStyle);
     return (
       <View style={viewStyle}>
