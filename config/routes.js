@@ -21,7 +21,14 @@ import MyPicker from '../components/MyPicker/MyPicker';
 import GooglePlacesInput from '../components/GooglePlacesInput';
 
 
-export default StackNavigator(
+export const MyPickerNav = StackNavigator({
+  myPicker: {screen: MyPicker}
+},
+{
+  mode: 'modal'
+})
+
+const MainCardNavigator =  StackNavigator(
   {
     auth:              { screen: AuthScreen },
     companies:         { screen: CompaniesScreen },
@@ -39,13 +46,26 @@ export default StackNavigator(
         title: `Edit Invoice`,
       },
     },
+    // myPicker:          { screen: MyPicker },
     datePicker:        { screen: MyDatePicker },
-    myPicker:          { screen: MyPicker },
     googlePlacesInput: { screen: GooglePlacesInput },
     myWebView:         { screen: MyWebView },
     wvContainer:       { screen: WVContainer }
   },
-  // {
-  //   mode: 'modal',
-  // }
+  {
+    headerMode: 'none'
+  }
 );
+
+export default StackNavigator (
+  {
+    MainCardNavigator: { screen: MainCardNavigator },
+    myPicker: { screen: MyPicker }
+  
+},
+
+{
+  mode: 'modal',
+  headerMode: 'none'
+}
+)

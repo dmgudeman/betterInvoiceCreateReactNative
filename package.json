@@ -21,6 +21,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "eslint": "^4.12.1",
     "expo": "^21.0.0",
     "firebase": "^4.6.0",
     "lodash": "^4.17.4",

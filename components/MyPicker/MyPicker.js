@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect }              from 'react-redux';
 import { bindActionCreators }   from 'redux';
 import {
+  Modal,
   View,
   Text,
   Picker,
   StyleSheet,
-  Animated,
 } from 'react-native';
 import _ from 'lodash';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -17,18 +17,20 @@ import * as actions             from '../../actions';
 
 
 class MyPicker extends Component {
-     options = _.map(this.props.navigation.state.params.optionsList, "option")
+    //  options = _.map(this.props.navigation.state.params.optionsList, "option")
 
   componentWillMount() {
-    console.log('MYPICKER COMPONENTWILLMOUNT tthis.props.navigation.state.params.prop;',this.props.navigation.state.params.prop  );
-    console.log('MYPICKER COMPONENTWILLMOUNT tthis.props.navigation.state.params.value;',this.props.navigation.state.params.propValue );
-    prop =this.props.navigation.state.params.prop;  
-    propValue = this.props.navigation.state.params.value;
+    console.log('MYPICKER');
+
+    console.log('MYPICKER COMPONENTWILLMOUNT tthis.props.',this.props);
+    // console.log('MYPICKER COMPONENTWILLMOUNT tthis.props.navigation.state.params.value;',this.props.navigation.state.params.propValue );
+    // prop =this.props.navigation.state.params.prop;  
+    // propValue = this.props.navigation.state.params.value;
     // console.log('MYPICKER COMPONENTWILLMOUNT this.x', x);
     // console.log('MYPICKER COMPONENTWILLMOUNT this.propValue', propValue);
-    this.props.companyUpdate(prop, propValue);
-    this.props.companyUpdate('prop', prop);
-    this.props.companyUpdate('propValue', propValue)
+    // this.props.companyUpdate(prop, propValue);
+    // this.props.companyUpdate('prop', prop);
+    // this.props.companyUpdate('propValue', propValue)
     // const options = _.map(this.props.navigation.state.params.optionsList, "option")
   
   }
@@ -42,6 +44,7 @@ class MyPicker extends Component {
     console.log('MYPICKER RENDER list', list);
     return (
       <View>
+        
          <Picker
             selectedValue = {propValue} 
             onValueChange = {(value)=>{

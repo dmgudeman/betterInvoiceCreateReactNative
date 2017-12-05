@@ -9,6 +9,7 @@ import {
   Picker,
 }                               from 'react-native';
 import { connect }              from 'react-redux';
+import { withNavigation,NavigationActions }       from 'react-navigation';
 import { 
   Button,
   FormLabel, 
@@ -28,7 +29,7 @@ class CompanyCreateScreen extends Component {
     this.props.companyUpdate('paymentTerms', '');
     this.props.companyUpdate('color', 'blue');
     this.props.companyUpdate('hourly', '');
-    this.props.companyUpdate('address', '123');
+    this.props.companyUpdate('address', '');
     this.props.companyUpdate('companyKey','')
   }
 
@@ -98,12 +99,18 @@ class CompanyCreateScreen extends Component {
             value={paymentTerms}
             onFocus={(value) => { 
               console.log('pppppppppppppppppppppppppppppppppppppppp', paymentTerms);
+              console.log('COMPANYCREATESCREEN RENDER paymentTerms', paymentTerms);
+              console.log('COMPANYCREATESCREEN this.props.navigation', this.props.navigation);
+              console.log('');
               companyUpdate('paymentTermsOptionsList', paymentTermsOptionsList);
               companyUpdate('list', paymentTermsOptionsList )
               companyUpdate('listName', 'paymentTermsOptionsList')
               //can't use companyUpdate for paymentTerms it returns a proxy
               // companyUpdate('paymentTerms', value)
-              navigation.navigate('myPicker',{prop:'paymentTerms', propValue: this.props.paymentTerms} )
+              navigation.navigate('myPicker',{
+                prop:'paymentTerms', 
+                propValue: this.props.paymentTerms,
+              } )
               }
             }
             editable={true}
@@ -136,9 +143,9 @@ class CompanyCreateScreen extends Component {
             onFocus={(value) => { 
               console.log('COMPANYCREATESCREEN ADDRESS INPUT', address);
               console.log('COMPANYCREATESCREEN ADDRESS VALUE', value);
-              companyUpdate('address', value)
-              this.props.navigation.navigate('googlePlacesInput')
-            }}
+              // using a workaround here because companyUpdate returns a proxy for address instead of a string
+              this.props.navigation.navigate('googlePlacesInput', {address: value})
+            }} 
             editable={true}
           />
         </TouchableOpacity>   

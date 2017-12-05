@@ -2,6 +2,7 @@
 // Import libraries to make component
 import React from 'react';
 import { Text, View } from 'react-native';
+import { Button } from './';
 
 
 // make a component
@@ -10,13 +11,20 @@ const Header = (props) => {
 
     return (
       <View style={viewStyle}>
+        <Button >
+          click
+        </Button>
         <Text style={textStyle}>{props.headerText}</Text>
+        <Button >
+          HotDog
+        </Button>
       </View>
     );
 };
 
 const styles = {
   viewStyle: {
+    flexDirection : 'row',
     backgroundColor: '#F8F8F8',
     justifyContent: 'center',
     alignItems: 'center',
@@ -30,7 +38,7 @@ const styles = {
   },
   textStyle: {
     fontSize: 20
-  }
+  },
 };
 // Make the component available to other parts of app
 export { Header };

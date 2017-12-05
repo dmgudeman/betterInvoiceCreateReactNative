@@ -13,7 +13,11 @@ const pickedProp = ''
 class GooglePlacesInput extends Component {
 
   componentWillMount() {
-    
+    const { address} = this.props.navigation.state.params;  
+    if (typeof address === 'string'){
+    this.props.companyUpdate('address', address);
+    } else { this.props.companyUpdate('address', '')}
+    console.log('GOOGLEPLACESINPUT COMPONENTWILLMOUNT this.props', this.props);
     }
   render() {
   return (
