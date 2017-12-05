@@ -51,7 +51,9 @@ class MyPicker extends Component {
     ];
     const { prop, propValue, list, listName } = this.props;
     console.log('MYPICKER RENDER list', list);
-    console.log('MYPCKER RENDER this.props', this.props);
+    console.log('MYPICKER RENDER this.props', this.props);
+    console.log('MYPICKER RENDER this.props.prop', this.props.prop);
+    console.log('MYPICKER RENDER this.props.propValue', this.props.propValue);
     return (
       <View>
         <ModalSelector 
@@ -66,7 +68,7 @@ class MyPicker extends Component {
               style={{borderWidth:1, borderColor:'#ccc', padding:10, height:30}}
               editable={false}
               placeholder="Select something yummy!"
-              value={this.props.textInputValue} 
+              value={this.props.prop} 
           />
         </ModalSelector>
         <Text style = {styles.text}>{`Here ${propValue}`}</Text> 

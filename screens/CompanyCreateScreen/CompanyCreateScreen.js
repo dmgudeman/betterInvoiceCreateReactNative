@@ -69,6 +69,16 @@ class CompanyCreateScreen extends Component {
   }
 
   render() {
+    let index = 0;
+    const data = [
+        { key: index++, section: true, label: 'Colors' },
+        { key: index++, label: 'blue' },
+        { key: index++, label: 'green' },
+        { key: index++, label: 'red' },
+        { key: index++, label: 'purple' },
+        { key: index++, label: 'brown' },
+        { key: index++, label: 'yellow' },
+    ];
     
     const navigation = this.props.navigation
     const {name, color, hourly, address,
@@ -122,20 +132,28 @@ class CompanyCreateScreen extends Component {
 
         <FormLabel>Color</FormLabel>
         <TouchableOpacity>
+        <ModalSelector
+                    data={data}
+                    initValue="Select something yummy!"
+                    // supportedOrientations={['landscape']}
+                    onChange={(option)=>{ 
+                      console.log('pppppppppppppppppppppppppppppppppppppppp',color);
+                      // companyUpdate('paymentTermsOptionsList', colorOptionsList);
+                      // companyUpdate('list', colorOptionsList )
+                      // companyUpdate('listName', 'colorOptionsList')
+                      companyUpdate('color', option.label)
+                    }
+                  }
+                  >
+
           <FormInput 
             value={this.props.color}
-            onFocus={(value) => { 
-              console.log('pppppppppppppppppppppppppppppppppppppppp',color);
-              companyUpdate('paymentTermsOptionsList', colorOptionsList);
-              companyUpdate('list', colorOptionsList )
-              companyUpdate('listName', 'colorOptionsList')
-              //can't use companyUpdate for paymentTerms it returns a proxy
-              // companyUpdate('paymentTerms', value)
-              navigation.navigate('myPicker',{prop:'color', propValue: this.props.color} )
-              }
-            }
+            style={{borderWidth:1, borderColor:'#ccc', padding:10, height:30}}
+            editable={false}
+            placeholder="color"
             editable={true}
           />
+          </ModalSelector>
         </TouchableOpacity>
 
         <FormLabel>Address</FormLabel> 
