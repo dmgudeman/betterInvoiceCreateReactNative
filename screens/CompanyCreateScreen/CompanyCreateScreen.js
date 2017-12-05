@@ -16,6 +16,7 @@ import {
   FormInput, 
   FormValidationMessage, 
 }                               from 'react-native-elements';
+import ModalSelector            from 'react-native-modal-selector'
 import moment                   from 'moment';
 import * as actions             from '../../actions';
 import { MyPicker  }            from '../../components/MyPicker/MyPicker';
@@ -68,6 +69,16 @@ class CompanyCreateScreen extends Component {
   }
 
   render() {
+    let index = 0;
+    const data = [
+        { key: index++, section: true, label: 'Fruits' },
+        { key: index++, label: 'Red Apples' },
+        { key: index++, label: 'Cherries' },
+        { key: index++, label: 'Cranberries' },
+        // etc...
+        // Can also add additional custom keys which are passed to the onChange callback
+        { key: index++, label: 'Vegetable', customKey: 'Not a fruit' }
+    ];
     const navigation = this.props.navigation
     const {name, color, hourly, address,
       companyUpdate, paymentTerms, paymentTermsOptionsList, colorOptionsList} = this.props;
@@ -149,7 +160,22 @@ class CompanyCreateScreen extends Component {
             editable={true}
           />
         </TouchableOpacity>   
-        
+  
+        <ModalSelector
+                    data={data}
+                    initValue="Select something yummy!"
+                    // supportedOrientations={['landscape']
+                    // onChange={(option)=>{console.log('oooooption', option)}}>
+                  onChange={(option)=>{companyUpdate('textInputValue', option.label); }}
+                  >
+
+                    <TextInput
+                        style={{borderWidth:1, borderColor:'#ccc', padding:10, height:30}}
+                        editable={false}
+                        placeholder="Select something yummy!"
+                        value={this.props.textInputValue} />
+
+                </ModalSelector>
 
         <Button
           title= "Submit"
@@ -212,11 +238,12 @@ const mapStateToProps = (state) => {
   const name = state.companies.name || '';
   const paymentTerms = state.companies.paymentTerms || '30';
   const userId = state.auth.userId || '';
+  const textInputValue = state.companies.textInputValue || '';
   console.log('COMPANYCREATESCREEN MAPSTATETOPROPS state.companies.hex', state.companies.hex);
   console.log('COMPANYCREATESCREEN MAPSTATETOPROPS hex', hex);
   return { paymentTermsOptionsList, colorOptionsList, 
            companyKey, active, address, location, color, 
-           fUserId, hex, hourly, name, paymentTerms, userId };
+           fUserId, hex, hourly, name, paymentTerms, userId, textInputValue };
 } 
 // const mapDispatchToProps = (dispatch) => {
 //   const {companyUpdate, companyCreate} = actions;
