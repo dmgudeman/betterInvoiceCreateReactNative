@@ -1,16 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component }     from 'react';
 import { connect }              from 'react-redux';
 import { bindActionCreators }   from 'redux';
 import {
   Modal,
   View,
   Text,
+  TextInput,
   Picker,
   StyleSheet,
-} from 'react-native';
-import _ from 'lodash';
-import EStyleSheet from 'react-native-extended-stylesheet';
-import styles from './styles';
+}                               from 'react-native';
+import _                        from 'lodash';
+import ModalSelector            from 'react-native-modal-selector'
+import EStyleSheet              from 'react-native-extended-stylesheet';
+import styles                   from './styles';
 import * as actions             from '../../actions';
 
 
@@ -23,29 +25,56 @@ class MyPicker extends Component {
     console.log('MYPICKER');
 
     console.log('MYPICKER COMPONENTWILLMOUNT tthis.props.',this.props);
-    // console.log('MYPICKER COMPONENTWILLMOUNT tthis.props.navigation.state.params.value;',this.props.navigation.state.params.propValue );
-    // prop =this.props.navigation.state.params.prop;  
-    // propValue = this.props.navigation.state.params.value;
-    // console.log('MYPICKER COMPONENTWILLMOUNT this.x', x);
-    // console.log('MYPICKER COMPONENTWILLMOUNT this.propValue', propValue);
-    // this.props.companyUpdate(prop, propValue);
-    // this.props.companyUpdate('prop', prop);
-    // this.props.companyUpdate('propValue', propValue)
-    // const options = _.map(this.props.navigation.state.params.optionsList, "option")
-  
+    
   }
+
+  updater(option) {
+    try { 
+      console.log('llllllllllllllllllllllllllllllllll',list);
+      this.props.companyUpdate(prop, option.label);
+      this.props.companyUpdate('propValue', option.label)
+    } catch (e) {
+      console.log('error in render in MyPicker', e);
+    }
+  }
+  
   render() {
-    // console.log('MyPicker RENDER this.props.navigation.state.params.optionsList', this.props.navigation.state.params.optionsList);
-    // console.log('MyPicker render this.props', this.props);
-    // console.log('x', x);
-    // console.log('y', y); 
-    // console.log('this.props.kkkkkk', this.props.k);
+    let index = 0;
+    const data = [
+        { key: index++, section: true, label: 'Fruits' },
+        { key: index++, label: 'Red Apples' },
+        { key: index++, label: 'Cherries' },
+        { key: index++, label: 'Cranberries' },
+        // etc...
+        // Can also add additional custom keys which are passed to the onChange callback
+        { key: index++, label: 'Vegetable', customKey: 'Not a fruit' }
+    ];
     const { prop, propValue, list, listName } = this.props;
     console.log('MYPICKER RENDER list', list);
+    console.log('MYPCKER RENDER this.props', this.props);
     return (
       <View>
-        
-         <Picker
+        <ModalSelector 
+          data={data}
+          initValue="Select something yummy!"
+                    // supportedOrientations={['landscape']
+          onFocus={console.log( data)}
+          onChange={(option)=>{console.log('oooooption', option)}}
+          onChange={(option)=>{()=>this.updater(option) } }
+        >
+          <TextInput
+              style={{borderWidth:1, borderColor:'#ccc', padding:10, height:30}}
+              editable={false}
+              placeholder="Select something yummy!"
+              value={this.props.textInputValue} 
+          />
+        </ModalSelector>
+        <Text style = {styles.text}>{`Here ${propValue}`}</Text> 
+        <Text>Hi There</Text>
+     </View>
+ 
+  )
+         /* <Picker
             selectedValue = {propValue} 
             onValueChange = {(value)=>{
               try{
@@ -61,11 +90,8 @@ class MyPicker extends Component {
           >
           {this.props.list.map((value)=> <Picker.Item label={value} value={value} key={"money"+value}/>)}
         
-        </Picker>
-        <Text style = {styles.text}>{`Here ${propValue}`}</Text> 
-        <Text>Hi There</Text>
-      </View>
-     )
+        </Picker> */
+       
   }
 }
 const mapStateToProps = (state) => {
@@ -73,11 +99,12 @@ const mapStateToProps = (state) => {
   const propValue  = state.companies.propValue
   const list = state.companies.list
   const listName = state.companies.prop
-
+  
+  const textInputValue = state.companies.textInputValue || '';
 
   console.log('MYPICKER MAPSTATETOPROPS state', state);
   
-  return {  list, listName, prop, propValue}
+  return {  list, listName, prop, propValue, textInputValue}
 }
 
 export default connect(mapStateToProps, actions)(MyPicker);

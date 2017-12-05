@@ -69,16 +69,7 @@ class CompanyCreateScreen extends Component {
   }
 
   render() {
-    let index = 0;
-    const data = [
-        { key: index++, section: true, label: 'Fruits' },
-        { key: index++, label: 'Red Apples' },
-        { key: index++, label: 'Cherries' },
-        { key: index++, label: 'Cranberries' },
-        // etc...
-        // Can also add additional custom keys which are passed to the onChange callback
-        { key: index++, label: 'Vegetable', customKey: 'Not a fruit' }
-    ];
+    
     const navigation = this.props.navigation
     const {name, color, hourly, address,
       companyUpdate, paymentTerms, paymentTermsOptionsList, colorOptionsList} = this.props;
@@ -161,21 +152,7 @@ class CompanyCreateScreen extends Component {
           />
         </TouchableOpacity>   
   
-        <ModalSelector
-                    data={data}
-                    initValue="Select something yummy!"
-                    // supportedOrientations={['landscape']
-                    // onChange={(option)=>{console.log('oooooption', option)}}>
-                  onChange={(option)=>{companyUpdate('textInputValue', option.label); }}
-                  >
-
-                    <TextInput
-                        style={{borderWidth:1, borderColor:'#ccc', padding:10, height:30}}
-                        editable={false}
-                        placeholder="Select something yummy!"
-                        value={this.props.textInputValue} />
-
-                </ModalSelector>
+       
 
         <Button
           title= "Submit"
