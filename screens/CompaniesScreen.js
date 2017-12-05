@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-// import { Button } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 
 import { View, Text, ListView, FlatList, TouchableOpacity } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import * as actions from '../actions';
 import ListItem from '../components/ListItem'
-import { Button } from '../components/common';
+// import { Button } from '../components/common';
 
 function goToCreateCompany(){
   
