@@ -1,14 +1,17 @@
 
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
-const Button = ({ onPress, children,buttonStyle }) => {
+const HeaderButton = ( props )  => {
   const { textStyle } = styles;
+  console.log('HEADERBUTTON props', props);
   return (
-    <TouchableOpacity onPress={onPress} style={buttonStyle}>
+    <TouchableOpacity onPress={props.onPress}>
+    <View style={props.buttonStyle}>
       <Text style={textStyle}>
-        {children}
+        {props.children}
       </Text>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -20,7 +23,6 @@ const styles = {
     fontWeight: '600',
     paddingTop: 10,
     paddingBottom: 10,
-    color: 'white'
   },
     //  backgroundColor: 'blue',
     // borderRadius: 5,
@@ -32,6 +34,6 @@ const styles = {
     // marginRight: 20,
 }
 
-export { Button };
+export { HeaderButton };
 
 

@@ -1,32 +1,31 @@
-
 // Import libraries to make component
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Button } from './';
+import { HeaderButton } from './';
 
 
 // make a component
 const Header = (props) => {
-  const { textStyle, viewStyle } = styles;
-
+  const { textStyle, viewStyle, rightButtonStyle} = styles;
+  console.log('HEADER props.leftButtonStyle', props.leftButtonStyle);
     return (
       <View style={viewStyle}>
-        <Button >
-          click
-        </Button>
+      <HeaderButton buttonStyle={rightButtonStyle}>
+         RightButton
+        </HeaderButton>
         <Text style={textStyle}>{props.headerText}</Text>
-        <Button >
-          HotDog
-        </Button>
+      <HeaderButton buttonStyle={props.leftButtonStyle}>
+       {props.leftButtonText}
+        </HeaderButton>
       </View>
     );
 };
 
 const styles = {
   viewStyle: {
-    flexDirection : 'row',
+    flexDirection: 'row',
     backgroundColor: '#F8F8F8',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     height: 60,
     paddingTop: 15,
@@ -39,6 +38,10 @@ const styles = {
   textStyle: {
     fontSize: 20
   },
+  // buttonStyle: {
+  //    color: '#95a5a6', 
+  //   //  backgroundColor: 'red'
+  // }
 };
 // Make the component available to other parts of app
 export { Header };

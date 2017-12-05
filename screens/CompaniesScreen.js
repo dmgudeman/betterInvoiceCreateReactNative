@@ -36,25 +36,34 @@ class CompaniesScreen extends Component {
       <ListItem company={item} navigation={this.props.navigation}/>
     )
   }
-  static navigationOptions = ({ navigation }) => {
-    return {
-    title: 'Companies',
-    headerRight:
-        <Button
-          title= "+Business"
-          onPress={()=>{navigation.navigate('companyCreate')}}
-        />
-        ,
-        headerLeft: null
-    }
+  // static navigationOptions = ({ navigation }) => {
+  //   return {
+  //   title: 'Companies',
+  //   headerRight:
+  //       <Button
+  //         title= "+Business"
+  //         onPress={()=>{navigation.navigate('companyCreate')}}
+  //       />
+  //       ,
+  //       headerLeft: null
+  //   }
    
-  }
+  // }
   render() {
     // console.log('CompaniesScreen render  this.props.companies =', this.props.companies);
     const navigation = this.props.navigation
     return (
      <View>
-        <Header headerText={"Companies"}>
+        <Header 
+          headerText={"Companies"} 
+          leftButtonText={"+Business"}
+          leftButtonStyle={
+            {backGroundColor:'#8e44ad',
+             color: '#bdc3c7'
+            }
+          }
+        
+        >
         </Header>
         <FlatList 
           data = {this.props.companies}
