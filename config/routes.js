@@ -15,11 +15,11 @@ import InvoiceCreateScreen from '../screens/InvoiceCreateScreen';
 import InvoiceEditScreen from '../screens/InvoiceEditScreen';
 import InvoicesScreen from '../screens/InvoicesScreen';
 import ListItem from '../components/ListItem';
-import TestScreen from '../screens/TestScreen';
+// import TestScreen from '../screens/TestScreen';
 import WVContainer from '../screens/WVContainer';
-import MyWebView from '../screens/MyWebView';
+// import MyWebView from '../screens/MyWebView';
 import MyDatePicker from '../components/MyDatePicker';
-import MyPicker from '../components/MyPicker/MyPicker';
+// import MyPicker from '../components/MyPicker/MyPicker';
 import GooglePlacesInput from '../components/GooglePlacesInput';
 // import { TabNavigator } from '../../../../../Users/davidgudeman/Library/Caches/typescript/2.6/node_modules/@types/react-native-tab-navigator';
 
@@ -31,7 +31,7 @@ const ItemCreateNav = TabNavigator ({
       // tabBarIcon: ({ tintColor }) => <Icon name={"glass"} size={30} color={tintColor} />
   }
   },
-  itemCreateAmountscreen: { screen: ItemCreateAmountScreen }
+    itemCreateAmountscreen: { screen: ItemCreateAmountScreen }
   },
   {
     tabBarPosition: 'top'
@@ -47,7 +47,7 @@ export default StackNavigator(
     items:             { screen: ItemsScreen },
     itemCreate:        { screen: ItemCreateNav },
     itemEdit:          { screen: ItemEditScreen },
-    ListItem:          { screen: ListItem },
+    // ListItem:          { screen: ListItem },
     invoices:          { screen: InvoicesScreen },
     invoiceCreate:     { screen: InvoiceCreateScreen },
     invoiceEdit:   { 
@@ -56,10 +56,10 @@ export default StackNavigator(
         title: `Edit Invoice`,
       },
     },
-    myPicker:          { screen: MyPicker },
+    // myPicker:          { screen: MyPicker },
     datePicker:        { screen: MyDatePicker },
     googlePlacesInput: { screen: GooglePlacesInput },
-    myWebView:         { screen: MyWebView },
+    // myWebView:         { screen: MyWebView },
     wvContainer:       { screen: WVContainer }
   },
   // {

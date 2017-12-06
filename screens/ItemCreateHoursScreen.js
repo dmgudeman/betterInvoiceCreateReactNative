@@ -97,4 +97,6 @@ const mapStateToProps = state => {
   // console.log('ITEMCREATESCREEN MAPSTATETOPROPS item', item);
   return { amount, companyKey, date, description, fUserId, hourly, hours, total};
 }
+
+
 export default connect(mapStateToProps, actions)(ItemCreateHoursScreen);
