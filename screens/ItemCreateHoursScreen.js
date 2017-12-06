@@ -12,7 +12,7 @@ import DatePicker from 'react-native-datepicker';
 import Moment from 'react-moment';
 import moment from 'moment';
 import * as actions from '../actions'
-
+import CompaniesScreen from './CompaniesScreen';
 import MyDatePicker from '../components/MyDatePicker';
 
 class ItemCreateHoursScreen extends Component {
@@ -39,7 +39,12 @@ class ItemCreateHoursScreen extends Component {
     // console.log('ITEMCREATESCREEN ONSUBMIT total', total);
 
     this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, total});
-    this.props.navigation.navigate('companies');
+    // this.props.navigation.navigate('companies');
+    this.props.navigation.dispatch(NavigationActions.reset({
+      index: 0,
+      key: null,
+      actions: [NavigationActions.navigate({routeName:'companies'})]
+  }))
   }
 
   render() {

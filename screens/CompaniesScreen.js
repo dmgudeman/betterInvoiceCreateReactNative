@@ -48,7 +48,7 @@ class CompaniesScreen extends Component {
     // console.log('CompaniesScreen render  this.props.companies =', this.props.companies);
     const navigation = this.props.navigation
     return (
-     <View>
+      <View style={{height: '100%'}}>
         <FlatList
           data = {this.props.companies}
           renderItem={this.renderItem}

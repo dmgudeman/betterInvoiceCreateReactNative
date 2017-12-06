@@ -21,7 +21,7 @@ componentWillMount() {
     // const formatDate = moment(createdAt).format();
     // this.props.invoiceUpdate('createdAt', formatDate);
     const invoice = {amount, beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, items, total};
-    console.log('invoiceS SCREEN goToinvoiceEdit invoice', invoice);
+    // console.log('invoiceS SCREEN goToinvoiceEdit invoice', invoice);
     
     this.props.selectInvoice(invoice)
   
@@ -33,9 +33,9 @@ componentWillMount() {
     // console.log('invoicesScreen renderItem invoice', invoice);
 
     const data = this.props.invoices[invoice.index];
-    console.log('invoicesScreen renderinvoice data', data);
+    // console.log('invoicesScreen renderinvoice data', data);
     data.createdAt = moment(data.createdAt).format("L");
-    console.log('invoicesScreen renderinvoice date.createdAt', data.createdAt);
+    // console.log('invoicesScreen renderinvoice date.createdAt', data.createdAt);
     return  (
        <InvoiceDetailsRow
          data = {data} 
@@ -50,18 +50,18 @@ componentWillMount() {
   render() {
     // console.log('INVOICES SCREEN render this.props.invoices', this.props.invoices);
     return (
-      <ScrollView>
+      <View style={{height: '100%'}}>
         <FlatList 
           data = {this.props.invoices}
           keyExtractor={(item) => item.id}
           renderItem={this.renderItem}
         />
-    </ScrollView>
+    </View>
     )
   }
 }
 const mapStateToProps = state => {
-  console.log('INVOICESSCREEN MAPSTATETOPROPS state', state);
+  // console.log('INVOICESSCREEN MAPSTATETOPROPS state', state);
   const companyKey = state.companies.company.companyKey || state.companies.company.id;
   const coName = state.companies.company.name;
   const fUserId = state.auth.fUserId;
@@ -69,7 +69,7 @@ const mapStateToProps = state => {
   
     return { ...val, id};
   });
-  console.log('INVOICESSCREEN MAPSTATETOPROPS invoices', invoices);
+  // console.log('INVOICESSCREEN MAPSTATETOPROPS invoices', invoices);
   return { companyKey, coName, fUserId, invoices};
 }
 

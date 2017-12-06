@@ -17,15 +17,15 @@ import {
 
 export const companyCreate = (company) => {
 
-  console.log('11111111companyactions companycreate company', company);
+  // console.log('11111111companyactions companycreate company', company);
   let payload = { ...company };
-  console.log('11111111companyactions companycreate payload', payload);
+  // console.log('11111111companyactions companycreate payload', payload);
   let newCompanyKey =  firebase.database().ref().child('companies').push().key;
   payload.companyKey = newCompanyKey;
-  console.log('Company ACTIONS Company_CREATE newCompanyKey', newCompanyKey);
+  // console.log('Company ACTIONS Company_CREATE newCompanyKey', newCompanyKey);
   // payload.companyKey = newCompanyKey
-  console.log('Company ACTIONS Company_CREATE payload', payload);
-  console.log('xxxxxxxxxxxxxxxxxxxx'+'/users/'+ payload.fUserId + '/companies/'+ newCompanyKey);
+  // console.log('Company ACTIONS Company_CREATE payload', payload);
+ // console.log('xxxxxxxxxxxxxxxxxxxx'+'/users/'+ payload.fUserId + '/companies/'+ newCompanyKey);
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey] = payload;
   firebase.database().ref().update(updates);
@@ -34,14 +34,7 @@ export const companyCreate = (company) => {
     type: COMPANY_CREATE,
    payload: { payload }
   };
-  // let companyKey = await firebase.database().ref().child('companies').push().key;
-  // dispatch => {type: COMPANY_CREATE, { companyKey: payload }}
-
-  // console.log('COMPANYACTIONS COMPANYCREATE payload', props);
-  // return { 
-  //   type: COMPANY_CREATE,
-  //   payload
-  // }
+ 
  }
 
 export const fetchCompanies = (fUserId) => async dispatch => {
@@ -58,8 +51,7 @@ export const fetchCompanies = (fUserId) => async dispatch => {
 } 
 
 export const companyUpdate = (prop, value)=> {
-  console.log('companyActions 11111111companyUpdate prop, value:::::', prop, value);
-  console.log(``);
+  // console.log('companyActions 11111111companyUpdate prop, value:::::', prop, value);
   return {
     type: COMPANY_UPDATE,
     payload: { prop, value}
@@ -68,8 +60,8 @@ export const companyUpdate = (prop, value)=> {
 
 export const companyEditSubmit = (company) => {
   let payload = { ...company };
-  console.log('Company ACTIONS Company_CREATE payload', payload);
-  console.log('xxxxxxxxxxxxxxxxxxxx'+'/users/'+ payload.fUserId + '/companies/'+ payload.companyKey);
+  // console.log('Company ACTIONS Company_CREATE payload', payload);
+  // console.log('xxxxxxxxxxxxxxxxxxxx'+'/users/'+ payload.fUserId + '/companies/'+ payload.companyKey);
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey] = payload;
   firebase.database().ref().update(updates);

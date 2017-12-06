@@ -51,7 +51,7 @@ export const invoiceCreateClear = ({ companyKey, coItems, coName,  fUserId, paym
   }
  
 
-  console.log('InvoiceActions invoiceCREATECLEAR payload', invoice);
+  // console.log('InvoiceActions invoiceCREATECLEAR payload', invoice);
   return {type: INVOICE_CREATE_CLEAR, invoice}
 
 }
@@ -66,7 +66,7 @@ export const invoiceUpdate = (prop, value)=> {
   if (prop === 'createdAt' || prop === 'beginDate' || prop === 'endDate'){
      value = moment(value).format();
   }
-  //  console.log('invoiceActions 22222222invoiceUpdate prop, value:::::', prop, value);
+  // console.log('invoiceActions 22222222invoiceUpdate prop, value:::::', prop, value);
 
   return {
     type: INVOICE_UPDATE,

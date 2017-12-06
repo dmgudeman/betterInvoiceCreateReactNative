@@ -17,7 +17,7 @@ class GooglePlacesInput extends Component {
     if (typeof address === 'string'){
     this.props.companyUpdate('address', address);
     } else { this.props.companyUpdate('address', '')}
-    console.log('GOOGLEPLACESINPUT COMPONENTWILLMOUNT this.props', this.props);
+    // console.log('GOOGLEPLACESINPUT COMPONENTWILLMOUNT this.props', this.props);
     }
   render() {
   return (
@@ -30,7 +30,7 @@ class GooglePlacesInput extends Component {
       fetchDetails={true}
       renderDescription={row => row.description} // custom description render
       onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-        console.log('IN GOOGLEPLACESINPUT', data.desciption, details);
+        // console.log('IN GOOGLEPLACESINPUT', data.desciption, details);
         this.props.companyUpdate( 'address', data.description);
       }}
       

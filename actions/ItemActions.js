@@ -14,13 +14,13 @@ import moment from 'moment';
 
 export const itemCreate = ({amount, companyKey, date, description, fUserId, hourly, hours, total}) => async dispatch => {
   let payload = { amount, companyKey, date, description, fUserId, hourly, hours, total} 
-  console.log('ITEMSACTIONS ITEMCREATE payload', payload);
+  // console.log('ITEMSACTIONS ITEMCREATE payload', payload);
   payload.date = moment(payload.date).format();
   payload.total = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
 
   let newItemKey = await firebase.database().ref().child('companies').child(companyKey).child('items').push().key;
   payload.id = newItemKey;
-  console.log('ITEM ACTIONS ITEMCREATE payload', payload);
+  // console.log('ITEM ACTIONS ITEMCREATE payload', payload);
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/items/' + payload.id] = payload;
   await firebase.database().ref().update(updates);
@@ -57,7 +57,7 @@ export const itemUpdate = (prop, value)=> {
 }
 
 export const changeItemHours = (value) => {
-  console.log( 'ITEMACTIONS changeItemHours value', value);
+  // console.log( 'ITEMACTIONS changeItemHours value', value);
   const prop = 'hours'
   return {
     type: CHANGE_ITEM_HOURS,
