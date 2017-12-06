@@ -22,7 +22,10 @@ import * as actions             from '../../actions';
 import { MyPicker  }            from '../../components/MyPicker/MyPicker';
 import colorHexPicker           from '../../assets/ColorHexUpdater';
 import AddressInput             from '../../components/AddressInput/AddressInput';
-import {colorOptionsList, }      from '../../assets/OptionsLists';
+import {
+  colorOptionsList,
+  paymentTermsOptionsList,
+}                               from '../../assets/OptionsLists';
 
 class CompanyCreateScreen extends Component {
 
@@ -70,20 +73,14 @@ class CompanyCreateScreen extends Component {
   }
 
   render() {
-    // let index = 0;
-    const data = colorOptionsList;
-    
-    
+    const colorOptions = colorOptionsList;
+    const paymentTermsOptions = paymentTermsOptionsList;
     const navigation = this.props.navigation
-    const {name, color, hourly, address,
-      companyUpdate, paymentTerms, paymentTermsOptionsList} = this.props;
-    console.log('nammmmmmmmmmeeeeeee', paymentTerms);
-    console.log('COMPANYCREATESCREEN RENDER this.props', this.props);
-    console.log('addrrrrrrrrrrrreeeeeeeeesssssssssss', address);
+    const {name, color, hourly, address, companyUpdate, paymentTerms} = this.props;
   
     return (
-     <View>
-         <FormLabel>Name</FormLabel>
+      <View>
+        <FormLabel>Name</FormLabel>
         <TouchableOpacity>
           <FormInput 
             value={name}
@@ -101,52 +98,41 @@ class CompanyCreateScreen extends Component {
 
         <FormLabel>Payment Terms</FormLabel>
         <TouchableOpacity>
-          <FormInput 
-            value={paymentTerms}
-            onFocus={(value) => { 
-              console.log('pppppppppppppppppppppppppppppppppppppppp', paymentTerms);
-              console.log('COMPANYCREATESCREEN RENDER paymentTerms', paymentTerms);
-              console.log('COMPANYCREATESCREEN this.props.navigation', this.props.navigation);
-              console.log('');
-              companyUpdate('paymentTermsOptionsList', paymentTermsOptionsList);
-              companyUpdate('list', paymentTermsOptionsList )
-              companyUpdate('listName', 'paymentTermsOptionsList')
-              //can't use companyUpdate for paymentTerms it returns a proxy
-              // companyUpdate('paymentTerms', value)
-              navigation.navigate('myPicker',{
-                prop:'paymentTerms', 
-                propValue: this.props.paymentTerms,
-              } )
+          <ModalSelector
+            index={0}
+            data={paymentTermsOptions}
+            onChange={(option)=>{ 
+              companyUpdate('paymentTerms', option.label)
               }
             }
-            editable={true}
-          />
+          >
+            <FormInput 
+              value={this.props.paymentTerms} 
+              editable={false}
+              placeholder="Payment Terms"
+              editable={true}
+            />
+          </ModalSelector>
         </TouchableOpacity>
-
 
         <FormLabel>Color</FormLabel>
         <TouchableOpacity>
           <ModalSelector
-            data={data}
-            initValue="Select something yummy!"
-            // supportedOrientations={['landscape']}
+            // index={0}
+            data={colorOptions}
             onChange={(option)=>{ 
-              console.log('pppppppppppppppppppppppppppppppppppppppp',color);
-              // companyUpdate('paymentTermsOptionsList', colorOptionsList);
-              // companyUpdate('list', colorOptionsList )
-              // companyUpdate('listName', 'colorOptionsList')
               companyUpdate('color', option.label)
+              }
             }
-          }
           >
-        <FormInput 
-          value={this.props.color} 
-          editable={false}
-          placeholder="color"
-          editable={true}
-        />
-        </ModalSelector>
-      </TouchableOpacity>
+            <FormInput 
+              value={this.props.color} 
+              editable={false}
+              placeholder="color"
+              editable={true}
+            />
+          </ModalSelector>
+        </TouchableOpacity>
 
         <FormLabel>Address</FormLabel> 
         <TouchableOpacity>
@@ -161,8 +147,6 @@ class CompanyCreateScreen extends Component {
             editable={true}
           />
         </TouchableOpacity>   
-  
-       
 
         <Button
           title= "Submit"
@@ -211,8 +195,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const paymentTermsOptionsList = ["30", "15", "5"] ;
-  const colorOptionsList = ['blue', 'green', 'yellow', 'purple', 'brown', 'red']
  
   const active = state.companies.active || true;
   const address = state.companies.address || '';
@@ -225,12 +207,11 @@ const mapStateToProps = (state) => {
   const name = state.companies.name || '';
   const paymentTerms = state.companies.paymentTerms || '30';
   const userId = state.auth.userId || '';
-  const textInputValue = state.companies.textInputValue || '';
   console.log('COMPANYCREATESCREEN MAPSTATETOPROPS state.companies.hex', state.companies.hex);
   console.log('COMPANYCREATESCREEN MAPSTATETOPROPS hex', hex);
-  return { paymentTermsOptionsList, colorOptionsList, 
+  return { 
            companyKey, active, address, location, color, 
-           fUserId, hex, hourly, name, paymentTerms, userId, textInputValue };
+           fUserId, hex, hourly, name, paymentTerms, userId};
 } 
 // const mapDispatchToProps = (dispatch) => {
 //   const {companyUpdate, companyCreate} = actions;

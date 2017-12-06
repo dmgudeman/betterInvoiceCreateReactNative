@@ -9,8 +9,14 @@ import {
 }                               from 'react-native-elements';
 import { connect, connectAdvanced } from 'react-redux';
 import * as actions from '../../actions';
+import ModalSelector            from 'react-native-modal-selector'
 import GooglePlacesInput from '../../components/GooglePlacesInput';
 import styles from './styles';
+import {
+  colorOptionsList,
+  paymentTermsOptionsList,
+}                               from '../../assets/OptionsLists';
+
 
 class CompanyEditScreen extends Component {
   
@@ -46,45 +52,69 @@ class CompanyEditScreen extends Component {
   }
   
   render() {
-    // console.log('CompanyEditScreen render this.props', this.props);
+    const colorOptions = colorOptionsList;
+    const paymentTermsOptions = paymentTermsOptionsList;
+    const navigation = this.props.navigation
+    const {name, color, hourly, address, companyUpdate, companyEditSubmit, paymentTerms} = this.props;
     return (
       <View>
          <FormLabel>Name</FormLabel>
         <TouchableOpacity>
         <FormInput 
-          value={this.props.name}
-          onChangeText={(value) => this.props.companyUpdate('name', value)}
+          value={name}
+          onChangeText={(value) => companyUpdate('name', value)}
         />
         </TouchableOpacity> 
         <FormLabel>Hourly</FormLabel> 
         <TouchableOpacity>
         <FormInput 
-          value={this.props.hourly}
-          onChangeText={(value) => this.props.companyUpdate('hourly', value)}
+          value={''.hourly}
+          onChangeText={(value) => companyUpdate('hourly', value)}
         />
         </TouchableOpacity>  
         <FormLabel>Payment Terms</FormLabel>
         <TouchableOpacity>
-        <FormInput 
-          value={this.props.paymentTerms}
-          onFocus={() => { this.props.navigation.navigate('myPicker',{prop:'paymentTerms', value: this.props.paymentTerms, optionsList: this.props.paymentTermsOptionsList} )}}
-          editable={true}
-        />
+          <ModalSelector
+            index={0}
+            data={paymentTermsOptions}
+            onChange={(option)=>{ 
+              companyUpdate('paymentTerms', option.label)
+              }
+            }
+          >
+            <FormInput 
+              value={paymentTerms} 
+              editable={false}
+              placeholder="Payment Terms"
+              editable={true}
+            />
+          </ModalSelector>
         </TouchableOpacity>
+
         <FormLabel>Color</FormLabel>
         <TouchableOpacity>
-        <FormInput 
-          value={this.props.color}
-          onFocus={() => { this.props.navigation.navigate('myPicker',{ prop:'color', value: this.props.color, optionsList: this.props.colorOptionsList} )}}
-          editable={true}
-        />
-        </TouchableOpacity>
+          <ModalSelector
+            // index={0}
+            data={colorOptions}
+            onChange={(option)=>{ 
+              companyUpdate('color', option.label)
+              }
+            }
+          >
+            <FormInput 
+              value={color} 
+              editable={false}
+              placeholder="color"
+              editable={true}
+            />
+          </ModalSelector>
+        </TouchableOpacity>       
         
         <FormLabel>Address</FormLabel> 
         <TouchableOpacity>
         <FormInput 
-          value={this.props.address}
-          onFocus={() => { this.props.navigation.navigate('googlePlacesInput', {address:this.props.address})}}
+          value={address}
+          onFocus={() => { navigation.navigate('googlePlacesInput', {address:address})}}
           editable={true}
         />
         </TouchableOpacity>  
@@ -93,18 +123,18 @@ class CompanyEditScreen extends Component {
         <TouchableOpacity>
           
         <FormInput 
-          value={this.props.address}
-          onChangeText={(value) => this.props.companyUpdate('address', value)}
+          value={address}
+          onChangeText={(value) => companyUpdate('address', value)}
         />
         </TouchableOpacity>   */}
         <Button
           title= "Submit"
-          onPress =  {() => this.onSubmit(this.props, this.props.companyEditSubmit) }
+          onPress =  {() => this.onSubmit(this.props, companyEditSubmit) }
           // onPress =  {() => console.log('COMPANYEDITSCREEN SUBMIT BUTTON this.props', this.props)}
         /> 
         {/* <Button
           title= "location"
-          onPress =  {() => { this.props.navigation.navigate('googlePlacesInput')}}
+          onPress =  {() => { navigation.navigate('googlePlacesInput')}}
           // onPress =  {() => console.log('COMPANYEDITSCREEN SUBMIT BUTTON this.props', this.props)}
         /> */}
       </View>

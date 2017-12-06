@@ -22,6 +22,7 @@ class ListItem extends Component {
     // console.log('LISITEM RENDER this.props', this.props);
     const { navigate } = this.props.navigation
     const color = this.props.company.hex || this.props.company.color;
+    console.log('LISTITEM RENDER this.props.company.color', color);
     
     return (
       <Card color={color}>

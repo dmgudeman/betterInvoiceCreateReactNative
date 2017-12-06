@@ -8,7 +8,7 @@ export default ColorHexUpdater = (color, updateCompany) => {
       break;
     }
     case 'brown': {
-      updateCompany('hex', '#D6E63');
+      updateCompany('hex', '#8D6E63');
       break
     }
     case 'green': {
