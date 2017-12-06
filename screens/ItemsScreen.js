@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text , FlatList, List, ListItem} from 'react-native';
+import { View, Text , FlatList, List, ScrollView } from 'react-native';
 import ItemDetailsRow from '../components/ItemDetailsRow';
 import { connect } from 'react-redux';
 import { selectItem } from '../actions/ItemActions';
@@ -51,11 +51,13 @@ componentWillMount() {
 
   render() {
     return (
+      <ScrollView>
         <FlatList 
           data = {this.props.items}
           keyExtractor = {this._keyExtractor}
           renderItem={this.renderItem}
         />
+      </ScrollView>
     )
   }
 }

@@ -37,26 +37,23 @@ class GooglePlacesInput extends Component {
       getDefaultValue={() => ''}
     
       query={{
-        // available options: https://developers.google.com/places/web-service/autocomplete
         key: 'AIzaSyBWljFaxAI4nKp41Tihi3CnTpjsqiTY5Ik',
         language: 'en', // language of the results
         types: 'address' // default: 'geocode'
       }}
       
-      // styles={{
-      //   textInputContainer: {
-      //     width: '100%'
-      //   },
-      //   description: {
-      //     fontWeight: 'bold'
-      //   },
-      //   predefinedPlacesDescription: {
-      //     color: '#1faadb'
-      //   }
-      // }}
+      styles={{
+        textInputContainer: {
+          width: '100%'
+        },
+        description: {
+          fontWeight: 'bold'
+        },
+        predefinedPlacesDescription: {
+          color: '#1faadb'
+        }
+      }}
       
-      // currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
-      // currentLocationLabel="Current location"
       nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
       GoogleReverseGeocodingQuery={{
         // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro

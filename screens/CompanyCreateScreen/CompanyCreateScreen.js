@@ -9,7 +9,6 @@ import {
   Picker,
 }                               from 'react-native';
 import { connect }              from 'react-redux';
-import { withNavigation,NavigationActions }       from 'react-navigation';
 import { 
   Button,
   FormLabel, 

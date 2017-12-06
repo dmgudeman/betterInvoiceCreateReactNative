@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text , FlatList, List, Listinvoice} from 'react-native';
+import { View, FlatList, ScrollView } from 'react-native';
 import InvoiceDetailsRow from '../components/InvoiceDetailsRow';
 import { connect } from 'react-redux';
-import { selectInvoice, invoiceUpdate } from '../actions/InvoiceActions';
 import _ from 'lodash';
 import moment from 'moment';
 import * as actions from '../actions';
@@ -51,11 +50,13 @@ componentWillMount() {
   render() {
     // console.log('INVOICES SCREEN render this.props.invoices', this.props.invoices);
     return (
+      <ScrollView>
         <FlatList 
           data = {this.props.invoices}
           keyExtractor={(item) => item.id}
           renderItem={this.renderItem}
         />
+    </ScrollView>
     )
   }
 }

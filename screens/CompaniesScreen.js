@@ -5,7 +5,7 @@ import { debounce } from 'underscore';
 import { Button } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 
-import { View, Text, ListView, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, ListView, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import * as actions from '../actions';
 import ListItem from '../components/ListItem'
@@ -48,13 +48,13 @@ class CompaniesScreen extends Component {
     // console.log('CompaniesScreen render  this.props.companies =', this.props.companies);
     const navigation = this.props.navigation
     return (
-     <View>
-        <FlatList 
+     <ScrollView>
+        <FlatList
           data = {this.props.companies}
           renderItem={this.renderItem}
           keyExtractor={(item) => item.id}
         />
-      </View>
+      </ScrollView>
     )
   }
 }
