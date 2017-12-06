@@ -11,6 +11,7 @@ import { connect, connectAdvanced } from 'react-redux';
 import * as actions from '../../actions';
 import ModalSelector            from 'react-native-modal-selector'
 import GooglePlacesInput from '../../components/GooglePlacesInput';
+import colorHexPicker           from '../../assets/ColorHexUpdater';
 import styles from './styles';
 import {
   colorOptionsList,
@@ -33,20 +34,21 @@ class CompanyEditScreen extends Component {
     this.props.companyUpdate('companyKey', id)
     console.log('COMPANYEDITSCREEN COMPONENETWILLMOUNT props object', {address, color, fUserId, hourly, companyKey, name, paymentTerms }  );
   }
-  onSubmit(props, companyEditSubmit) {
-    console.log('COMPANYEdit SCREEN ONSUBMIT props', props)
+  onSubmit = async () => {
+    await colorHexPicker(this.props.color, this.props.companyUpdate);
     let payload = {
-      name:props.name, 
-      color:props.color, 
-      paymentTerms: props.paymentTerms, 
-      hourly: props.hourly, 
-      address: props.address, 
-      fUserId: props.fUserId,
-      companyKey: props.companyKey
+      name: this.props.name, 
+      color: this.props.color, 
+      paymentTerms: this.props.paymentTerms,
+      hex: this.props.hex, 
+      hourly: this.props.hourly, 
+      address: this.props.address, 
+      fUserId: this.props.fUserId,
+      companyKey: this.props.companyKey
     }
 
-    console.log('COMPANYEdit SCREEN ONSUBMIT payload', payload);
-    console.log('COMPANYEdit SCREEN ONSUBMIT companyEditSubmit', companyEditSubmit);
+    // console.log('COMPANYEdit SCREEN ONSUBMIT payload', payload);
+    // console.log('COMPANYEdit SCREEN ONSUBMIT companyEditSubmit', companyEditSubmit);
     this.props.companyEditSubmit(payload);
     this.props.navigation.navigate(this.props.navigation.navigate('companies', {address:this.props.address}))
   }
@@ -129,7 +131,7 @@ class CompanyEditScreen extends Component {
         </TouchableOpacity>   */}
         <Button
           title= "Submit"
-          onPress =  {() => this.onSubmit(this.props, companyEditSubmit) }
+          onPress =  {() => this.onSubmit(this.props) }
           // onPress =  {() => console.log('COMPANYEDITSCREEN SUBMIT BUTTON this.props', this.props)}
         /> 
         {/* <Button
@@ -149,27 +151,24 @@ const mapStateToProps = (state) => {
   console.log(state);
   if (state.companies) {
     // console.log('COMPANYEDIT MAPSTATETOPROPS state.companies.active', state.companies.active);
-    const paymentTermsOptionsList = [{option: ''}, {option: "30"}, {option: "15"}, {option: "5"}] ;
-    const colorOptionsList = [{option:'blue'}, {option:'green'},{option:'yellow'}, {option: 'purple'},{option: 'brown'},{option: 'red'}]
     const active = state.companies.active || true;
-
     const companyKey = state.companies.companyKey || '';
     const address = state.companies.address || '';
     const location = state.location || null;
-
     const color = state.companies.color || 'blue';
     const fUserId = state.auth.fUserId || '';
+    const hex = state.companies.hex || '';
     const hourly = state.companies.hourly || '';
     const name = state.companies.name || '';
     const paymentTerms = state.companies.paymentTerms || '30';
     const userId = state.auth.userId || '';
-    console.log('COMPANYEDITSCREEN MAPSTATETOPROPS props OBJECT', paymentTermsOptionsList, colorOptionsList, 
-    companyKey, active, address, location, color, 
-    fUserId, hourly, name, paymentTerms, userId);
+    // console.log('COMPANYEDITSCREEN MAPSTATETOPROPS props OBJECT', paymentTermsOptionsList, colorOptionsList, 
+    // companyKey, active, address, location, color, 
+    // fUserId, hourly, name, paymentTerms, userId);
     
-    return { paymentTermsOptionsList, colorOptionsList, 
+    return { 
             companyKey, active, address, location, color, 
-            fUserId, hourly, name, paymentTerms, userId };
+            fUserId, hex, hourly, name, paymentTerms, userId };
   }
   return state;
 } 

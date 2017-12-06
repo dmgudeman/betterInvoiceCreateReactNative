@@ -37,19 +37,13 @@ class CompanyCreateScreen extends Component {
     this.props.companyUpdate('companyKey','')
   }
 
-  // paymentTermsOptionsList =''
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {language: ''};
-    
-  // }
   static navigationOptions = ({ navigation }) => {
     return {
     title: 'New Company',
     }
   }
 
-  onSubmit = async (props, companyCreate) => {
+  onSubmit = async () => {
     await colorHexPicker(this.props.color, this.props.companyUpdate);
   
     // console.log('COMPANYCREATESCREEN ONSUBMIT this.props.hex', this.props.hex);
@@ -66,8 +60,7 @@ class CompanyCreateScreen extends Component {
       companyKey: this.props.companyKey
     }
 
-    await companyCreate(payload);
-    await this.props.utilsUpdate('buttonDisabled', false)
+    await this.props.companyCreate(payload);
     this.props.navigation.navigate('companies')
   }
 

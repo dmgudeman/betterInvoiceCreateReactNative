@@ -48,13 +48,13 @@ class CompaniesScreen extends Component {
     // console.log('CompaniesScreen render  this.props.companies =', this.props.companies);
     const navigation = this.props.navigation
     return (
-     <ScrollView>
+     <View>
         <FlatList
           data = {this.props.companies}
           renderItem={this.renderItem}
           keyExtractor={(item) => item.id}
         />
-      </ScrollView>
+      </View>
     )
   }
 }

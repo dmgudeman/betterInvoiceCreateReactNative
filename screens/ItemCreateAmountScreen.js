@@ -39,7 +39,7 @@ class ItemCreateAmountScreen extends Component {
     // console.log('ITEMCREATESCREEN ONSUBMIT total', total);
 
     this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, total});
-    this.props.navigation.goBack();
+    this.props.navigation.navigate('companies');
   }
 
   render() {

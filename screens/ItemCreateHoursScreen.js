@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, DatePickerIOS }       from 'react-native';
+import { View, Text, TextInput }       from 'react-native';
 import { connect } from 'react-redux';
 import { 
   Button,
@@ -35,11 +35,11 @@ class ItemCreateHoursScreen extends Component {
     const data  = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
     // console.log('ITEMCREATESCREEN ONSUBMIT data', data);
     this.props.itemUpdate('total', data);
-    // console.log('ITEMCREATE ONSUBMIT this.props', this.props);
+    console.log('ITEMCREATE ONSUBMIT this.props', this.props);
     // console.log('ITEMCREATESCREEN ONSUBMIT total', total);
 
     this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, total});
-    this.props.navigation.goBack();
+    this.props.navigation.navigate('companies');
   }
 
   render() {
@@ -49,6 +49,7 @@ class ItemCreateHoursScreen extends Component {
   
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
+          style={styles.datePicker}
            date={ moment(this.props.date).format('MM/DD/YYYY') }
            onDateChange={(value) => {
              this.props.itemUpdate('date', moment(value).toDate().toUTCString() )
@@ -69,8 +70,8 @@ class ItemCreateHoursScreen extends Component {
         <FormInput 
           onChangeText={(value) => this.props.itemUpdate('description', value)}
         />
-      
-        <Text style={{marginLeft:40, fontSize: 25 }}>Total: ${this.props.total}</Text>
+        <Text style={styles.totalLabel}>Total</Text>
+        <Text style={styles.totalValue}>$ {this.props.total}</Text>
         <Button
           title= "Submit"
           onPress =  {this.onSubmit }
@@ -92,10 +93,30 @@ const mapStateToProps = state => {
   const description = state.item.description || '';
   const hours =       state.item.hours       || '';
   const total =       state.item.total       || '';
-  // const item = { amount, companyKey, date, description, fUserId, hourly, hours, total}
 
-  // console.log('ITEMCREATESCREEN MAPSTATETOPROPS item', item);
   return { amount, companyKey, date, description, fUserId, hourly, hours, total};
+}
+
+const styles = {
+  datePicker: {
+    marginLeft: 10,
+    backgroundColor: 'blue'
+  },
+  totalLabel: {
+    marginTop: 15,
+    marginLeft: 20,
+    color: 'gray',
+    fontWeight: 'bold'
+
+
+  },
+  totalValue: {
+    fontSize: 18,
+    marginTop: 15,
+    marginBottom: 15,
+    marginLeft: 20,
+    color: 'gray'
+  }
 }
 
 

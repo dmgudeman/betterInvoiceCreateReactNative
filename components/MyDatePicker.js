@@ -12,7 +12,7 @@ import moment          from 'moment';
 const DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
 
 const MyDatePicker = ({date, onDateChange}) => (
-  <View>
+  <View style={styles.datePicker}>
       <DatePicker
       style={{width: 200}}
       date={ date}
@@ -41,5 +41,10 @@ const MyDatePicker = ({date, onDateChange}) => (
   </View>  
   
 )
-
+const styles = {
+  datePicker: {
+    marginLeft: 20,
+    marginRight: 20,
+  }
+}
 export default MyDatePicker;

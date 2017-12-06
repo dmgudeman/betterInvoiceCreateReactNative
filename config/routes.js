@@ -31,10 +31,27 @@ const ItemCreateNav = TabNavigator ({
       // tabBarIcon: ({ tintColor }) => <Icon name={"glass"} size={30} color={tintColor} />
   }
   },
-    itemCreateAmountscreen: { screen: ItemCreateAmountScreen }
+    itemCreateAmountscreen: { 
+      screen: ItemCreateAmountScreen,
+      navigationOptions: {
+        tabBarLabel:"Amount",
+        // tabBarIcon: ({ tintColor }) => <Icon name={"glass"} size={30} color={tintColor} />
+    }
+    }
   },
   {
-    tabBarPosition: 'top'
+    tabBarPosition: 'top',
+    tabBarOptions: {
+      activeTintColor: '#3498dbff',
+      inactiveTintColor: '#3498db81',
+      labelStyle: {
+        fontSize: 18,
+        
+      },
+      style: {
+        backgroundColor: '#3498db25',
+      },
+    }
   }
 )
 
@@ -66,5 +83,6 @@ export default StackNavigator(
   //   headerMode: 'none'
   // }
 );
+
 
 
