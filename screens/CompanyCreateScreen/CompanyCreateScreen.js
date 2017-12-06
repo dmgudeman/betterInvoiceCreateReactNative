@@ -22,6 +22,7 @@ import * as actions             from '../../actions';
 import { MyPicker  }            from '../../components/MyPicker/MyPicker';
 import colorHexPicker           from '../../assets/ColorHexUpdater';
 import AddressInput             from '../../components/AddressInput/AddressInput';
+import {colorOptionsList, }      from '../../assets/OptionsLists';
 
 class CompanyCreateScreen extends Component {
 
@@ -69,20 +70,13 @@ class CompanyCreateScreen extends Component {
   }
 
   render() {
-    let index = 0;
-    const data = [
-        { key: index++, section: true, label: 'Colors' },
-        { key: index++, label: 'blue' },
-        { key: index++, label: 'green' },
-        { key: index++, label: 'red' },
-        { key: index++, label: 'purple' },
-        { key: index++, label: 'brown' },
-        { key: index++, label: 'yellow' },
-    ];
+    // let index = 0;
+    const data = colorOptionsList;
+    
     
     const navigation = this.props.navigation
     const {name, color, hourly, address,
-      companyUpdate, paymentTerms, paymentTermsOptionsList, colorOptionsList} = this.props;
+      companyUpdate, paymentTerms, paymentTermsOptionsList} = this.props;
     console.log('nammmmmmmmmmeeeeeee', paymentTerms);
     console.log('COMPANYCREATESCREEN RENDER this.props', this.props);
     console.log('addrrrrrrrrrrrreeeeeeeeesssssssssss', address);
