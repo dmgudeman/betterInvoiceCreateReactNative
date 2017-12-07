@@ -10,29 +10,34 @@ import moment from 'moment';
 const InvoiceDetailsRow = ({data, onPress }) => (
       <Card>
         <CardSection>
-        <TouchableWithoutFeedback onPress={onPress}>
-          <View style={ styles.topRowContentStyle}>
-            <View style={styles.topRowSectionStyle}>
-              <Text>CREATED</Text>
-              <Text style={styles.topRowTextStyle}>{data.createdAt}</Text>
+          <TouchableWithoutFeedback onPress={onPress}>
+            <View style={ styles.topRowContentStyle}>
+              <View style={styles.topRowSectionStyle}>
+                <Text>DUE DATE</Text>
+                <Text style={styles.topRowTextStyle}>{moment(data.dueDate).format('DD/MM/YYYY')}</Text>
+              </View>
+              <View style={styles.topRowSectionStyle}>
+                <Text>FROM</Text>
+                <Text style={styles.topRowTextStyle}>{moment(data.beginDate).format('DD/MM/YYYY')}</Text>
+              </View>
+              <View style={styles.topRowSectionStyle}>
+                <Text>TO</Text>
+                <Text style={styles.topRowTextStyle}>{moment(data.endDate).format('DD/MM/YYYY')}</Text>
+              </View>
             </View>
-            <View style={styles.topRowSectionStyle}>
-              <Text>BUSINESS</Text>
-              <Text style={styles.topRowTextStyle}>{data.coName}</Text>
-            </View>
-            <View style={styles.topRowSectionStyle}>
-              <Text>TOTAL</Text>
-              <Text style={styles.topRowTextStyle}>{data.total}</Text>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
+          </TouchableWithoutFeedback>
         </CardSection>
         <CardSection>
-        <TouchableWithoutFeedback onPress={onPress}>
-          <View style={styles.bottomRowContentStyle}>
-            <Text style={styles.bottomRowTextStyle}>{data.description}</Text>
-          </View>
-        </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={onPress}>
+            <View >
+              <View >
+                <Text style={{marginLeft:20}} >{data.description}</Text>
+              </View>
+              <View>
+                <Text style={{marginLeft:20}}>Total: ${data.total}</Text>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
         </CardSection>
       </Card>
 )
@@ -57,18 +62,23 @@ const styles = {
   },
   topRowTextStyle: {
     flex: 1,
-    textAlign: 'center'
+    textAlign: 'center',
   },
-  bottomRowContentStyle: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    height: 35,
-  },
-  bottomRowTextStyle: {
-    flex: 1
-  }
+  // bottomRowContentStyle: {
+  //   flex: 1,
+  //   flexDirection: 'column',
+  //   justifyContent: 'flex-start',
+  //   alignItems: 'flex-start',
+  //   height: 35,
+  //   width: '100%',
+  
+
+  // },
+  // bottomRowTextStyle: {
+  //   flex: 1,
+  //   width: 100,
+  //   backgroundColor: 'green'
+  // }
 }
 
 export default InvoiceDetailsRow;

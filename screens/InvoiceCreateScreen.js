@@ -30,14 +30,9 @@ class InvoiceCreateScreen extends Component {
     this.props.invoiceCreateClear({ companyKey, coItems, coName, fUserId, paymentTerms });
   }
   calcDueDate(){
-    console.log('INVOICECREATESCREEN CALCDUEDATE date', this.props.createdAt);
-    console.log('INVOICECREATESCREEN CALCDUEDATE this.props.paymentTerms', this.props.paymentTerms);
-    console.log('INVOICECREATESCREEN CALCDUEDATE this.props.createdAt', this.props.createdAt);
     let a = moment(this.props.createdAt);
-    console.log('INVOICECREATESCREEN CALCDUEDATE a', a);
     a.add(this.props.paymentTerms *1, 'days');
     let dueDate = a.format(DATE_RFC2822); 
-    console.log('INVOICECREATESCREEN CALCDUEDATE dueDate', dueDate);
     this.props.invoiceUpdate('dueDate', dueDate)
   }
 
@@ -48,8 +43,6 @@ class InvoiceCreateScreen extends Component {
     let emDate = moment(endDate).format();
     let filteredItems = [];
     let itemsArray = (Object).values(this.props.coItems);
-      // console.log('INVOICECREATE FILTERBYDATERANGE this.props.items', this.props.items);
-      // console.log('INVOICECREATE FILTERBYDATERANGE itemsArray', itemsArray);
     itemsArray.forEach(i => {
       imDate = moment(i.date);
       if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
@@ -62,8 +55,6 @@ class InvoiceCreateScreen extends Component {
   }
   filteredItemsAlert(){
     if(this.props.coItems && this.props.coItems.length === 0) {
-      console.log('INVOICECREATESCREEN FILTEREDITEMSALERT this.props.items.length', this.props.items.length);
-      console.log('INVOICECREATESCREEN FILTEREDITEMSALERT this.props.items.length');
       Alert.alert(
         'Invoice Items',
         'There are no invoice items for this date range'
@@ -72,11 +63,8 @@ class InvoiceCreateScreen extends Component {
 
     } else {
       let invoiceTotal = 0;
-      // console.log('this.props.items', this.props.items);
       let itemsArray = (Object).values(this.props.items);
-      // console.log('itemsArray ', itemsArray);
       itemsArray.forEach(i => {
-        // console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiinvoiceTotal', invoiceTotal);
         invoiceTotal = invoiceTotal + i.total;
         });
       console.log('invoiceTotal', invoiceTotal);
@@ -91,12 +79,7 @@ class InvoiceCreateScreen extends Component {
         itemsArray.forEach(i => {
           invoiceTotal = invoiceTotal + i.total;
       });
-      // if (invoiceTotal) {
-      //   this.props.invoiceUpdate('total', invoiceTotal);
-
-      // } else {
-      //   this.props.invoiceUpdate('total', 0);
-      // }
+      
     }
   }
   onSubmit = async () => {
@@ -113,7 +96,6 @@ class InvoiceCreateScreen extends Component {
       dueDate: this.props.dueDate, endDate, fUserId,
       invoiceKey, items: this.props.items, total: this.props.total
     }
-    console.log('INVOICECREATESCREEN ONSUBMITTTTTTTTTTTTTTTTTTT invoice', invoice);
     this.props.invoiceCreate({invoice})
     await this.props.navigation.goBack();
   }
@@ -183,8 +165,4 @@ const mapStateToProps = (state) => {
   const total = state.invoice.total || '';
   return { beginDate, companyKey, coItems, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, paymentTerms, total};
 } 
-// const mapDispatchToProps = (dispatch) => {
-//   const {invoiceUpdate, changeInvoiceHours, invoiceCreate, XX} = actions;
-//   return bindActionCreators({invoiceUpdate, changeInvoiceHours, invoiceCreate, XX}, dispatch)
-// }
 export default connect(mapStateToProps, actions)(InvoiceCreateScreen);
