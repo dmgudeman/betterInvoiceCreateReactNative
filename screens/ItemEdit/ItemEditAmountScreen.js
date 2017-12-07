@@ -24,7 +24,9 @@ import Styles                   from '../Styles';
 import MyDatePicker from '../../components/MyDatePicker';
 
 class itemEditAmountScreen extends Component {
-  
+  componentWillMount(){
+    this.props.itemUpdate('goBackKey', this.props.navigation.state.params.goBackKey)
+  }
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Create Item',
@@ -33,25 +35,23 @@ class itemEditAmountScreen extends Component {
         backgroundColor="transparent" 
         color="gray" 
         size={30}
-        onPress= {()=> navigation.navigate('companies') }/>,
-      tabBarLabel:"Amount",
+        onPress= {()=> navigation.goBack(navigation.state.params.goBackKey)} 
+        />,
+           tabBarLabel:"Amount",
       tabBarIcon: ({ tintColor }) => <Icon name="dollar" size={20} color="#3498db" />
     }
   }
   onSubmit = () => {
-    // console.log('ItemEditScreen onSubmit this.props', this.props);
-    const { amount, companyKey, date, description, fUserId, hours, id, total, hourly } = this.props
+    const { amount, companyKey, date, description, fUserId, goBackKey, hours, id, total, hourly } = this.props
     
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
     this.props.itemUpdate('total', data);
    
-    // console.log('date111111111', amount, companyKey, date, description, fUserId, hours, id, total, hourly  );
     this.props.itemEdit({ amount, companyKey, date, description, fUserId, hours, id, total, hourly })
-    this.props.navigation.goBack();
+    this.props.navigation.goBack(goBackKey);
   }
 
   render() {
-    // console.log('ITEMEDITSCREEN RENDER this.props.hours', this.props.hours);
     return (
       <View>
         <FormLabel>Start Date</FormLabel>
@@ -108,12 +108,11 @@ const mapStateToProps = (state) => {
   const amount =      state.item.amount || '';
   const date =        state.item.date || '';
   const description = state.item.description || '';
+  const goBackKey   = state.item.goBackKey || '';
   const hours =       state.item.hours || '';
   const total =       state.item.total || '';
   const item = { amount, companyKey, date, description, fUserId, hourly, hours, total}
   
-  // console.log('ITEMCREATESCREEN MAPSTATETOPROPS item', item);
-  // const { amount, companyKey, date, description, fUserId, hours, id,  total,  } = state.item;
-  return { amount, companyKey, date, description, fUserId, hours, id, total, hourly };
+  return { amount, companyKey, date, description, fUserId, goBackKey, hours, id, total, hourly };
 }
 export default connect(mapStateToProps, actions)(itemEditAmountScreen);

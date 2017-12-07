@@ -12,6 +12,7 @@ export default ItemEditNav = TabNavigator (
     tabBarOptions: {
       activeTintColor: '#3498dbff',
       inactiveTintColor: '#3498db81',
+      activeBackgroundColor: '#3498db21',
       labelStyle: {
         fontSize: 12,
       },

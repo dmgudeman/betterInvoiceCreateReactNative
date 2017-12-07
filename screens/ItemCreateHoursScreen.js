@@ -27,6 +27,7 @@ class ItemCreateHoursScreen extends Component {
     this.props.itemUpdate('description', '');
     this.props.itemUpdate('hours', '');
     this.props.itemTotalUpdate('','', this.props.hourly)
+    console.log('this.props.navigationnnnnnnnnnnn', this.props.navigation.state.params.goBackKey);
    
   }
   static navigationOptions = ({ navigation }) => {
@@ -37,7 +38,7 @@ class ItemCreateHoursScreen extends Component {
         backgroundColor="transparent" 
         color="gray" 
         size={40}
-        onPress= {()=> navigation.navigate('companies') }/>,
+        onPress= {()=> navigation.goBack(null) }/>,
       tabBarLabel:"Hours",
       tabBarIcon: ({ tintColor }) => <Icon name="hourglass" size={20} color="#3498db" />
     }
@@ -55,12 +56,7 @@ class ItemCreateHoursScreen extends Component {
     // console.log('ITEMCREATESCREEN ONSUBMIT total', total);
 
     this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, total});
-    // this.props.navigation.navigate('companies');
-    this.props.navigation.dispatch(NavigationActions.reset({
-      index: 0,
-      key: null,
-      actions: [NavigationActions.navigate({routeName:'companies'})]
-  }))
+    this.props.navigation.goBack(null);
   }
 
   render() {

@@ -14,8 +14,7 @@ import ListItem from '../components/ListItem'
 
 class CompaniesScreen extends Component {
   componentWillMount() {
-    this.props.fetchCompanies(this.props.fUserId)
-    // console.log('COMPANIESSCREEN COMPONENTWILLMOUNT this.props', this.props);
+    this.props.fetchCompanies(this.props.fUserId);
   }
 
   componentDidMount() {
@@ -60,15 +59,15 @@ class CompaniesScreen extends Component {
 }
 
 const mapStateToProps = state => {
-  // console.log('COmpanies screen state.auth', state.auth);
+  const fUserId = state.auth.fUserId || '';
+  
   const companies = _.map(state.companies.companies, (val, id) => {
     return { ...val, id};
   });
-  const ButtonDisabled = false
+
   return {
-    fUserId: state.auth.fUserId,
+    fUserId,
     companies,
-    ButtonDisabled
   }
 }
 

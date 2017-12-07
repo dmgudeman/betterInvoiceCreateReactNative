@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { CardSection, Card, Button, Header } from './common';
 import * as actions from '../actions';
 import moment from 'moment';
-
+import DATE_RFC2822 from '../assets/Date'
 
 const ItemDetailsRow = ({data, onPress }) => (
       <Card>
@@ -14,7 +14,7 @@ const ItemDetailsRow = ({data, onPress }) => (
           <View style={ styles.topRowContentStyle}>
             <View style={styles.topRowSectionStyle}>
               <Text>DATE</Text>
-              <Text style={styles.topRowTextStyle}>{data.date}</Text>
+              <Text style={styles.topRowTextStyle}>{moment(data.date).format('DD/MM/YYYY')}</Text>
             </View>
             <View style={styles.topRowSectionStyle}>
               <Text>HOURS</Text>

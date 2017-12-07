@@ -18,9 +18,10 @@ class ListItem extends Component {
     //   colorHexPicker(this.props.color, this.props.companyUpdate)
     // }
     // console.log('LISITEM RENDER this.props', this.props);
-    const { navigate } = this.props.navigation
+    const { navigate } = this.props.navigation;
+    const { navigation } = this.props;
     const color = this.props.company.hex || this.props.company.color;
-    // console.log('LISTITEM RENDER this.props.company.color', color);
+    console.log('LISTITEM RENDER navigate', navigation );
     
     return (
       <Card color={color}>
@@ -36,12 +37,15 @@ class ListItem extends Component {
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               this.props.setCompany(this.props.company)
               navigate('items')}}>Items</Button>
+              
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               this.props.setCompany(this.props.company)
-              navigate('itemCreate')}}>+Item</Button>
+              navigate('itemCreate',{'goBackKey': navigation.state.key})}}>+Item</Button>
+              
             <Button style={ styles.buttonContentStyle } onPress={() => { 
-              this.props.setCompany(this.props.company);
+              this.props.setCompany(this.props.company)
               navigate('invoices')} }>Invoices</Button>
+
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               // console.log('LISTITEM RENDER this.props', this.props);
               this.props.setCompany(this.props.company)

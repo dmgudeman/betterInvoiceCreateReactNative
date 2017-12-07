@@ -1,13 +1,15 @@
-import UTILS_UPDATE from '../actions/types';
-
-const INITIAL_STATE ={ buttonDisabled: false }
+import {UTILS_UPDATE, SET_INVOICES} from '../actions/types';
+const INITIAL_STATE ={  }
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case UTILS_UPDATE:{
-      return Object.assign({}, state, {[action.payload.prop]: action.payload.value});
+    case UTILS_UPDATE: {
+      return { ...state, [action.payload.prop]: action.payload.value}
     }
+
     default:
       return state;
   }
+  
+
 }

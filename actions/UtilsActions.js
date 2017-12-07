@@ -6,6 +6,6 @@ import { UTILS_UPDATE } from './types';
 export const utilsUpdate = (prop, value)=> {
   return {
     type: UTILS_UPDATE,
-    payload: { prop, value}
+    payload: {prop, value}
   };
 }
