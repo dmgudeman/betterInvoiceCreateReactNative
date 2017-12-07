@@ -9,18 +9,13 @@ import {
   SET_INVOICES,
  } from './types';
 import moment from 'moment';
-
-// THE OTHER WAY TO GET RFC_@*@@ compliance
-const DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
-// use with
-// moment().format(DATE_RFC2822);
+import DATE_RFC2822 from '../assets/Date';
 
  // used upon Submit
 export const invoiceEdit = ({beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total}) => async dispatch => {
   
   let payload = { beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total}
   payload.createdAt = moment(payload.createdAt).format(DATE_RFC2822);
-  // console.log('InvoiceActions invoiceEdit payload', payload);
  
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey] = payload;
@@ -31,17 +26,14 @@ export const invoiceEdit = ({beginDate, companyKey, coName, createdAt, descripti
  
 export const invoiceCreateClear = ({ companyKey, coItems, coName,  fUserId, paymentTerms, })=>{
   let invoice = {
-    // beginDate: moment().toDate().toUTCString(),
     beginDate: moment().format(DATE_RFC2822),
     coItems, 
     companyKey, 
     coName, 
-    // createdAt: moment().toDate().toUTCString(),
     createdAt: moment().format(DATE_RFC2822),
     description: '',
     discount: '',
     dueDate: '',
-    // endDate: moment().toDate().toUTCString(),
     endDate: moment().format(DATE_RFC2822),
     fUserId,
     invoiceKey: '',
