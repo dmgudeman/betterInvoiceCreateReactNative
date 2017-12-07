@@ -19,7 +19,7 @@ const DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
 export const invoiceEdit = ({beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total}) => async dispatch => {
   
   let payload = { beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total}
-  payload.createdAt = moment(payload.createdAt).format();
+  payload.createdAt = moment(payload.createdAt).format(DATE_RFC2822);
   // console.log('InvoiceActions invoiceEdit payload', payload);
  
   let updates = {};
@@ -49,9 +49,6 @@ export const invoiceCreateClear = ({ companyKey, coItems, coName,  fUserId, paym
     paymentTerms,
     total: ''
   }
- 
-
-  // console.log('InvoiceActions invoiceCREATECLEAR payload', invoice);
   return {type: INVOICE_CREATE_CLEAR, invoice}
 
 }
@@ -62,12 +59,9 @@ export const setInvoices = (invoices) => {
   }
 }
 export const invoiceUpdate = (prop, value)=> {
-  // console.log('invoiceActions 11111111invoiceUpdate prop, value:::::', prop, value);
   if (prop === 'createdAt' || prop === 'beginDate' || prop === 'endDate'){
-     value = moment(value).format();
+     value = moment(value).format(DATE_RFC2822);
   }
-  // console.log('invoiceActions 22222222invoiceUpdate prop, value:::::', prop, value);
-
   return {
     type: INVOICE_UPDATE,
     payload: { prop, value}
@@ -75,7 +69,6 @@ export const invoiceUpdate = (prop, value)=> {
 }
 
 export const selectInvoice = (invoice) => {
-  // console.log('InvoiceACTIONS selectInvoice invoice', invoice);
   return {
     type: SELECT_INVOICE,
     invoice
@@ -84,18 +77,14 @@ export const selectInvoice = (invoice) => {
 
 export const invoiceCreate = ({invoice})=> {
   let payload = {...invoice};
-  // console.log('INVOICEACTIONS INVOICECREATE payload', payload);
  
   let newInvoiceKey =  firebase.database().ref().child('companies').child('invoices').push().key;
   payload.invoiceKey = newInvoiceKey
-  // console.log('Invoice ACTIONS INVOICE_CREATE payload', payload);
-  // console.log(''+'/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey);
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey] = payload;
   firebase.database().ref().update(updates);
   
    return {
     type: INVOICE_CREATE,
-    // payload: { }
   };
 }

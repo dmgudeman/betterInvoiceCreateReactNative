@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import thunk from 'redux-thunk';
+import moment from 'moment';
 import {
   ITEM_UPDATE,
   ITEM_TOTAL_UPDATE, 
@@ -10,17 +11,15 @@ import {
   SELECT_ITEM,
 
  } from './types';
-import moment from 'moment';
+ import DATE_RFC2822 from '../assets/Date';
 
 export const itemCreate = ({amount, companyKey, date, description, fUserId, hourly, hours, total}) => async dispatch => {
   let payload = { amount, companyKey, date, description, fUserId, hourly, hours, total} 
-  // console.log('ITEMSACTIONS ITEMCREATE payload', payload);
-  payload.date = moment(payload.date).format();
+  payload.date = moment(payload.date).format(DATE_RFC2822);
   payload.total = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
 
   let newItemKey = await firebase.database().ref().child('companies').child(companyKey).child('items').push().key;
   payload.id = newItemKey;
-  // console.log('ITEM ACTIONS ITEMCREATE payload', payload);
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/items/' + payload.id] = payload;
   await firebase.database().ref().update(updates);
@@ -32,7 +31,7 @@ export const itemCreate = ({amount, companyKey, date, description, fUserId, hour
 export const itemEdit = ({amount, companyKey, date, description, fUserId, hourly, hours, id, total}) => async dispatch => {
   
   let payload = { amount, companyKey, date, description, fUserId, hours, id, total, hourly }
-  payload.date = moment(payload.date).format();
+  payload.date = moment(payload.date).format(DATE_RFC2822);
  
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/items/' + payload.id] = payload;
@@ -57,7 +56,6 @@ export const itemUpdate = (prop, value)=> {
 }
 
 export const changeItemHours = (value) => {
-  // console.log( 'ITEMACTIONS changeItemHours value', value);
   const prop = 'hours'
   return {
     type: CHANGE_ITEM_HOURS,
@@ -66,7 +64,6 @@ export const changeItemHours = (value) => {
 }
 
 export const selectItem = (item) => {
-  console.log('ITEMACTIONS selectItem item', item);
   return {
     type: SELECT_ITEM,
     item
