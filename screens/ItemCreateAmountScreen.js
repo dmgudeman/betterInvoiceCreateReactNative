@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, DatePickerIOS }       from 'react-native';
+import { View, Text }       from 'react-native';
 import { connect } from 'react-redux';
 import { 
   Button,
@@ -7,13 +7,16 @@ import {
   FormInput, 
   FormValidationMessage, 
 }                           from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { NavigationActions } from 'react-navigation';
 import DatePicker from 'react-native-datepicker';
 import Moment from 'react-moment';
 import moment from 'moment';
-import * as actions from '../actions'
+import * as actions from '../actions';
+import Styles from './Styles';
 
 import MyDatePicker from '../components/MyDatePicker';
+
 
 class ItemCreateAmountScreen extends Component {
 
@@ -26,7 +29,19 @@ class ItemCreateAmountScreen extends Component {
     this.props.itemTotalUpdate('','', this.props.hourly)
    
   }
-
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Create Item',
+      headerLeft: <Icon.Button 
+        name="angle-left" 
+        backgroundColor="transparent" 
+        color="gray" 
+        size={30}
+        onPress= {()=> navigation.navigate('companies') }/>,
+      tabBarLabel:"Amount",
+      tabBarIcon: ({ tintColor }) => <Icon name="dollar" size={20} color="#3498db" />
+    }
+  }
   onSubmit = () => {
     const {amount, companyKey, date, description, fUserId, hourly, hours, total} = this.props
     // console.log('ITEMCREATESCREEN ONSUBMIT hours', hours);
@@ -40,7 +55,9 @@ class ItemCreateAmountScreen extends Component {
 
     this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, total});
     this.props.navigation.navigate('companies');
+
   }
+ 
 
   render() {
     // console.log('ITEMCREATESCREEN RENDER this.prop', this.props);
@@ -48,7 +65,7 @@ class ItemCreateAmountScreen extends Component {
       <View>
   
         <FormLabel>Start Date</FormLabel>
-        <MyDatePicker 
+        <MyDatePicker
            date={ moment(this.props.date).format('MM/DD/YYYY') }
            onDateChange={(value) => {
              this.props.itemUpdate('date', moment(value).toDate().toUTCString() )
@@ -69,7 +86,9 @@ class ItemCreateAmountScreen extends Component {
           onChangeText={(value) => this.props.itemUpdate('description', value)}
         />
       
-        <Text style={{marginLeft:40, fontSize: 25 }}>Total: ${this.props.total}</Text>
+        <Text style={Styles.totalLabel}>Total</Text>
+        <Text style={Styles.totalValue}>$ {this.props.total}</Text>
+
         <Button
           title= "Submit"
           onPress =  {this.onSubmit }
@@ -78,6 +97,7 @@ class ItemCreateAmountScreen extends Component {
     )
   }
 }
+
 
 const mapStateToProps = state => {
   // console.log('ITEMCREATESCREEN MAPSTATETOPROPS state', state);
@@ -96,4 +116,25 @@ const mapStateToProps = state => {
   // console.log('ITEMCREATESCREEN MAPSTATETOPROPS item', item);
   return { amount, companyKey, date, description, fUserId, hourly, hours, total};
 }
+
+// const Styles = {
+//   datePicker: {
+//     marginLeft: 10,
+//     backgroundColor: 'blue'
+//   },
+//   totalLabel: {
+//     marginTop: 15,
+//     marginLeft: 20,
+//     color: 'gray',
+//     fontWeight: 'bold'
+//   },
+//   totalValue: {
+//     fontSize: 18,
+//     marginTop: 15,
+//     marginBottom: 15,
+//     marginLeft: 20,
+//     color: 'gray'
+//   }
+// }
+
 export default connect(mapStateToProps, actions)(ItemCreateAmountScreen);

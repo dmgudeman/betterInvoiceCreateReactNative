@@ -13,18 +13,30 @@ import {
   FormInput, 
   FormValidationMessage, 
 }                               from 'react-native-elements';
+import Icon                     from 'react-native-vector-icons/FontAwesome';
 import { NavigationActions }    from 'react-navigation';
 import DatePicker               from 'react-native-datepicker';
 import Moment                   from 'react-moment';
 import moment                   from 'moment';
-import * as actions             from '../actions';
+import * as actions             from '../../actions';
+import Styles                   from '../Styles';
 
-import MyDatePicker from '../components/MyDatePicker';
+import MyDatePicker from '../../components/MyDatePicker';
 
-class itemEditScreen extends Component {
+class itemEditAmountScreen extends Component {
   
-  componentWillMount() {
-    // console.log('itemEditScreen componentWillMount this.props ', this.props);
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Create Item',
+      headerLeft: <Icon.Button 
+        name="angle-left" 
+        backgroundColor="transparent" 
+        color="gray" 
+        size={30}
+        onPress= {()=> navigation.navigate('companies') }/>,
+      tabBarLabel:"Amount",
+      tabBarIcon: ({ tintColor }) => <Icon name="dollar" size={20} color="#3498db" />
+    }
   }
   onSubmit = () => {
     // console.log('ItemEditScreen onSubmit this.props', this.props);
@@ -73,7 +85,10 @@ class itemEditScreen extends Component {
           value={this.props.description}
           onChangeText={(value) => this.props.itemUpdate('description', value)}
         />
-        <Text style={{marginLeft:40, fontSize: 25 }}>Total: ${this.props.total}</Text>
+
+        <Text style={Styles.totalLabel}>Total</Text>
+        <Text style={Styles.totalValue}>$ {this.props.total}</Text>
+
         <Button
           title= "Submit"
           onPress =  {this.onSubmit }
@@ -101,4 +116,4 @@ const mapStateToProps = (state) => {
   // const { amount, companyKey, date, description, fUserId, hours, id,  total,  } = state.item;
   return { amount, companyKey, date, description, fUserId, hours, id, total, hourly };
 }
-export default connect(mapStateToProps, actions)(itemEditScreen);
+export default connect(mapStateToProps, actions)(itemEditAmountScreen);

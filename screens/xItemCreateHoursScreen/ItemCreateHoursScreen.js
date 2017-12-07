@@ -7,6 +7,7 @@ import {
   FormInput, 
   FormValidationMessage, 
 }                           from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { NavigationActions } from 'react-navigation';
 import DatePicker from 'react-native-datepicker';
 import Moment from 'react-moment';

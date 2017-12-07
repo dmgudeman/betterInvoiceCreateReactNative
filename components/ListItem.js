@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation';
 import { CardSection, Card, Button, Header } from './common';
 // import { Card, Button } from 'react-native-elements';
-import ItemEditScreen from '../screens/ItemEditScreen'; 
-import ItemCreateScreen from '../screens/ItemCreateScreen';
 import { MainNavigator } from '../App';
 import * as actions from '../actions';
 import colorHexPicker           from '../assets/ColorHexUpdater';

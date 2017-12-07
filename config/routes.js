@@ -1,59 +1,24 @@
 import React from 'react';
 import { Button } from 'react-native-elements';
 import { StackNavigator, TabNavigator } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import AuthScreen from '../screens/AuthScreen';
 import { CompanyCreateScreen } from '../screens/CompanyCreateScreen';
 import CompanyEditScreen from '../screens/CompanyEditScreen/CompanyEditScreen';
 import CompaniesScreen from '../screens/CompaniesScreen';
-import ItemCreateScreen from '../screens/ItemCreateScreen';
-import ItemCreateHoursScreen from '../screens/ItemCreateHoursScreen';
-import ItemCreateAmountScreen from '../screens/ItemCreateAmountScreen';
-import ItemEditScreen from '../screens/ItemEditScreen';
+import GooglePlacesInput from '../components/GooglePlacesInput';
+import ItemCreateNav from './ItemCreateNav';
+import ItemEditNav from './ItemEditNav';
 import ItemsScreen from '../screens/ItemsScreen'
 import InvoiceCreateScreen from '../screens/InvoiceCreateScreen';
 import InvoiceEditScreen from '../screens/InvoiceEditScreen';
 import InvoicesScreen from '../screens/InvoicesScreen';
 import ListItem from '../components/ListItem';
-// import TestScreen from '../screens/TestScreen';
-import WVContainer from '../screens/WVContainer';
-// import MyWebView from '../screens/MyWebView';
 import MyDatePicker from '../components/MyDatePicker';
-// import MyPicker from '../components/MyPicker/MyPicker';
-import GooglePlacesInput from '../components/GooglePlacesInput';
-// import { TabNavigator } from '../../../../../Users/davidgudeman/Library/Caches/typescript/2.6/node_modules/@types/react-native-tab-navigator';
+import WVContainer from '../screens/WVContainer';
 
-const ItemCreateNav = TabNavigator ({
-  itemCreateHoursScreen: { 
-    screen: ItemCreateHoursScreen,
-    navigationOptions: {
-      tabBarLabel:"Hours",
-      // tabBarIcon: ({ tintColor }) => <Icon name={"glass"} size={30} color={tintColor} />
-  }
-  },
-    itemCreateAmountscreen: { 
-      screen: ItemCreateAmountScreen,
-      navigationOptions: {
-        tabBarLabel:"Amount",
-        // tabBarIcon: ({ tintColor }) => <Icon name={"glass"} size={30} color={tintColor} />
-    }
-    }
-  },
-  {
-    tabBarPosition: 'top',
-    tabBarOptions: {
-      activeTintColor: '#3498dbff',
-      inactiveTintColor: '#3498db81',
-      labelStyle: {
-        fontSize: 18,
-        
-      },
-      style: {
-        backgroundColor: '#3498db25',
-      },
-    }
-  }
-)
+
 
 export default StackNavigator(
   {
@@ -63,8 +28,7 @@ export default StackNavigator(
     companyEdit:       { screen: CompanyEditScreen },
     items:             { screen: ItemsScreen },
     itemCreate:        { screen: ItemCreateNav },
-    itemEdit:          { screen: ItemEditScreen },
-    // ListItem:          { screen: ListItem },
+    itemEdit:          { screen: ItemEditNav },
     invoices:          { screen: InvoicesScreen },
     invoiceCreate:     { screen: InvoiceCreateScreen },
     invoiceEdit:   { 
@@ -73,15 +37,13 @@ export default StackNavigator(
         title: `Edit Invoice`,
       },
     },
-    // myPicker:          { screen: MyPicker },
     datePicker:        { screen: MyDatePicker },
     googlePlacesInput: { screen: GooglePlacesInput },
-    // myWebView:         { screen: MyWebView },
     wvContainer:       { screen: WVContainer }
   },
-  // {
-  //   headerMode: 'none'
-  // }
+  {
+    headerMode: 'float'
+  }
 );
 
 
