@@ -21,6 +21,7 @@ import moment                   from 'moment';
 import * as actions             from '../actions'
 
 import MyDatePicker             from '../components/MyDatePicker';
+import DATE_RFC2822             from '../assets/Date';
 
 class InvoiceCreateScreen extends Component {
   
@@ -35,7 +36,7 @@ class InvoiceCreateScreen extends Component {
     let a = moment(this.props.createdAt);
     console.log('INVOICECREATESCREEN CALCDUEDATE a', a);
     a.add(this.props.paymentTerms *1, 'days');
-    let dueDate = a.format(); 
+    let dueDate = a.format(DATE_RFC2822); 
     console.log('INVOICECREATESCREEN CALCDUEDATE dueDate', dueDate);
     this.props.invoiceUpdate('dueDate', dueDate)
   }

@@ -51,6 +51,7 @@ export const setInvoices = (invoices) => {
   }
 }
 export const invoiceUpdate = (prop, value)=> {
+  console.log('invoiceUpdate action  prop, valueeeeee', prop, value);
   if (prop === 'createdAt' || prop === 'beginDate' || prop === 'endDate'){
      value = moment(value).format(DATE_RFC2822);
   }

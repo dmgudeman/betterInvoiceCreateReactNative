@@ -20,6 +20,7 @@ import moment                   from 'moment';
 import * as actions             from '../actions';
 import MyDatePicker             from '../components/MyDatePicker';
 
+
 class invoiceEditScreen extends Component {
   
   componentWillMount() {
@@ -35,6 +36,7 @@ class invoiceEditScreen extends Component {
    
     // console.log('INVOICEEDIT onSubmit',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total );
     this.props.invoiceEdit({  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId,  invoiceKey, items, total})
+    console.log('INVOICEEDIT ONSUBMIT navigation', this.props.navigation);
     this.props.navigation.goBack();
   }
 
@@ -95,7 +97,7 @@ class invoiceEditScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  
+  console.log('INVOICEEDITSCREEN MAPSTATETOPROPS state.dueDate', state.invoice.dueDate);
   const address = state.invoice.address;
   
   const beginDate = state.invoice.beginDate;
@@ -111,11 +113,6 @@ const mapStateToProps = (state) => {
   const items = state.invoice.items;
   const total = state.invoice.total;
 
-  // const { amount, companyKey, date, description, fUserId, hours, id,  total,  } = state.invoice;
   return { beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, items, total};
 }
-// const mapDispatchToProps = (dispatch) => {
-//   const {invoiceUpdate, changeInvoiceHours, invoiceEdit} = actions;
-//   return bindActionCreators({invoiceUpdate, changeInvoiceHours, invoiceEdit}, dispatch)
-// }
 export default connect(mapStateToProps, actions )(invoiceEditScreen);
