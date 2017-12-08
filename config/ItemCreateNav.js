@@ -1,12 +1,13 @@
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, NavigationActions } from 'react-navigation';
 import ItemCreateHoursScreen from '../screens/ItemCreateHoursScreen';
 import ItemCreateAmountScreen from '../screens/ItemCreateAmountScreen';
+
 
 
 export default ItemCreateNav = TabNavigator (
   {
     itemCreateHoursScreen: { screen: ItemCreateHoursScreen, },
-    itemCreateAmountscreen: { screen: ItemCreateAmountScreen, }
+    itemCreateAmountScreen: { screen: ItemCreateAmountScreen, }
   },
   {
     tabBarPosition: 'top',
@@ -19,7 +20,18 @@ export default ItemCreateNav = TabNavigator (
       style: {
         backgroundColor: '#3498db25',
       },
-      headerBackTitle: null
+      headerBackTitle: null,
     }
+  },
+  {
+    resetAction,
   }
-)
+);
+
+const resetAction = NavigationActions.reset({
+  index: 1,
+  actions: [
+    NavigationActions.navigate({ routeName: 'itemCreateHoursScreen'}),
+    NavigationActions.navigate({ routeName: 'itemCreateAmountScreen'})
+  ]
+})

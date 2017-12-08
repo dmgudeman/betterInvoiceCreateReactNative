@@ -15,8 +15,10 @@ import moment from 'moment';
 import * as actions from '../actions';
 import Styles from './Styles';
 
+import { resetAction } from '../config/ItemCreateNav'
 import MyDatePicker from '../components/MyDatePicker';
 
+// 
 
 class ItemCreateAmountScreen extends Component {
 
@@ -27,8 +29,12 @@ class ItemCreateAmountScreen extends Component {
     this.props.itemUpdate('description', '');
     this.props.itemUpdate('hours', '');
     this.props.itemTotalUpdate('','', this.props.hourly)
+    // this.props.navigation.dispatch(resetAction);
+    this.props.navigation.setParams(resetAction);
    
   }
+
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Create Item',
@@ -37,33 +43,39 @@ class ItemCreateAmountScreen extends Component {
         backgroundColor="transparent" 
         color="gray" 
         size={30}
-        onPress= {()=> navigation.navigate('companies') }/>,
+        onPress= {()=> {
+
+          console.log('OOOONNNNPRREESSSS',navigation);
+          // navigation.dispatch(resetAction)
+          
+          resetAction2 = NavigationActions.reset({
+            index: 0,
+            actions: [
+              NavigationActions.navigate({ routeName: 'companies'}),
+             
+            ]
+          });
+          navigation.dispatch(resetAction2);
+          // navigation.goBack();
+        }
+        }/>,
       tabBarLabel:"Amount",
       tabBarIcon: ({ tintColor }) => <Icon name="dollar" size={20} color="#3498db" />
     }
   }
   onSubmit = () => {
     const {amount, companyKey, date, description, fUserId, hourly, hours, total} = this.props
-    // console.log('ITEMCREATESCREEN ONSUBMIT hours', hours);
-    // console.log('ITEMCREATESCREEN ONSUBMIT hourly', hourly);
-    // console.log('ITEMCREATESCREEN ONSUBMIT fUserId', fUserId);
     const data  = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
-    // console.log('ITEMCREATESCREEN ONSUBMIT data', data);
     this.props.itemUpdate('total', data);
-    // console.log('ITEMCREATE ONSUBMIT this.props', this.props);
-    // console.log('ITEMCREATESCREEN ONSUBMIT total', total);
 
     this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, total});
-    this.props.navigation.navigate('companies');
-
+    this.props.navigation.goBack(null)
   }
  
 
   render() {
-    // console.log('ITEMCREATESCREEN RENDER this.prop', this.props);
     return (
       <View>
-  
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker
            date={ moment(this.props.date).format('MM/DD/YYYY') }

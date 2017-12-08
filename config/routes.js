@@ -19,7 +19,6 @@ import MyDatePicker from '../components/MyDatePicker';
 import WVContainer from '../screens/WVContainer';
 
 
-
 export default StackNavigator(
   {
     auth:              { screen: AuthScreen },

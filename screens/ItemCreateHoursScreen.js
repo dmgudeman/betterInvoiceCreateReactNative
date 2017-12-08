@@ -15,20 +15,17 @@ import moment from 'moment';
 import * as actions from '../actions'
 import CompaniesScreen from './CompaniesScreen';
 import MyDatePicker from '../components/MyDatePicker';
-
-const myIcon = (<Icon name="rocket" size={30} color="#900" />) 
+import { resetAction } from '../config/ItemCreateNav'
 
 class ItemCreateHoursScreen extends Component {
 
   componentWillMount() {
-    // console.log('ITEMSCREATESCREEN COMPONENTWILLMOUNT this.props', this.props);
     this.props.itemUpdate('amount', '');
     this.props.itemUpdate('date', moment().format()  )
     this.props.itemUpdate('description', '');
     this.props.itemUpdate('hours', '');
     this.props.itemTotalUpdate('','', this.props.hourly)
-    console.log('this.props.navigationnnnnnnnnnnn', this.props.navigation.state.params.goBackKey);
-   
+    console.log('COMPONENTWILL this.props.navigation.state.key', this.props.navigation.state.key);
   }
   static navigationOptions = ({ navigation }) => {
     return {
@@ -46,21 +43,14 @@ class ItemCreateHoursScreen extends Component {
    
   onSubmit = () => {
     const {amount, companyKey, date, description, fUserId, hourly, hours, total} = this.props
-    // console.log('ITEMCREATESCREEN ONSUBMIT hours', hours);
-    // console.log('ITEMCREATESCREEN ONSUBMIT hourly', hourly);
-    // console.log('ITEMCREATESCREEN ONSUBMIT fUserId', fUserId);
     const data  = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
-    // console.log('ITEMCREATESCREEN ONSUBMIT data', data);
     this.props.itemUpdate('total', data);
-    console.log('ITEMCREATE ONSUBMIT this.props', this.props);
-    // console.log('ITEMCREATESCREEN ONSUBMIT total', total);
 
     this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, total});
     this.props.navigation.goBack(null);
   }
 
   render() {
-    // console.log('ITEMCREATESCREEN RENDER this.prop', this.props);
     return (
       <View>
   
