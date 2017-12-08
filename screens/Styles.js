@@ -1,7 +1,7 @@
+import { StyleSheet} from 'react-native';
 
 
-
-export default Styles = 
+export default Styles = StyleSheet.create(
 {
   totalLabel: {
     marginTop: 15,
@@ -18,4 +18,4 @@ export default Styles =
     marginLeft: 20,
     color: 'gray'
   }
-}
+})

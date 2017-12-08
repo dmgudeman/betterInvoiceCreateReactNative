@@ -25,16 +25,35 @@ import {
   colorOptionsList,
   paymentTermsOptionsList,
 }                               from '../../assets/OptionsLists';
+import {validate }                from '../../utility/Validation.js';
 
 class CompanyCreateScreen extends Component {
   state = {
     controls: {
-      name:         { valid: '', valid: false, validationRules: {} },
+      name:         { valid: '', valid: false, validationRules: { minLength:2} },
       hourly:       { valid: '', valid: false, validationRules: {} },
       paymentTerms: { valid: '', valid: false, validationRules: {} },
       color:        { valid: '', valid: false, validationRules: {} },
       address:      { valid: '', valid: false, validationRules: {} },
     }
+  }
+
+  updateInputState = (key, value) => {
+    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE key', key);
+    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE value', value);
+    
+    this.setState(prevState => {
+      return {
+        controls: {
+          ...prevState,
+          [key]: {
+            ...prevState.controls[key],
+            value: value,
+            valid: validate(value, prevState.controls[key].validationRules)
+          }
+        }
+      }
+    })
   }
 
   componentWillMount() {
@@ -78,14 +97,19 @@ class CompanyCreateScreen extends Component {
     const paymentTermsOptions = paymentTermsOptionsList;
     const navigation = this.props.navigation
     const {name, color, hourly, address, companyUpdate, paymentTerms} = this.props;
-  
+     
     return (
       <View style = {styles.container}>
         <FormLabel>Name</FormLabel>
         <TouchableOpacity>
           <FormInput 
             value={name}
-            onChangeText={(value) => companyUpdate('name', value)}
+            onChangeText={(value) => {
+              companyUpdate('name', value)
+              
+              this.updateInputState('name', value)
+            }
+            }
           />
         </TouchableOpacity> 
 
@@ -140,8 +164,6 @@ class CompanyCreateScreen extends Component {
           <FormInput 
             value={address}
             onFocus={(value) => { 
-              console.log('COMPANYCREATESCREEN ADDRESS INPUT', address);
-              console.log('COMPANYCREATESCREEN ADDRESS VALUE', value);
               // using a workaround here because companyUpdate returns a proxy for address instead of a string
               this.props.navigation.navigate('googlePlacesInput', {address: value})
             }} 
