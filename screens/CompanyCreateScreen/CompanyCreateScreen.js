@@ -111,11 +111,13 @@ class CompanyCreateScreen extends Component {
             }
             }
           />
+        <FormValidationMessage>Business name is necessary</FormValidationMessage>
         </TouchableOpacity> 
 
         <FormLabel>Hourly</FormLabel> 
         <TouchableOpacity>
           <FormInput 
+              keyboardType= 'numeric'
             value={hourly}
             onChangeText={(value) => companyUpdate('hourly', value)}
           />
@@ -152,9 +154,7 @@ class CompanyCreateScreen extends Component {
           >
             <FormInput 
               value={this.props.color} 
-              editable={false}
               placeholder="color"
-              editable={true}
             />
           </ModalSelector>
         </TouchableOpacity>
@@ -181,8 +181,6 @@ class CompanyCreateScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: 'red',
     flex: 1
   },
   formLabel: {
@@ -218,7 +216,8 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'white'
-  }
+  },
+  
 });
 
 const mapStateToProps = (state) => {
@@ -234,14 +233,9 @@ const mapStateToProps = (state) => {
   const name = state.companies.name || '';
   const paymentTerms = state.companies.paymentTerms || '30';
   const userId = state.auth.userId || '';
-  console.log('COMPANYCREATESCREEN MAPSTATETOPROPS state.companies.hex', state.companies.hex);
-  console.log('COMPANYCREATESCREEN MAPSTATETOPROPS hex', hex);
   return { 
            companyKey, active, address, location, color, 
            fUserId, hex, hourly, name, paymentTerms, userId};
 } 
-// const mapDispatchToProps = (dispatch) => {
-//   const {companyUpdate, companyCreate} = actions;
-//   return bindActionCreators({companyUpdate, companyCreate}, dispatch)
-// }
+
 export default connect(mapStateToProps, actions )(CompanyCreateScreen);
