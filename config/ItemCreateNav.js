@@ -23,15 +23,4 @@ export default ItemCreateNav = TabNavigator (
       headerBackTitle: null,
     }
   },
-  {
-    resetAction,
-  }
 );
-
-const resetAction = NavigationActions.reset({
-  index: 1,
-  actions: [
-    NavigationActions.navigate({ routeName: 'itemCreateHoursScreen'}),
-    NavigationActions.navigate({ routeName: 'itemCreateAmountScreen'})
-  ]
-})

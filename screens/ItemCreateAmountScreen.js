@@ -15,7 +15,6 @@ import moment from 'moment';
 import * as actions from '../actions';
 import Styles from './Styles';
 
-import { resetAction } from '../config/ItemCreateNav'
 import MyDatePicker from '../components/MyDatePicker';
 
 // 
@@ -29,9 +28,6 @@ class ItemCreateAmountScreen extends Component {
     this.props.itemUpdate('description', '');
     this.props.itemUpdate('hours', '');
     this.props.itemTotalUpdate('','', this.props.hourly)
-    // this.props.navigation.dispatch(resetAction);
-    this.props.navigation.setParams(resetAction);
-   
   }
 
 
@@ -44,19 +40,14 @@ class ItemCreateAmountScreen extends Component {
         color="gray" 
         size={30}
         onPress= {()=> {
-
-          console.log('OOOONNNNPRREESSSS',navigation);
-          // navigation.dispatch(resetAction)
-          
-          resetAction2 = NavigationActions.reset({
+          resetAction = NavigationActions.reset({
             index: 0,
             actions: [
               NavigationActions.navigate({ routeName: 'companies'}),
              
             ]
           });
-          navigation.dispatch(resetAction2);
-          // navigation.goBack();
+          navigation.dispatch(resetAction);
         }
         }/>,
       tabBarLabel:"Amount",

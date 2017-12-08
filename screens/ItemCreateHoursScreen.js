@@ -15,7 +15,6 @@ import moment from 'moment';
 import * as actions from '../actions'
 import CompaniesScreen from './CompaniesScreen';
 import MyDatePicker from '../components/MyDatePicker';
-import { resetAction } from '../config/ItemCreateNav'
 
 class ItemCreateHoursScreen extends Component {
 
