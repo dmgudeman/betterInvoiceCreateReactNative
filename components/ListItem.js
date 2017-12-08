@@ -12,14 +12,6 @@ import _addNavigationHelpers from '../assets/Navigation';
 
 class ListItem extends Component {
 
-  componentWillMount() {
-    this.debouncedOnpress =(x)=> _.debounce(x, 2000, {'leading': true, 'trailing': false,});
-  }
-
-  _onPressFunc = () => {
-        console.log("Debounced!");
-      this.props.navigation.navigate('companyEdit',  {company: this.props.company}) 
-  } 
   render() {
     const { navigate } = this.props.navigation;
     const { navigation } = this.props;
@@ -31,15 +23,11 @@ class ListItem extends Component {
      
         <CardSection>
           <View style={ styles.headerContentStyle}>
-            <Text style={styles.headerTextStyle} onPress={
-            
-              this.debouncedOnpress(() => {
-              this.props.setCompany(this.props.company)
-                console.log("Debounced!");
-              navigation.navigate('companyEdit' ,{company:this.props.company})})
+            <Text style={styles.headerTextStyle} onPress={()=>{
+                this.props.setCompany(this.props.company)
+                navigate('companyEdit',  {company: this.props.company}) 
+              }
             }
-              // () => 
-              // { navigate('companyEdit',  {company: this.props.company})} }
               >{ this.props.company.name }</Text>
           </View>
         </CardSection>

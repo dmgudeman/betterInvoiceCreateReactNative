@@ -23,18 +23,18 @@ class CompanyEditScreen extends Component {
   
   componentWillMount() {
     console.log('COMPANYEDITSCREEN COMPONENTWILLMOUNT this.props', this.props);
-    const navigator = this.props.navigation.state.params;
-    console.log('COMPANYEDITSCREEN COMPONENTWILLMOUNT navigator', navigator);
-    // const {address, color, companyKey, fUserId, hourly, id, name, paymentTerms } = navigator.company
-    // // this.props.companyUpdate('company', navigator.company);
-    // this.props.companyUpdate('name', name);
-    // this.props.companyUpdate('paymentTerms', paymentTerms);
-    // this.props.companyUpdate('color', color);
-    // this.props.companyUpdate('hourly', hourly);
-    // this.props.companyUpdate('address', address);
-    // this.props.companyUpdate('companyKey', id)
-    // console.log('COMPANYEDITSCREEN COMPONENETWILLMOUNT props object', {address, color, fUserId, hourly, companyKey, name, paymentTerms }  );
+    let navigator = this.props.navigation.state.params;
+    const {address, color, companyKey, fUserId, hourly, id, name, paymentTerms } = navigator.company
+    // this.props.companyUpdate('company', navigator.company);
+    this.props.companyUpdate('name', name);
+    this.props.companyUpdate('paymentTerms', paymentTerms);
+    this.props.companyUpdate('color', color);
+    this.props.companyUpdate('hourly', hourly);
+    this.props.companyUpdate('address', address);
+    this.props.companyUpdate('companyKey', id)
+    console.log('COMPANYEDITSCREEN COMPONENETWILLMOUNT props object', {address, color, fUserId, hourly, companyKey, name, paymentTerms }  );
   }
+  
   onSubmit = async () => {
     await colorHexPicker(this.props.color, this.props.companyUpdate);
     let payload = {
