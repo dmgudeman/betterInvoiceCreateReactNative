@@ -10,10 +10,11 @@ export const validate = ( value, rules ) => {
       // }
       case 'minLength': {
         isValid = isValid && minLengthValidator(value, rules[rule])
-
+        break;
       }
       case 'paymentTerms': {
         isValid = isValid && paymentTermsValidator(value);
+        break;
       }
       default: {
         isValid= true;

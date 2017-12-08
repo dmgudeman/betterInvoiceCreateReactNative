@@ -41,15 +41,21 @@ class CompanyCreateScreen extends Component {
   updateInputState = (key, value) => {
     console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE key', key);
     console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE value', value);
+    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE  this.state.controls.name.valid',  this.state.controls.name.valid);
+    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE state', this.state);
+    
     
     this.setState(prevState => {
+    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE prevState', prevState);
+    let x = validate(value, prevState.controls[key].validationRules)
+    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE validate', x);
       return {
         controls: {
           ...prevState,
           [key]: {
             ...prevState.controls[key],
             value: value,
-            valid: validate(value, prevState.controls[key].validationRules)
+            valid: x
           }
         }
       }
@@ -91,7 +97,13 @@ class CompanyCreateScreen extends Component {
     await this.props.companyCreate(payload);
     this.props.navigation.navigate('companies')
   }
-
+  updateStyle=()=>{
+    console.log('fireddddddddddd', this.state.controls.name.valid);
+    const x = this.state.controls.name.valid
+  //  return ( x ? null :
+  // <FormValidationMessage >Business name is necessary {this.state.controls.name.valid }</FormValidationMessage>)
+  return (x ? console.log('1111111'): console.log('222222222'))
+   }
   render() {
     const colorOptions = colorOptionsList;
     const paymentTermsOptions = paymentTermsOptionsList;
@@ -103,15 +115,18 @@ class CompanyCreateScreen extends Component {
         <FormLabel>Name</FormLabel>
         <TouchableOpacity>
           <FormInput 
+            valid={this.state.controls.name.valid}
             value={name}
+            
             onChangeText={(value) => {
+              this.updateStyle()
               companyUpdate('name', value)
-              
               this.updateInputState('name', value)
             }
             }
           />
-        <FormValidationMessage>Business name is necessary</FormValidationMessage>
+         {this.state.controls.name.valid ? null :
+   <FormValidationMessage >Business name is necessary </FormValidationMessage>}
         </TouchableOpacity> 
 
         <FormLabel>Hourly</FormLabel> 
