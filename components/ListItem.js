@@ -11,9 +11,9 @@ import colorHexPicker           from '../assets/ColorHexUpdater';
 import _addNavigationHelpers from '../assets/Navigation';
 
 class ListItem extends Component {
-  constructor(props) {
-    super(props);
-   this.debouncedOnpress = _.debounce(this._onPressFunc, 2000, {'leading': true, 'trailing': false,});
+
+  componentWillMount() {
+    this.debouncedOnpress =(x)=> _.debounce(x, 2000, {'leading': true, 'trailing': false,});
   }
 
   _onPressFunc = () => {
@@ -33,7 +33,11 @@ class ListItem extends Component {
           <View style={ styles.headerContentStyle}>
             <Text style={styles.headerTextStyle} onPress={
             
-              this.debouncedOnpress }
+              this.debouncedOnpress(() => {
+              this.props.setCompany(this.props.company)
+                console.log("Debounced!");
+              navigation.navigate('companyEdit' ,{company:this.props.company})})
+            }
               // () => 
               // { navigate('companyEdit',  {company: this.props.company})} }
               >{ this.props.company.name }</Text>
