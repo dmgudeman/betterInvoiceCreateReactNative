@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, ScrollView } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import InvoiceDetailsRow from '../components/InvoiceDetailsRow';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -49,5 +49,12 @@ const mapStateToProps = state => {
   });
   return { companyKey, coName, fUserId, invoices};
 }
+
+const styles = StyleSheet.create ({
+  container: {
+    flex: 1,
+
+  }
+})
 
 export default connect(mapStateToProps, actions)(InvoicesScreen);

@@ -27,6 +27,15 @@ import {
 }                               from '../../assets/OptionsLists';
 
 class CompanyCreateScreen extends Component {
+  state = {
+    controls: {
+      name:         { valid: '', valid: false, validationRules: {} },
+      hourly:       { valid: '', valid: false, validationRules: {} },
+      paymentTerms: { valid: '', valid: false, validationRules: {} },
+      color:        { valid: '', valid: false, validationRules: {} },
+      address:      { valid: '', valid: false, validationRules: {} },
+    }
+  }
 
   componentWillMount() {
     this.props.companyUpdate('name', '');
@@ -71,7 +80,7 @@ class CompanyCreateScreen extends Component {
     const {name, color, hourly, address, companyUpdate, paymentTerms} = this.props;
   
     return (
-      <View>
+      <View style = {styles.container}>
         <FormLabel>Name</FormLabel>
         <TouchableOpacity>
           <FormInput 
@@ -139,7 +148,6 @@ class CompanyCreateScreen extends Component {
             editable={true}
           />
         </TouchableOpacity>   
-
         <Button
           title= "Submit"
           onPress =  {() => this.onSubmit(this.props, this.props.companyCreate) }
@@ -150,6 +158,11 @@ class CompanyCreateScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    borderWidth: 1,
+    borderColor: 'red',
+    flex: 1
+  },
   formLabel: {
     fontSize: 20,
     fontWeight: "600",

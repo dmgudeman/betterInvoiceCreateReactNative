@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text , FlatList, List, ScrollView } from 'react-native';
+import { View, Text , FlatList, StyleSheet } from 'react-native';
 import ItemDetailsRow from '../components/ItemDetailsRow';
 import { connect } from 'react-redux';
 import { selectItem } from '../actions/ItemActions';
@@ -56,5 +56,12 @@ const mapStateToProps = state => {
   });
   return { companyKey, fUserId, goBackKey, items, coName};
 }
+
+const styles = StyleSheet.create ({
+  container: {
+    flex: 1,
+
+  }
+})
 
 export default connect(mapStateToProps, actions )(ItemsScreen);
