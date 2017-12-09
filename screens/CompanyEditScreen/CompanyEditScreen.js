@@ -59,30 +59,36 @@ class CompanyEditScreen extends Component {
 
   componentWillMount() {
     let navigator = this.props.navigation.state.params;
-    const {address, color, companyKey, fUserId, hourly, id, name, paymentTerms } = navigator.company
+    const {address, color, companyKey, fUserId, hourly, hex, invoices, items, id, name, paymentTerms } = this.props.company
+    console.log('COMPANYEDIT COMPONENTWILLMOUNT, this.props.company', this.props.company);
     // this.props.companyUpdate('company', navigator.company);
     // populates form
     this.props.companyUpdate('name', name);
     this.props.companyUpdate('paymentTerms', paymentTerms);
     this.props.companyUpdate('color', color);
     this.props.companyUpdate('hourly', hourly);
+    this.props.companyUpdate('hex', hex);
+    this.props.companyUpdate('invoices', invoices);
+    this.props.companyUpdate('items', items);
     this.props.companyUpdate('address', address);
     this.props.companyUpdate('companyKey', id)
   }
   
   onSubmit = () => {
-    const { name, color, paymentTerms, hex, hourly, address, 
+    const { name, color, paymentTerms, hex, hourly, invoices, items, address, 
       fUserId, companyKey, companyUpdate, companyEditSubmit, navigation } = this.props
     colorHexPicker(color, companyUpdate);
     let payload = {
-      name, 
+      address, 
       color, 
-      paymentTerms,
+      companyKey,
+      fUserId,
       hex, 
       hourly, 
-      address, 
-      fUserId,
-      companyKey
+      invoices,
+      items,
+      name, 
+      paymentTerms,
     }
    companyEditSubmit(payload);
    this.props.navigation.goBack();
@@ -198,8 +204,9 @@ class CompanyEditScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-
+  
   if (state.companies) {
+    const company = state.companies.company || '';
     const active = state.companies.active || true;
     const address = state.companies.address || '';
     const companyKey = state.companies.companyKey || '';
@@ -207,13 +214,15 @@ const mapStateToProps = (state) => {
     const fUserId = state.auth.fUserId || '';
     const hex = state.companies.hex || '';
     const hourly = state.companies.hourly || '';
+    const invoices = state.companies.invoices || '';
+    const items = state.companies.items || '';
     const name = state.companies.name || '';
     const paymentTerms = state.companies.paymentTerms || '30';
     const userId = state.auth.userId || '';
     
     return { 
-      active, address, companyKey, color, 
-      fUserId, hex, hourly, name, paymentTerms, userId };
+      active, address, companyKey, color, company,
+      fUserId, hex, hourly, invoices, items, name, paymentTerms, userId };
     }
   return state;
 } 
