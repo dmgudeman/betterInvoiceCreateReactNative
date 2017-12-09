@@ -38,7 +38,7 @@ class CompanyCreateScreen extends Component {
       hourly: { 
         value: '', 
         valid: false, 
-        validationRules: { minLength: 2 }, // isNumeric: true,
+        validationRules: { minLength: 2, isNumeric: true }, // isNumeric: true,
         touched: false,
       },
     
@@ -47,15 +47,7 @@ class CompanyCreateScreen extends Component {
 
   updateInputState = (key, value) => {
     // console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE key', key);
-    // console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE value', value);
-    // console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE  this.state.controls.name.valid',  this.state.controls.name.valid);
-    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE this.state.controls', this.state.controls);
-    
-    
     this.setState(prevState => {
-    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE prevState.controls', prevState.controls);
-    // let x = validate(value, prevState.controls[key].validationRules)
-    // console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE validate', x);
       return {
         controls: {
           ...prevState.controls,
@@ -87,9 +79,6 @@ class CompanyCreateScreen extends Component {
 
   onSubmit = async () => {
     await colorHexPicker(this.props.color, this.props.companyUpdate);
-  
-    // console.log('COMPANYCREATESCREEN ONSUBMIT this.props.hex', this.props.hex);
-    // console.log('COMPANYCREATESCREEN ONSUBMIT this.props', this.props);
 
     let payload = {
       name:this.props.name, 
@@ -105,13 +94,6 @@ class CompanyCreateScreen extends Component {
     await this.props.companyCreate(payload);
     this.props.navigation.navigate('companies')
   }
-  // updateStyle=()=>{
-  //   console.log('fireddddddddddd', this.state.controls.name.valid);
-  //   const x = this.state.controls.name.valid
-  //  return ( x ? null :
-  // <FormValidationMessage >Business name is necessary {this.state.controls.name.valid }</FormValidationMessage>)
-  // return (x ? console.log('1111111'): console.log('222222222'))
-  //  }
   render() {
     const colorOptions = colorOptionsList;
     const paymentTermsOptions = paymentTermsOptionsList;

@@ -30,8 +30,8 @@ export const validate = ( value, rules ) => {
 // }
 
 const isNumericValidator = value => {
-  console.log( 'IN ISNUMERIC VALIDATOR regex ',  /\/^([+-]?[1-9]\d*|0)$/.test(value));
-  return /\/^([+-]?[1-9]\d*|0)$/.test(value);
+  console.log( 'IN ISNUMERIC VALIDATOR regex ',  /^[1-9]\d*(\.\d+)?$/.test(value));
+  return /^[1-9]\d*(\.\d+)?$/.test(value);
 }
 
 const minLengthValidator = (value, minLength) => {
