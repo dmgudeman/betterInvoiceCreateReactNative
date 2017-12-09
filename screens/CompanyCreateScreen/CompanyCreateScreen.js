@@ -15,6 +15,7 @@ import {
   FormInput, 
   FormValidationMessage, 
 }                               from 'react-native-elements';
+import Icon                     from 'react-native-vector-icons/FontAwesome';
 import ModalSelector            from 'react-native-modal-selector'
 import moment                   from 'moment';
 import * as actions             from '../../actions';
@@ -73,7 +74,13 @@ class CompanyCreateScreen extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-    title: 'New Company',
+    headerTitle: 'New Company',
+    headerLeft: <Icon.Button 
+    name="angle-left" 
+    backgroundColor="transparent" 
+    color="gray" 
+    size={40}
+    onPress= {()=> navigation.goBack(null) }/>,
     }
   }
 
@@ -133,7 +140,7 @@ class CompanyCreateScreen extends Component {
             valid={this.state.controls.hourly.valid}
             value={hourly}
             touched={this.state.controls.hourly.touched}
-              keyboardType= 'numeric'
+            keyboardType= 'numeric'
             onChangeText={(value) => {
               companyUpdate('hourly', value)
               this.updateInputState('hourly', value)
@@ -195,6 +202,12 @@ class CompanyCreateScreen extends Component {
         <Button
           title= "Submit"
           onPress =  {() => this.onSubmit(this.props, this.props.companyCreate) }
+          // disabled = {
+          //   this.state.controls.name.valid &&
+          //   this.state.controls.hourly.valid
+          // }
+          backgroundColor={ this.state.controls.name.valid &&
+            this.state.controls.hourly.valid ?'#bdc3c7':'#bdc3c745'}
         />
       </View>
     );
@@ -228,9 +241,9 @@ const styles = StyleSheet.create({
     margin: 25
   },
   pickerText: {
-      fontSize: 30,
-      alignSelf: 'center',
-      color: 'red',
+    fontSize: 30,
+    alignSelf: 'center',
+    color: 'red',
   },
   picker: {
     height: 20,
@@ -239,7 +252,9 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: 'white'
   },
-  
+  disabled: {
+    backgroundColor: '#34495e80'
+  }
 });
 
 const mapStateToProps = (state) => {
@@ -256,8 +271,9 @@ const mapStateToProps = (state) => {
   const paymentTerms = state.companies.paymentTerms || '30';
   const userId = state.auth.userId || '';
   return { 
-           companyKey, active, address, location, color, 
-           fUserId, hex, hourly, name, paymentTerms, userId};
+    active, address, location, color, companyKey, 
+    fUserId, hex, hourly, name, paymentTerms, userId
+    };
 } 
 
 export default connect(mapStateToProps, actions )(CompanyCreateScreen);
