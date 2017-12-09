@@ -38,7 +38,7 @@ class ItemCreateAmountScreen extends Component {
         name="angle-left" 
         backgroundColor="transparent" 
         color="gray" 
-        size={30}
+        size={40}
         onPress= {()=> {
           resetAction = NavigationActions.reset({
             index: 0,

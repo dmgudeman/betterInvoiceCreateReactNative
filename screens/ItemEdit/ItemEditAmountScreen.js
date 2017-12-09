@@ -34,7 +34,7 @@ class itemEditAmountScreen extends Component {
         name="angle-left" 
         backgroundColor="transparent" 
         color="gray" 
-        size={30}
+        size={40}
         onPress= {()=> navigation.goBack(navigation.state.params.goBackKey)} 
         />,
            tabBarLabel:"Amount",
