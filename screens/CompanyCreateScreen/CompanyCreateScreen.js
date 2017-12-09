@@ -30,32 +30,40 @@ import {validate }                from '../../utility/Validation.js';
 class CompanyCreateScreen extends Component {
   state = {
     controls: {
-      name:         { valid: '', valid: false, validationRules: { minLength:2} },
-      hourly:       { valid: '', valid: false, validationRules: {} },
-      paymentTerms: { valid: '', valid: false, validationRules: {} },
-      color:        { valid: '', valid: false, validationRules: {} },
-      address:      { valid: '', valid: false, validationRules: {} },
+      name: { 
+        value: '',
+        valid: false, 
+        validationRules: { minLength: 2} },
+        touched: false,
+      hourly: { 
+        value: '', 
+        valid: false, 
+        validationRules: { minLength: 2 }, // isNumeric: true,
+        touched: false,
+      },
+    
     }
   }
 
   updateInputState = (key, value) => {
-    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE key', key);
-    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE value', value);
-    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE  this.state.controls.name.valid',  this.state.controls.name.valid);
-    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE state', this.state);
+    // console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE key', key);
+    // console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE value', value);
+    // console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE  this.state.controls.name.valid',  this.state.controls.name.valid);
+    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE this.state.controls', this.state.controls);
     
     
     this.setState(prevState => {
-    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE prevState', prevState);
-    let x = validate(value, prevState.controls[key].validationRules)
-    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE validate', x);
+    console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE prevState.controls', prevState.controls);
+    // let x = validate(value, prevState.controls[key].validationRules)
+    // console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE validate', x);
       return {
         controls: {
-          ...prevState,
+          ...prevState.controls,
           [key]: {
             ...prevState.controls[key],
             value: value,
-            valid: x
+            valid: validate(value, prevState.controls[key].validationRules),
+            touched: true
           }
         }
       }
@@ -97,18 +105,22 @@ class CompanyCreateScreen extends Component {
     await this.props.companyCreate(payload);
     this.props.navigation.navigate('companies')
   }
-  updateStyle=()=>{
-    console.log('fireddddddddddd', this.state.controls.name.valid);
-    const x = this.state.controls.name.valid
+  // updateStyle=()=>{
+  //   console.log('fireddddddddddd', this.state.controls.name.valid);
+  //   const x = this.state.controls.name.valid
   //  return ( x ? null :
   // <FormValidationMessage >Business name is necessary {this.state.controls.name.valid }</FormValidationMessage>)
-  return (x ? console.log('1111111'): console.log('222222222'))
-   }
+  // return (x ? console.log('1111111'): console.log('222222222'))
+  //  }
   render() {
     const colorOptions = colorOptionsList;
     const paymentTermsOptions = paymentTermsOptionsList;
     const navigation = this.props.navigation
     const {name, color, hourly, address, companyUpdate, paymentTerms} = this.props;
+    console.log('COMPANYCREATE RENDER this.state', this.state);
+    console.log('COMPANYCREATE RENDER this.state.controls', this.state.controls);
+    console.log('COMPANYCREATE RENDER this.state.controls.controls', this.state.controls.controls);
+    // console.log(this.state.controls.hourly.valid)
      
     return (
       <View style = {styles.container}>
@@ -117,25 +129,38 @@ class CompanyCreateScreen extends Component {
           <FormInput 
             valid={this.state.controls.name.valid}
             value={name}
-            
+            touched={this.state.controls.name.touched}
             onChangeText={(value) => {
-              this.updateStyle()
+              // this.updateStyle()
+              console.log('RENDER HOURLY IN NAME ', this.state.controls.hourly);
+              console.log('RENDER this.state IN NAME ', this.state);
+              console.log('RENDER this.state IN NAME ', this.state.controls.controls);
               companyUpdate('name', value)
               this.updateInputState('name', value)
             }
             }
           />
-         {this.state.controls.name.valid ? null :
-   <FormValidationMessage >Business name is necessary </FormValidationMessage>}
+         {!this.state.controls.name.valid && this.state.controls.name.touched ? 
+   <FormValidationMessage >Name should be at least 2 characters </FormValidationMessage> : null}
         </TouchableOpacity> 
 
         <FormLabel>Hourly</FormLabel> 
         <TouchableOpacity>
           <FormInput 
-              keyboardType= 'numeric'
+            
+            valid={this.state.controls.hourly.valid}
             value={hourly}
-            onChangeText={(value) => companyUpdate('hourly', value)}
+            touched={this.state.controls.hourly.touched}
+              keyboardType= 'numeric'
+            onChangeText={(value) => {
+              companyUpdate('hourly', value)
+              this.updateInputState('hourly', value)
+          }
+         }
           />
+           {!this.state.controls.hourly.valid && this.state.controls.hourly.touched ? 
+   <FormValidationMessage > Hourly should be at least a two digit number </FormValidationMessage> : null}
+   
         </TouchableOpacity>  
 
         <FormLabel>Payment Terms</FormLabel>

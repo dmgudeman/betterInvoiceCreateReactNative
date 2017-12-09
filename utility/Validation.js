@@ -12,8 +12,8 @@ export const validate = ( value, rules ) => {
         isValid = isValid && minLengthValidator(value, rules[rule])
         break;
       }
-      case 'paymentTerms': {
-        isValid = isValid && paymentTermsValidator(value);
+      case 'isNumeric': {
+        isValid = isValid && isNumericValidator(value);
         break;
       }
       default: {
@@ -29,8 +29,8 @@ export const validate = ( value, rules ) => {
 //   return value.length>= minLength
 // }
 
-const paymentTermsValidator = value => {
-  console.log( 'IN PAYMENTTERMS VALIDATOR regex ',  /\/^([+-]?[1-9]\d*|0)$/.test(value));
+const isNumericValidator = value => {
+  console.log( 'IN ISNUMERIC VALIDATOR regex ',  /\/^([+-]?[1-9]\d*|0)$/.test(value));
   return /\/^([+-]?[1-9]\d*|0)$/.test(value);
 }
 
