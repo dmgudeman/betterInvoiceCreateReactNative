@@ -201,7 +201,11 @@ class CompanyCreateScreen extends Component {
         </TouchableOpacity>   
         <Button
           title= "Submit"
-          onPress =  {() => this.onSubmit(this.props, this.props.companyCreate) }
+          onPress =  {() => 
+            (this.state.controls.name.valid &&
+              this.state.controls.hourly.valid )?
+            this.onSubmit(this.props, this.props.companyCreate) : null}
+            
           // disabled = {
           //   this.state.controls.name.valid &&
           //   this.state.controls.hourly.valid
