@@ -18,7 +18,7 @@ export default (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, {[action.payload.prop]: action.payload.value});
   }
     case COMPANY_CREATE:{
-      return { ...state, companies: action.payload }
+      return { ...state, company: action.payload }
     }
     case COMPANY_EDIT_SUBMIT: {
     }

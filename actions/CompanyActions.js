@@ -15,21 +15,32 @@ import {
 import DATE_RFC2822 from '../assets/Date';
 
 export const companyCreate = (company) => {
-
+  console.log('COMPANYACTIONS COMPANYCREATE company', company);
   let payload = { ...company };
   let newCompanyKey =  firebase.database().ref().child('companies').push().key;
   payload.companyKey = newCompanyKey;
   let updates = {};
+  console.log('COMPANYACTIONS COMPANYCREATE payload', payload);
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey] = payload;
   firebase.database().ref().update(updates);
-  
    return {
     type: COMPANY_CREATE,
-   payload: { payload }
+   payload
   };
  
  }
 
+export const companyEditSubmit = (company) => {
+  let payload = { ...company };
+  console.log('COMPANYACTIONS COMPANYEDITSUBMIT company', company);
+  let updates = {};
+  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey] = payload;
+  firebase.database().ref().update(updates);
+  return {
+    type: COMPANY_EDIT_SUBMIT,
+    payload
+  }
+}
 export const fetchCompanies = (fUserId) => async dispatch => {
   let companies = await firebase.database().ref('/users/' + fUserId + '/companies')
     .on('value', snapshot => {
@@ -41,22 +52,14 @@ export const fetchCompanies = (fUserId) => async dispatch => {
 } 
 
 export const companyUpdate = (prop, value)=> {
+  console.log( 'COMPANYACTIONS COMPANYUPDATE prop', prop);
+  console.log( 'COMPANYACTIONS COMPANYUPDATE value', value);
   return {
     type: COMPANY_UPDATE,
     payload: { prop, value}
   };
 }
 
-export const companyEditSubmit = (company) => {
-  let payload = { ...company };
-  let updates = {};
-  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey] = payload;
-  firebase.database().ref().update(updates);
-  return {
-    type: COMPANY_EDIT_SUBMIT,
-    payload
-  }
-}
 
 export const setCompany = (company) => {
   return {

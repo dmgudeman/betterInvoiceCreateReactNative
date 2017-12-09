@@ -20,7 +20,7 @@ import ModalSelector            from 'react-native-modal-selector'
 import moment                   from 'moment';
 import * as actions             from '../../actions';
 import { MyPicker  }            from '../../components/MyPicker/MyPicker';
-import colorHexPicker           from '../../assets/ColorHexUpdater';
+import colorHexUpdater           from '../../assets/ColorHexUpdater';
 import AddressInput             from '../../components/AddressInput/AddressInput';
 import {
   colorOptionsList,
@@ -64,13 +64,18 @@ class CompanyCreateScreen extends Component {
   }
 
   componentWillMount() {
+    // const {address, color, companyKey, hex, hourly, name, paymentTerms } = this.props.company;
+    // const company = {address, color, companyKey, hex, hourly, name, paymentTerms }
     // clear the form
-    this.props.companyUpdate('name', '');
-    this.props.companyUpdate('paymentTerms', '');
-    this.props.companyUpdate('color', 'blue');
-    this.props.companyUpdate('hourly', '');
-    this.props.companyUpdate('address', '');
-    this.props.companyUpdate('companyKey','')
+    // this.props.companyUpdate('address', '');
+    // this.props.companyUpdate('color', 'blue');
+    // this.props.companyUpdate('companyKey','')
+    // this.props.companyUpdate('hex', '');
+    // this.props.companyUpdate('hourly', '');
+    // this.props.companyUpdate('name', '');
+    // this.props.companyUpdate('paymentTerms', '');
+    
+    // this.props.companyUpdate('company', company)
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -86,32 +91,35 @@ class CompanyCreateScreen extends Component {
   }
 
   onSubmit = async () => {
-    await colorHexPicker(this.props.color, this.props.companyUpdate);
-
+    let company = '';
+    const {address, color, fUserId, hourly, hex, id, name, paymentTerms } = this.props
+    console.log('1 COMPANYCREATE ONSUBMIT THIS.props.color, this.props.hex ', color, this.props.hex); 
+   let x = await colorHexUpdater(this.props.color)
+   company.hex = x;
+   await  this.props.companyUpdate('company', company)
+    console.log('COMPANYCREATE ONSUBMIT HexUopdater resukts', x);
+    console.log('COMPANYCREATE ONSUBMIT THIS.props', this.props);
     let payload = {
-      name:this.props.name, 
-      color:this.props.color, 
-      hex: this.props.hex,
-      paymentTerms: this.props.paymentTerms, 
-      hourly: this.props.hourly, 
-      address: this.props.address, 
-      fUserId: this.props.fUserId,
-      companyKey: this.props.companyKey
+      address, 
+      color, 
+      fUserId,
+      hex, 
+      hourly, 
+      name, 
+      paymentTerms,
     }
 
-    await this.props.companyCreate(payload);
-    this.props.navigation.navigate('companies')
+   await this.props.companyCreate(payload);
+   await  this.props.navigation.goBack()
   }
   render() {
     const colorOptions = colorOptionsList;
     const paymentTermsOptions = paymentTermsOptionsList;
     const navigation = this.props.navigation
     const {name, color, hourly, address, companyUpdate, paymentTerms} = this.props;
-    // console.log('COMPANYCREATE RENDER this.state', this.state);
-    // console.log('COMPANYCREATE RENDER this.state.controls', this.state.controls);
-    // console.log('COMPANYCREATE RENDER this.state.controls.controls', this.state.controls.controls);
-    // console.log(this.state.controls.hourly.valid)
-     
+    let company = {name, color, hourly, address, companyUpdate, paymentTerms} 
+   
+  
     return (
       <View style = {styles.container}>
         <FormLabel>Name</FormLabel>
@@ -121,7 +129,9 @@ class CompanyCreateScreen extends Component {
             value={name}
             touched={this.state.controls.name.touched}
             onChangeText={(value) => {
-              companyUpdate('name', value)
+              company.name = value;
+              console.log('COMPANY CREAATE company.anme', name);
+              companyUpdate( 'company', company)
               this.updateInputState('name', value)
             }
             }
@@ -141,7 +151,8 @@ class CompanyCreateScreen extends Component {
             touched={this.state.controls.hourly.touched}
             keyboardType= 'numeric'
             onChangeText={(value) => {
-              companyUpdate('hourly', value)
+              company.hourly = value
+              companyUpdate('company', company)
               this.updateInputState('hourly', value)
             }
           }
@@ -160,7 +171,8 @@ class CompanyCreateScreen extends Component {
             index={0}
             data={paymentTermsOptions}
             onChange={(option)=>{ 
-              companyUpdate('paymentTerms', option.label)
+              company.paymentTerms = option.label
+              companyUpdate('company', company)
               }
             }
           >
@@ -178,8 +190,10 @@ class CompanyCreateScreen extends Component {
           <ModalSelector
             // index={0}
             data={colorOptions}
-            onChange={(option)=>{ 
-              companyUpdate('color', option.label)
+            onChange={(option)=>{
+              company.hex =  colorHexUpdater(option.label)
+              company.color = option.label 
+              companyUpdate('company', company)
               }
             }
           >
@@ -196,7 +210,8 @@ class CompanyCreateScreen extends Component {
             value={address}
             onFocus={(value) => { 
               // using a workaround here because companyUpdate returns a proxy for address instead of a string
-              this.props.navigation.navigate('googlePlacesInput', {address: value})
+              company.address = value
+              this.props.navigation.navigate('googlePlacesInput', {'company': company})
             }} 
             editable={true}
           />
@@ -262,22 +277,25 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
- 
-  const active = state.companies.active || true;
-  const address = state.companies.address || '';
-  const color = state.companies.color || '';
-  const companyKey = state.companies.key || '';
+ if (state.companies.company) {
+  // const active = state.companies.active || true;
+  const address = state.companies.company.address || '';
+  const color = state.companies.company.color || '';
+  const companyKey = state.companies.company.companyKey|| '';
+  const company = state.companies.company || '';
   const fUserId = state.auth.fUserId || '';
-  const hex = state.companies.hex || '';
-  const hourly = state.companies.hourly || '';
+  const hex = state.companies.company.hex || '';
+  const hourly = state.companies.company.hourly || '';
   const location = state.location || null;
-  const name = state.companies.name || '';
-  const paymentTerms = state.companies.paymentTerms || '30';
+  const name = state.companies.company.name || '';
+  const paymentTerms = state.companies.company.paymentTerms || '30';
   const userId = state.auth.userId || '';
   return { 
-    active, address, location, color, companyKey, 
+    address, location, color, companyKey, company,
     fUserId, hex, hourly, name, paymentTerms, userId
     };
+  }
+  return state;
 } 
 
 export default connect(mapStateToProps, actions )(CompanyCreateScreen);

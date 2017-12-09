@@ -14,7 +14,7 @@ import { connect }              from 'react-redux';
 import * as actions             from '../../actions';
 import ModalSelector            from 'react-native-modal-selector'
 import GooglePlacesInput        from '../../components/GooglePlacesInput';
-import colorHexPicker           from '../../assets/ColorHexUpdater';
+import colorHexUpdater           from '../../assets/ColorHexUpdater';
 import styles                   from './styles';
 import {
   colorOptionsList,
@@ -77,7 +77,9 @@ class CompanyEditScreen extends Component {
   onSubmit = () => {
     const { name, color, paymentTerms, hex, hourly, invoices, items, address, 
       fUserId, companyKey, companyUpdate, companyEditSubmit, navigation } = this.props
-    colorHexPicker(color, companyUpdate);
+      console.log('1 COMPANYEDIT COLORHEXPICKER COLOR, HEX',color,hex);
+    colorHexUpdater(color, companyUpdate);
+      console.log('2 COMPANYEDIT COLORHEXPICKER COLOR, HEX',color,hex);
     let payload = {
       address, 
       color, 

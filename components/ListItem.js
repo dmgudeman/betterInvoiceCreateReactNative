@@ -15,16 +15,15 @@ class ListItem extends Component {
   render() {
     const { navigate } = this.props.navigation;
     const { navigation } = this.props;
-    const color = this.props.company.hex || this.props.company.color;
+    const cardColor = this.props.company.hex || this.props.company.color;
     // console.log('LISTITEM RENDER navigate', navigation );
     
     return (
-      <Card color={color}>
-     
+      <Card color={cardColor}>
         <CardSection>
           <View style={ styles.headerContentStyle}>
             <Text style={styles.headerTextStyle} onPress={()=>{
-                this.props.setCompany(this.props.company)
+                this.props.setCompany(  this.props.company)
                 navigate('companyEdit',  {company: this.props.company}) 
               }
             }

@@ -1,34 +1,29 @@
 import React from 'react';
 
-
-export default ColorHexUpdater = (color, updateCompany) => {
+const hex = '';
+export default ColorHexUpdater = (color) => {
+  
   switch(color) {
     case 'blue': {
-      updateCompany('hex', '#3498db')
-      break;
+      return '#3498db';
     }
     case 'brown': {
-      updateCompany('hex', '#8D6E63');
-      break
+      return '#8D6E63';
     }
     case 'green': {
-      updateCompany('hex', '#00C853')
-      break
+      return '#00C853'
     }
     case 'purple': {
-      updateCompany('hex', '#9b59b6')
-      break
+      return '#9b59b6';
     }
     case 'red': {
-      updateCompany('hex', '#e74c3c' )
-      break
+     return '#e74c3c';
     }
     case 'yellow':{
-      updateCompany('hex', '#f1c40f') 
-      break
+     return '#f1c40f';
     }
     default: {
-      updateCompany('hex', '#3498db')
+      return '#3498db';
     }
   }
 }
