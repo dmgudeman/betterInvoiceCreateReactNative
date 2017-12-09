@@ -71,7 +71,7 @@ class CompanyEditScreen extends Component {
         <FormLabel>Hourly</FormLabel> 
         <TouchableOpacity>
         <FormInput 
-          value={''.hourly}
+          value={hourly}
           onChangeText={(value) => companyUpdate('hourly', value)}
         />
         </TouchableOpacity>  
