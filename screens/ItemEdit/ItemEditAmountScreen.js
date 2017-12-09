@@ -21,9 +21,38 @@ import moment                   from 'moment';
 import * as actions             from '../../actions';
 import Styles                   from '../Styles';
 
-import MyDatePicker from '../../components/MyDatePicker';
+import MyDatePicker             from '../../components/MyDatePicker';
+import { validate }             from '../../utility/Validation.js';
 
 class itemEditAmountScreen extends Component {
+
+  state = {
+    controls: {
+      amount: { 
+        value: '', 
+        valid: false, 
+        validationRules: { isNumeric: true }, // isNumeric: true,
+        touched: false,
+      },
+    }
+  }
+
+  updateInputState = (key, value) => {
+    this.setState(prevState => {
+      return {
+        controls: {
+          ...prevState.controls,
+          [key]: {
+            ...prevState.controls[key],
+            value: value,
+            valid: validate(value, prevState.controls[key].validationRules),
+            touched: true
+          }
+        }
+      }
+    })
+  }
+  
   componentWillMount(){
     this.props.itemUpdate('goBackKey', this.props.navigation.state.params.goBackKey)
   }
@@ -44,7 +73,7 @@ class itemEditAmountScreen extends Component {
   onSubmit = () => {
     const { amount, companyKey, date, description, fUserId, goBackKey, hours, id, total, hourly } = this.props
     
-    const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
+    const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0) - (discount - 0);
     this.props.itemUpdate('total', data);
    
     this.props.itemEdit({ amount, companyKey, date, description, fUserId, hours, id, total, hourly })
@@ -52,38 +81,39 @@ class itemEditAmountScreen extends Component {
   }
 
   render() {
+    const { amount, date, hourly, hours, description, total, itemUpdate, itemTotalUpdate } = this.props;
     return (
       <View>
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
-           date={ moment(this.props.date).format('MM/DD/YYYY') }
-           onDateChange={(value) => {
-             this.props.itemUpdate('date', moment(value).toDate().toUTCString() )
-             }
-          }
-        />
-        <FormLabel>Hours</FormLabel>
-        <FormInput 
-          value={`${this.props.hours}`}
-          onChangeText={(value) => { 
-            this.props.itemUpdate('hours', value) 
-            this.props.itemTotalUpdate( value, this.props.amount, this.props.hourly)
+          date={ moment(date).format('MM/DD/YYYY') }
+          onDateChange={(value) => {
+          itemUpdate('date', moment(value).toDate().toUTCString() )
           }
         }
         />
-        <FormLabel>Amount</FormLabel>
-        <FormInput 
-          value={this.props.amount}
-          onChangeText={(value) => {
-            this.props.itemUpdate('amount', value)
-            this.props.itemTotalUpdate( this.props.hours, value, this.props.hourly)
+        <FormLabel>Amount</FormLabel> 
+          <FormInput 
+            valid={this.state.controls.amount.valid}
+            value={amount}
+            touched={this.state.controls.amount.touched}
+            keyboardType= 'numeric'
+            onChangeText={(value) => {
+              itemUpdate('amount', value)
+              this.updateInputState('amount', value)
             }
           }
-        />
+          />
+          {
+            !this.state.controls.amount.valid 
+            && this.state.controls.amount.touched 
+            ? <FormValidationMessage > Hours should be a number </FormValidationMessage> : null
+          }
+        
         <FormLabel>Description</FormLabel>
         <FormInput
-          value={this.props.description}
-          onChangeText={(value) => this.props.itemUpdate('description', value)}
+          value={description}
+          onChangeText={(value) => itemUpdate('description', value)}
         />
 
         <Text style={Styles.totalLabel}>Total</Text>

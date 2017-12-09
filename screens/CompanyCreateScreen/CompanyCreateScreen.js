@@ -26,7 +26,7 @@ import {
   colorOptionsList,
   paymentTermsOptionsList,
 }                               from '../../assets/OptionsLists';
-import {validate }                from '../../utility/Validation.js';
+import {validate }              from '../../utility/Validation.js';
 
 class CompanyCreateScreen extends Component {
   state = {
@@ -64,6 +64,7 @@ class CompanyCreateScreen extends Component {
   }
 
   componentWillMount() {
+    // clear the form
     this.props.companyUpdate('name', '');
     this.props.companyUpdate('paymentTerms', '');
     this.props.companyUpdate('color', 'blue');
@@ -106,9 +107,9 @@ class CompanyCreateScreen extends Component {
     const paymentTermsOptions = paymentTermsOptionsList;
     const navigation = this.props.navigation
     const {name, color, hourly, address, companyUpdate, paymentTerms} = this.props;
-    console.log('COMPANYCREATE RENDER this.state', this.state);
-    console.log('COMPANYCREATE RENDER this.state.controls', this.state.controls);
-    console.log('COMPANYCREATE RENDER this.state.controls.controls', this.state.controls.controls);
+    // console.log('COMPANYCREATE RENDER this.state', this.state);
+    // console.log('COMPANYCREATE RENDER this.state.controls', this.state.controls);
+    // console.log('COMPANYCREATE RENDER this.state.controls.controls', this.state.controls.controls);
     // console.log(this.state.controls.hourly.valid)
      
     return (
@@ -120,23 +121,21 @@ class CompanyCreateScreen extends Component {
             value={name}
             touched={this.state.controls.name.touched}
             onChangeText={(value) => {
-              // this.updateStyle()
-              console.log('RENDER HOURLY IN NAME ', this.state.controls.hourly);
-              console.log('RENDER this.state IN NAME ', this.state);
-              console.log('RENDER this.state IN NAME ', this.state.controls.controls);
               companyUpdate('name', value)
               this.updateInputState('name', value)
             }
             }
           />
-         {!this.state.controls.name.valid && this.state.controls.name.touched ? 
-   <FormValidationMessage >Name should be at least 2 characters </FormValidationMessage> : null}
+          {
+            !this.state.controls.name.valid 
+            && this.state.controls.name.touched 
+            ? <FormValidationMessage >Name should be at least 2 characters </FormValidationMessage> : null
+          }
         </TouchableOpacity> 
 
         <FormLabel>Hourly</FormLabel> 
         <TouchableOpacity>
           <FormInput 
-            
             valid={this.state.controls.hourly.valid}
             value={hourly}
             touched={this.state.controls.hourly.touched}
@@ -144,11 +143,14 @@ class CompanyCreateScreen extends Component {
             onChangeText={(value) => {
               companyUpdate('hourly', value)
               this.updateInputState('hourly', value)
+            }
           }
-         }
           />
-           {!this.state.controls.hourly.valid && this.state.controls.hourly.touched ? 
-   <FormValidationMessage > Hourly should be at least a two digit number </FormValidationMessage> : null}
+          {
+            !this.state.controls.hourly.valid 
+            && this.state.controls.hourly.touched 
+            ? <FormValidationMessage > Hourly should be at least a two digit number </FormValidationMessage> : null
+          }
    
         </TouchableOpacity>  
 
@@ -202,16 +204,14 @@ class CompanyCreateScreen extends Component {
         <Button
           title= "Submit"
           onPress =  {() => 
-            (this.state.controls.name.valid &&
-              this.state.controls.hourly.valid )?
-            this.onSubmit(this.props, this.props.companyCreate) : null}
+            (this.state.controls.name.valid 
+             && this.state.controls.hourly.valid )
+             ? this.onSubmit(this.props, this.props.companyCreate) : null}
             
-          // disabled = {
-          //   this.state.controls.name.valid &&
-          //   this.state.controls.hourly.valid
-          // }
-          backgroundColor={ this.state.controls.name.valid &&
-            this.state.controls.hourly.valid ?'#bdc3c7':'#bdc3c745'}
+            backgroundColor={ 
+              this.state.controls.name.valid 
+              && this.state.controls.hourly.valid 
+              ?'#bdc3c7':'#bdc3c745'}
         />
       </View>
     );

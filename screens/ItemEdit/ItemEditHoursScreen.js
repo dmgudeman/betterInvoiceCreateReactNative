@@ -21,16 +21,44 @@ import moment                   from 'moment';
 import * as actions             from '../../actions';
 import Styles                   from '../Styles';
 
-import MyDatePicker from '../../components/MyDatePicker';
+import MyDatePicker             from '../../components/MyDatePicker';
+import { validate }             from '../../utility/Validation.js';
 
 class itemEditHoursScreen extends Component {
+  state = {
+    controls: {
+      hours: { 
+        value: '', 
+        valid: true, 
+        validationRules: { isNumeric: true }, 
+        touched: false,
+      },
+    }
+  }
+
+  updateInputState = (key, value) => {
+    this.setState(prevState => {
+      return {
+        controls: {
+          ...prevState.controls,
+          [key]: {
+            ...prevState.controls[key],
+            value: value,
+            valid: validate(value, prevState.controls[key].validationRules),
+            touched: true
+          }
+        }
+      }
+    })
+  }
+  
   componentWillMount(){
     this.props.itemUpdate('goBackKey', this.props.navigation.state.params.goBackKey)
   }
   
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Create Item',
+      title: 'Edit Item',
       headerLeft: <Icon.Button 
         name="angle-left" 
         backgroundColor="transparent" 
@@ -52,6 +80,7 @@ class itemEditHoursScreen extends Component {
   }
 
   render() {
+    const { amount, date, hourly, hours, description, total, itemUpdate, itemTotalUpdate, itemCreate } = this.props;
     return (
       <View>
         <FormLabel>Start Date</FormLabel>
@@ -62,24 +91,25 @@ class itemEditHoursScreen extends Component {
              }
           }
         />
-        <FormLabel>Hours</FormLabel>
-        <FormInput 
-          value={`${this.props.hours}`}
-          onChangeText={(value) => { 
-            this.props.itemUpdate('hours', value) 
-            this.props.itemTotalUpdate( value, this.props.amount, this.props.hourly)
-          }
-        }
-        />
-        <FormLabel>Amount</FormLabel>
-        <FormInput 
-          value={this.props.amount}
-          onChangeText={(value) => {
-            this.props.itemUpdate('amount', value)
-            this.props.itemTotalUpdate( this.props.hours, value, this.props.hourly)
-            }
-          }
-        />
+         <FormLabel>Hours</FormLabel> 
+         <FormInput 
+           valid={this.state.controls.hours.valid}
+           value={hours}
+           touched={this.state.controls.hours.touched}
+           keyboardType= 'numeric'
+           onChangeText={(value) => {
+             console.log('ITEMEDITAmOUNTTTTTTTTTTTTTTTT onText change this.state.controls.hours.valid ', this.state.controls.hours.valid );
+             itemUpdate('hours', value)
+             this.updateInputState('hours', value)
+           }
+         }
+         />
+         {
+           !this.state.controls.hours.valid 
+           && this.state.controls.hours.touched 
+           ? <FormValidationMessage > Hours should be a number </FormValidationMessage> : null
+         }
+        
         <FormLabel>Description</FormLabel>
         <FormInput
           value={this.props.description}
@@ -91,14 +121,21 @@ class itemEditHoursScreen extends Component {
 
         <Button
           title= "Submit"
-          onPress =  {this.onSubmit }
-        />
+          onPress =  {() => 
+            ( this.state.controls.hours.valid )
+             ? this.onSubmit(this.props, itemCreate) : null}
+            
+            backgroundColor={ 
+              this.state.controls.hours.valid 
+              ?'#bdc3c7':'#bdc3c745'}
+        /> 
       </View>
     )
   }
 }
 
 const mapStateToProps = (state) => {
+  console.log('MapStateToProps state', state);
   const fUserId      = state.auth.fUserId || '';
   const goBackKey    = state.item.goBackKey
   const companyKey   = state.companies.company.companyKey || '';

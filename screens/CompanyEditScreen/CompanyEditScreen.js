@@ -1,79 +1,135 @@
 
-import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { Component }     from 'react';
+import { 
+  View, 
+  Text, 
+  TouchableOpacity }            from 'react-native';
 import { 
   Button,
   FormLabel, 
   FormInput, 
   FormValidationMessage, 
 }                               from 'react-native-elements';
-import { connect, connectAdvanced } from 'react-redux';
-import * as actions from '../../actions';
+import { connect }              from 'react-redux';
+import * as actions             from '../../actions';
 import ModalSelector            from 'react-native-modal-selector'
-import GooglePlacesInput from '../../components/GooglePlacesInput';
+import GooglePlacesInput        from '../../components/GooglePlacesInput';
 import colorHexPicker           from '../../assets/ColorHexUpdater';
-import styles from './styles';
+import styles                   from './styles';
 import {
   colorOptionsList,
   paymentTermsOptionsList,
 }                               from '../../assets/OptionsLists';
-
+import {validate }              from '../../utility/Validation.js';
 
 class CompanyEditScreen extends Component {
   
+  // For Validation
+  state = {
+    controls: {
+      name: { 
+        value: '',
+        valid: true, 
+        validationRules: { minLength: 2} },
+        touched: false,
+      hourly: { 
+        value: '', 
+        valid: true, 
+        validationRules: { minLength: 2, isNumeric: true }, 
+        touched: false,
+      },
+    }
+  }
+
+  updateInputState = (key, value) => {
+    this.setState(prevState => {
+      return {
+        controls: {
+          ...prevState.controls,
+          [key]: {
+            ...prevState.controls[key],
+            value: value,
+            valid: validate(value, prevState.controls[key].validationRules),
+            touched: true
+          }
+        }
+      }
+    })
+  }
+
   componentWillMount() {
-    console.log('COMPANYEDITSCREEN COMPONENTWILLMOUNT this.props', this.props);
     let navigator = this.props.navigation.state.params;
     const {address, color, companyKey, fUserId, hourly, id, name, paymentTerms } = navigator.company
     // this.props.companyUpdate('company', navigator.company);
+    // populates form
     this.props.companyUpdate('name', name);
     this.props.companyUpdate('paymentTerms', paymentTerms);
     this.props.companyUpdate('color', color);
     this.props.companyUpdate('hourly', hourly);
     this.props.companyUpdate('address', address);
     this.props.companyUpdate('companyKey', id)
-    console.log('COMPANYEDITSCREEN COMPONENETWILLMOUNT props object', {address, color, fUserId, hourly, companyKey, name, paymentTerms }  );
   }
   
-  onSubmit = async () => {
-    await colorHexPicker(this.props.color, this.props.companyUpdate);
+  onSubmit = () => {
+    const { name, color, paymentTerms, hex, hourly, address, 
+      fUserId, companyKey, companyUpdate, companyEditSubmit, navigation } = this.props
+    colorHexPicker(color, companyUpdate);
     let payload = {
-      name: this.props.name, 
-      color: this.props.color, 
-      paymentTerms: this.props.paymentTerms,
-      hex: this.props.hex, 
-      hourly: this.props.hourly, 
-      address: this.props.address, 
-      fUserId: this.props.fUserId,
-      companyKey: this.props.companyKey
+      name, 
+      color, 
+      paymentTerms,
+      hex, 
+      hourly, 
+      address, 
+      fUserId,
+      companyKey
     }
-
-    // console.log('COMPANYEdit SCREEN ONSUBMIT payload', payload);
-    // console.log('COMPANYEdit SCREEN ONSUBMIT companyEditSubmit', companyEditSubmit);
-    this.props.companyEditSubmit(payload);
-    this.props.navigation.navigate(this.props.navigation.navigate('companies', {address:this.props.address}))
+   companyEditSubmit(payload);
+   this.props.navigation.goBack();
   }
   
   render() {
     const colorOptions = colorOptionsList;
     const paymentTermsOptions = paymentTermsOptionsList;
-    const navigation = this.props.navigation
-    const {name, color, hourly, address, companyUpdate, companyEditSubmit, paymentTerms} = this.props;
+    const {name, color, hourly, address, companyUpdate, companyEditSubmit, paymentTerms, navigation } = this.props;
     return (
       <View>
          <FormLabel>Name</FormLabel>
         <TouchableOpacity>
-        <FormInput 
-          value={name}
-          onChangeText={(value) => companyUpdate('name', value)}
-        />
+          <FormInput 
+            valid={this.state.controls.name.valid}
+            value={name}
+            touched={this.state.controls.name.touched}
+            onChangeText={(value) => {
+              companyUpdate('name', value)
+              this.updateInputState('name', value)
+            }
+          }
+          />
+          {
+            !this.state.controls.name.valid 
+            && this.state.controls.name.touched 
+            ? <FormValidationMessage >Name should be at least 2 characters </FormValidationMessage> : null
+          }
         </TouchableOpacity> 
         <FormLabel>Hourly</FormLabel> 
         <TouchableOpacity>
-        <FormInput 
-          value={hourly}
-          onChangeText={(value) => companyUpdate('hourly', value)}
-        />
+          <FormInput 
+            valid={this.state.controls.hourly.valid}
+            value={hourly}
+            touched={this.state.controls.hourly.touched}
+            keyboardType= 'numeric'
+            onChangeText={(value) => {
+              companyUpdate('hourly', value)
+              this.updateInputState('hourly', value)
+            }
+          }
+          />
+          {
+            !this.state.controls.hourly.valid 
+            && this.state.controls.hourly.touched 
+            ? <FormValidationMessage > Hourly should be at least a two digit number </FormValidationMessage> : null
+          }
         </TouchableOpacity>  
         <FormLabel>Payment Terms</FormLabel>
         <TouchableOpacity>
@@ -121,41 +177,32 @@ class CompanyEditScreen extends Component {
           editable={true}
         />
         </TouchableOpacity>  
-        
-        {/* <FormLabel>Address</FormLabel> 
-        <TouchableOpacity>
-          
-        <FormInput 
-          value={address}
-          onChangeText={(value) => companyUpdate('address', value)}
-        />
-        </TouchableOpacity>   */}
+      
         <Button
           title= "Submit"
-          onPress =  {() => this.onSubmit(this.props) }
-          // onPress =  {() => console.log('COMPANYEDITSCREEN SUBMIT BUTTON this.props', this.props)}
+          onPress =  {() =>
+           
+            (this.state.controls.name.valid 
+             && this.state.controls.hourly.valid )
+             ? this.onSubmit(this.props, this.props.companyCreate) : null}
+            
+            backgroundColor={ 
+             
+              this.state.controls.name.valid 
+              && this.state.controls.hourly.valid 
+              ?'#bdc3c7':'#bdc3c745'}
         /> 
-        {/* <Button
-          title= "location"
-          onPress =  {() => { navigation.navigate('googlePlacesInput')}}
-          // onPress =  {() => console.log('COMPANYEDITSCREEN SUBMIT BUTTON this.props', this.props)}
-        /> */}
       </View>
     )
   }
 }
- 
 
 const mapStateToProps = (state) => {
-  console.log('COMPANYEDIT MAPSTATETOPROPS state.companies', state.companies);
-  console.log('state.companies is undefined ', state.companies === undefined  );
-  console.log(state);
+
   if (state.companies) {
-    // console.log('COMPANYEDIT MAPSTATETOPROPS state.companies.active', state.companies.active);
     const active = state.companies.active || true;
-    const companyKey = state.companies.companyKey || '';
     const address = state.companies.address || '';
-    const location = state.location || null;
+    const companyKey = state.companies.companyKey || '';
     const color = state.companies.color || 'blue';
     const fUserId = state.auth.fUserId || '';
     const hex = state.companies.hex || '';
@@ -163,18 +210,12 @@ const mapStateToProps = (state) => {
     const name = state.companies.name || '';
     const paymentTerms = state.companies.paymentTerms || '30';
     const userId = state.auth.userId || '';
-    // console.log('COMPANYEDITSCREEN MAPSTATETOPROPS props OBJECT', paymentTermsOptionsList, colorOptionsList, 
-    // companyKey, active, address, location, color, 
-    // fUserId, hourly, name, paymentTerms, userId);
     
     return { 
-            companyKey, active, address, location, color, 
-            fUserId, hex, hourly, name, paymentTerms, userId };
-  }
+      active, address, companyKey, color, 
+      fUserId, hex, hourly, name, paymentTerms, userId };
+    }
   return state;
 } 
-// const mapDispatchToProps = (dispatch) => {
-//   const {companyUpdate, companyEditSubmit} = actions;
-//   return bindActionCreators({companyUpdate, companyEditSubmit}, dispatch)
-// }
+
 export default connect(mapStateToProps, actions )(CompanyEditScreen);
