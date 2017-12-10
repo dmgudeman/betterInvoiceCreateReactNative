@@ -9,8 +9,8 @@ import {
   COMPANY_UPDATE,
   COMPANY_CREATE,
   COMPANY_EDIT_SUBMIT,
-  SET_COMPANY
-  
+  SET_COMPANY,
+  UPDATE_OBJECT_EDIT,
 } from './types';
 import DATE_RFC2822 from '../assets/Date';
 
@@ -65,6 +65,13 @@ export const setCompany = (company) => {
   return {
     type: SET_COMPANY,
     company
+  }
+}
+
+export const updateObjectEdit = (prop, value) => {
+  return {
+    type: UPDATE_OBJECT_EDIT,
+    payload: {prop, value}
   }
 }
   

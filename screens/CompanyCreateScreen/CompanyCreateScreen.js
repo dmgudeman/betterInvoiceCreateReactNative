@@ -93,20 +93,15 @@ class CompanyCreateScreen extends Component {
   onSubmit = async () => {
     let company = '';
     const {address, color, fUserId, hourly, hex, id, name, paymentTerms } = this.props
-    console.log('1 COMPANYCREATE ONSUBMIT THIS.props.color, this.props.hex ', color, this.props.hex); 
-   let x = await colorHexUpdater(this.props.color)
-   company.hex = x;
-   await  this.props.companyUpdate('company', company)
-    console.log('COMPANYCREATE ONSUBMIT HexUopdater resukts', x);
-    console.log('COMPANYCREATE ONSUBMIT THIS.props', this.props);
-    let payload = {
-      address, 
-      color, 
-      fUserId,
-      hex, 
-      hourly, 
-      name, 
-      paymentTerms,
+    await  this.props.companyUpdate('company', company)
+      let payload = {
+        address, 
+        color, 
+        fUserId,
+        hex, 
+        hourly, 
+        name, 
+        paymentTerms,
     }
 
    await this.props.companyCreate(payload);
