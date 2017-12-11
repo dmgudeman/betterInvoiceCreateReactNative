@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text }       from 'react-native';
+import { Keyboard, View, Text }       from 'react-native';
 import { connect } from 'react-redux';
 import { 
   Button,
@@ -99,7 +99,10 @@ class ItemCreateAmountScreen extends Component {
 
   render() {
     return (
-      <View>
+      <View
+        onStartShouldSetResponder= {(evt) => true }
+        onResponderMove= {(evt)=> Keyboard.dismiss()}
+      >
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker
            date={ moment(this.props.date).format('MM/DD/YYYY') }

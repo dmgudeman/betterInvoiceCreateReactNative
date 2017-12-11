@@ -2,9 +2,9 @@
 import React, { Component }     from 'react';
 import { bindActionCreators }   from 'redux';
 import { 
-  View, 
+  Keyboard,
   Text, 
-  DatePickerIOS 
+  View, 
 }                               from 'react-native';
 import { connect }              from 'react-redux';
 import { 
@@ -70,7 +70,7 @@ class itemEditHoursScreen extends Component {
     }
   }
   onSubmit = () => {
-    console.log('IN EDITHOURS ONSUBMIT');
+    // console.log('IN EDITHOURS ONSUBMIT');
     const { amount, companyKey, date, description, fUserId, goBackKey, hours, id, total, hourly } = this.props
     
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
@@ -83,7 +83,10 @@ class itemEditHoursScreen extends Component {
   render() {
     const { amount, date, hourly, hours, description, total, itemUpdate, itemTotalUpdate, itemCreate } = this.props;
     return (
-      <View>
+      <View
+        onStartShouldSetResponder= {(evt) => true }
+        onResponderMove= {(evt)=> Keyboard.dismiss()}
+      >
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
            date={ moment(this.props.date).format('MM/DD/YYYY') }

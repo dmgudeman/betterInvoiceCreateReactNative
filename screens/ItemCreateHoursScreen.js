@@ -13,7 +13,7 @@ import {
   Button,
   FormLabel, 
   FormInput, 
-  FormValidationMessage, 
+  FormValidationMessage,
 }                           from 'react-native-elements';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -89,8 +89,9 @@ class ItemCreateHoursScreen extends Component {
     const { amount, date, hourly, hours, description, total, itemUpdate, itemTotalUpdate, itemCreate } = this.props;
     return (
       <View
-      onStartShouldSetResponder= {(evt) => true }
-        onResponderMove= {(evt)=> Keyboard.dismiss()} >
+        onStartShouldSetResponder= {(evt) => true }
+        onResponderMove= {(evt)=> Keyboard.dismiss()}
+      >
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
           date={ moment(this.props.date).format('MM/DD/YYYY') }
@@ -101,15 +102,22 @@ class ItemCreateHoursScreen extends Component {
         />
         <FormLabel>Hours</FormLabel>
         <FormInput 
-          keyboardType= 'numeric'
-          onChangeText={(value) => { 
+           valid={this.state.controls.hours.valid}
+           value={hours}
+           touched={this.state.controls.hours.touched}
+           keyboardType= 'numeric'
+           onChangeText={(value) => {
+            itemUpdate('hours', value) 
             itemTotalUpdate( value, this.props.amount, this.props.hourly)
-            this.updateInputState('hours', value)
-
-            }
-          
-          }
-        />
+             this.updateInputState('hours', value)
+           }
+         }
+         />
+         {
+           !this.state.controls.hours.valid 
+           && this.state.controls.hours.touched 
+           ? <FormValidationMessage > Hours should be a number </FormValidationMessage> : null
+         }
         <FormLabel>Description</FormLabel>
         <FormInput 
           onChangeText={(value) => itemUpdate('description', value)}

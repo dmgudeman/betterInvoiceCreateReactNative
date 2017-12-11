@@ -1,6 +1,7 @@
 import React, { Component }     from 'react';
 import { bindActionCreators }   from 'redux';
 import { 
+  Keyboard,
   StyleSheet,
   View, 
   Text, 
@@ -123,7 +124,11 @@ class CompanyCreateScreen extends Component {
               console.log('COMPANYCREAATE RENDER name', (name === ''));
   
     return (
-      <View style = {styles.container}>
+      <View
+        onStartShouldSetResponder= {(evt) => true }
+        onResponderMove= {(evt)=> Keyboard.dismiss()}
+        style = {styles.container}
+      >
         <FormLabel>Name</FormLabel>
         <TouchableOpacity>
           <FormInput 

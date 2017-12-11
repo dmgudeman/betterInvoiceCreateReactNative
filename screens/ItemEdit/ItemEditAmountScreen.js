@@ -2,9 +2,9 @@
 import React, { Component }     from 'react';
 import { bindActionCreators }   from 'redux';
 import { 
+  Keyboard,
   View, 
   Text, 
-  DatePickerIOS 
 }                               from 'react-native';
 import { connect }              from 'react-redux';
 import { 
@@ -83,7 +83,10 @@ class itemEditAmountScreen extends Component {
   render() {
     const { amount, date, hourly, hours, description, total, itemUpdate, itemTotalUpdate } = this.props;
     return (
-      <View>
+      <View
+        onStartShouldSetResponder= {(evt) => true }
+        onResponderMove= {(evt)=> Keyboard.dismiss()}
+      >
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
           date={ moment(date).format('MM/DD/YYYY') }

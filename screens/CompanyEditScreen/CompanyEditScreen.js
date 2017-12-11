@@ -1,6 +1,7 @@
 
 import React, { Component }     from 'react';
 import { 
+  Keyboard,
   View, 
   Text, 
   TouchableOpacity }            from 'react-native';
@@ -89,7 +90,11 @@ class CompanyEditScreen extends Component {
     let company = { address,  color, companyKey, fUserId, hex, hourly, invoices, items, name, paymentTerms } 
     // console.log('COMPANYEDIT RENDER  company', company);
     return (
-      <View style = {styles.container}>
+      <View
+        onStartShouldSetResponder= {(evt) => true }
+        onResponderMove= {(evt)=> Keyboard.dismiss()}
+        style = {styles.container}
+      >
         <FormLabel>Name</FormLabel>
         <TouchableOpacity>
           <FormInput 
@@ -97,12 +102,10 @@ class CompanyEditScreen extends Component {
             value={name}
             touched={this.state.controls.name.touched}
             onChangeText={(value) => {
-
               company.name = value;
               companyUpdate('company', company)
               this.updateInputState('name', value)
-
-            }
+              }
             }
           />
           {
