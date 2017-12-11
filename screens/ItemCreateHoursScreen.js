@@ -15,9 +15,36 @@ import moment from 'moment';
 import * as actions from '../actions'
 import CompaniesScreen from './CompaniesScreen';
 import MyDatePicker from '../components/MyDatePicker';
+import { validate }             from '../utility/Validation.js';
 
 class ItemCreateHoursScreen extends Component {
+  // Validation
+  state = {
+    controls: {
+      hours: { 
+        value: '', 
+        valid: true, 
+        validationRules: { isNumeric: true }, 
+        touched: false,
+      },
+    }
+  }
 
+  updateInputState = (key, value) => {
+    this.setState(prevState => {
+      return {
+        controls: {
+          ...prevState.controls,
+          [key]: {
+            ...prevState.controls[key],
+            value: value,
+            valid: validate(value, prevState.controls[key].validationRules),
+            touched: true
+          }
+        }
+      }
+    })
+  }
   componentWillMount() {
     this.props.itemUpdate('amount', '');
     this.props.itemUpdate('date', moment().format()  )
@@ -50,6 +77,7 @@ class ItemCreateHoursScreen extends Component {
   }
 
   render() {
+    const { amount, date, hourly, hours, description, total, itemUpdate, itemTotalUpdate, itemCreate } = this.props;
     return (
       <View>
   
@@ -57,22 +85,23 @@ class ItemCreateHoursScreen extends Component {
         <MyDatePicker 
           date={ moment(this.props.date).format('MM/DD/YYYY') }
           onDateChange={(value) => {
-            this.props.itemUpdate('date', moment(value).toDate().toUTCString() )
+            itemUpdate('date', moment(value).toDate().toUTCString() )
             }
           }
         />
         <FormLabel>Hours</FormLabel>
         <FormInput 
           onChangeText={(value) => { 
-            this.props.itemUpdate('hours', value) 
-            this.props.itemTotalUpdate( value, this.props.amount, this.props.hourly)
+            itemUpdate('hours', value) 
+            itemTotalUpdate( value, this.props.amount, this.props.hourly)
+            this.updateInputState('hours', value)
             }
           }
         />
        
         <FormLabel>Description</FormLabel>
         <FormInput 
-          onChangeText={(value) => this.props.itemUpdate('description', value)}
+          onChangeText={(value) => itemUpdate('description', value)}
         />
 
         <Text style={Styles.totalLabel}>Total</Text>
@@ -80,9 +109,14 @@ class ItemCreateHoursScreen extends Component {
 
         <Button
           title= "Submit"
-          onPress =  {this.onSubmit }
-          // buttonStyle={{backgroundColor:'#9b59b6'}}
-        />
+          onPress =  {() => 
+            ( this.state.controls.hours.valid )
+             ? this.onSubmit() : null}
+            
+            backgroundColor={ 
+              this.state.controls.hours.valid 
+              ?'#bdc3c7':'#bdc3c745'}
+        /> 
       </View>
     )
   }

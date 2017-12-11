@@ -22,7 +22,7 @@ import * as actions             from '../../actions';
 import Styles                   from '../Styles';
 
 import MyDatePicker             from '../../components/MyDatePicker';
-import { validate }             from '../../utility/Validation.js';
+import { validate }             from '../../utility/Validation';
 
 class itemEditHoursScreen extends Component {
   state = {
@@ -70,6 +70,7 @@ class itemEditHoursScreen extends Component {
     }
   }
   onSubmit = () => {
+    console.log('IN EDITHOURS ONSUBMIT');
     const { amount, companyKey, date, description, fUserId, goBackKey, hours, id, total, hourly } = this.props
     
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
@@ -98,8 +99,8 @@ class itemEditHoursScreen extends Component {
            touched={this.state.controls.hours.touched}
            keyboardType= 'numeric'
            onChangeText={(value) => {
-             console.log('ITEMEDITAmOUNTTTTTTTTTTTTTTTT onText change this.state.controls.hours.valid ', this.state.controls.hours.valid );
-             itemUpdate('hours', value)
+            itemUpdate('hours', value) 
+            itemTotalUpdate( value, this.props.amount, this.props.hourly)
              this.updateInputState('hours', value)
            }
          }
@@ -113,21 +114,22 @@ class itemEditHoursScreen extends Component {
         <FormLabel>Description</FormLabel>
         <FormInput
           value={this.props.description}
-          onChangeText={(value) => this.props.itemUpdate('description', value)}
+          onChangeText={(value) => itemUpdate('description', value)}
         />
 
         <Text style={Styles.totalLabel}>Total</Text>
-        <Text style={Styles.totalValue}>$ {this.props.total}</Text>
+        <Text style={Styles.totalValue}>$ {total}</Text>
 
         <Button
           title= "Submit"
-          onPress =  {() => 
+          onPress =  {() =>{
             ( this.state.controls.hours.valid )
-             ? this.onSubmit(this.props, itemCreate) : null}
-            
-            backgroundColor={ 
-              this.state.controls.hours.valid 
-              ?'#bdc3c7':'#bdc3c745'}
+             ? this.onSubmit() : null}
+          }
+          backgroundColor={ 
+            this.state.controls.hours.valid 
+            ?'#bdc3c7':'#bdc3c745'}
+          
         /> 
       </View>
     )

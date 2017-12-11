@@ -16,11 +16,39 @@ import * as actions from '../actions';
 import Styles from './Styles';
 
 import MyDatePicker from '../components/MyDatePicker';
+import { validate }             from '../utility/Validation';
+
 
 // 
 
 class ItemCreateAmountScreen extends Component {
+   // Validation
+   state = {
+    controls: {
+      amount: { 
+        value: '', 
+        valid: false, 
+        validationRules: { isNumeric: true }, 
+        touched: false,
+      },
+    }
+  }
 
+  updateInputState = (key, value) => {
+    this.setState(prevState => {
+      return {
+        controls: {
+          ...prevState.controls,
+          [key]: {
+            ...prevState.controls[key],
+            value: value,
+            valid: validate(value, prevState.controls[key].validationRules),
+            touched: true
+          }
+        }
+      }
+    })
+  }   
   componentWillMount() {
     // console.log('ITEMSCREATESCREEN COMPONENTWILLMOUNT this.props', this.props);
     this.props.itemUpdate('amount', '');
@@ -55,12 +83,17 @@ class ItemCreateAmountScreen extends Component {
     }
   }
   onSubmit = () => {
+    const{navigation}= this.props;
     const {amount, companyKey, date, description, fUserId, hourly, hours, total} = this.props
     const data  = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
     this.props.itemUpdate('total', data);
 
     this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, total});
-    this.props.navigation.goBack(null)
+    resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [ NavigationActions.navigate({ routeName: 'companies'}), ]
+    });
+    navigation.dispatch(resetAction);
   }
  
 
@@ -78,12 +111,20 @@ class ItemCreateAmountScreen extends Component {
         
         <FormLabel>Amount</FormLabel>
         <FormInput 
+           value={this.props.amount}
+          placeholder='Amount is necessary'
           onChangeText={(value) => {
             this.props.itemUpdate('amount', value)
             this.props.itemTotalUpdate( this.props.hours, value, this.props.hourly)
+            this.updateInputState('amount', value)
             }
           }
         />
+          {
+            !this.state.controls.amount.valid 
+            && this.state.controls.amount.touched 
+            ? <FormValidationMessage > Amount should be a number </FormValidationMessage> : null
+          }
         <FormLabel>Description</FormLabel>
         <FormInput 
           onChangeText={(value) => this.props.itemUpdate('description', value)}
@@ -94,8 +135,14 @@ class ItemCreateAmountScreen extends Component {
 
         <Button
           title= "Submit"
-          onPress =  {this.onSubmit }
-        />
+          onPress =  {() => 
+            ( this.state.controls.amount.valid )
+             ? this.onSubmit() : null}
+            
+            backgroundColor={ 
+              this.state.controls.amount.valid 
+              ?'#bdc3c7':'#bdc3c745'}
+        /> 
       </View>
     )
   }
