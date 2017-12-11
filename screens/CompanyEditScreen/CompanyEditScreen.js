@@ -11,10 +11,11 @@ import {
   FormValidationMessage, 
 }                               from 'react-native-elements';
 import { connect }              from 'react-redux';
+import Icon                     from 'react-native-vector-icons/FontAwesome';
 import * as actions             from '../../actions';
 import ModalSelector            from 'react-native-modal-selector'
 import GooglePlacesInput        from '../../components/GooglePlacesInput';
-import colorHexUpdater           from '../../assets/ColorHexUpdater';
+import colorHexUpdater          from '../../assets/ColorHexUpdater';
 import styles                   from './styles';
 import {
   colorOptionsList,
@@ -56,7 +57,17 @@ class CompanyEditScreen extends Component {
       }
     })
   }
-
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Edit Company',
+      headerLeft: <Icon.Button 
+        name="angle-left" 
+        backgroundColor="transparent" 
+        color="gray" 
+        size={40}
+        onPress= { ()=> { navigation.goBack( navigation.state.params.goBackKey) }}/>,
+    }
+  }
   onSubmit = async () => {
     const {address, color, companyKey, fUserId, hourly, hex, invoices, items, name, paymentTerms, companyEditSubmit } = this.props.company
     let company = {address, color, companyKey, fUserId, hourly, hex, invoices, items, name, paymentTerms};

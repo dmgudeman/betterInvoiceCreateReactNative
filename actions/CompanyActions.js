@@ -15,12 +15,12 @@ import {
 import DATE_RFC2822 from '../assets/Date';
 
 export const companyCreate = (company) => {
-  console.log('COMPANYACTIONS COMPANYCREATE company', company);
+  // console.log('COMPANYACTIONS COMPANYCREATE company', company);
   let payload = { ...company };
   let newCompanyKey =  firebase.database().ref().child('companies').push().key;
   payload.companyKey = newCompanyKey;
   let updates = {};
-  console.log('COMPANYACTIONS COMPANYCREATE payload', payload);
+  // console.log('COMPANYACTIONS COMPANYCREATE payload', payload);
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey] = payload;
   firebase.database().ref().update(updates);
    return {
@@ -32,8 +32,8 @@ export const companyCreate = (company) => {
 
 export const companyEditSubmit = (company) => {
   let payload = { company };
-  console.log('COMPANYACTIONS COMPANYEDITSUBMIT company', company);
-  console.log('COMPANYACTIONS COMPANYEDITSUBMIT payload', payload);
+  // console.log('COMPANYACTIONS COMPANYEDITSUBMIT company', company);
+  // console.log('COMPANYACTIONS COMPANYEDITSUBMIT payload', payload);
   let updates = {};
   updates['/users/'+ company.fUserId + '/companies/'+ company.companyKey] = company;
   firebase.database().ref().update(updates);
@@ -53,8 +53,8 @@ export const fetchCompanies = (fUserId) => async dispatch => {
 } 
 
 export const companyUpdate = (prop, value)=> {
-  console.log( 'COMPANYACTIONS COMPANYUPDATE prop', prop);
-  console.log( 'COMPANYACTIONS COMPANYUPDATE value', value);
+  // console.log( 'COMPANYACTIONS COMPANYUPDATE prop', prop);
+  // console.log( 'COMPANYACTIONS COMPANYUPDATE value', value);
   return {
     type: COMPANY_UPDATE,
     payload: { prop, value}
