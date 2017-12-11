@@ -83,12 +83,17 @@ class ItemCreateAmountScreen extends Component {
     }
   }
   onSubmit = () => {
+    const{navigation}= this.props;
     const {amount, companyKey, date, description, fUserId, hourly, hours, total} = this.props
     const data  = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
     this.props.itemUpdate('total', data);
 
     this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, total});
-    this.props.navigation.navigate('companies');
+    resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [ NavigationActions.navigate({ routeName: 'companies'}), ]
+    });
+    navigation.dispatch(resetAction);
   }
  
 
@@ -106,6 +111,7 @@ class ItemCreateAmountScreen extends Component {
         
         <FormLabel>Amount</FormLabel>
         <FormInput 
+           value={this.props.amount}
           placeholder='Amount is necessary'
           onChangeText={(value) => {
             this.props.itemUpdate('amount', value)
@@ -114,6 +120,11 @@ class ItemCreateAmountScreen extends Component {
             }
           }
         />
+          {
+            !this.state.controls.amount.valid 
+            && this.state.controls.amount.touched 
+            ? <FormValidationMessage > Amount should be a number </FormValidationMessage> : null
+          }
         <FormLabel>Description</FormLabel>
         <FormInput 
           onChangeText={(value) => this.props.itemUpdate('description', value)}
