@@ -57,43 +57,14 @@ class CompanyEditScreen extends Component {
     })
   }
 
-  componentWillMount() {
-    // let navigator = this.props.navigation.state.params;
-    // const {address, color, companyKey, fUserId, hourly, hex, invoices, items, id, name, paymentTerms } = this.props.company
-    // // console.log('COMPANYEDIT COMPONENTWILLMOUNT, this.props.company', this.props.company);
-    // // // this.props.companyUpdate('company', navigator.company);
-    // // // populates form
-    // this.props.companyUpdate('name', name);
-    // this.props.companyUpdate('paymentTerms', paymentTerms);
-    // this.props.companyUpdate('color', color);
-    // this.props.companyUpdate('companyKey', companyKey)
-    // this.props.companyUpdate('hourly', hourly);
-    // this.props.companyUpdate('hex', hex);
-    // items ? this.props.companyUpdate('invoices', invoices): null
-    // invoices ? this.props.companyUpdate('items', items): null
-    // this.props.companyUpdate('address', address);
-    // this.props.companyUpdate('companyKey', id)
-  }
-  
   onSubmit = async () => {
     const {address, color, companyKey, fUserId, hourly, hex, invoices, items, name, paymentTerms, companyEditSubmit } = this.props.company
     let company = {address, color, companyKey, fUserId, hourly, hex, invoices, items, name, paymentTerms};
-    console.log('COMPANYEDIT ONSUBMIT this.props', this.props);
+    // console.log('COMPANYEDIT ONSUBMIT this.props', this.props);
     await  this.props.companyUpdate('company', company)
    
       let payload = {...company}
-        // address, 
-        // color, 
-        // companyKey,
-        // fUserId,
-        // hex, 
-        // hourly, 
-        // invoices,
-        // items,
-        // name, 
-        // paymentTerms,
-    // }
-    console.log('COMPANYEDIT ONSUBMIT payload', payload)
+    // console.log('COMPANYEDIT ONSUBMIT payload', payload)
    this.props.companyEditSubmit(payload);
    this.props.navigation.goBack();
   }
@@ -105,11 +76,7 @@ class CompanyEditScreen extends Component {
     const {companyUpdate, companyEditSubmit} = this.props;
     const { address,  color, companyKey, fUserId, hex, hourly, invoices, items, name, paymentTerms }  = this.props;
     let company = { address,  color, companyKey, fUserId, hex, hourly, invoices, items, name, paymentTerms } 
-    if (typeof address !== 'string') {
-      company.address = '';
-      companyUpdate('company', company)
-    }
-    console.log('COMPANYEDIT RENDER  company', company);
+    // console.log('COMPANYEDIT RENDER  company', company);
     return (
       <View style = {styles.container}>
         <FormLabel>Name</FormLabel>
