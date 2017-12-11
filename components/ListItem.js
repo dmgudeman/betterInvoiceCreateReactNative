@@ -12,6 +12,9 @@ import colorHexPicker           from '../assets/ColorHexUpdater';
 
 class ListItem extends Component {
 
+  componentWillMount() {
+    console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
+  }
   render() {
     const { navigate } = this.props.navigation;
     const { navigation } = this.props;
@@ -33,20 +36,24 @@ class ListItem extends Component {
         <CardSection>
           <View style={styles.buttonRowStyle}>
             <Button style={ styles.buttonContentStyle } 
-              onPress={() => { this.props.setCompany(this.props.company)}}
-              onPress={  _.debounce(()=> navigate('items'), 2000,{'leading':true, 'trailing':true})} 
+              onPress={ ()=> {
+                this.props.setCompany(this.props.company)
+              console.log('LISTITEM RENDER this.props', this.props);
+                navigate('items')}} 
             >Items</Button>
               
             <Button style={ styles.buttonContentStyle } onPress={() => { 
+              console.log('LISTITEM RENDER this.props', this.props);
               this.props.setCompany(this.props.company)
               navigate('itemCreate',{'goBackKey': navigation.state.key})}}>+Item</Button>
               
             <Button style={ styles.buttonContentStyle } onPress={() => { 
+              console.log('LISTITEM RENDER this.props', this.props);
               this.props.setCompany(this.props.company)
               navigate('invoices')} }>Invoices</Button>
 
             <Button style={ styles.buttonContentStyle } onPress={() => { 
-              // console.log('LISTITEM RENDER this.props', this.props);
+              console.log('LISTITEM RENDER this.props', this.props);
               this.props.setCompany(this.props.company)
               navigate('invoiceCreate')} }>+Invoice</Button>
           </View>
@@ -81,7 +88,8 @@ const styles = {
   }
 }
 mapStateToProps = (state) => {
-  const color = state.companies.company.color || '';
+   const color = state.companies.company.color || '';
   const hex = state.companies.company.hex || '';
+  const company = state.companies.company || '';
 }
 export default connect(null, actions)(ListItem);

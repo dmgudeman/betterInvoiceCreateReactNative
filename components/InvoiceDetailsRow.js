@@ -14,15 +14,15 @@ const InvoiceDetailsRow = ({data, onPress }) => (
             <View style={ styles.topRowContentStyle}>
               <View style={styles.topRowSectionStyle}>
                 <Text>DUE DATE</Text>
-                <Text style={styles.topRowTextStyle}>{moment(data.dueDate).format('DD/MM/YYYY')}</Text>
+                <Text style={styles.topRowTextStyle}>{moment(data.dueDate).format('MM/DD/YYYY')}</Text>
               </View>
               <View style={styles.topRowSectionStyle}>
                 <Text>FROM</Text>
-                <Text style={styles.topRowTextStyle}>{moment(data.beginDate).format('DD/MM/YYYY')}</Text>
+                <Text style={styles.topRowTextStyle}>{moment(data.beginDate).format('MM/DD/YYYY')}</Text>
               </View>
               <View style={styles.topRowSectionStyle}>
                 <Text>TO</Text>
-                <Text style={styles.topRowTextStyle}>{moment(data.endDate).format('DD/MM/YYYY')}</Text>
+                <Text style={styles.topRowTextStyle}>{moment(data.endDate).format('MM/DD/YYYY')}</Text>
               </View>
             </View>
           </TouchableWithoutFeedback>

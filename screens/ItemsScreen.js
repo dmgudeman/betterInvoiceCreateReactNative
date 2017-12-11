@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text , FlatList, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import ItemDetailsRow from '../components/ItemDetailsRow';
 import { connect } from 'react-redux';
 import { selectItem } from '../actions/ItemActions';
@@ -12,6 +13,19 @@ class ItemsScreen extends Component {
 
   componentWillMount(){
     this.props.utilsUpdate('goBackKey', this.props.navigation.state.key)
+  }
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Items',
+      headerLeft: <Icon.Button 
+        name="angle-left" 
+        backgroundColor="transparent" 
+        color="gray" 
+        size={40}
+        onPress= {  _.debounce(()=> navigation.goBack(), 1000,{'leading':true, 'trailing':true}) }
+      />,
+        
+    }
   }
 
   goToItemEdit = (data) => {

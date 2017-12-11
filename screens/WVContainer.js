@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { WebView, TouchableHighlight, Text, View, StyleSheet, Dimensions } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import _ from 'lodash';
 import * as actions from '../actions';
 
@@ -25,7 +26,19 @@ class WVContainer extends Component {
     // this.props.companyUpdate('invoice', invoice);
     // console.log('WVContainer COMPONENTWILLMOUNT this.props', this.props);
   }
-
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Invoice',
+      headerLeft: <Icon.Button 
+        name="angle-left" 
+        backgroundColor="transparent" 
+        color="gray" 
+        size={40}
+        onPress= {  _.debounce(()=> navigation.goBack(), 1000,{'leading':true, 'trailing':true}) }
+      />,
+        
+    }
+  }
   onMessage( event ) {
     console.log( "REACTNATIVEEEEEEEEEEEEEEEEEEEonMessage  event.nativeEvent.data ", event.nativeEvent.data );
   }

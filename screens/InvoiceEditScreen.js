@@ -13,6 +13,7 @@ import {
   FormInput, 
   FormValidationMessage, 
 }                               from 'react-native-elements';
+import Icon                     from 'react-native-vector-icons/FontAwesome';
 import { NavigationActions }    from 'react-navigation';
 import DatePicker               from 'react-native-datepicker';
 import Moment                   from 'react-moment';
@@ -27,6 +28,19 @@ class invoiceEditScreen extends Component {
   componentWillMount() {
     // const {dispatch} = this.props
     console.log('invoiceEditScreen componentWillMount this.props ', this.props);
+  }
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Edit Invoice',
+      headerLeft: <Icon.Button 
+        name="angle-left" 
+        backgroundColor="transparent" 
+        color="gray" 
+        size={40}
+        onPress= {  _.debounce(()=> navigation.goBack(), 1000,{'leading':true, 'trailing':true}) }
+      />,
+        
+    }
   }
   onSubmit = () => {
     // console.log('InvoiceEditScreen onSubmit this.props', this.props);

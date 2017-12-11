@@ -14,6 +14,7 @@ import {
   FormInput, 
   FormValidationMessage, 
 }                               from 'react-native-elements';
+import Icon                     from 'react-native-vector-icons/FontAwesome';
 import { NavigationActions }    from 'react-navigation';
 import DatePicker               from 'react-native-datepicker';
 import Moment                   from 'react-moment';
@@ -27,8 +28,23 @@ import DATE_RFC2822             from '../assets/Date';
 class InvoiceCreateScreen extends Component {
   
   componentWillMount() {
-     const { companyKey, coItems, coName, fUserId, paymentTerms } = this.props;
+
     this.props.invoiceCreateClear({ companyKey, coItems, coName, fUserId, paymentTerms });
+     const { companyKey, coItems, coName, fUserId, paymentTerms } = this.props;
+  }
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Create Invoice',
+      headerLeft: <Icon.Button 
+        name="angle-left" 
+        backgroundColor="transparent" 
+
+        color="gray" 
+        size={40}
+        onPress= {  _.debounce(()=> navigation.goBack(null), 1000,{'leading':true, 'trailing':true}) }
+      />,
+        
+    }
   }
   calcDueDate(){
     let a = moment(this.props.createdAt);

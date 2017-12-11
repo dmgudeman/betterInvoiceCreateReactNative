@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
-import InvoiceDetailsRow from '../components/InvoiceDetailsRow';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 import * as actions from '../actions';
 import store from '../store'
+import InvoiceDetailsRow from '../components/InvoiceDetailsRow';
 
 class InvoicesScreen extends Component {
 
-
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Invoices',
+      headerLeft: <Icon.Button 
+        name="angle-left" 
+        backgroundColor="transparent" 
+        color="gray" 
+        size={40}
+        onPress= {  _.debounce(()=> navigation.goBack(), 1000,{'leading':true, 'trailing':true}) }
+      />,
+        
+    }
+  }
   goToInvoiceEdit = (data) => {
     const invoice = {...data};
     this.props.selectInvoice(invoice)

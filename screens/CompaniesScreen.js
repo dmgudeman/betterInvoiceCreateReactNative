@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { debounce } from 'underscore';
 import { Button } from 'react-native-elements';
+import Icon                     from 'react-native-vector-icons/FontAwesome';
 import { StackNavigator } from 'react-navigation';
 
 import { AsyncStorage } from 'react-native';
@@ -25,6 +26,7 @@ class CompaniesScreen extends Component {
     this.toggleButton = false
     // console.log('CompaniesScreen renderItem  this.props.index =', this.props.companies);
     // console.log('COMPANIESSCREEN renderItem item, item.id, index', item, item.id, index);
+  
     return  (
       <ListItem company={item} navigation={this.props.navigation}/>
     )
