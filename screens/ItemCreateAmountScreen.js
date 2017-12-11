@@ -55,11 +55,11 @@ class ItemCreateAmountScreen extends Component {
     }
   }
   onSubmit = () => {
-    const {amount, companyKey, date, description, fUserId, hourly, hours, total} = this.props
-    const data  = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
-    this.props.itemUpdate('total', data);
+    // const {amount, companyKey, date, description, fUserId, hourly, hours, total} = this.props
+    // const data  = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
+    // this.props.itemUpdate('total', data);
 
-    this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, total});
+    // this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, total});
     this.props.navigation.goBack(null)
   }
  

@@ -98,8 +98,8 @@ class itemEditHoursScreen extends Component {
            touched={this.state.controls.hours.touched}
            keyboardType= 'numeric'
            onChangeText={(value) => {
-             console.log('ITEMEDITAmOUNTTTTTTTTTTTTTTTT onText change this.state.controls.hours.valid ', this.state.controls.hours.valid );
-             itemUpdate('hours', value)
+            itemUpdate('hours', value) 
+            itemTotalUpdate( value, this.props.amount, this.props.hourly)
              this.updateInputState('hours', value)
            }
          }

@@ -73,7 +73,7 @@ class itemEditAmountScreen extends Component {
   onSubmit = () => {
     const { amount, companyKey, date, description, fUserId, goBackKey, hours, id, total, hourly } = this.props
     
-    const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0) - (discount - 0);
+    const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
     this.props.itemUpdate('total', data);
    
     this.props.itemEdit({ amount, companyKey, date, description, fUserId, hours, id, total, hourly })
@@ -99,7 +99,7 @@ class itemEditAmountScreen extends Component {
             touched={this.state.controls.amount.touched}
             keyboardType= 'numeric'
             onChangeText={(value) => {
-              itemUpdate('amount', value)
+              this.props.itemTotalUpdate( this.props.hours, value, this.props.hourly)
               this.updateInputState('amount', value)
             }
           }
