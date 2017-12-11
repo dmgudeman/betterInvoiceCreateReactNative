@@ -31,7 +31,7 @@ export const companyCreate = (company) => {
  }
 
 export const companyEditSubmit = (company) => {
-  let payload = { ...company };
+  let payload = { company };
   console.log('COMPANYACTIONS COMPANYEDITSUBMIT company', company);
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey] = payload;

@@ -77,22 +77,23 @@ class CompanyEditScreen extends Component {
   
   onSubmit = async () => {
     const {address, color, companyKey, fUserId, hourly, hex, invoices, items, name, paymentTerms, companyEditSubmit } = this.props.company
-    let company = {address, color, companyKey, fUserId, hourly, hex, invoices, items, name, paymentTerms, companyEditSubmit };
+    let company = {address, color, companyKey, fUserId, hourly, hex, invoices, items, name, paymentTerms};
     console.log('COMPANYEDIT ONSUBMIT this.props', this.props);
     await  this.props.companyUpdate('company', company)
-    console.log('COMPANYEDIT ONSUBMIT this.props.company', company)
-      let payload = {...this.props.company}
-    //     address, 
-    //     color, 
-    //     companyKey,
-    //     fUserId,
-    //     hex, 
-    //     hourly, 
-    //     invoices,
-    //     items,
-    //     name, 
-    //     paymentTerms,
+   
+      let payload = {...company}
+        // address, 
+        // color, 
+        // companyKey,
+        // fUserId,
+        // hex, 
+        // hourly, 
+        // invoices,
+        // items,
+        // name, 
+        // paymentTerms,
     // }
+    console.log('COMPANYEDIT ONSUBMIT payload', payload)
    this.props.companyEditSubmit(payload);
    this.props.navigation.goBack();
   }
@@ -101,9 +102,8 @@ class CompanyEditScreen extends Component {
   render() {
     const colorOptions = colorOptionsList;
     const paymentTermsOptions = paymentTermsOptionsList;
-    const {companyUpdate, companyEditSubmit, updateObjectEdit} = this.props;
-    const {name, color, hourly, fUserId, invoices, items,  address, companyKey, paymentTerms, navigation } = this.props.company;
-    let {...updateObject} = this.props.updateObject
+    const {companyUpdate, companyEditSubmit} = this.props;
+    const {name, color, hourly, fUserId, invoices, items,  address, companyKey, paymentTerms, navigation } = this.props;
     let company = {name, color, companyKey, companyEditSubmit, fUserId, hourly, invoices, items, address, paymentTerms} 
     console.log('COMPANYEDIT RENDER  company', company);
     return (
@@ -115,15 +115,11 @@ class CompanyEditScreen extends Component {
             value={name}
             touched={this.state.controls.name.touched}
             onChangeText={(value) => {
-              updateObject.name = value;
-              updateObjectEdit('updateObject', updateObject );
 
               company.name = value;
               companyUpdate('company', company)
               this.updateInputState('name', value)
 
-              console.log('iiiiiiiiUUUUUUUUUUUUUDDDDDDDDDDDDAAAAAAAAAAAAA', this.props.updateObject);
-              console.log('iiiiiiiiUUUUUUUUUUUUUDDDDDDDDDDDDAAAAAAAAAAAAA updateObject', updateObject);
             }
             }
           />
@@ -143,8 +139,6 @@ class CompanyEditScreen extends Component {
             keyboardType= 'numeric'
             onChangeText={(value) => {
 
-              updateObject.hourly = value;
-              updateObjectEdit('updateObject', updateObject );
 
               company.hourly = value
               companyUpdate('company', company)
@@ -167,8 +161,6 @@ class CompanyEditScreen extends Component {
             data={paymentTermsOptions}
             onChange={(option)=>{ 
 
-              updateObject.paymentTerms = option.label;
-              updateObjectEdit('updateObject', updateObject );
 
               company.paymentTerms = option.label
               companyUpdate('company', company)
@@ -193,13 +185,6 @@ class CompanyEditScreen extends Component {
               company.hex =  colorHexUpdater(option.label)
               company.color = option.label
               companyUpdate('company', company)
-              
-              updateObject.color = option.label 
-              updateObject.hex = company.hex
-              updateObjectEdit('updateObject', updateObject );
-
-              console.log('UUUUUUUUUUUUUDDDDDDDDDDDDAAAAAAAAAAAAA this.props.updateObject', this.props.updateObject);
-              console.log('UUUUUUUUUUUUUDDDDDDDDDDDDAAAAAAAAAAAAA updateObject', updateObject);
               }
             }
           >
@@ -213,18 +198,12 @@ class CompanyEditScreen extends Component {
         <FormLabel>Address</FormLabel> 
         <TouchableOpacity>
           <FormInput 
-            value={address}
+            value={company.address}
             onFocus={(value) => { 
               // using a workaround here because companyUpdate returns a proxy for address instead of a string
               company.address = value
               companyUpdate('company', company)
-              
-              
               this.props.navigation.navigate('googlePlacesInput', {'company': company})
-
-              updateObject.address = value;
-              updateObjectEdit('updateObject', updateObject );
-              
             }} 
             editable={true}
          />
@@ -232,7 +211,6 @@ class CompanyEditScreen extends Component {
         <Button
           title= "Submit"
           onPress =  {() => {
-             console.log('ccccccccccccccUUUUUUUUUUUUUDDDDDDDDDDDDAAAAAAAAAAAAA updateObject', updateObject);
             (this.state.controls.name.valid 
              && this.state.controls.hourly.valid )
              ? this.onSubmit() : null}
@@ -249,8 +227,6 @@ class CompanyEditScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const updateObject = state.companies.updateObject || '';
-  console.log('COMPANYEDIT MAPSTATETOPROPS state.companies.updateObject ', state.companies.updateObject );
   if (state.companies.company) {
     // const active = state.companies.active || true;
     
@@ -269,7 +245,7 @@ const mapStateToProps = (state) => {
     const userId = state.auth.userId || '';
     return { 
       address, location, color, companyKey, company,
-      fUserId, hex, hourly, invoices, items, name, paymentTerms, userId, updateObject
+      fUserId, hex, hourly, invoices, items, name, paymentTerms, userId, 
       };
     }
     return state;
