@@ -33,8 +33,9 @@ export const companyCreate = (company) => {
 export const companyEditSubmit = (company) => {
   let payload = { company };
   console.log('COMPANYACTIONS COMPANYEDITSUBMIT company', company);
+  console.log('COMPANYACTIONS COMPANYEDITSUBMIT payload', payload);
   let updates = {};
-  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey] = payload;
+  updates['/users/'+ company.fUserId + '/companies/'+ company.companyKey] = company;
   firebase.database().ref().update(updates);
   return {
     type: COMPANY_EDIT_SUBMIT,

@@ -65,7 +65,12 @@ class CompanyCreateScreen extends Component {
 
   componentWillMount() {
     // const {address, color, companyKey, hex, hourly, name, paymentTerms } = this.props.company;
-    // const company = {address, color, companyKey, hex, hourly, name, paymentTerms }
+    // const {address, color, companyKey, hex, hourly, invoice, items, name, paymentTerms } = this.props.company;
+    const company = {...this.props.company}
+    console.log('COMPANYCREATE COMPONENTWILLMOUNT company', company);
+    this.props.companyUpdate('company', company)
+    console.log('COMPANYCREATE COMPONENTWILLMOUNT this.props', this.props);
+    
     // clear the form
     // this.props.companyUpdate('address', '');
     // this.props.companyUpdate('color', 'blue');
@@ -111,9 +116,11 @@ class CompanyCreateScreen extends Component {
     const colorOptions = colorOptionsList;
     const paymentTermsOptions = paymentTermsOptionsList;
     const navigation = this.props.navigation
-    const {name, color, hourly, address, companyUpdate, paymentTerms} = this.props;
-    let company = {name, color, hourly, address, companyUpdate, paymentTerms} 
-   
+    const {companyUpdate, } = this.props;
+    const {  address, color, hex, hourly, invoice, items, name, paymentTerms} = this.props.company
+
+    const company = { ...this.props.company }   
+              console.log('COMPANYCREAATE RENDER name', (name === ''));
   
     return (
       <View style = {styles.container}>
@@ -125,9 +132,11 @@ class CompanyCreateScreen extends Component {
             touched={this.state.controls.name.touched}
             onChangeText={(value) => {
               company.name = value;
-              console.log('COMPANY CREAATE company.anme', name);
               companyUpdate( 'company', company)
               this.updateInputState('name', value)
+              console.log('COMPANY CREAATE name', name);
+              console.log('COMPANY CREAATE company.anme', company.name);
+              console.log('COMPANY CREAATE this.props.name', this.props.name);
             }
             }
           />
@@ -149,6 +158,9 @@ class CompanyCreateScreen extends Component {
               company.hourly = value
               companyUpdate('company', company)
               this.updateInputState('hourly', value)
+              console.log('COMPANY CREAATE hourly', {hourly});
+              console.log('COMPANY CREAATE company.hourly', company.hourly);
+              console.log('COMPANY CREAATE this.props.hourly', this.props.hourly);
             }
           }
           />
@@ -172,7 +184,7 @@ class CompanyCreateScreen extends Component {
             }
           >
             <FormInput 
-              value={this.props.paymentTerms} 
+              value={paymentTerms} 
               editable={false}
               placeholder="Payment Terms"
               editable={true}
@@ -193,7 +205,7 @@ class CompanyCreateScreen extends Component {
             }
           >
             <FormInput 
-              value={this.props.color} 
+              value={color} 
               placeholder="color"
             />
           </ModalSelector>
@@ -206,6 +218,7 @@ class CompanyCreateScreen extends Component {
             onFocus={(value) => { 
               // using a workaround here because companyUpdate returns a proxy for address instead of a string
               company.address = value
+              companyUpdate('company', company)
               this.props.navigation.navigate('googlePlacesInput', {'company': company})
             }} 
             editable={true}
@@ -290,7 +303,9 @@ const mapStateToProps = (state) => {
     fUserId, hex, hourly, name, paymentTerms, userId
     };
   }
-  return state;
-} 
+  const company = { address: '', color:'', companyKey: '', fUserId: state.auth.fUserId, 
+    hex: '', hourly:'', location:'', name:'', paymentTerms: '', userId: state.auth.userId};
+  return {company};
+}
 
 export default connect(mapStateToProps, actions )(CompanyCreateScreen);

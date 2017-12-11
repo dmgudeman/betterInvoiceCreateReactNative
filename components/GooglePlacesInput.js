@@ -5,20 +5,16 @@ import { bindActionCreators }   from 'redux';
 import * as actions             from '../actions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
-// const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
-// const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
 
-const x = '';
-const pickedProp = ''
 class GooglePlacesInput extends Component {
-
+  company;
   componentWillMount() {
-    const { address} = this.props.navigation.state.params;  
-    if (typeof address === 'string'){
-    this.props.companyUpdate('address', address);
-    } else { this.props.companyUpdate('address', '')}
-    // console.log('GOOGLEPLACESINPUT COMPONENTWILLMOUNT this.props', this.props);
-    }
+    this.company = this.props.navigation.state.params.company
+    if (typeof this.company.address !== 'string') this.company.address = '';
+    console.log('GOOGLE CWM address', this.company.address);
+
+    console.log('GOOGLE CWM this.company', this.company);
+  }
   render() {
   return (
     <GooglePlacesAutocomplete
@@ -30,8 +26,10 @@ class GooglePlacesInput extends Component {
       fetchDetails={true}
       renderDescription={row => row.description} // custom description render
       onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-        // console.log('IN GOOGLEPLACESINPUT', data.desciption, details);
-        this.props.companyUpdate( 'address', data.description);
+        console.log('IN GOOGLEPLACESINPUT data', data);
+        console.log('IN GOOGLEPLACESINPUT details', details.formattedAddress);
+        this.company.address = data.description;
+        this.props.companyUpdate( 'company', this.company );
       }}
       
       getDefaultValue={() => ''}

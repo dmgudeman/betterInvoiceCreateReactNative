@@ -59,20 +59,20 @@ class CompanyEditScreen extends Component {
 
   componentWillMount() {
     // let navigator = this.props.navigation.state.params;
-    const {address, color, companyKey, fUserId, hourly, hex, invoices, items, id, name, paymentTerms } = this.props.company
-    // console.log('COMPANYEDIT COMPONENTWILLMOUNT, this.props.company', this.props.company);
-    // // this.props.companyUpdate('company', navigator.company);
-    // // populates form
-    this.props.companyUpdate('name', name);
-    this.props.companyUpdate('paymentTerms', paymentTerms);
-    this.props.companyUpdate('color', color);
-    this.props.companyUpdate('companyKey', companyKey)
-    this.props.companyUpdate('hourly', hourly);
-    this.props.companyUpdate('hex', hex);
-    items ? this.props.companyUpdate('invoices', invoices): null
-    invoices ? this.props.companyUpdate('items', items): null
-    this.props.companyUpdate('address', address);
-    this.props.companyUpdate('companyKey', id)
+    // const {address, color, companyKey, fUserId, hourly, hex, invoices, items, id, name, paymentTerms } = this.props.company
+    // // console.log('COMPANYEDIT COMPONENTWILLMOUNT, this.props.company', this.props.company);
+    // // // this.props.companyUpdate('company', navigator.company);
+    // // // populates form
+    // this.props.companyUpdate('name', name);
+    // this.props.companyUpdate('paymentTerms', paymentTerms);
+    // this.props.companyUpdate('color', color);
+    // this.props.companyUpdate('companyKey', companyKey)
+    // this.props.companyUpdate('hourly', hourly);
+    // this.props.companyUpdate('hex', hex);
+    // items ? this.props.companyUpdate('invoices', invoices): null
+    // invoices ? this.props.companyUpdate('items', items): null
+    // this.props.companyUpdate('address', address);
+    // this.props.companyUpdate('companyKey', id)
   }
   
   onSubmit = async () => {
@@ -103,8 +103,12 @@ class CompanyEditScreen extends Component {
     const colorOptions = colorOptionsList;
     const paymentTermsOptions = paymentTermsOptionsList;
     const {companyUpdate, companyEditSubmit} = this.props;
-    const {name, color, hourly, fUserId, invoices, items,  address, companyKey, paymentTerms, navigation } = this.props;
-    let company = {name, color, companyKey, companyEditSubmit, fUserId, hourly, invoices, items, address, paymentTerms} 
+    const { address,  color, companyKey, fUserId, hex, hourly, invoices, items, name, paymentTerms }  = this.props;
+    let company = { address,  color, companyKey, fUserId, hex, hourly, invoices, items, name, paymentTerms } 
+    if (typeof address !== 'string') {
+      company.address = '';
+      companyUpdate('company', company)
+    }
     console.log('COMPANYEDIT RENDER  company', company);
     return (
       <View style = {styles.container}>
@@ -168,7 +172,7 @@ class CompanyEditScreen extends Component {
             }
           >
             <FormInput 
-              value={this.props.paymentTerms} 
+              value={paymentTerms} 
               editable={false}
               placeholder="Payment Terms"
               editable={true}
@@ -189,7 +193,7 @@ class CompanyEditScreen extends Component {
             }
           >
             <FormInput 
-              value={this.props.color} 
+              value={color} 
               placeholder="color"
             />
           </ModalSelector>
@@ -198,9 +202,10 @@ class CompanyEditScreen extends Component {
         <FormLabel>Address</FormLabel> 
         <TouchableOpacity>
           <FormInput 
-            value={company.address}
+            value={address}
             onFocus={(value) => { 
               // using a workaround here because companyUpdate returns a proxy for address instead of a string
+              console.log('COMPANYEDIT ADDRESS address', address);
               company.address = value
               companyUpdate('company', company)
               this.props.navigation.navigate('googlePlacesInput', {'company': company})
@@ -236,9 +241,9 @@ const mapStateToProps = (state) => {
     const company = state.companies.company || '';
     const fUserId = state.auth.fUserId || '';
     const hex = state.companies.company.hex || '';
+    const hourly = state.companies.company.hourly || '';
     const invoices = state.companies.company.invoices || '';
     const items = state.companies.company.items || '';
-    const hourly = state.companies.company.hourly || '';
     const location = state.location || null;
     const name = state.companies.company.name || '';
     const paymentTerms = state.companies.company.paymentTerms || '30';
