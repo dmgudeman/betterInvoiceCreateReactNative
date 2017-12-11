@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput }       from 'react-native';
+import { 
+  Keyboard,
+  ScrollView,
+  Text,
+  TextInput, 
+  TouchableWithoutFeedback,
+  View,
+}                 from 'react-native';
+   
 import { connect } from 'react-redux';
 import { 
   Button,
@@ -7,6 +15,7 @@ import {
   FormInput, 
   FormValidationMessage, 
 }                           from 'react-native-elements';
+import dismissKeyboard from 'react-native-dismiss-keyboard';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { NavigationActions } from 'react-navigation';
 import DatePicker from 'react-native-datepicker';
@@ -79,8 +88,9 @@ class ItemCreateHoursScreen extends Component {
   render() {
     const { amount, date, hourly, hours, description, total, itemUpdate, itemTotalUpdate, itemCreate } = this.props;
     return (
-      <View>
-  
+      <View
+      onStartShouldSetResponder= {(evt) => true }
+        onResponderMove= {(evt)=> Keyboard.dismiss()} >
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
           date={ moment(this.props.date).format('MM/DD/YYYY') }
@@ -91,14 +101,15 @@ class ItemCreateHoursScreen extends Component {
         />
         <FormLabel>Hours</FormLabel>
         <FormInput 
+          keyboardType= 'numeric'
           onChangeText={(value) => { 
-            itemUpdate('hours', value) 
             itemTotalUpdate( value, this.props.amount, this.props.hourly)
             this.updateInputState('hours', value)
+
             }
+          
           }
         />
-       
         <FormLabel>Description</FormLabel>
         <FormInput 
           onChangeText={(value) => itemUpdate('description', value)}
