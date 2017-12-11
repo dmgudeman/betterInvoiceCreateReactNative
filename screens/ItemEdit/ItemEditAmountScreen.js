@@ -22,7 +22,7 @@ import * as actions             from '../../actions';
 import Styles                   from '../Styles';
 
 import MyDatePicker             from '../../components/MyDatePicker';
-import { validate }             from '../../utility/Validation.js';
+import { validate }             from '../../utility/Validation';
 
 class itemEditAmountScreen extends Component {
 
@@ -58,7 +58,7 @@ class itemEditAmountScreen extends Component {
   }
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Create Item',
+      title: 'Edit Item',
       headerLeft: <Icon.Button 
         name="angle-left" 
         backgroundColor="transparent" 
@@ -93,21 +93,20 @@ class itemEditAmountScreen extends Component {
         }
         />
         <FormLabel>Amount</FormLabel> 
-          <FormInput 
-            valid={this.state.controls.amount.valid}
-            value={amount}
-            touched={this.state.controls.amount.touched}
-            keyboardType= 'numeric'
-            onChangeText={(value) => {
-              this.props.itemTotalUpdate( this.props.hours, value, this.props.hourly)
-              this.updateInputState('amount', value)
+        <FormInput 
+           value={amount}
+          placeholder='Amount is necessary'
+          onChangeText={(value) => {
+            this.props.itemUpdate('amount', value)
+            this.props.itemTotalUpdate( this.props.hours, value, this.props.hourly)
+            this.updateInputState('amount', value)
             }
           }
-          />
+        />
           {
             !this.state.controls.amount.valid 
             && this.state.controls.amount.touched 
-            ? <FormValidationMessage > Hours should be a number </FormValidationMessage> : null
+            ? <FormValidationMessage > Amount should be a number </FormValidationMessage> : null
           }
         
         <FormLabel>Description</FormLabel>
