@@ -90,7 +90,6 @@ class CompanyEditScreen extends Component {
     let company = { address,  color, companyKey, fUserId, hex, hourly, invoices, items, name, paymentTerms } 
     // console.log('COMPANYEDIT RENDER  company', company);
     return (
-      <View>
         
       <View
         onStartShouldSetResponder= {(evt) => true }
@@ -125,8 +124,6 @@ class CompanyEditScreen extends Component {
             touched={this.state.controls.hourly.touched}
             keyboardType= 'numeric'
             onChangeText={(value) => {
-
-
               company.hourly = value
               companyUpdate('company', company)
               this.updateInputState('hourly', value)
@@ -140,7 +137,6 @@ class CompanyEditScreen extends Component {
           }
    
         </TouchableOpacity>  
-      </View>
         <FormLabel>Payment Terms</FormLabel>
         <TouchableOpacity>
           <ModalSelector

@@ -18,6 +18,7 @@ import { NavigationActions }    from 'react-navigation';
 import DatePicker               from 'react-native-datepicker';
 import Moment                   from 'react-moment';
 import moment                   from 'moment';
+import * as _                   from 'lodash';
 import * as actions             from '../../actions';
 import Styles                   from '../Styles';
 
@@ -64,7 +65,10 @@ class itemEditHoursScreen extends Component {
         backgroundColor="transparent" 
         color="gray" 
         size={40}
-        onPress= { ()=> { navigation.goBack( navigation.state.params.goBackKey) }}/>,
+        onPress= {  _.debounce(()=>navigation.goBack( navigation.state.params.goBackKey), 2000,{'leading':true, 'trailing':true}) 
+      }
+      
+      />,
       tabBarLabel:"Hours",
       tabBarIcon: ({ tintColor }) => <Icon name="hourglass" size={20} color="#3498db" />
     }
