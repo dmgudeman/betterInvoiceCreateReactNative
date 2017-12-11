@@ -19,6 +19,7 @@ import {
 import Icon                     from 'react-native-vector-icons/FontAwesome';
 import ModalSelector            from 'react-native-modal-selector'
 import moment                   from 'moment';
+import * as _                   from 'lodash';
 import * as actions             from '../../actions';
 import { MyPicker  }            from '../../components/MyPicker/MyPicker';
 import colorHexUpdater           from '../../assets/ColorHexUpdater';
@@ -92,7 +93,8 @@ class CompanyCreateScreen extends Component {
     backgroundColor="transparent" 
     color="gray" 
     size={40}
-    onPress= {()=> navigation.goBack(null) }/>,
+    onPress= {  _.debounce(()=> navigation.goBack(null), 2000,{'leading':true, 'trailing':true}) }
+    />,
     }
   }
 

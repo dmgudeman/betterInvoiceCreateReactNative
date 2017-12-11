@@ -21,6 +21,7 @@ import { NavigationActions } from 'react-navigation';
 import DatePicker from 'react-native-datepicker';
 import Moment from 'react-moment';
 import moment from 'moment';
+import * as _                   from 'lodash';
 import * as actions from '../actions'
 import CompaniesScreen from './CompaniesScreen';
 import MyDatePicker from '../components/MyDatePicker';
@@ -60,7 +61,7 @@ class ItemCreateHoursScreen extends Component {
     this.props.itemUpdate('description', '');
     this.props.itemUpdate('hours', '');
     this.props.itemTotalUpdate('','', this.props.hourly)
-    console.log('COMPONENTWILL this.props.navigation.state.key', this.props.navigation.state.key);
+    // console.log('COMPONENTWILL this.props.navigation.state.key', this.props.navigation.state.key);
   }
   static navigationOptions = ({ navigation }) => {
     return {

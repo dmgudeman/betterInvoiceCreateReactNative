@@ -36,7 +36,7 @@ class CompaniesScreen extends Component {
     headerRight:
         <Button
           title= "+Business"
-          onPress={()=>{navigation.navigate('companyCreate')}}
+          onPress= {_.debounce(()=>navigation.navigate('companyCreate'), 1000,{'leading':true, 'trailing':true})}
         />
         ,
         headerLeft: null

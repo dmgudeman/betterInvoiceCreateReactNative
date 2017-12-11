@@ -13,6 +13,7 @@ import {
 }                               from 'react-native-elements';
 import { connect }              from 'react-redux';
 import Icon                     from 'react-native-vector-icons/FontAwesome';
+import * as _                   from 'lodash';
 import * as actions             from '../../actions';
 import ModalSelector            from 'react-native-modal-selector'
 import GooglePlacesInput        from '../../components/GooglePlacesInput';
@@ -66,7 +67,9 @@ class CompanyEditScreen extends Component {
         backgroundColor="transparent" 
         color="gray" 
         size={40}
-        onPress= { ()=> { navigation.goBack( navigation.state.params.goBackKey) }}/>,
+        onPress= {  _.debounce(()=> navigation.goBack( navigation.state.params.goBackKey), 2000,{'leading':true, 'trailing':true}) }
+      />,
+        
     }
   }
   onSubmit = async () => {

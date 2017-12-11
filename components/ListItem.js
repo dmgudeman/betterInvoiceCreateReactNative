@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux'
-import _ from 'lodash';
 import { NavigationActions } from 'react-navigation';
 import { CardSection, Card, Button, Header } from './common';
 // import { Card, Button } from 'react-native-elements';
-import { MainNavigator } from '../App';
+// import { MainNavigator } from '../App';
+import * as _                   from 'lodash';
 import * as actions from '../actions';
 import colorHexPicker           from '../assets/ColorHexUpdater';
-import _addNavigationHelpers from '../assets/Navigation';
+// import _addNavigationHelpers from '../assets/Navigation';
 
 class ListItem extends Component {
 
@@ -32,9 +32,10 @@ class ListItem extends Component {
         </CardSection>
         <CardSection>
           <View style={styles.buttonRowStyle}>
-            <Button style={ styles.buttonContentStyle } onPress={() => { 
-              this.props.setCompany(this.props.company)
-              navigate('items')}}>Items</Button>
+            <Button style={ styles.buttonContentStyle } 
+              onPress={() => { this.props.setCompany(this.props.company)}}
+              onPress={  _.debounce(()=> navigate('items'), 2000,{'leading':true, 'trailing':true})} 
+            >Items</Button>
               
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               this.props.setCompany(this.props.company)

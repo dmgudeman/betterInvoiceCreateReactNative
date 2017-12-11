@@ -65,8 +65,7 @@ class itemEditHoursScreen extends Component {
         backgroundColor="transparent" 
         color="gray" 
         size={40}
-        onPress= {  _.debounce(()=>navigation.goBack( navigation.state.params.goBackKey), 2000,{'leading':true, 'trailing':true}) 
-      }
+        onPress= {  _.debounce(()=>navigation.goBack( navigation.state.params.goBackKey), 2000,{'leading':true, 'trailing':true}) }
       
       />,
       tabBarLabel:"Hours",
