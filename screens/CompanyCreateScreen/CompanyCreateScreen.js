@@ -103,7 +103,7 @@ class CompanyCreateScreen extends Component {
 
   onSubmit = async () => {
     let company = '';
-    const {address, color, fUserId, hourly, hex, id, name, paymentTerms } = this.props
+    const {address, color, fUserId, hourly, hex,invoices, items, name, paymentTerms } = this.props
     await  this.props.companyUpdate('company', company)
       let payload = {
         address, 
@@ -111,6 +111,8 @@ class CompanyCreateScreen extends Component {
         fUserId,
         hex, 
         hourly, 
+        invoices,
+        items,
         name, 
         paymentTerms,
     }
@@ -144,9 +146,9 @@ class CompanyCreateScreen extends Component {
               company.name = value;
               companyUpdate( 'company', company)
               this.updateInputState('name', value)
-              console.log('COMPANY CREAATE name', name);
-              console.log('COMPANY CREAATE company.anme', company.name);
-              console.log('COMPANY CREAATE this.props.name', this.props.name);
+              // console.log('COMPANY CREAATE name', name);
+              // console.log('COMPANY CREAATE company.anme', company.name);
+              // console.log('COMPANY CREAATE this.props.name', this.props.name);
             }
             }
           />
@@ -168,9 +170,9 @@ class CompanyCreateScreen extends Component {
               company.hourly = value
               companyUpdate('company', company)
               this.updateInputState('hourly', value)
-              console.log('COMPANY CREAATE hourly', {hourly});
-              console.log('COMPANY CREAATE company.hourly', company.hourly);
-              console.log('COMPANY CREAATE this.props.hourly', this.props.hourly);
+              // console.log('COMPANY CREAATE hourly', {hourly});
+              // console.log('COMPANY CREAATE company.hourly', company.hourly);
+              // console.log('COMPANY CREAATE this.props.hourly', this.props.hourly);
             }
           }
           />
@@ -295,7 +297,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  console.log('COMPANYCREATE MSTP state', state);
+  // console.log('COMPANYCREATE MSTP state', state);
  if (state.companies.company) {
   // const active = state.companies.active || true;
   const address = state.companies.company.address || '';
