@@ -13,9 +13,9 @@ import colorHexPicker           from '../assets/ColorHexUpdater';
 class ListItem extends Component {
 
   componentWillMount() {
-    console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
+    // console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
     this.props.companyUpdate('company', this.props.company);
-    console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
+    // console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
 
   }
   render() {

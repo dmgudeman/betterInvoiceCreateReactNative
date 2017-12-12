@@ -2,6 +2,7 @@ import {
   FETCH_COMPANIES_SUCCESS,
   COMPANY_UPDATE,
   COMPANY_CREATE,
+  COMPANY_CREATE_CLEAR,
   COMPANY_EDIT_SUBMIT,
   SET_COMPANY,
   UPDATE_OBJECT_EDIT,
@@ -17,6 +18,9 @@ export default (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, {[action.payload.prop]: action.payload.value});
   }
     case COMPANY_CREATE:{
+      return { ...state, company: action.payload }
+    }
+    case COMPANY_CREATE_CLEAR:{
       return { ...state, company: action.payload }
     }
     case COMPANY_EDIT_SUBMIT: {

@@ -7,6 +7,7 @@ import {
   FETCH_COMPANIES_SUCCESS,
   SELECT_ITEM,
   COMPANY_UPDATE,
+  COMPANY_CREATE_CLEAR,
   COMPANY_CREATE,
   COMPANY_EDIT_SUBMIT,
   SET_COMPANY,
@@ -66,6 +67,28 @@ export const setCompany = (company) => {
   return {
     type: SET_COMPANY,
     company
+  }
+}
+
+export const companyClearCreate = (fUserId) => {
+  company = {
+  address:'',
+  color: 'blue',
+  companyKey: '',
+  company: '',
+  fUserId: fUserId || '',
+  hex: '',
+  hourly: '',
+  invoices: '',
+  items: '',
+  location: null,
+  name: '',
+  paymentTerms: '30',
+  }
+   
+  return {
+    type: COMPANY_CREATE_CLEAR,
+    payload: company
   }
 }
 

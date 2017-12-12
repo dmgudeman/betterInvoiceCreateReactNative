@@ -66,11 +66,14 @@ class CompanyCreateScreen extends Component {
   }
 
   componentWillMount() {
+    this.props.companyClearCreate(this.props.fUserId);
     // const {address, color, companyKey, hex, hourly, name, paymentTerms } = this.props.company;
-    // const {address, color, companyKey, hex, hourly, invoice, items, name, paymentTerms } = this.props.company;
-    const company = {...this.props.company}
+    console.log('COMPANYCREATE COMPONENTWILLMOUNT this.props', this.props);
     console.log('COMPANYCREATE COMPONENTWILLMOUNT company', company);
-    this.props.companyUpdate('company', company)
+    // const {address, color, companyKey, hex, hourly, invoice, items, name, paymentTerms } = this.props.company;
+    // const company = {...this.props.company}
+    console.log('COMPANYCREATE COMPONENTWILLMOUNT company', company);
+    // this.props.companyUpdate('company', company)
     console.log('COMPANYCREATE COMPONENTWILLMOUNT this.props', this.props);
     
     // clear the form
@@ -292,6 +295,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
+  console.log('COMPANYCREATE MSTP state', state);
  if (state.companies.company) {
   // const active = state.companies.active || true;
   const address = state.companies.company.address || '';
@@ -301,17 +305,19 @@ const mapStateToProps = (state) => {
   const fUserId = state.auth.fUserId || '';
   const hex = state.companies.company.hex || '';
   const hourly = state.companies.company.hourly || '';
+  const invoices = state.companies.company.invoices || '';
+  const items = state.companies.company.items || '';
   const location = state.location || null;
   const name = state.companies.company.name || '';
   const paymentTerms = state.companies.company.paymentTerms || '30';
   const userId = state.auth.userId || '';
   return { 
     address, location, color, companyKey, company,
-    fUserId, hex, hourly, name, paymentTerms, userId
+    fUserId, hex, hourly, invoices, items,  name, paymentTerms, userId
     };
   }
   const company = { address: '', color:'', companyKey: '', fUserId: state.auth.fUserId, 
-    hex: '', hourly:'', location:'', name:'', paymentTerms: '', userId: state.auth.userId};
+    hex: '', hourly:'', invoices: '', items: '',location:'', name:'', paymentTerms: '', userId: state.auth.userId};
   return {company};
 }
 
