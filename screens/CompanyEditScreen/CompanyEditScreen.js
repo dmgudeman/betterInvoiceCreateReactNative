@@ -70,9 +70,14 @@ class CompanyEditScreen extends Component {
         // onPress= {  _.debounce(()=> navigation.goBack( navigation.state.params.goBackKey), 2000,{'leading':true, 'trailing':true}) }
          onPress= {  _.debounce(()=> navigation.goBack(null), 2000,{'leading':true, 'trailing':true}) }
 
-      />,
-        
+      />
     }
+  }
+  componentWillMount(){
+    console.log('COMPANYEDIT CWM this.props', this.props);
+    console.log('COMPANYEDIT CWM his.props.navigation.state.params.company', this.props.navigation.state.params.company);
+    this.props.companyUpdate('company', this.props.navigation.state.params.company);
+    
   }
   onSubmit = async () => {
     const {address, color, companyKey, fUserId, hourly, hex, invoices, items, name, paymentTerms, companyEditSubmit } = this.props.company
@@ -216,6 +221,7 @@ class CompanyEditScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('COMPANYEDIT MSTP state', state);
   if (state.companies.company) {
     // const active = state.companies.active || true;
     

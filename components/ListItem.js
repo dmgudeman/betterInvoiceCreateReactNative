@@ -15,13 +15,14 @@ class ListItem extends Component {
   componentWillMount() {
     console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
     
-    this.props.companyUpdate('company', this.props.company);
+    // this.props.companyUpdate('company', this.props.company);
     console.log('LISTITEM COMPONENTWILLMOUNT this.props.company', this.props.company);
     
-    this.props.itemUpdate('items', this.props.items )
+    // this.props.itemUpdate('items', this.props.items )
     console.log('LISTITEM COMPONENTWILLMOUNT this.props.company.items', this.props.company.items);
 
   }
+
   render() {
     const { navigate } = this.props.navigation;
     const { navigation } = this.props;
@@ -33,7 +34,7 @@ class ListItem extends Component {
         <CardSection>
           <View style={ styles.headerContentStyle}>
             <Text style={styles.headerTextStyle} onPress={
-              _.debounce(()=> navigation. navigate('companyEdit'), 2000,{'leading':true, 'trailing':true}) 
+              _.debounce(()=> navigation. navigate('companyEdit', {'company': this.props.company}), 2000,{'leading':true, 'trailing':true}) 
             }
               >{ this.props.company.name }</Text>
           </View>
