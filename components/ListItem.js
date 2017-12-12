@@ -14,6 +14,9 @@ class ListItem extends Component {
 
   componentWillMount() {
     console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
+    this.props.companyUpdate('company', this.props.company);
+    console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
+
   }
   render() {
     const { navigate } = this.props.navigation;
@@ -26,7 +29,7 @@ class ListItem extends Component {
         <CardSection>
           <View style={ styles.headerContentStyle}>
             <Text style={styles.headerTextStyle} onPress={()=>{
-                this.props.setCompany(  this.props.company)
+                // this.props.setCompany(  this.props.company)
                 navigate('companyEdit',  {company: this.props.company}) 
               }
             }
