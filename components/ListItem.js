@@ -42,15 +42,10 @@ class ListItem extends Component {
         <CardSection>
           <View style={styles.buttonRowStyle}>
             <Button style={ styles.buttonContentStyle } 
-              onPress={ ()=> {
-                // this.props.setCompany(this.props.company)
-              console.log('LISTITEM RENDER ITEMMMS this.props', this.props.company.name);
-              // this.props.companyUpdate('company', this.props.company);
-              console.log('LISTITEM RENDER ITEMS this.props.company', this.props.company);
-              
-              this.props.itemUpdate('items', this.props.company.items )
-              // console.log('LISTITEM ITEMS this.props.company.items', this.propsitems);
-                navigate('items')}} 
+              onPress={ 
+              _.debounce(()=> navigation. navigate('items', {'company': this.props.company}), 2000,{'leading':true, 'trailing':true}) 
+              }
+                // navigate('items')}} 
             >Items</Button>
               
             <Button style={ styles.buttonContentStyle } onPress={() => { 

@@ -79,11 +79,11 @@ class CompanyEditScreen extends Component {
     this.props.companyUpdate('company', this.props.navigation.state.params.company);
     
   }
-  onSubmit = async () => {
+  onSubmit() {
     const {address, color, companyKey, fUserId, hourly, hex, invoices, items, name, paymentTerms, companyEditSubmit } = this.props.company
     let company = {address, color, companyKey, fUserId, hourly, hex, invoices, items, name, paymentTerms};
     // console.log('COMPANYEDIT ONSUBMIT this.props', this.props);
-    await  this.props.companyUpdate('company', company)
+    this.props.companyUpdate('company', company)
    
       let payload = {...company}
     // console.log('COMPANYEDIT ONSUBMIT payload', payload)

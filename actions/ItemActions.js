@@ -13,8 +13,8 @@ import {
  } from './types';
  import DATE_RFC2822 from '../assets/Date';
 
-export const itemCreate = ({amount, companyKey, date, description, fUserId, hourly, hours, total}) => async dispatch => {
-  let payload = { amount, companyKey, date, description, fUserId, hourly, hours, total} 
+export const itemCreate = ({amount, companyKey, date, description, fUserId, hourly, hours, name, total}) => async dispatch => {
+  let payload = { amount, companyKey, date, description, fUserId, hourly, hours, name, total} 
   payload.date = moment(payload.date).format(DATE_RFC2822);
   payload.total = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
 
@@ -28,9 +28,9 @@ export const itemCreate = ({amount, companyKey, date, description, fUserId, hour
  }
 
  // used upon Submit
-export const itemEdit = ({amount, companyKey, date, description, fUserId, hourly, hours, id, total}) => async dispatch => {
+export const itemEdit = ({amount, companyKey, date, description, fUserId, hourly, hours,id, name, total}) => async dispatch => {
   
-  let payload = { amount, companyKey, date, description, fUserId, hours, id, total, hourly }
+  let payload = { amount, companyKey, date, description, fUserId, hours, id, name, total, hourly }
   payload.date = moment(payload.date).format(DATE_RFC2822);
  
   let updates = {};

@@ -11,10 +11,15 @@ import * as actions from '../actions';
 
 class ItemsScreen extends Component {
 
-  componentWillMount(){
+  componentWillMount=async()=>{
+    
     console.log('1 ITEMS CWM this.props', this.props);
-    this.props.utilsUpdate('goBackKey', this.props.navigation.state.key)
+    console.log('1 ITEMS CWM this.props.navigation.state.params.company', this.props.navigation.state.params.company);
+   await this.props.setCompany(this.props.navigation.state.params.company);
     console.log('2 ITEMS CWM this.props', this.props);
+
+   await this.props.itemUpdate('items', this.props.company.items)
+   await  this.props.utilsUpdate('goBackKey', this.props.navigation.state.key)
 
   }
   static navigationOptions = ({ navigation }) => {
@@ -32,18 +37,21 @@ class ItemsScreen extends Component {
   }
 
   goToItemEdit = (data) => {
-    const { amount, companyKey, comppany, coName, date, description, fUserId, goBackKey, hours, total, id } = data;
-    const item = { amount, companyKey, company, coName, date, description, fUserId, goBackKey, hours, total, id };
+    console.log('1     IIIIIIIIIIIIIIIIIIIIIIIIIIIIITEMS RENDERITEM data', data);
+    const { amount, companyKey, company, name, date, description, fUserId, goBackKey, hours, total, id } = data;
+    const item = { amount, companyKey, company, name, date, description, fUserId, goBackKey, hours, total, id };
 
     this.props.selectItem(item)
   
     const { navigate } = this.props.navigation
-    navigate('itemEdit', {'goBackKey': this.props.goBackKey })
+    navigate('itemEdit', {'goBackKey': goBackKey })
   }
 
   renderItem =(item)=> {
     const data = this.props.items[item.index];
-    console.log('IIIIIIIIIIIIIIIIIIIIIIIIIIIIITEMS RENDERITEM data', data);
+    console.log('IIIIIIIIIIIIIIIIIIIIIIIIIIIIITEMS RENDERITEM data, ', data);
+    console.log('IIIIIIIIIIIIIIIIIIIIIIIIIIIIITEMS RENDERITEM this.props.goBackKey, ', this.props.goBackKey);
+    data.goBackKey = this.props.goBackKey;
     return  (
       <ItemDetailsRow
         data = {data} 
@@ -66,17 +74,19 @@ class ItemsScreen extends Component {
 }
 const mapStateToProps = state => {
   console.log('ITEMS MSTP state', state);
+  if (state.companies.company){
   const company = state.companies.company || '';
   const companyKey = state.companies.company.companyKey || state.companies.company.id;
-  const coName = state.companies.company.name || '';
+  const name = state.companies.company.name || '';
   const fUserId = state.auth.fUserId || '';
   const goBackKey = state.utils.goBackKey || '';
   const items = _.map(state.item.items, (val, id) => {
     return { ...val, id};
   });
-  return { company, companyKey, fUserId, goBackKey, items, coName};
+  return { company, companyKey, fUserId, goBackKey, items, name};
 }
-
+return state;
+}
 const styles = StyleSheet.create ({
   container: {
     flex: 1,

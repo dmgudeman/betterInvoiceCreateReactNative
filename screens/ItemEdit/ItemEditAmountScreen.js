@@ -98,7 +98,8 @@ class itemEditAmountScreen extends Component {
         />
         <FormLabel>Amount</FormLabel> 
         <FormInput 
-           value={amount}
+          valid={this.state.controls.amount.valid}
+          value={amount}
           placeholder='Amount is necessary'
           onChangeText={(value) => {
             this.props.itemUpdate('amount', value)
@@ -124,28 +125,36 @@ class itemEditAmountScreen extends Component {
 
         <Button
           title= "Submit"
-          onPress =  {this.onSubmit }
-        />
+          onPress =  {() =>{
+            ( this.state.controls.amount.valid )
+             ? this.onSubmit() : null}
+          }
+          backgroundColor={ 
+            this.state.controls.amount.valid 
+            ?'#bdc3c7':'#bdc3c745'}
+          
+        /> 
       </View>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  const fUserId      = state.auth.fUserId || '';
-  
+  console.log('ITEMEDIT AMOUNT MSTP state', state);
+  const amount       = state.item.amount || '';
   const companyKey   = state.companies.company.companyKey || '';
+  const date         = state.item.date || '';
+  const description  = state.item.description || '';
+  const fUserId      = state.auth.fUserId || '';
+  const goBackKey    = state.item.goBackKey
   const hourly       = state.companies.company.hourly || '';
 
+  const hours        = state.item.hours || '';
   const id           = state.item.id || '';
-  const amount =      state.item.amount || '';
-  const date =        state.item.date || '';
-  const description = state.item.description || '';
-  const goBackKey   = state.item.goBackKey || '';
-  const hours =       state.item.hours || '';
-  const total =       state.item.total || '';
-  const item = { amount, companyKey, date, description, fUserId, hourly, hours, total}
+  const name        = state.companies.company.name || '';  
+  const total        = state.item.total || '';
+  const item = { amount, companyKey, date, description, fUserId, hourly, hours, id, name, total}
   
-  return { amount, companyKey, date, description, fUserId, goBackKey, hours, id, total, hourly };
+  return { amount, companyKey, date, description, fUserId, hourly, hours, id, name, total, item };
 }
 export default connect(mapStateToProps, actions)(itemEditAmountScreen);
