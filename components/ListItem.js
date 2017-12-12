@@ -13,9 +13,13 @@ import colorHexPicker           from '../assets/ColorHexUpdater';
 class ListItem extends Component {
 
   componentWillMount() {
-    // console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
+    console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
+    
     this.props.companyUpdate('company', this.props.company);
-    // console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
+    console.log('LISTITEM COMPONENTWILLMOUNT this.props.company', this.props.company);
+    
+    this.props.itemUpdate('items', this.props.items )
+    console.log('LISTITEM COMPONENTWILLMOUNT this.props.company.items', this.props.company.items);
 
   }
   render() {
@@ -38,8 +42,13 @@ class ListItem extends Component {
           <View style={styles.buttonRowStyle}>
             <Button style={ styles.buttonContentStyle } 
               onPress={ ()=> {
-                this.props.setCompany(this.props.company)
-              console.log('LISTITEM RENDER this.props', this.props);
+                // this.props.setCompany(this.props.company)
+              console.log('LISTITEM RENDER ITEMMMS this.props', this.props.company.name);
+              // this.props.companyUpdate('company', this.props.company);
+              console.log('LISTITEM RENDER ITEMS this.props.company', this.props.company);
+              
+              this.props.itemUpdate('items', this.props.company.items )
+              // console.log('LISTITEM ITEMS this.props.company.items', this.propsitems);
                 navigate('items')}} 
             >Items</Button>
               
@@ -48,6 +57,7 @@ class ListItem extends Component {
               this.props.setCompany(this.props.company)
               navigate('itemCreate',{'goBackKey': navigation.state.key})}}>+Item</Button>
               
+
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               console.log('LISTITEM RENDER this.props', this.props);
               this.props.setCompany(this.props.company)
@@ -89,8 +99,9 @@ const styles = {
   }
 }
 mapStateToProps = (state) => {
-   const color = state.companies.company.color || '';
+  const color = state.companies.company.color || '';
   const hex = state.companies.company.hex || '';
   const company = state.companies.company || '';
+  const items = state.companies.company.items || '';
 }
 export default connect(null, actions)(ListItem);

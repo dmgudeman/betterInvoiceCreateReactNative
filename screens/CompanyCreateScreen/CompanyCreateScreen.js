@@ -67,25 +67,8 @@ class CompanyCreateScreen extends Component {
 
   componentWillMount() {
     this.props.companyClearCreate(this.props.fUserId);
-    // const {address, color, companyKey, hex, hourly, name, paymentTerms } = this.props.company;
-    console.log('COMPANYCREATE COMPONENTWILLMOUNT this.props', this.props);
-    console.log('COMPANYCREATE COMPONENTWILLMOUNT company', company);
-    // const {address, color, companyKey, hex, hourly, invoice, items, name, paymentTerms } = this.props.company;
-    // const company = {...this.props.company}
-    console.log('COMPANYCREATE COMPONENTWILLMOUNT company', company);
-    // this.props.companyUpdate('company', company)
-    console.log('COMPANYCREATE COMPONENTWILLMOUNT this.props', this.props);
-    
-    // clear the form
-    // this.props.companyUpdate('address', '');
-    // this.props.companyUpdate('color', 'blue');
-    // this.props.companyUpdate('companyKey','')
-    // this.props.companyUpdate('hex', '');
-    // this.props.companyUpdate('hourly', '');
-    // this.props.companyUpdate('name', '');
-    // this.props.companyUpdate('paymentTerms', '');
-    
-    // this.props.companyUpdate('company', company)
+    // console.log('COMPANYCREATE COMPONENTWILLMOUNT this.props', this.props);
+    // console.log('COMPANYCREATE COMPONENTWILLMOUNT company', company);
   }
 
   static navigationOptions = ({ navigation }) => {

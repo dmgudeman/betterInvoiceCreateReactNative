@@ -1,32 +1,37 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Text, View,TouchableWithoutFeedback, } from 'react-native';
 import {NavigationActions} from 'react-navigation';
-import { connect } from 'react-redux';
 import { CardSection, Card, Button, Header } from './common';
 import * as actions from '../actions';
 import moment from 'moment';
 import DATE_RFC2822 from '../assets/Date'
 
-const ItemDetailsRow = ({data, onPress }) => (
+class  ItemDetailsRow extends Component { 
+     render() {
+       const {onPress } = this.props
+       const { date, amount, hours, total, description } = this.props.data;
+
+     return (
       <Card>
         <CardSection>
-        <TouchableWithoutFeedback onPress={onPress}>
+        <TouchableWithoutFeedback onPress={this.props.onPress}>
           <View style={ styles.topRowContentStyle}>
             <View style={styles.topRowSectionStyle}>
               <Text>DATE</Text>
-              <Text style={styles.topRowTextStyle}>{moment(data.date).format('DD/MM/YYYY')}</Text>
+              <Text style={styles.topRowTextStyle}>{moment(date).format('DD/MM/YYYY')}</Text>
             </View>
             <View style={styles.topRowSectionStyle}>
               <Text>HOURS</Text>
-              <Text style={styles.topRowTextStyle}>{data.hours}</Text>
+              <Text style={styles.topRowTextStyle}>{hours}</Text>
             </View>
             <View style={styles.topRowSectionStyle}>
               <Text>AMOUNT</Text>
-              <Text style={styles.topRowTextStyle}>{data.amount}</Text>
+              <Text style={styles.topRowTextStyle}>{amount}</Text>
             </View>
             <View style={styles.topRowSectionStyle}>
               <Text>TOTAL</Text>
-              <Text style={styles.topRowTextStyle}>{data.total}</Text>
+              <Text style={styles.topRowTextStyle}>{ total}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -34,12 +39,14 @@ const ItemDetailsRow = ({data, onPress }) => (
         <CardSection>
         <TouchableWithoutFeedback onPress={onPress}>
           <View style={styles.bottomRowContentStyle}>
-            <Text style={styles.bottomRowTextStyle}>{data.description}</Text>
+            <Text style={styles.bottomRowTextStyle}>{description}</Text>
           </View>
         </TouchableWithoutFeedback>
         </CardSection>
       </Card>
-)
+     )
+    }
+  }
 
 const styles = {
   containerStyle:{
@@ -75,4 +82,11 @@ const styles = {
   }
 }
 
-export default ItemDetailsRow;
+const MapStateToProps = (state) => {
+  console.log('ITEMDETAILSROW MSTP state ', state);
+
+return {
+   state
+}
+}
+export default connect(MapStateToProps, actions)(ItemDetailsRow);

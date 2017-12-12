@@ -12,7 +12,10 @@ import * as actions from '../actions';
 class ItemsScreen extends Component {
 
   componentWillMount(){
+    console.log('1 ITEMS CWM this.props', this.props);
     this.props.utilsUpdate('goBackKey', this.props.navigation.state.key)
+    console.log('2 ITEMS CWM this.props', this.props);
+
   }
   static navigationOptions = ({ navigation }) => {
     return {
@@ -29,8 +32,8 @@ class ItemsScreen extends Component {
   }
 
   goToItemEdit = (data) => {
-    const { amount, companyKey, coName, date, description, fUserId, goBackKey, hours, total, id } = data;
-    const item = { amount, companyKey, coName, date, description, fUserId, goBackKey, hours, total, id };
+    const { amount, companyKey, comppany, coName, date, description, fUserId, goBackKey, hours, total, id } = data;
+    const item = { amount, companyKey, company, coName, date, description, fUserId, goBackKey, hours, total, id };
 
     this.props.selectItem(item)
   
@@ -40,6 +43,7 @@ class ItemsScreen extends Component {
 
   renderItem =(item)=> {
     const data = this.props.items[item.index];
+    console.log('IIIIIIIIIIIIIIIIIIIIIIIIIIIIITEMS RENDERITEM data', data);
     return  (
       <ItemDetailsRow
         data = {data} 
@@ -61,14 +65,16 @@ class ItemsScreen extends Component {
   }
 }
 const mapStateToProps = state => {
+  console.log('ITEMS MSTP state', state);
+  const company = state.companies.company || '';
   const companyKey = state.companies.company.companyKey || state.companies.company.id;
   const coName = state.companies.company.name || '';
   const fUserId = state.auth.fUserId || '';
   const goBackKey = state.utils.goBackKey || '';
-  const items = _.map(state.companies.company.items, (val, id) => {
+  const items = _.map(state.item.items, (val, id) => {
     return { ...val, id};
   });
-  return { companyKey, fUserId, goBackKey, items, coName};
+  return { company, companyKey, fUserId, goBackKey, items, coName};
 }
 
 const styles = StyleSheet.create ({
