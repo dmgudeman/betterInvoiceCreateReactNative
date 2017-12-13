@@ -41,6 +41,7 @@ class InvoicesScreen extends Component {
   }
 
   render() {
+    console.log('INVOICES RENDER this.props.invoices', this.props.invoices);
     return (
       <View style={{height: '100%'}}>
         <FlatList 
@@ -53,14 +54,19 @@ class InvoicesScreen extends Component {
   }
 }
 const mapStateToProps = state => {
+  console.log('INVOICES MSTP state.companies.company.invoices', state.companies.company.invoices);
+  console.log('INVOICES MSTP state.invoice.invoices', state.invoice.invoices);
   const companyKey = state.companies.company.companyKey || state.companies.company.id;
+
   const coName = state.companies.company.name;
   const fUserId = state.auth.fUserId;
-  const invoices = _.map(state.companies.company.invoices, (val, id) => {
-  
+  const coInvoices = _.map(state.companies.company.invoices, (val, id) => {
     return { ...val, id};
   });
-  return { companyKey, coName, fUserId, invoices};
+
+  const invoices = state.invoice.invoices || coInvoices || '';
+  // const invoices = state.invoice.invoices || '';
+  return { companyKey, coInvoices, coName, fUserId, invoices};
 }
 
 const styles = StyleSheet.create ({

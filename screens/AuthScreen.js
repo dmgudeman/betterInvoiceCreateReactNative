@@ -32,7 +32,9 @@ class AuthScreen extends Component {
   }
   render() {
     return (
+      <View style={{ flex: 1,justifyContent: 'center', alignItems:'center' }}>
       <Spinner />
+      </View>
       // <View>
       //   <Text> auth screen </Text>
       //   <Text> auth screen </Text>
