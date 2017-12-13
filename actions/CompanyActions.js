@@ -14,14 +14,16 @@ import {
   UPDATE_OBJECT_EDIT,
 } from './types';
 import DATE_RFC2822 from '../assets/Date';
+import moment from 'moment';
 
 export const companyCreate = (company) => {
   // console.log('COMPANYACTIONS COMPANYCREATE company', company);
   let payload = { ...company };
+  // if(!payload.lastDate) { payload.lastDate = await moment().format(DATE_RFC2822)};
   let newCompanyKey =  firebase.database().ref().child('companies').push().key;
   payload.companyKey = newCompanyKey;
   let updates = {};
-  // console.log('COMPANYACTIONS COMPANYCREATE payload', payload);
+  console.log('COMPANYACTIONS COMPANYCREATE payload', payload);
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey] = payload;
   firebase.database().ref().update(updates);
    return {

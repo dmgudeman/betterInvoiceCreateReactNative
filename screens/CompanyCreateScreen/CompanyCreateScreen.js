@@ -22,13 +22,14 @@ import moment                   from 'moment';
 import * as _                   from 'lodash';
 import * as actions             from '../../actions';
 import { MyPicker  }            from '../../components/MyPicker/MyPicker';
-import colorHexUpdater           from '../../assets/ColorHexUpdater';
+import colorHexUpdater          from '../../assets/ColorHexUpdater';
 import AddressInput             from '../../components/AddressInput/AddressInput';
 import {
   colorOptionsList,
   paymentTermsOptionsList,
 }                               from '../../assets/OptionsLists';
 import {validate }              from '../../utility/Validation.js';
+import DATE_RFC2822             from '../../assets/Date';
 
 class CompanyCreateScreen extends Component {
   state = {
@@ -79,26 +80,31 @@ class CompanyCreateScreen extends Component {
     backgroundColor="transparent" 
     color="gray" 
     size={40}
-    onPress= {  _.debounce(()=> navigation.goBack(null), 2000,{'leading':true, 'trailing':true}) }
+    onPress= {  _.debounce(()=> navigatin.goBack(null), 2000,{'leading':true, 'trailing':true}) }
     />,
     }
   }
 
   onSubmit = async () => {
-    let company = '';
-    const {address, color, fUserId, hourly, hex,invoices, items, name, paymentTerms } = this.props
+
+    const {address, color, fUserId, hourly, hex,invoices, items, lastDate, name, paymentTerms } = this.props
+    const company = {address, color, fUserId, hourly, hex,invoices, items, lastDate, name, paymentTerms }
+    console.log('COMPANY CREATE ONSUBMIT company', company);
+
     await  this.props.companyUpdate('company', company)
-      let payload = {
-        address, 
-        color, 
-        fUserId,
-        hex, 
-        hourly, 
-        invoices,
-        items,
-        name, 
-        paymentTerms,
-    }
+
+    let payload = {
+      address, 
+      color, 
+      fUserId,
+      hex, 
+      hourly, 
+      invoices,
+      items,
+      lastDate,
+      name, 
+      paymentTerms,
+  }
 
    await this.props.companyCreate(payload);
    await  this.props.navigation.goBack()
@@ -284,6 +290,8 @@ const mapStateToProps = (state) => {
   // console.log('COMPANYCREATE MSTP state', state);
  if (state.companies.company) {
   // const active = state.companies.active || true;
+  
+
   const address = state.companies.company.address || '';
   const color = state.companies.company.color || '';
   const companyKey = state.companies.company.companyKey|| '';
@@ -293,17 +301,20 @@ const mapStateToProps = (state) => {
   const hourly = state.companies.company.hourly || '';
   const invoices = state.companies.company.invoices || '';
   const items = state.companies.company.items || '';
+  const lastDate = state.companies.company.lasteDate || '';
   const location = state.location || null;
+
   const name = state.companies.company.name || '';
   const paymentTerms = state.companies.company.paymentTerms || '30';
   const userId = state.auth.userId || '';
   return { 
     address, location, color, companyKey, company,
-    fUserId, hex, hourly, invoices, items,  name, paymentTerms, userId
+    fUserId, hex, hourly, invoices, items,  lastDate, name, paymentTerms, userId
     };
   }
   const company = { address: '', color:'', companyKey: '', fUserId: state.auth.fUserId, 
-    hex: '', hourly:'', invoices: '', items: '',location:'', name:'', paymentTerms: '', userId: state.auth.userId};
+    hex: '', hourly:'', invoices: '', items: '',lastDate: '', 
+    location:'', name:'', paymentTerms: '', userId: state.auth.userId};
   return {company};
 }
 

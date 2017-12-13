@@ -17,10 +17,10 @@ export default ColorHexUpdater = (color) => {
       return '#9b59b6';
     }
     case 'red': {
-     return '#e74c3c';
+      return '#e74c3c';
     }
     case 'yellow':{
-     return '#f1c40f';
+      return '#f1c40f';
     }
     default: {
       return '#7f8c8d';

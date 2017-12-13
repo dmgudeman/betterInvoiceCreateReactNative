@@ -29,8 +29,13 @@ class InvoiceCreateScreen extends Component {
   
   componentWillMount() {
 
-    this.props.invoiceCreateClear({ companyKey, coItems, coName, fUserId, paymentTerms });
-     const { companyKey, coItems, coName, fUserId, paymentTerms } = this.props;
+
+  console.log('INVOICE CREATE CWM 1 this.props', this.props);
+     const { companyKey, coItems, coLastDate, coName, fUserId, lastDate, paymentTerms } = this.props;
+     this.props.invoiceUpdate('lastDate', coLastDate)
+    this.props.invoiceCreateClear({ companyKey, coItems, coName, fUserId, lastDate, paymentTerms });
+  console.log('INVOICE CREATE CWM 2 this.props', this.props);
+  
   }
   static navigationOptions = ({ navigation }) => {
     return {
@@ -100,20 +105,35 @@ class InvoiceCreateScreen extends Component {
     }
   }
   onSubmit = async () => {
-    const {  beginDate, companyKey, coItems, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, total} = this.props
-    await this.filterByDateRange(beginDate, endDate, coItems);
+    
+    const {  
+      beginDate, coItems, company, companyKey, coLastDate, coName, createdAt, description, 
+      discount, dueDate, endDate, fUserId, invoiceKey, items, lastDate, total} = this.props
+
+    this.props.invoiceUpdate('lastDate', endDate )
+    console.log('INVOICE CREATE 1 ONSUBMIT this.props', this.props);
+    await this.filterByDateRange(beginDate, endDate, items);
+    console.log('INVOICE CREATE 2 ONSUBMIT this.props', this.props);
     await this.filteredItemsAlert();
     await this.calcDueDate();
-    await this.calcInvoiceTotal();
-   
+    console.log('INVOICE CREATE 3 ONSUBMIT this.props', this.props);
   
     let invoice = {
-      beginDate, companyKey, coName, createdAt,  
-      description: this.props.description, discount, 
-      dueDate: this.props.dueDate, endDate, fUserId,
-      invoiceKey, items: this.props.items, total: this.props.total
+      beginDate, 
+      companyKey, 
+      coName, 
+      createdAt, 
+      description: this.props.description, 
+      discount, 
+      dueDate: this.props.dueDate, 
+      endDate, 
+      fUserId, 
+      invoiceKey, 
+      items: this.props.items, 
+      lastDate,
+      total: this.props.total
     }
-    this.props.invoiceCreate({invoice})
+    await this.props.invoiceCreate({invoice})
     await this.props.navigation.goBack();
   }
   render() {
@@ -164,22 +184,28 @@ class InvoiceCreateScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const fUserId = state.auth.fUserId || '';
-   
-  const coItems = state.companies.company.items || '';
-  const companyKey = state.companies.company.companyKey;
-  const coName = state.companies.company.name || '';
-  const paymentTerms = state.companies.company.paymentTerms || '';
+  console.log('INVOICE CREATE MSTP state', state);
+  const fUserId      = state.auth.fUserId || '';
+  
+  const coItems      = state.companies.company.items             || '';
+  const company      = state.companies.company                   || ''
+  const companyKey   = state.companies.company.companyKey        || '' ;
+  const coLastDate   = state.companies.company.lastDate.lastDate || '';
+  const coName       = state.companies.company.name              || '';
+  const paymentTerms = state.companies.company.paymentTerms      || '';
 
-  const beginDate = state.invoice.beginDate || moment().format();
-  const createdAt= state.invoice.createdAt || moment().format();
+  const beginDate   = state.invoice.beginDate   || moment().format();
+  const createdAt   = state.invoice.createdAt   || moment().format();
   const description = state.invoice.description || '';
-  const discount = state.invoice.discount || '';
-  const dueDate = state.invoice.dueDate || '';
-  const endDate = state.invoice.endDate || moment().format();
-  const invoiceKey = state.invoice.invoiceKey || '';
-  const items = state.invoice.items || '';
-  const total = state.invoice.total || '';
-  return { beginDate, companyKey, coItems, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, items, paymentTerms, total};
+  const discount    = state.invoice.discount    || '';
+  const dueDate     = state.invoice.dueDate     || '';
+  const endDate     = state.invoice.endDate     || moment().format();
+  const invoiceKey  = state.invoice.invoiceKey  || '';
+  const items       = state.invoice.items       || '';
+  const lastDate    = state.invoice.lastDate    || moment().format();
+  const total       = state.invoice.total       || '';
+  return { 
+    beginDate, company, companyKey, coItems, coLastDate, coName, createdAt, description, 
+    discount, dueDate, endDate, fUserId, invoiceKey, items, lastDate, paymentTerms, total};
 } 
 export default connect(mapStateToProps, actions)(InvoiceCreateScreen);

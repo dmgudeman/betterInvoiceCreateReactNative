@@ -11,11 +11,41 @@ import {
 import moment from 'moment';
 import DATE_RFC2822 from '../assets/Date';
 
- // used upon Submit
-export const invoiceEdit = ({beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total}) => async dispatch => {
+
+export const invoiceCreate = ({invoice})=> {
+  let payload = {...invoice};
+  console.log('INVOICE ACTIONS CREATE payload', payload);
+ 
+  let newInvoiceKey =  firebase.database().ref().child('companies').child('invoices').push().key;
+  payload.invoiceKey = newInvoiceKey
+  let updates = {};
+  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey] = payload;
+  firebase.database().ref().update(updates);
+
+  // let x ={}
+  // let y = payload.lastDate || ''
+  console.log('INVOICE ACTIONS CREATE lastDate', payload.lastDate );
+
+  // x['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey] = {'lastDate': y }
+  firebase.database().ref('/users/'+ payload.fUserId + '/companies/'+ payload.companyKey+'/lastDate').update({lastDate:payload.lastDate})
+  // firebase.database().ref('/users/'+ payload.fUserId + '/companies/'+ payload.companyKey).update({color: 'red'})
   
-  let payload = { beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total}
-  payload.createdAt = moment(payload.createdAt).format(DATE_RFC2822);
+   return {
+    type: INVOICE_CREATE,
+  };
+}
+
+ // used upon Submit
+export const invoiceEdit = ({
+    beginDate, companyKey, coName, createdAt, description, discount, 
+    dueDate, endDate, fUserId, invoiceKey, lastDate, total}) => async dispatch => {
+  
+  let payload = { 
+    beginDate, companyKey, coName, createdAt, description, discount, 
+    dueDate, endDate, fUserId, invoiceKey, lastDate, total}
+  
+    payload.createdAt = moment(createdAt).format(DATE_RFC2822);
+    payload.lastDate = moment(endDate).format(DATE_RFC2822);
  
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey] = payload;
@@ -24,9 +54,9 @@ export const invoiceEdit = ({beginDate, companyKey, coName, createdAt, descripti
   return dispatch => {type: INVOICE_EDIT, {invoice: payload}}
  }
  
-export const invoiceCreateClear = ({ companyKey, coItems, coName,  fUserId, paymentTerms, })=>{
+export const invoiceCreateClear = ({ companyKey, coItems, coName,  fUserId, lastDate, paymentTerms, })=>{
   let invoice = {
-    beginDate: moment().format(DATE_RFC2822),
+    beginDate: lastDate, // 
     coItems, 
     companyKey, 
     coName, 
@@ -39,6 +69,7 @@ export const invoiceCreateClear = ({ companyKey, coItems, coName,  fUserId, paym
     invoiceKey: '',
     items: '',
     paymentTerms,
+    lastDate,
     total: ''
   }
   return {type: INVOICE_CREATE_CLEAR, invoice}
@@ -67,16 +98,4 @@ export const selectInvoice = (invoice) => {
   }
 } 
 
-export const invoiceCreate = ({invoice})=> {
-  let payload = {...invoice};
- 
-  let newInvoiceKey =  firebase.database().ref().child('companies').child('invoices').push().key;
-  payload.invoiceKey = newInvoiceKey
-  let updates = {};
-  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey] = payload;
-  firebase.database().ref().update(updates);
-  
-   return {
-    type: INVOICE_CREATE,
-  };
-}
+
