@@ -7,26 +7,26 @@ import { CardSection, Card, Button, Header } from './common';
 // import { MainNavigator } from '../App';
 import * as _                   from 'lodash';
 import * as actions from '../actions';
-import colorHexPicker           from '../assets/ColorHexUpdater';
+import colorHexUpdater         from '../assets/ColorHexUpdater';
 // import _addNavigationHelpers from '../assets/Navigation';
 
 class ListItem extends Component {
 
   componentWillMount() {
-    console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
+    // console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
     
     // this.props.companyUpdate('company', this.props.company);
-    console.log('LISTITEM COMPONENTWILLMOUNT this.props.company', this.props.company);
+    // console.log('LISTITEM COMPONENTWILLMOUNT this.props.company', this.props.company);
     
     // this.props.itemUpdate('items', this.props.items )
-    console.log('LISTITEM COMPONENTWILLMOUNT this.props.company.items', this.props.company.items);
+    // console.log('LISTITEM COMPONENTWILLMOUNT this.props.company.items', this.props.company.items);
 
   }
 
   render() {
     const { navigate } = this.props.navigation;
     const { navigation } = this.props;
-    const cardColor = this.props.company.hex || this.props.company.color;
+    const cardColor = this.props.company.hex || colorHexUpdater(this.props.company.color);
     // console.log('LISTITEM RENDER navigate', navigation );
     
     return (

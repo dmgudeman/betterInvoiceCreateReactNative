@@ -156,7 +156,6 @@ class ItemCreateAmountScreen extends Component {
   }
 }
 
-
 const mapStateToProps = state => {
   // console.log('ITEMCREATESCREEN MAPSTATETOPROPS state', state);
   const fUserId     = state.auth.fUserId || '';
