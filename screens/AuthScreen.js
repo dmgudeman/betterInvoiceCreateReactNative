@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { View, Text, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
+import { Spinner } from '../components/common'
 import * as actions from '../actions';
 
 class AuthScreen extends Component {
@@ -31,14 +32,15 @@ class AuthScreen extends Component {
   }
   render() {
     return (
-      <View>
-        <Text> auth screen </Text>
-        <Text> auth screen </Text>
-        <Text> auth screen </Text>
-        <Text> auth screen </Text>
+      <Spinner />
+      // <View>
+      //   <Text> auth screen </Text>
+      //   <Text> auth screen </Text>
+      //   <Text> auth screen </Text>
+      //   <Text> auth screen </Text>
 
-        <Text> auth screen </Text>
-        </View>
+      //   <Text> auth screen </Text>
+      //   </View>
     )
   }
 }

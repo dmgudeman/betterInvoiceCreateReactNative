@@ -33,7 +33,7 @@ class ItemCreateHoursScreen extends Component {
     controls: {
       hours: { 
         value: '', 
-        valid: true, 
+        valid: false, 
         validationRules: { isNumeric: true }, 
         touched: false,
       },

@@ -99,6 +99,7 @@ class ItemCreateAmountScreen extends Component {
  
 
   render() {
+    const { amount, date, hourly, hours, description, total, itemUpdate, itemTotalUpdate } = this.props;
     return (
       <View
         onStartShouldSetResponder= {(evt) => true }
@@ -113,9 +114,10 @@ class ItemCreateAmountScreen extends Component {
           }
         />
         
-        <FormLabel>Amount</FormLabel>
+        <FormLabel>Amount</FormLabel> 
         <FormInput 
-           value={this.props.amount}
+          valid={this.state.controls.amount.valid}
+          value={amount}
           placeholder='Amount is necessary'
           onChangeText={(value) => {
             this.props.itemUpdate('amount', value)
@@ -139,13 +141,14 @@ class ItemCreateAmountScreen extends Component {
 
         <Button
           title= "Submit"
-          onPress =  {() => 
+          onPress =  {() =>{
             ( this.state.controls.amount.valid )
              ? this.onSubmit() : null}
-            
-            backgroundColor={ 
-              this.state.controls.amount.valid 
-              ?'#bdc3c7':'#bdc3c745'}
+          }
+          backgroundColor={ 
+            this.state.controls.amount.valid 
+            ?'#bdc3c7':'#bdc3c745'}
+          
         /> 
       </View>
     )

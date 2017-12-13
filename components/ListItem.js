@@ -34,7 +34,7 @@ class ListItem extends Component {
         <CardSection>
           <View style={ styles.headerContentStyle}>
             <Text style={styles.headerTextStyle} onPress={
-              _.debounce(()=> navigation. navigate('companyEdit', {'company': this.props.company}), 2000,{'leading':true, 'trailing':true}) 
+              _.debounce(()=> navigate('companyEdit', {'company': this.props.company}), 2000,{'leading':true, 'trailing':true}) 
             }
               >{ this.props.company.name }</Text>
           </View>
@@ -43,7 +43,7 @@ class ListItem extends Component {
           <View style={styles.buttonRowStyle}>
             <Button style={ styles.buttonContentStyle } 
               onPress={ 
-              _.debounce(()=> navigation. navigate('items', {'company': this.props.company}), 2000,{'leading':true, 'trailing':true}) 
+              _.debounce(()=> navigate('items', {'company': this.props.company}), 2000,{'leading':true, 'trailing':true}) 
               }
                 // navigate('items')}} 
             >Items</Button>
