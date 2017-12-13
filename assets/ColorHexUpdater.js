@@ -23,7 +23,7 @@ export default ColorHexUpdater = (color) => {
      return '#f1c40f';
     }
     default: {
-      return '#3498db';
+      return '#7f8c8d';
     }
   }
 }

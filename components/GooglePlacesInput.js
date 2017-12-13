@@ -31,7 +31,7 @@ class GooglePlacesInput extends Component {
         query={{
           key: 'AIzaSyBWljFaxAI4nKp41Tihi3CnTpjsqiTY5Ik',
           language: 'en', // language of the results
-          types: 'address' // default: 'geocode'
+          // types: 'address' // default: 'geocode'
         }}
         
         styles={{

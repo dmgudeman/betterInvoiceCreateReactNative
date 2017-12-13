@@ -209,6 +209,7 @@ class CompanyCreateScreen extends Component {
         <FormLabel>Address</FormLabel> 
         <TouchableOpacity>
           <FormInput 
+            multiline={true}
             value={address}
             onFocus={(value) => { 
               // using a workaround here because companyUpdate returns a proxy for address instead of a string
