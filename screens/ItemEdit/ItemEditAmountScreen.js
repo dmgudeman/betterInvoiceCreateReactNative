@@ -101,6 +101,7 @@ class itemEditAmountScreen extends Component {
           valid={this.state.controls.amount.valid}
           value={amount}
           placeholder='Amount is necessary'
+          keyboardType= 'numeric'
           onChangeText={(value) => {
             this.props.itemUpdate('amount', value)
             this.props.itemTotalUpdate( this.props.hours, value, this.props.hourly)

@@ -83,18 +83,18 @@ class ItemCreateAmountScreen extends Component {
       tabBarIcon: ({ tintColor }) => <Icon name="dollar" size={20} color="#3498db" />
     }
   }
-  onSubmit = () => {
+  onSubmit = async () => {
     const{navigation}= this.props;
-    const {amount, companyKey, date, description, fUserId, hourly, hours, total} = this.props
+    const {amount, companyKey, date, description, fUserId, hourly, hours, name, total} = this.props
     const data  = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
-    this.props.itemUpdate('total', data);
+    await this.props.itemUpdate('total', data);
 
-    this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, total});
-    resetAction = NavigationActions.reset({
+    await this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, name, total});
+    resetAction = await NavigationActions.reset({
       index: 0,
       actions: [ NavigationActions.navigate({ routeName: 'companies'}), ]
     });
-    navigation.dispatch(resetAction);
+    await navigation.dispatch(resetAction);
   }
  
 
@@ -119,6 +119,7 @@ class ItemCreateAmountScreen extends Component {
           valid={this.state.controls.amount.valid}
           value={amount}
           placeholder='Amount is necessary'
+          keyboardType= 'numeric'
           onChangeText={(value) => {
             this.props.itemUpdate('amount', value)
             this.props.itemTotalUpdate( this.props.hours, value, this.props.hourly)
@@ -158,20 +159,19 @@ class ItemCreateAmountScreen extends Component {
 
 const mapStateToProps = state => {
   // console.log('ITEMCREATESCREEN MAPSTATETOPROPS state', state);
-  const fUserId =     state.auth.fUserId || '';
-
-  const companyKey =  state.companies.company.companyKey || '';
-  const hourly =      state.companies.company.hourly || '';
+  const fUserId     = state.auth.fUserId || '';
   
-  const amount =      state.item.amount      || '';
-  const date =        state.item.date        || '';
+  const companyKey  = state.companies.company.companyKey || '';
+  const hourly      = state.companies.company.hourly || '';
+  const name        = state.companies.company.name || '';  
+  
+  const amount      = state.item.amount      || '';
+  const date        = state.item.date        || '';
   const description = state.item.description || '';
-  const hours =       state.item.hours       || '';
-  const total =       state.item.total       || '';
-  // const item = { amount, companyKey, date, description, fUserId, hourly, hours, total}
+  const hours       = state.item.hours       || '';
+  const total       = state.item.total       || '';
 
-  // console.log('ITEMCREATESCREEN MAPSTATETOPROPS item', item);
-  return { amount, companyKey, date, description, fUserId, hourly, hours, total};
+  return { amount, companyKey, date, description, fUserId, hourly, hours,  name, total};
 }
 
 // const Styles = {
