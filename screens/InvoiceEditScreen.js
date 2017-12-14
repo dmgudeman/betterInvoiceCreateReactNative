@@ -77,15 +77,12 @@ class invoiceEditScreen extends Component {
         <View>
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
-          date={ moment(this.props.date).format('MM/DD/YYYY') }
+          date={ moment(this.props.beginDate).format('MM/DD/YYYY') }
           onDateChange={(value) => {
-            this.prop.invoiceUpdate('beginDate', moment(value).toDate().toUTCString() )
+            this.props.invoiceUpdate('beginDate', moment(value).toDate().toUTCString() )
             }
           }
         />
-            }
-          }
-          />
        
        
         <FormLabel>Stop Date</FormLabel>

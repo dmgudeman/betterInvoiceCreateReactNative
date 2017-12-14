@@ -15,6 +15,7 @@ import ListItem from '../components/ListItem'
 
 class CompaniesScreen extends Component {
   componentWillMount() {
+    console.log('COMPANIES CWM this.props', this.props);
     this.props.fetchCompanies(this.props.fUserId);
   }
 

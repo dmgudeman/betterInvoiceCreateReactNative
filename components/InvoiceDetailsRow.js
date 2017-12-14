@@ -7,40 +7,62 @@ import * as actions from '../actions';
 import moment from 'moment';
 
 
-const InvoiceDetailsRow = ({data, onPress }) => (
+class InvoiceDetailsRow extends Component {    //({data, onPress }) => (
+
+  componentWillMount() {
+    console.log('ITEM DETAILS ROW WILL MOUNT this.props', this.props );
+  }
+  componentWillUpdate() {
+    console.log('WILL UPDATE this.props', this.props );
+  }
+  componentDidUpdate() {
+    console.log('DID UPDATE this.props', this.props );
+  }
+  componentWillReceiveProps () {
+    console.log('WILL RECEIVE PROPS this.props', this.props );
+  }
+  componentDidCatch () {
+    console.log('DID CATCH this.props', this.props );
+  }
+
+  render() {
+
+    return(
       <Card>
         <CardSection>
-          <TouchableWithoutFeedback onPress={onPress}>
+          <TouchableWithoutFeedback onPress={this.props.onPress}>
             <View style={ styles.topRowContentStyle}>
               <View style={styles.topRowSectionStyle}>
                 <Text>DUE DATE</Text>
-                <Text style={styles.topRowTextStyle}>{moment(data.dueDate).format('MM/DD/YYYY')}</Text>
+                <Text style={styles.topRowTextStyle}>{moment(this.props.data.dueDate).format('MM/DD/YYYY')}</Text>
               </View>
               <View style={styles.topRowSectionStyle}>
                 <Text>FROM</Text>
-                <Text style={styles.topRowTextStyle}>{moment(data.beginDate).format('MM/DD/YYYY')}</Text>
+                <Text style={styles.topRowTextStyle}>{moment(this.props.data.beginDate).format('MM/DD/YYYY')}</Text>
               </View>
               <View style={styles.topRowSectionStyle}>
                 <Text>TO</Text>
-                <Text style={styles.topRowTextStyle}>{moment(data.endDate).format('MM/DD/YYYY')}</Text>
+                <Text style={styles.topRowTextStyle}>{moment(this.props.data.endDate).format('MM/DD/YYYY')}</Text>
               </View>
             </View>
           </TouchableWithoutFeedback>
         </CardSection>
         <CardSection>
-          <TouchableWithoutFeedback onPress={onPress}>
+          <TouchableWithoutFeedback onPress={this.props.onPress}>
             <View >
               <View >
-                <Text style={{marginLeft:20}} >{data.description}</Text>
+                <Text style={{marginLeft:20}} >{this.props.data.description}</Text>
               </View>
               <View>
-                <Text style={{marginLeft:20}}>Total: ${data.total}</Text>
+                <Text style={{marginLeft:20}}>Total: ${this.props.data.total}</Text>
               </View>
             </View>
           </TouchableWithoutFeedback>
         </CardSection>
       </Card>
-)
+    )
+  }
+}
 
 const styles = {
   containerStyle:{
@@ -81,4 +103,11 @@ const styles = {
   // }
 }
 
-export default InvoiceDetailsRow;
+const MapStateToProps = (state) => {
+  console.log('ITEMDETAILSROW MSTP state ', state);
+
+return {
+   state
+}
+}
+export default connect(MapStateToProps, actions)(InvoiceDetailsRow);

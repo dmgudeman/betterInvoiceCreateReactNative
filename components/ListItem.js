@@ -13,7 +13,7 @@ import colorHexUpdater         from '../assets/ColorHexUpdater';
 class ListItem extends Component {
 
   componentWillMount() {
-    // console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
+    console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
     
     // this.props.companyUpdate('company', this.props.company);
     // console.log('LISTITEM COMPONENTWILLMOUNT this.props.company', this.props.company);
@@ -22,7 +22,15 @@ class ListItem extends Component {
     // console.log('LISTITEM COMPONENTWILLMOUNT this.props.company.items', this.props.company.items);
 
   }
+  componentWillUpdate(newProps, newState) {
+    console.log("LISTITEM componentWillUpdate: Component is about to update!");
+  }
+ 
+  componentDidUpdate(currentProps, currentState) {
+    console.log("LISTITEMcomponentDidUpdate: Component just updated!  currentProps", currentProps);
+    console.log("LISTITEMcomponentDidUpdate: Component just updated!  this.props", this.props);
 
+  }
   render() {
     const { navigate } = this.props.navigation;
     const { navigation } = this.props;
