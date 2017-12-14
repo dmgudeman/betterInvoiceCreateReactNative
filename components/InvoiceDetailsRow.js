@@ -10,19 +10,19 @@ import moment from 'moment';
 class InvoiceDetailsRow extends Component {    //({data, onPress }) => (
 
   componentWillMount() {
-    console.log('ITEM DETAILS ROW WILL MOUNT this.props', this.props );
+    console.log('INVOICE DETAIL WILL MOUNT this.props', this.props );
   }
   componentWillUpdate() {
-    console.log('WILL UPDATE this.props', this.props );
+    console.log('INVOICE DETAIL WILL UPDATE this.props', this.props );
   }
   componentDidUpdate() {
-    console.log('DID UPDATE this.props', this.props );
+    console.log('INVOICE DETAIL DID UPDATE this.props', this.props );
   }
   componentWillReceiveProps () {
-    console.log('WILL RECEIVE PROPS this.props', this.props );
+    console.log('INVOICE DETAIL WILL RECEIVE PROPS this.props', this.props );
   }
   componentDidCatch () {
-    console.log('DID CATCH this.props', this.props );
+    console.log('INVOICE DETAIL DID CATCH this.props', this.props );
   }
 
   render() {
@@ -104,7 +104,7 @@ const styles = {
 }
 
 const MapStateToProps = (state) => {
-  console.log('ITEMDETAILSROW MSTP state ', state);
+  console.log('INVOICE DETAIL MSTP state ', state);
 
 return {
    state

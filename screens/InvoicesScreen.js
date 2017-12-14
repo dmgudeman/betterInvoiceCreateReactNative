@@ -9,6 +9,21 @@ import store from '../store'
 import InvoiceDetailsRow from '../components/InvoiceDetailsRow';
 
 class InvoicesScreen extends Component {
+  componentWillMount() {
+    console.log('INVOICES WILL MOUNT this.props', this.props );
+  }
+  componentWillUpdate() {
+    console.log('INVOICES WILL UPDATE this.props', this.props );
+  }
+  componentDidUpdate() {
+    console.log('INVOICES DID UPDATE this.props', this.props );
+  }
+  componentWillReceiveProps () {
+    console.log('INVOICES WILL RECEIVE PROPS this.props', this.props );
+  }
+  componentDidCatch () {
+    console.log('INVOICES DID CATCH this.props', this.props );
+  }
 
   static navigationOptions = ({ navigation }) => {
     return {
@@ -32,7 +47,7 @@ class InvoicesScreen extends Component {
 
   renderItem =(invoice)=> {
     const data = this.props.invoices[invoice.index];
-    data.createdAt = moment(data.createdAt).format("L");
+    // data.createdAt = moment(data.createdAt).format("L");
     return  (
        <InvoiceDetailsRow
          data = {data} 
@@ -41,7 +56,7 @@ class InvoicesScreen extends Component {
   }
 
   render() {
-    console.log('INVOICES RENDER this.props.invoices', this.props.invoices);
+    console.log('INVOICES RENDER this.props', this.props);
     return (
       <View style={{height: '100%'}} >
         <FlatList 
@@ -54,21 +69,22 @@ class InvoicesScreen extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log('INVOICES MSTP state.companies.company.invoices', state.companies.company.invoices);
-  console.log('INVOICES MSTP state.invoice.invoices', state.invoice.invoices);
+  console.log('INVOICES MSTP state', state);
+  if (state.companies.company){
+  const company = state.companies.company || '';
   const companyKey = state.companies.company.companyKey || state.companies.company.id;
-
-  const coName = state.companies.company.name;
+  const coInvoices = state.companies.company.invoices || '';
+  const coName = state.companies.company.name || '';
   const fUserId = state.auth.fUserId;
-  const coInvoices = _.map(state.companies.company.invoices, (val, id) => {
+
+  const invoices = _.map(state.companies.company.invoices, (val, id) => {
     return { ...val, id};
   });
 
-  const invoices = state.invoice.invoices || coInvoices || '';
   // const invoices = state.invoice.invoices || '';
-  return { companyKey, coInvoices, coName, fUserId, invoices};
+  return { company, companyKey, coInvoices, coName, fUserId, invoices};
+} return state;
 }
-
 const styles = StyleSheet.create ({
   container: {
     flex: 1,

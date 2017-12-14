@@ -5,6 +5,7 @@ import {
   INVOICE_CREATE_CLEAR,
   INVOICE_EDIT,
   INVOICE_UPDATE, 
+  INVOICE_UPDATE_DB, 
   SELECT_INVOICE,
   SET_INVOICES,
  } from './types';
@@ -43,6 +44,7 @@ export const invoiceEdit = ({
   let payload = { 
     beginDate, companyKey, coName, createdAt, description, discount, 
     dueDate, endDate, fUserId, invoiceKey, lastDate, total}
+    console.log('INVOICE ACTIONS INVOICE EDIT payload', payload);
   
     payload.createdAt = moment(createdAt).format(DATE_RFC2822);
     payload.lastDate = moment(endDate).format(DATE_RFC2822);
@@ -87,6 +89,22 @@ export const invoiceUpdate = (prop, value)=> {
   }
   return {
     type: INVOICE_UPDATE,
+    payload: { prop, value}
+  };
+}
+
+export const invoiceUpdateDB = (prop, value, route)=> {
+  console.log('INVOICE ACTIONSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS');
+  if (prop === 'createdAt' || prop === 'beginDate' || prop === 'endDate'){
+     value = moment(value).format(DATE_RFC2822);
+  }
+  let updates = {};
+  console.log('/users/'+ route.fUserId + '/companies/'+ route.companyKey + '/invoices/' + route.invoiceKey + '/' + prop);
+  updates['/users/'+ route.fUserId + '/companies/'+ route.companyKey + '/invoices/' + route.invoiceKey + '/' + prop] = value;
+  firebase.database().ref().update(updates);
+
+  return {
+    type: INVOICE_UPDATE_DB,
     payload: { prop, value}
   };
 }

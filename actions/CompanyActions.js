@@ -56,8 +56,8 @@ export const fetchCompanies = (fUserId) => async dispatch => {
 } 
 
 export const companyUpdate = (prop, value)=> {
-  // console.log( 'COMPANYACTIONS COMPANYUPDATE prop', prop);
-  // console.log( 'COMPANYACTIONS COMPANYUPDATE value', value);
+  console.log( 'COMPANYACTIONS COMPANYUPDATE prop', prop);
+  console.log( 'COMPANYACTIONS COMPANYUPDATE value', value);
   return {
     type: COMPANY_UPDATE,
     payload: { prop, value}
@@ -66,6 +66,7 @@ export const companyUpdate = (prop, value)=> {
 
 
 export const setCompany = (company) => {
+  console.log( 'COMPANY ACTIONS setCompany company', company);
   return {
     type: SET_COMPANY,
     company

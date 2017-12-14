@@ -52,6 +52,22 @@ class invoiceEditScreen extends Component {
     });
     this.props.navigation.dispatch(resetAction);
   }
+  updateInvoices(){
+   const  {invoice, invoices} = this.props
+   console.log('LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL invoice', invoice);
+   console.log('LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL this.props', this.props);
+   for (var key in invoices) {
+    console.log('LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL', key, invoices[key]);  
+    if (invoice.invoiceKey === invoices[key].invoiceKey) {
+      invoices[key].beginDate = invoice.beginDate;
+      console.log('YEAHHHHHH invoice.beginDate', invoice.beginDate);
+    console.log('KKKKKKKKKKKKKKKKKKKKKKKkinvoices[key].beginDate',invoices[key].beginDate );
+    console.log('KKKKKKKKKKKKKKKKKKKKKKKkinvoices[key].beginDate',invoices[key].beginDate );
+      this.props.invoiceUpdate('invoices' + [key] + '.beginDate', invoice.beginDate)
+    }
+    this.props.invoiceUpdate('invoices', invoices)
+  }
+  }
   
   onSubmit = async () => {
     // console.log('InvoiceEditScreen onSubmit this.props', this.props);
@@ -72,14 +88,25 @@ class invoiceEditScreen extends Component {
   }
 
   render() {
+    const {  beginDate, companyKey, coName, coInvoices, createdAt, description, 
+      discount, dueDate, endDate, fUserId, invoice, invoiceKey, invoices, items, lastDate, total} = this.props;
+    
+    const route = {companyKey, fUserId, invoiceKey}
     return (
-      
         <View>
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
           date={ moment(this.props.beginDate).format('MM/DD/YYYY') }
-          onDateChange={(value) => {
-            this.props.invoiceUpdate('beginDate', moment(value).toDate().toUTCString() )
+          onDateChange={async (value) => {
+            await this.props.invoiceUpdateDB('beginDate', moment(value).toDate().toUTCString(), route )
+            // this.props.invoiceEdit({...payload})
+          console.log('1111 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU');
+            await this.props.invoiceUpdate('beginDate', moment(value).toDate().toUTCString() )
+            console.log('2222 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU');
+            await this.props.invoiceUpdate('invoice', invoice )
+            console.log('3333 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU');
+            await this.updateInvoices();
+            console.log('4444 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU');
             }
           }
         />
@@ -128,13 +155,13 @@ class invoiceEditScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('INVOICEEDITSCREEN MAPSTATETOPROPS state.dueDate', state.invoice.dueDate);
-  const address = state.invoice.address;
+  console.log('INVOICEEDITSCREEN MAPSTATETOPROPS state', state);
+  const address  = state.invoice.address;
   
   const beginDate   = state.invoice.beginDate;
   const companyKey  = state.invoice.companyKey;
   const coName      = state.invoice.coName;
-  
+  const coInvoices = state.companies.company.invoices;
   const createdAt   = state.invoice.createdAt;
   const description = state.invoice.description;
   const discount    = state.invoice.discount;
@@ -142,10 +169,14 @@ const mapStateToProps = (state) => {
   const endDate     = state.invoice.endDate;
   const fUserId     = state.invoice.fUserId;
   const invoiceKey  = state.invoice.invoiceKey;
+  const invoices    = state.invoice.invoices || state.companies.company.invoices;
   const items       = state.invoice.items;
   const lastDate    = state.invoice.lastDate;
   const total       = state.invoice.total;
+  const invoice     = { beginDate, companyKey, coInvoices, coName, createdAt, description, 
+    discount,dueDate, endDate, fUserId, invoiceKey, invoices, items, lastDate, total};
 
-  return { beginDate, companyKey, coName, createdAt, description, discount,dueDate, endDate, fUserId, invoiceKey, items, lastDate, total};
+  return { beginDate, companyKey, coInvoices, coName, createdAt, description, 
+    discount,dueDate, endDate, fUserId, invoice,  invoiceKey, invoices, items, lastDate, total};
 }
 export default connect(mapStateToProps, actions )(invoiceEditScreen);
