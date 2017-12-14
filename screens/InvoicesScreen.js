@@ -27,7 +27,7 @@ class InvoicesScreen extends Component {
     const invoice = {...data};
     this.props.selectInvoice(invoice)
     const { navigate } = this.props.navigation
-    navigate('invoiceEdit')
+    navigate('invoiceEdit', {invoices: this.props.coInvoices} )
   }
 
   renderItem =(invoice)=> {
@@ -43,7 +43,7 @@ class InvoicesScreen extends Component {
   render() {
     console.log('INVOICES RENDER this.props.invoices', this.props.invoices);
     return (
-      <View style={{height: '100%'}}>
+      <View style={{height: '100%'}} >
         <FlatList 
           data = {this.props.invoices}
           keyExtractor={(item) => item.id}

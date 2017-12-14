@@ -42,6 +42,17 @@ class invoiceEditScreen extends Component {
         
     }
   }
+  
+  navBack = () => {
+    resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'invoices'}),
+      ]
+    });
+    this.props.navigation.dispatch(resetAction);
+  }
+  
   onSubmit = async () => {
     // console.log('InvoiceEditScreen onSubmit this.props', this.props);
     const {  
@@ -57,7 +68,7 @@ class invoiceEditScreen extends Component {
       beginDate, companyKey, coName, createdAt, description, 
       discount, dueDate, endDate, fUserId,  invoiceKey, items, lastDate, total})
       console.log('INVOICE EDIT ONSUBMIT this.props', this);
-    await this.props.navigation.goBack();
+    await this.navBack();
   }
 
   render() {
@@ -66,9 +77,12 @@ class invoiceEditScreen extends Component {
         <View>
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
-          date={ moment(this.props.beginDate).format('MM/DD/YYYY') }
+          date={ moment(this.props.date).format('MM/DD/YYYY') }
           onDateChange={(value) => {
-            this.props.invoiceUpdate('beginDate',moment(value).toDate().toUTCString() )
+            this.prop.invoiceUpdate('beginDate', moment(value).toDate().toUTCString() )
+            }
+          }
+        />
             }
           }
           />
@@ -78,7 +92,7 @@ class invoiceEditScreen extends Component {
         <MyDatePicker 
          date={ moment(this.props.endDate).format('MM/DD/YYYY') }
          onDateChange={(value) => {
-           this.props.invoiceUpdate('endDate',moment(value).toDate().toUTCString() )
+           this.props.invoiceUpdate('endDate', moment(value).toDate().toUTCString() )
            }
          }
       />

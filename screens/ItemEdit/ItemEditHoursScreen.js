@@ -55,7 +55,6 @@ class itemEditHoursScreen extends Component {
   
   componentWillMount(){
     console.log('ITEMEDIT HOURS CWM this.props', this.props);
-    this.props.itemUpdate('goBackKey', this.props.navigation.state.params.goBackKey)
   }
   
   static navigationOptions = ({ navigation }) => {
@@ -74,19 +73,17 @@ class itemEditHoursScreen extends Component {
     }
   }
   onSubmit = () => {
-    const { amount, companyKey, date, description, fUserId, goBackKey, hourly, hours, id, name, total} = this.props
-    console.log('ITEMEDIT HOURS ONSUBMIT goBackKey', goBackKey);
-    
+    const { amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total} = this.props
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
     this.props.itemUpdate('total', data);
    
-    this.props.itemEdit({ amount, companyKey, date, description, fUserId, hourly, hours, id, total, name,  })
+    this.props.itemEdit({ amount, companyKey, date, description, fUserId, hourly, hours, itemKey, total, name,  })
 
-    this.props.navigation.goBack( this.props.navigation.state.params.goBackKey);
+    this.props.navigation.goBack(navigation.state.params.goBackKey);
   }
 
   render() {
-    const { amount, date, goBackKey, hourly, hours, description, name, total, itemUpdate, itemTotalUpdate, itemCreate } = this.props;
+    const { amount, date,  hourly, hours, description, name, total, itemUpdate, itemTotalUpdate, itemCreate } = this.props;
     return (
       <View
         onStartShouldSetResponder= {(evt) => true }
@@ -151,15 +148,15 @@ const mapStateToProps = (state) => {
   const date         = state.item.date || '';
   const description  = state.item.description || '';
   const fUserId      = state.auth.fUserId || '';
-  const goBackKey    = state.item.goBackKey
   const hourly       = state.companies.company.hourly || '';
 
   const hours        = state.item.hours || '';
-  const id           = state.item.id || '';
-  const name        = state.companies.company.name || '';  
+  const item         = state.item || '';
+  const itemKey      = state.item.itemKey || '';
+  const name         = state.companies.company.name || '';  
   const total        = state.item.total || '';
-  const item = { amount, companyKey, date, description, fUserId, hourly, hours, id, name, total}
+  // const item = { amount, companyKey, date, description, fUserId, hourly, hours, itemKey, name, total}
   
-  return { amount, companyKey, date, description, fUserId, hourly, hours, id, name, total, item };
+  return { amount, companyKey, date, description, fUserId, hourly, hours, item, itemKey, name, total, item };
 }
 export default connect(mapStateToProps, actions)(itemEditHoursScreen);
