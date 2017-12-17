@@ -23,9 +23,9 @@ class CompaniesScreen extends Component {
   componentDidMount() {
     this.props.fetchCompanies(this.props.fUserId)
   }
-  goToInvoices=(company, invoices)=>{
+  goToInvoices=(company)=>{
     this.props.setCompany(company);
-    this.props.setInvoices(invoices);
+    this.props.setInvoices(company.invoices);
     this.props.navigation.navigate('invoices');
   }
   renderItem =({item, index})=> {

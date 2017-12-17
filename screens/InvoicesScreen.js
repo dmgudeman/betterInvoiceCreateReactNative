@@ -57,7 +57,7 @@ class InvoicesScreen extends Component {
   }
 
   render() {
-    console.log('INVOICES RENDER this.props', this.props);
+    // console.log('INVOICES RENDER this.props', this.props);
     return (
       <View style={{height: '100%'}} >
         <FlatList 
@@ -70,7 +70,7 @@ class InvoicesScreen extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log('INVOICES MSTP state', state);
+  // console.log('INVOICES MSTP state', state);
   if (state.companies.company){
   const company = state.companies.company || '';
   const companyKey = state.companies.company.companyKey || state.companies.company.id;
