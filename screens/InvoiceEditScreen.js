@@ -110,7 +110,7 @@ class invoiceEditScreen extends Component {
       console.log('INVOICE EDIT ONSUBMIT invoice', invoice);
       
       console.log('2 INVOICE EDIT ONSUBMIT company', company );
-      const newCompany = await update(companies, {company: {invoices: {[invoiceKey]:{$set: invoice } }}});
+      const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: invoice }}});
       console.log('INVOICE EDIT ONSUBMIT newCompany', newCompany );
       // await this.props.invoiceUpdateDB(invoice,  route )
       //       let a = await update(company,{invoices: {[invoiceKey]:{beginDate:{$set: value}}}})
@@ -118,10 +118,8 @@ class invoiceEditScreen extends Component {
 
       console.log('32 INVOICE EDIT ONSUBMIT companies', companies);
       const newCompanies = await update(companies, {companies: {[companyKey]:{$set: newCompany}}});
-      const newCompanies2 = await update(companies, {companies: {company: {$set: newCompany}}});
       console.log('33 INVOICE EDIT ONSUBMIT companies', companies);
       console.log('33 INVOICE EDIT ONSUBMIT newCompanies', newCompanies);
-      console.log('33 INVOICE EDIT ONSUBMIT newCompanies', newCompanies2);
       // await this.props.setCompanies(newCompanies2);
 
 
