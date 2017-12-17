@@ -14,7 +14,7 @@ const MyDatePicker = ({date, onDateChange}) => (
   <View style={styles.datePicker}>
     <DatePicker
       style={{width: 200}}
-      date={  moment(date).format("MM/DD/YYYY") }
+      date={ date }
       mode="date"
       placeholder="select date"
       format="MM/DD/YYYY"
@@ -31,8 +31,7 @@ const MyDatePicker = ({date, onDateChange}) => (
         dateInput: {
           marginLeft: 36
         }
-      }
-    }
+      }}
     onDateChange={(value) => {
       console.log('MYDATEPICKER ONDATECHANGE value', moment(value).format(DATE_RFC2822));
       onDateChange(moment(value).format(DATE_RFC2822) )}}

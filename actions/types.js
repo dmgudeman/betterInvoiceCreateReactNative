@@ -9,6 +9,7 @@ export const COMPANY_UPDATE = 'COMPANY_UPDATE';
 export const COMPANY_CREATE = 'COMPANY_CREATE';
 export const COMPANY_CREATE_CLEAR = 'COMPANY_CREATE_CLEAR';
 export const COMPANY_EDIT_SUBMIT = 'companyEditSubmit';
+export const SET_COMPANIES = 'SET_COMPANIES';
 export const SET_COMPANY = 'SET_COMPANY';
 export const UPDATE_OBJECT_EDIT = 'UPDATE_OBJECT_EDIT';
 

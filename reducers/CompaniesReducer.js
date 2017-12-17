@@ -4,6 +4,7 @@ import {
   COMPANY_CREATE,
   COMPANY_CREATE_CLEAR,
   COMPANY_EDIT_SUBMIT,
+  SET_COMPANIES,
   SET_COMPANY,
   UPDATE_OBJECT_EDIT,
 } from '../actions/types';
@@ -18,19 +19,22 @@ export default (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, {[action.payload.prop]: action.payload.value});
   }
     case COMPANY_CREATE:{
-      return { ...state, company: action.payload }
+      return { ...state, company: action.payload };
     }
     case COMPANY_CREATE_CLEAR:{
-      return { ...state, company: action.payload }
+      return { ...state, company: action.payload };
     }
     case COMPANY_EDIT_SUBMIT: {
     }
     case SET_COMPANY: {
-      return { ...state, company: action.company}
+      return { ...state, company: action.company };
+    }
+    case SET_COMPANIES: {
+      return { ...state, companies: action.companies };
     }
     case UPDATE_OBJECT_EDIT: {
       // return Object.assign({}, state, {[action.payload.prop]: action.payload.value});
-      return {  ...state, [action.payload.prop]: action.payload.value};
+      return {  ...state, [action.payload.prop]: action.payload.value };
     }
     default:
       return state

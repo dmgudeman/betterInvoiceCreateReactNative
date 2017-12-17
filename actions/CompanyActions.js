@@ -10,6 +10,7 @@ import {
   COMPANY_CREATE_CLEAR,
   COMPANY_CREATE,
   COMPANY_EDIT_SUBMIT,
+  SET_COMPANIES,
   SET_COMPANY,
   UPDATE_OBJECT_EDIT,
 } from './types';
@@ -73,6 +74,12 @@ export const setCompany = (company) => {
   }
 }
 
+export const setCompanies = (companies) => {
+  return {
+    type: SET_COMPANIES,
+    companies
+  }
+}
 export const companyClearCreate = (fUserId) => {
   company = {
   address:'',
