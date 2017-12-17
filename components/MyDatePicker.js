@@ -15,7 +15,7 @@ const MyDatePicker = ({date, onDateChange}) => (
   <View style={styles.datePicker}>
       <DatePicker
       style={{width: 200}}
-      date={ date}
+      date={ date }
       mode="date"
       placeholder="select date"
       format="MM/DD/YYYY"

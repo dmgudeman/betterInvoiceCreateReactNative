@@ -12,25 +12,25 @@ import colorHexUpdater         from '../assets/ColorHexUpdater';
 
 class ListItem extends Component {
 
-  componentWillMount() {
-    console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
+  // componentWillMount() {
+  //   console.log('LISTITEM COMPONENTWILLMOUNT this.props', this.props);
     
-    // this.props.companyUpdate('company', this.props.company);
-    // console.log('LISTITEM COMPONENTWILLMOUNT this.props.company', this.props.company);
+  //   // this.props.companyUpdate('company', this.props.company);
+  //   // console.log('LISTITEM COMPONENTWILLMOUNT this.props.company', this.props.company);
     
-    // this.props.itemUpdate('items', this.props.items )
-    // console.log('LISTITEM COMPONENTWILLMOUNT this.props.company.items', this.props.company.items);
+  //   // this.props.itemUpdate('items', this.props.items )
+  //   // console.log('LISTITEM COMPONENTWILLMOUNT this.props.company.items', this.props.company.items);
 
-  }
-  componentWillUpdate(newProps, newState) {
-    console.log("LISTITEM componentWillUpdate: Component is about to update!");
-  }
+  // }
+  // componentWillUpdate(newProps, newState) {
+  //   console.log("LISTITEM componentWillUpdate: Component is about to update!");
+  // }
  
-  componentDidUpdate(currentProps, currentState) {
-    console.log("LISTITEMcomponentDidUpdate: Component just updated!  currentProps", currentProps);
-    console.log("LISTITEMcomponentDidUpdate: Component just updated!  this.props", this.props);
+  // componentDidUpdate(currentProps, currentState) {
+  //   console.log("LISTITEMcomponentDidUpdate: Component just updated!  currentProps", currentProps);
+  //   console.log("LISTITEMcomponentDidUpdate: Component just updated!  this.props", this.props);
 
-  }
+  // }
   render() {
     const { navigate } = this.props.navigation;
     const { navigation } = this.props;
@@ -64,8 +64,11 @@ class ListItem extends Component {
 
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               console.log('LISTITEM RENDER  INVOICES BUTTON this.props', this.props);
-              this.props.setCompany(this.props.company)
-              navigate('invoices')} }>Invoices</Button>
+              // this.props.setCompany(this.props.company)
+              this.props.goToInvoices(this.props.company, this.props.company.invoices)
+              navigate('invoices')}
+            }
+              >Invoices</Button>
 
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               console.log('LISTITEM RENDER this.props', this.props);

@@ -19,17 +19,26 @@ class CompaniesScreen extends Component {
     this.props.fetchCompanies(this.props.fUserId);
   }
 
+
   componentDidMount() {
     this.props.fetchCompanies(this.props.fUserId)
   }
-  
+  goToInvoices=(company, invoices)=>{
+    this.props.setCompany(company);
+    this.props.setInvoices(invoices);
+    this.props.navigation.navigate('invoices');
+  }
   renderItem =({item, index})=> {
-    this.toggleButton = false
-    // console.log('CompaniesScreen renderItem  this.props.index =', this.props.companies);
-    // console.log('COMPANIESSCREEN renderItem item, item.id, index', item, item.id, index);
+    // console.log('COMPANIES RENDERITEM  item', item );
+    // console.log('COMPANIES RENDERITEM  index', index );
+    // console.log('COMPANIES RENDERITEM  this.props.company', this.props );
   
     return  (
-      <ListItem company={item} navigation={this.props.navigation}/>
+      <ListItem 
+        company={item} 
+        navigation={this.props.navigation}
+        goToInvoices={this.goToInvoices}
+      />
     )
   }
 
@@ -55,6 +64,7 @@ class CompaniesScreen extends Component {
           data = {this.props.companies}
           renderItem={this.renderItem}
           keyExtractor={(item) => item.id}
+          
         />
       </View>
     )
@@ -63,7 +73,7 @@ class CompaniesScreen extends Component {
 
 const mapStateToProps = state => {
   const fUserId = state.auth.fUserId || '';
-  
+  const company = state.companies.company || '';
   const companies = _.map(state.companies.companies, (val, id) => {
     return { ...val, id};
   });
@@ -71,6 +81,7 @@ const mapStateToProps = state => {
   return {
     fUserId,
     companies,
+    company,
   }
 }
 

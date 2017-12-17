@@ -9,21 +9,21 @@ import store from '../store'
 import InvoiceDetailsRow from '../components/InvoiceDetailsRow';
 
 class InvoicesScreen extends Component {
-  componentWillMount() {
-    console.log('INVOICES WILL MOUNT this.props', this.props );
-  }
-  componentWillUpdate() {
-    console.log('INVOICES WILL UPDATE this.props', this.props );
-  }
-  componentDidUpdate() {
-    console.log('INVOICES DID UPDATE this.props', this.props );
-  }
-  componentWillReceiveProps () {
-    console.log('INVOICES WILL RECEIVE PROPS this.props', this.props );
-  }
-  componentDidCatch () {
-    console.log('INVOICES DID CATCH this.props', this.props );
-  }
+  // componentWillMount() {
+  //   console.log('INVOICES WILL MOUNT this.props', this.props );
+  // }
+  // componentWillUpdate() {
+  //   console.log('INVOICES WILL UPDATE this.props', this.props );
+  // }
+  // componentDidUpdate() {
+  //   console.log('INVOICES DID UPDATE this.props', this.props );
+  // }
+  // componentWillReceiveProps () {
+  //   console.log('INVOICES WILL RECEIVE PROPS this.props', this.props );
+  // }
+  // componentDidCatch () {
+  //   console.log('INVOICES DID CATCH this.props', this.props );
+  // }
 
   static navigationOptions = ({ navigation }) => {
     return {
@@ -38,11 +38,12 @@ class InvoicesScreen extends Component {
         
     }
   }
-  goToInvoiceEdit = (data) => {
-    const invoice = {...data};
-    this.props.selectInvoice(invoice)
+  goToInvoiceEdit = (invoice) => {
+    // const invoice = {...data};
+    // this.props.setInvoices(this.props.coInvoices)
+    this.props.setInvoice(invoice)
     const { navigate } = this.props.navigation
-    navigate('invoiceEdit', {invoices: this.props.coInvoices} )
+    navigate('invoiceEdit' )
   }
 
   renderItem =(invoice)=> {
@@ -61,7 +62,7 @@ class InvoicesScreen extends Component {
       <View style={{height: '100%'}} >
         <FlatList 
           data = {this.props.invoices}
-          keyExtractor={(item) => item.id}
+          keyExtractor = {(item) => item.invoiceKey}
           renderItem={this.renderItem}
         />
     </View>

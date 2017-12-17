@@ -6,7 +6,7 @@ import {
   INVOICE_EDIT,
   INVOICE_UPDATE, 
   INVOICE_UPDATE_DB, 
-  SELECT_INVOICE,
+  SET_INVOICE,
   SET_INVOICES,
  } from './types';
 import moment from 'moment';
@@ -77,12 +77,7 @@ export const invoiceCreateClear = ({ companyKey, coItems, coName,  fUserId, last
   return {type: INVOICE_CREATE_CLEAR, invoice}
 
 }
-export const setInvoices = (invoices) => {
-  return {
-    type: SET_INVOICES,
-    invoices
-  }
-}
+
 export const invoiceUpdate = (prop, value)=> {
   if (prop === 'createdAt' || prop === 'beginDate' || prop === 'endDate'){
      value = moment(value).format(DATE_RFC2822);
@@ -94,7 +89,7 @@ export const invoiceUpdate = (prop, value)=> {
 }
 
 export const invoiceUpdateDB = (prop, value, route)=> {
-  console.log('INVOICE ACTIONSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS');
+  console.log('INVOICE ACTIONS INVOICEUPDATEDB prop', prop);
   if (prop === 'createdAt' || prop === 'beginDate' || prop === 'endDate'){
      value = moment(value).format(DATE_RFC2822);
   }
@@ -109,11 +104,16 @@ export const invoiceUpdateDB = (prop, value, route)=> {
   };
 }
 
-export const selectInvoice = (invoice) => {
+export const setInvoice = (invoice) => {
   return {
-    type: SELECT_INVOICE,
+    type: SET_INVOICE,
     invoice
   }
 } 
-
+export const setInvoices = (invoices) => {
+  return {
+    type: SET_INVOICES,
+    invoices
+  }
+}
 

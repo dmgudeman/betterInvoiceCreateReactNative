@@ -9,21 +9,22 @@ import moment from 'moment';
 
 class InvoiceDetailsRow extends Component {    //({data, onPress }) => (
 
-  componentWillMount() {
-    console.log('INVOICE DETAIL WILL MOUNT this.props', this.props );
-  }
-  componentWillUpdate() {
-    console.log('INVOICE DETAIL WILL UPDATE this.props', this.props );
-  }
-  componentDidUpdate() {
-    console.log('INVOICE DETAIL DID UPDATE this.props', this.props );
-  }
-  componentWillReceiveProps () {
-    console.log('INVOICE DETAIL WILL RECEIVE PROPS this.props', this.props );
-  }
-  componentDidCatch () {
-    console.log('INVOICE DETAIL DID CATCH this.props', this.props );
-  }
+  // componentWillMount() {
+  //   console.log('INVOICE DETAIL WILL MOUNT this.props', this.props );
+  // }
+  // componentWillUpdate() {
+  //   console.log('INVOICE DETAIL WILL UPDATE this.props', this.props );
+  // }
+  // componentDidUpdate() {
+  //   console.log('INVOICE DETAIL DID UPDATE this.props', this.props );
+  // }
+  // componentWillReceiveProps () {
+  //   console.log('INVOICE DETAIL WILL RECEIVE PROPS this.props', this.props );
+  // }
+  // componentDidCatch () {
+  //   console.log('INVOICE DETAIL DID CATCH this.props', this.props );
+  // }
+
 
   render() {
 
@@ -104,7 +105,7 @@ const styles = {
 }
 
 const MapStateToProps = (state) => {
-  console.log('INVOICE DETAIL MSTP state ', state);
+  // console.log('INVOICE DETAIL MSTP state ', state);
 
 return {
    state

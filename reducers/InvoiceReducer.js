@@ -4,7 +4,7 @@ import {
   INVOICE_EDIT, 
   INVOICE_UPDATE, 
   INVOICE_UPDATE_DB, 
-  SELECT_INVOICE,
+  SET_INVOICE,
   SET_INVOICES
 } from '../actions/types';
 
@@ -37,9 +37,9 @@ export default (state = INITIAL_STATE, action) => {
     }
     
     
-    case SELECT_INVOICE: {
-      // console.log('INVOICEREDUCERS SELECT_INVOICE action.invoice', action.invoice);
-      return Object.assign({}, state.invoice, action.invoice )
+    case SET_INVOICE: {
+      // console.log('INVOICEREDUCERS SET_INVOICE action.invoice', action.invoice);
+      return { ...state, invoice:action.invoice }
     }
 
     case SET_INVOICES: {

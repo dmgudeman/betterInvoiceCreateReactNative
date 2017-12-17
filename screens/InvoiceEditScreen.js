@@ -14,6 +14,7 @@ import {
   FormValidationMessage, 
 }                               from 'react-native-elements';
 import Icon                     from 'react-native-vector-icons/FontAwesome';
+import update                   from 'immutability-helper';
 import { NavigationActions }    from 'react-navigation';
 import DatePicker               from 'react-native-datepicker';
 import Moment                   from 'react-moment';
@@ -54,15 +55,9 @@ class invoiceEditScreen extends Component {
   }
   updateInvoices(){
    const  {invoice, invoices} = this.props
-   console.log('LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL invoice', invoice);
-   console.log('LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL this.props', this.props);
    for (var key in invoices) {
-    console.log('LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL', key, invoices[key]);  
     if (invoice.invoiceKey === invoices[key].invoiceKey) {
       invoices[key].beginDate = invoice.beginDate;
-      console.log('YEAHHHHHH invoice.beginDate', invoice.beginDate);
-    console.log('KKKKKKKKKKKKKKKKKKKKKKKkinvoices[key].beginDate',invoices[key].beginDate );
-    console.log('KKKKKKKKKKKKKKKKKKKKKKKkinvoices[key].beginDate',invoices[key].beginDate );
       this.props.invoiceUpdate('invoices' + [key] + '.beginDate', invoice.beginDate)
     }
     this.props.invoiceUpdate('invoices', invoices)
@@ -70,43 +65,57 @@ class invoiceEditScreen extends Component {
   }
   
   onSubmit = async () => {
-    // console.log('InvoiceEditScreen onSubmit this.props', this.props);
     const {  
-      beginDate, companyKey, coName, createdAt, description, 
-      discount, dueDate, endDate, fUserId, invoiceKey, items, lastDate, total} = this.props
-      await this.props.invoiceUpdate('lastDate', endDate);
-      await this.props.companyUpdate('lastDate', endDate);
+      // beginDate, companyKey, coName, createdAt, description, 
+      // discount, dueDate, endDate, fUserId, inoviinvoiceKey, items, lastDate, total} = this.props
+      invoice, invoiceKey, invoices } = this.props
+
+      console.log('INVOICE EDIT SUBMIT invoices', invoices);
+      console.log('INVOICE EDIT SUBMIT invoice', invoice);
+      let x = update(invoices, {[invoiceKey]: {$set:invoice}})
+      this.props.companyUpdate('invoices', x)
+      console.log('INVOICE EDIT SUBMIT x', x);
+
+
+
+      // await this.props.invoiceUpdate('lastDate', endDate);
+      // await this.props.companyUpdate('lastDate', endDate);
     // const formatDate = moment(createdAt).format();
     // this.props.invoiceUpdate('createdAt', formatDate);
    
     // console.log('INVOICEEDIT onSubmit',  beginDate, companyKey, coName, createdAt, description, discount, dueDate, endDate, fUserId, invoiceKey, total );
-    await this.props.invoiceEdit({  
-      beginDate, companyKey, coName, createdAt, description, 
-      discount, dueDate, endDate, fUserId,  invoiceKey, items, lastDate, total})
-      console.log('INVOICE EDIT ONSUBMIT this.props', this);
+    // await this.props.invoiceEdit({  
+    //   beginDate, companyKey, coName, createdAt, description, 
+    //   discount, dueDate, endDate, fUserId,  invoiceKey, items, lastDate, total})
     await this.navBack();
   }
 
   render() {
-    const {  beginDate, companyKey, coName, coInvoices, createdAt, description, 
+    const {  beginDate, companyKey, coName, coInvoices, company, createdAt, description, 
       discount, dueDate, endDate, fUserId, invoice, invoiceKey, invoices, items, lastDate, total} = this.props;
+      console.log('INVOICE EDIT RENDER beginDate',beginDate);
     
     const route = {companyKey, fUserId, invoiceKey}
     return (
         <View>
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
-          date={ moment(this.props.beginDate).format('MM/DD/YYYY') }
+          date={ moment(this.props.beginDate).format("MM/DD/YYYY") }
           onDateChange={async (value) => {
-            await this.props.invoiceUpdateDB('beginDate', moment(value).toDate().toUTCString(), route )
-            // this.props.invoiceEdit({...payload})
-          console.log('1111 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU');
-            await this.props.invoiceUpdate('beginDate', moment(value).toDate().toUTCString() )
-            console.log('2222 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU');
-            await this.props.invoiceUpdate('invoice', invoice )
-            console.log('3333 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU');
-            await this.updateInvoices();
-            console.log('4444 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU');
+            // await this.props.invoiceUpdateDB('beginDate', moment(value).toDate().toUTCString(), route )
+            let x =await  update(invoice, {beginDate:{$set: value}})
+            let y = await update(invoices, {[invoiceKey]:{$set: x}} )
+            let z = await update(company.invoices, {invoices:{$set: y}})
+            await this.props.setInvoices(y);
+            await this.props.setCompany(z);
+          console.log('INVOICE EDIT RENDER x in beginDate',x);
+           console.log('INVOICE EDIT RENDER y in beginDate',y);
+            // await this.props.invoiceUpdate('beginDate', moment(value).toDate().toUTCString() )
+            await this.props.invoiceUpdate('invoice', x);
+            await this.props.companyUpdate('invoices', y);
+
+            
+            // await this.updateInvoices();
             }
           }
         />
@@ -155,28 +164,31 @@ class invoiceEditScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('INVOICEEDITSCREEN MAPSTATETOPROPS state', state);
-  const address  = state.invoice.address;
-  
-  const beginDate   = state.invoice.beginDate;
-  const companyKey  = state.invoice.companyKey;
-  const coName      = state.invoice.coName;
-  const coInvoices = state.companies.company.invoices;
-  const createdAt   = state.invoice.createdAt;
-  const description = state.invoice.description;
-  const discount    = state.invoice.discount;
-  const dueDate     = state.invoice.dueDate;
-  const endDate     = state.invoice.endDate;
-  const fUserId     = state.invoice.fUserId;
-  const invoiceKey  = state.invoice.invoiceKey;
-  const invoices    = state.invoice.invoices || state.companies.company.invoices;
-  const items       = state.invoice.items;
-  const lastDate    = state.invoice.lastDate;
-  const total       = state.invoice.total;
-  const invoice     = { beginDate, companyKey, coInvoices, coName, createdAt, description, 
-    discount,dueDate, endDate, fUserId, invoiceKey, invoices, items, lastDate, total};
+  console.log('INVOICE EDIT MSTP state', state);
+  const invoices = state.companies.company.invoices;
+  const invoice = state.invoice.invoice;
+  const company = state.companies.company;
+  // const address  = state.invoice.address;
+  const beginDate = state.invoice.invoice.beginDate;
+  // const companyKey  = state.invoice.companyKey;
+  // const coName      = state.invoice.coName;
+  // const coInvoices = state.companies.company.invoices;
+  // const createdAt   = state.invoice.createdAt;
+  const description = state.invoice.invoice.description;
+  const discount    = state.invoice.invoice.discount;
+  // const dueDate     = state.invoice.dueDate;
+  const endDate     = state.invoice.invoice.endDate;
+  // const fUserId     = state.invoice.fUserId;
+  const invoiceKey  = state.invoice.invoice.invoiceKey;
+  // const invoices    = state.invoice.invoices || state.companies.company.invoices;
+  // const items       = state.invoice.items;
+  // const lastDate    = state.invoice.lastDate;
+  // const total       = state.invoice.total;
+  // const invoice     = { beginDate, companyKey, coInvoices, coName, createdAt, description, 
+  //   discount,dueDate, endDate, fUserId, invoiceKey, invoices, items, lastDate, total};
 
-  return { beginDate, companyKey, coInvoices, coName, createdAt, description, 
-    discount,dueDate, endDate, fUserId, invoice,  invoiceKey, invoices, items, lastDate, total};
+  // // return { beginDate, companyKey, coInvoices, coName, createdAt, description, 
+  //   discount,dueDate, endDate, fUserId, invoice,  invoiceKey, invoices, items, lastDate, total};
+  return { beginDate, company, description, discount, endDate, invoice, invoices, invoiceKey};
 }
 export default connect(mapStateToProps, actions )(invoiceEditScreen);
