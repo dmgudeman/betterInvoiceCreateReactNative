@@ -15,7 +15,7 @@ export default (state = INITIAL_STATE, action) => {
     
     case INVOICE_CREATE_CLEAR: {
       // console.log('INVOICEREDUCERS INVOICE_CREATE_CLEAR action.invoice', action.invoice);
-      return Object.assign({},  state, action.invoice)
+      return { ...state, invoice: action.invoice};
     }
 
     case INVOICE_CREATE:  { // For updating invoice fields
@@ -24,11 +24,10 @@ export default (state = INITIAL_STATE, action) => {
     }
     case INVOICE_UPDATE: { // For updating invoice fields
       // console.log('INVOICEREDUCERS  invoice UPDATE [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);
-      return Object.assign({},  state, {[action.payload.prop]: action.payload.value})
+      return { ...state, [action.payload.prop]: action.payload.value};
     }
     case INVOICE_UPDATE_DB: { // For updating invoice fields
-      // console.log('INVOICEREDUCERS  invoice UPDATE [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);
-      return Object.assign({},  state, {[action.payload.prop]: action.payload.value})
+      console.log('INVOICEREDUCERS  INVOICE_UPDATE_DB fired');
     }
    
     case INVOICE_EDIT: { // For submitting an edited invoice
@@ -39,11 +38,11 @@ export default (state = INITIAL_STATE, action) => {
     
     case SET_INVOICE: {
       // console.log('INVOICEREDUCERS SET_INVOICE action.invoice', action.invoice);
-      return { ...state, invoice:action.invoice }
+      return { ...state, invoice: action.invoice }
     }
 
     case SET_INVOICES: {
-      return { ...state, invoices:action.invoices}
+      return { ...state, invoices: action.invoices}
     }
     default:{
       return state;

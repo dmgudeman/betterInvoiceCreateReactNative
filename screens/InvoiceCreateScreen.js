@@ -109,6 +109,7 @@ class InvoiceCreateScreen extends Component {
     const {  
       beginDate, coItems, company, companyKey, coLastDate, coName, createdAt, description, 
       discount, dueDate, endDate, fUserId, invoiceKey, items, lastDate, total} = this.props
+      
 
     this.props.invoiceUpdate('lastDate', endDate )
     console.log('INVOICE CREATE 1 ONSUBMIT this.props', this.props);

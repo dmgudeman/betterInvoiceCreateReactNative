@@ -4,22 +4,21 @@ import {
   Text,
   View,
   PanResponder,
-  DatePickerIOS 
 }                      from 'react-native';
 import DatePicker      from 'react-native-datepicker';
 import moment          from 'moment';
+import DATE_RFC2822    from '../assets/Date';
 
-const DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
 
 const MyDatePicker = ({date, onDateChange}) => (
   <View style={styles.datePicker}>
-      <DatePicker
+    <DatePicker
       style={{width: 200}}
-      date={ date }
+      date={  moment(date).format("MM/DD/YYYY") }
       mode="date"
       placeholder="select date"
       format="MM/DD/YYYY"
-      minDate="01-01-2017"
+      minDate="01/01/2017"
       confirmBtnText="Confirm"
       cancelBtnText="Cancel"
       customStyles={{
@@ -32,7 +31,8 @@ const MyDatePicker = ({date, onDateChange}) => (
         dateInput: {
           marginLeft: 36
         }
-    }}
+      }
+    }
     onDateChange={(value) => {
       console.log('MYDATEPICKER ONDATECHANGE value', moment(value).format(DATE_RFC2822));
       onDateChange(moment(value).format(DATE_RFC2822) )}}
