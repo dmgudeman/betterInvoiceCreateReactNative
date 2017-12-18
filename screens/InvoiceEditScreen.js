@@ -98,7 +98,7 @@ class invoiceEditScreen extends Component {
     const route = { companyKey, fUserId, invoiceKey };
     let invoice = { ...this.props.invoice };
 
-      console.log('31 INVOICE EDIT ONSUBMIT companies', companies);
+      // console.log('31 INVOICE EDIT ONSUBMIT companies', companies);
     invoice.items = await this.filterItems(beginDate, endDate, items);
     await this.filteredItemsAlert(invoice.items);
 
@@ -107,8 +107,10 @@ class invoiceEditScreen extends Component {
       invoice.total = await this.calcInvoiceTotal(invoice.items);
       invoice.dueDate = await this.calcDueDate(invoice.endDate);
       invoice.lastDate = invoice.endDate;
-      await invoiceUpdateDB( invoice, route )
+
+      await invoiceUpdateDB( invoice, route );
       await invoiceUpdate('invoice', invoice );
+      console.log('INVOICE EDIT ONSUBMIT invoice', invoice);
      
       const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: invoice }}});
       const newCompanies = await update(companies, {companies: {[companyKey]:{$set: newCompany}}});
@@ -128,7 +130,8 @@ class invoiceEditScreen extends Component {
 
   render() {
     const {  beginDate, company, companyKey, coName, coInvoices, createdAt, description, 
-      discount, dueDate, endDate, fUserId, invoice, invoiceKey, invoices, invoiceUpdate, items, lastDate, total} = this.props;
+      discount, dueDate, endDate, fUserId, invoice, invoiceKey, invoices, invoiceUpdate, 
+      items, lastDate, setInvoice, total} = this.props;
       console.log('INVOICE EDIT RENDER this.props', this.props);
     
     const route = {companyKey, fUserId, invoiceKey}
@@ -157,31 +160,37 @@ class invoiceEditScreen extends Component {
           }
         />
        
-       
         <FormLabel>Stop Date</FormLabel>
         <MyDatePicker 
-         date={ moment(this.props.endDate).format('MM/DD/YYYY') }
-         onDateChange={ async (value) => {
-          let x = await update(invoice, {endDate:{$set: moment(value).format(DATE_RFC2822)}})
-          console.log('INVOICE EDIT RENDER x in beginDate',x);
-          await invoiceUpdate('invoice', x )
-           }
-         }
-      />
+          date={ moment(endDate).format('MM/DD/YYYY') }
+          onDateChange={ async (value) => {
+            let x = await update(invoice, {endDate:{$set: moment(value).format(DATE_RFC2822)}})
+            // console.log('INVOICE EDIT RENDER x in beginDate', x );
+            await invoiceUpdate('invoice', x );
+            }
+          }
+        />
       
         <FormLabel>Discount</FormLabel>
         <FormInput 
-          value={this.props.discount}
-          onChangeText={(value) => { 
+          value={discount}
+          onChangeText={ async (value) => { 
               // console.log('invoiceEdit coName input', input);
-              this.props.invoiceUpdate('discount', value)
+           let x = await update(invoice, {discount:{$set: value}})
+            // await  console.log('INVOICE EDIT DISCOUNT x', x);
+              await setInvoice( x  );
+            //  await  console.log('INVOICE EDIT DISCOUNT invoice', invoice);
             }
           }
         />
         <FormLabel>Description</FormLabel>
         <FormInput 
-      value={this.props.description}
-        onChangeText={(value) => this.props.invoiceUpdate('description', value)}
+          value={description}
+          onChangeText={ async (value) => {
+            let x = await update(invoice, {description:{$set: value}})
+            invoiceUpdate('invoice', x )
+            }
+          } 
         />
        
         <Button
