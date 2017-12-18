@@ -28,6 +28,7 @@ export default (state = INITIAL_STATE, action) => {
     }
     case INVOICE_UPDATE_DB: { // For updating invoice fields
       console.log('INVOICEREDUCERS  INVOICE_UPDATE_DB fired');
+      return { ...state, invoice: action.invoice }
     }
    
     case INVOICE_EDIT: { // For submitting an edited invoice

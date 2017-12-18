@@ -30,10 +30,13 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, company: action.company };
     }
     case SET_COMPANIES: {
-      return { ...state, companies: action.companies };
+      console.log('COMPANY REDUCER action', action);
+      return Object.assign({}, state, action.companies)
+      // let x = action.companies
+      // return { ...state, companies: action.companies}
     }
     case UPDATE_OBJECT_EDIT: {
-      // return Object.assign({}, state, {[action.payload.prop]: action.payload.value});
+      // return Object.assign({}, state, {[action.payload.prop]: action.payload.value})
       return {  ...state, [action.payload.prop]: action.payload.value };
     }
     default:

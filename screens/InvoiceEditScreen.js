@@ -23,6 +23,7 @@ import * as _                   from 'lodash';
 import * as actions             from '../actions';
 import MyDatePicker             from '../components/MyDatePicker';
 import DATE_RFC2822             from '../assets/Date';
+import { invoiceUpdateDB } from '../actions';
 
 
 class invoiceEditScreen extends Component {
@@ -93,39 +94,37 @@ class invoiceEditScreen extends Component {
   
   onSubmit = async () => {
     const { beginDate, companies, company, companyKey, endDate, fUserId, invoiceKey, 
-      invoices, items, navigation, invoiceUpdate, setInvoice} = this.props;
+      invoices,  invoiceUpdate, invoiceUpdateDB, items, navigation } = this.props;
     const route = { companyKey, fUserId, invoiceKey };
     let invoice = { ...this.props.invoice };
 
       console.log('31 INVOICE EDIT ONSUBMIT companies', companies);
     invoice.items = await this.filterItems(beginDate, endDate, items);
     await this.filteredItemsAlert(invoice.items);
-    if(invoice.items){
+
+    if (invoice.items) {
+     
       invoice.total = await this.calcInvoiceTotal(invoice.items);
       invoice.dueDate = await this.calcDueDate(invoice.endDate);
       invoice.lastDate = invoice.endDate;
-      console.log('1 INVOICE EDIT ONSUBMIT invoice', invoice);
-            // await this.props.invoiceUpdateDB('beginDate', moment(value).format(DATE_RFC2822), route )
+      await invoiceUpdateDB( invoice, route )
       await invoiceUpdate('invoice', invoice );
-      console.log('INVOICE EDIT ONSUBMIT invoice', invoice);
-      
-      console.log('2 INVOICE EDIT ONSUBMIT company', company );
+     
       const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: invoice }}});
-      console.log('INVOICE EDIT ONSUBMIT newCompany', newCompany );
+      const newCompanies = await update(companies, {companies: {[companyKey]:{$set: newCompany}}});
+      await this.props.setCompanies(newCompanies);
+
+      // console.log('INVOICE EDIT ONSUBMIT newCompany', newCompany );
       // await this.props.invoiceUpdateDB(invoice,  route )
       //       let a = await update(company,{invoices: {[invoiceKey]:{beginDate:{$set: value}}}})
-
-
-      console.log('32 INVOICE EDIT ONSUBMIT companies', companies);
-      const newCompanies = await update(companies, {companies: {[companyKey]:{$set: newCompany}}});
-      console.log('33 INVOICE EDIT ONSUBMIT companies', companies);
-      console.log('33 INVOICE EDIT ONSUBMIT newCompanies', newCompanies);
-      // await this.props.setCompanies(newCompanies2);
-
-
-      // await navigation.goBack();
+      // console.log('32 INVOICE EDIT ONSUBMIT companies', companies);
+      // console.log('33 INVOICE EDIT ONSUBMIT companies', companies);
+      // console.log('33 INVOICE EDIT ONSUBMIT newCompanies', newCompanies);
+      
+      await navigation.goBack();
     }
   }
+
 
   render() {
     const {  beginDate, company, companyKey, coName, coInvoices, createdAt, description, 

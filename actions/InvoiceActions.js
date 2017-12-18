@@ -75,16 +75,17 @@ export const invoiceUpdate = (prop, value)=> {
   };
 }
 
-export const invoiceUpdateDB = (value, route)=> {
-  console.log('INVOICE ACTIONS INVOICEUPDATEDB value', value);
+export const invoiceUpdateDB = (invoice, route)=> {
+  console.log('INVOICE ACTIONS INVOICEUPDATEDB value', invoice);
   console.log('INVOICE ACTIONS INVOICEUPDATEDB route', route);
   let updates = {};
   console.log('/users/'+ route.fUserId + '/companies/'+ route.companyKey + '/invoices/' + route.invoiceKey);
-  updates['/users/'+ route.fUserId + '/companies/'+ route.companyKey + '/invoices/' + route.invoiceKey ] = value;
+  updates['/users/'+ route.fUserId + '/companies/'+ route.companyKey + '/invoices/' + route.invoiceKey ] = invoice;
   firebase.database().ref().update(updates);
 
   return {
     type: INVOICE_UPDATE_DB,
+    invoice
   };
 }
 
