@@ -102,7 +102,7 @@ class invoiceEditScreen extends Component {
     invoice.items = await this.filterItems(beginDate, endDate, items);
     await this.filteredItemsAlert(invoice.items);
 
-    if (invoice.items) {
+    if (invoice.items && invoice.items.length > 0) {
      
       invoice.total = await this.calcInvoiceTotal(invoice.items);
       invoice.dueDate = await this.calcDueDate(invoice.endDate);
@@ -161,8 +161,10 @@ class invoiceEditScreen extends Component {
         <FormLabel>Stop Date</FormLabel>
         <MyDatePicker 
          date={ moment(this.props.endDate).format('MM/DD/YYYY') }
-         onDateChange={(value) => {
-           this.props.invoiceUpdate('endDate', moment(value).toDate().toUTCString() )
+         onDateChange={ async (value) => {
+          let x = await update(invoice, {endDate:{$set: moment(value).format(DATE_RFC2822)}})
+          console.log('INVOICE EDIT RENDER x in beginDate',x);
+          await invoiceUpdate('invoice', x )
            }
          }
       />
