@@ -40,7 +40,6 @@ class InvoicesScreen extends Component {
   }
   goToInvoiceEdit = (invoice) => {
     // const invoice = {...data};
-    // this.props.setInvoices(this.props.coInvoices)
     this.props.setInvoice(invoice)
     const { navigate } = this.props.navigation
     navigate('invoiceEdit' )
@@ -48,7 +47,6 @@ class InvoicesScreen extends Component {
 
   renderItem =(invoice)=> {
     const data = this.props.invoices[invoice.index];
-    // data.createdAt = moment(data.createdAt).format("L");
     return  (
        <InvoiceDetailsRow
          data = {data}
@@ -73,19 +71,19 @@ class InvoicesScreen extends Component {
 const mapStateToProps = state => {
   // console.log('INVOICES MSTP state', state);
   if (state.companies.company){
-  const company = state.companies.company || '';
-  const companyKey = state.companies.company.companyKey || state.companies.company.id;
-  const coInvoices = state.companies.company.invoices || '';
-  const coName = state.companies.company.name || '';
-  const fUserId = state.auth.fUserId;
-  const invoice = state.invoice.invoice || '';
+    const company = state.companies.company || '';
+    const companyKey = state.companies.company.companyKey || state.companies.company.id;
+    const coInvoices = state.companies.company.invoices || '';
+    const coName = state.companies.company.name || '';
+    const fUserId = state.auth.fUserId;
+    const invoice = state.invoice.invoice || '';
 
-  const invoices = _.map(state.companies.company.invoices, (val, id) => {
-    return { ...val, id};
-  });
+    const invoices = _.map(state.companies.company.invoices, (val, id) => {
+      return { ...val, id};
+    });
 
-  // const invoices = state.invoice.invoices || '';
-  return { company, companyKey, coInvoices, coName, fUserId, invoice, invoices};
+    // const invoices = state.invoice.invoices || '';
+    return { company, companyKey, coInvoices, coName, fUserId, invoice, invoices};
 } return state;
 }
 const styles = StyleSheet.create ({

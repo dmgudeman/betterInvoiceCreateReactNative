@@ -10,7 +10,6 @@ import { StackNavigator } from 'react-navigation';
 import { AsyncStorage } from 'react-native';
 import * as actions from '../actions';
 import ListItem from '../components/ListItem'
-// import { Button } from '../components/common';
 
 
 class CompaniesScreen extends Component {
@@ -30,9 +29,6 @@ class CompaniesScreen extends Component {
   }
   renderItem =({item, index})=> {
     // console.log('COMPANIES RENDERITEM  item', item );
-    // console.log('COMPANIES RENDERITEM  index', index );
-    // console.log('COMPANIES RENDERITEM  this.props.company', this.props );
-  
     return  (
       <ListItem 
         company={item} 
@@ -56,7 +52,6 @@ class CompaniesScreen extends Component {
    
   }
   render() {
-    // console.log('CompaniesScreen render  this.props.companies =', this.props.companies);
     const navigation = this.props.navigation
     return (
       <View style={styles.container}>

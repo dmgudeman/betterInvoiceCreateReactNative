@@ -1,4 +1,3 @@
-
 import React, { Component }     from 'react';
 import { bindActionCreators }   from 'redux';
 import { 
@@ -94,13 +93,11 @@ class invoiceEditScreen extends Component {
   
   onSubmit = async () => {
     const { beginDate, companies, company, companyKey, endDate, fUserId, invoiceKey, 
-            invoices,  invoiceUpdate, invoiceUpdateDB, items, navigation } 
+            invoices, invoiceUpdate, invoiceUpdateDB, items, navigation } 
                 = this.props;
     let invoice = { ...this.props.invoice };
     const route = { companyKey, fUserId, invoiceKey };
-    
 
-      // console.log('31 INVOICE EDIT ONSUBMIT companies', companies);
     invoice.items = await this.filterItems(beginDate, endDate, items);
     await this.filteredItemsAlert(invoice.items);
 
@@ -112,22 +109,12 @@ class invoiceEditScreen extends Component {
 
       await invoiceUpdateDB( invoice, route );
       await invoiceUpdate('invoice', invoice );
-      console.log('INVOICE EDIT ONSUBMIT invoice', invoice);
+      // console.log('INVOICE EDIT ONSUBMIT invoice', invoice);
      
       const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: invoice }}});
       
-      console.log('INVOICE EDIT ONSUBMIT company', company);
+      // console.log('INVOICE EDIT ONSUBMIT company', company);
       await this.props.setCompany(newCompany);
-      // const newCompanies = await update(companies, {companies: {[companyKey]:{$set: newCompany}}});
-      // const finalCompanies = await update(companies,{companies: {}})
-      // await this.props.setCompanies(newCompanies);
-
-      // console.log('INVOICE EDIT ONSUBMIT newCompany', newCompany );
-      // await this.props.invoiceUpdateDB(invoice,  route )
-      //       let a = await update(company,{invoices: {[invoiceKey]:{beginDate:{$set: value}}}})
-      // console.log('32 INVOICE EDIT ONSUBMIT companies', companies);
-      // console.log('33 INVOICE EDIT ONSUBMIT companies', companies);
-      // console.log('33 INVOICE EDIT ONSUBMIT newCompanies', newCompanies);
       
       await navigation.goBack();
     }
@@ -135,12 +122,12 @@ class invoiceEditScreen extends Component {
 
 
   render() {
-    const {  beginDate, company, companyKey, coName, coInvoices, createdAt, description, 
-      discount, dueDate, endDate, fUserId, invoice, invoiceKey, invoices, invoiceUpdate, 
-      items, lastDate, setInvoice, total} = this.props;
+    const {  beginDate, createdAt, description, 
+      discount, dueDate, endDate, invoice, invoiceUpdate, 
+      setInvoice, total} = this.props;
       console.log('INVOICE EDIT RENDER this.props', this.props);
     
-    const route = {companyKey, fUserId, invoiceKey}
+    
     return (
         <View>
         <FormLabel>Start Date</FormLabel>
@@ -171,7 +158,6 @@ class invoiceEditScreen extends Component {
           date={ moment(endDate).format('MM/DD/YYYY') }
           onDateChange={ async (value) => {
             let x = await update(invoice, {endDate:{$set: moment(value).format(DATE_RFC2822)}})
-            // console.log('INVOICE EDIT RENDER x in beginDate', x );
             await invoiceUpdate('invoice', x );
             }
           }
@@ -181,11 +167,8 @@ class invoiceEditScreen extends Component {
         <FormInput 
           value={discount}
           onChangeText={ async (value) => { 
-              // console.log('invoiceEdit coName input', input);
-           let x = await update(invoice, {discount:{$set: value}})
-            // await  console.log('INVOICE EDIT DISCOUNT x', x);
-              await setInvoice( x  );
-            //  await  console.log('INVOICE EDIT DISCOUNT invoice', invoice);
+            let x = await update(invoice, {discount:{$set: value}})
+            await setInvoice( x  );
             }
           }
         />
