@@ -94,9 +94,11 @@ class invoiceEditScreen extends Component {
   
   onSubmit = async () => {
     const { beginDate, companies, company, companyKey, endDate, fUserId, invoiceKey, 
-      invoices,  invoiceUpdate, invoiceUpdateDB, items, navigation } = this.props;
-    const route = { companyKey, fUserId, invoiceKey };
+            invoices,  invoiceUpdate, invoiceUpdateDB, items, navigation } 
+                = this.props;
     let invoice = { ...this.props.invoice };
+    const route = { companyKey, fUserId, invoiceKey };
+    
 
       // console.log('31 INVOICE EDIT ONSUBMIT companies', companies);
     invoice.items = await this.filterItems(beginDate, endDate, items);
@@ -113,8 +115,12 @@ class invoiceEditScreen extends Component {
       console.log('INVOICE EDIT ONSUBMIT invoice', invoice);
      
       const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: invoice }}});
-      const newCompanies = await update(companies, {companies: {[companyKey]:{$set: newCompany}}});
-      await this.props.setCompanies(newCompanies);
+      
+      console.log('INVOICE EDIT ONSUBMIT company', company);
+      await this.props.setCompany(newCompany);
+      // const newCompanies = await update(companies, {companies: {[companyKey]:{$set: newCompany}}});
+      // const finalCompanies = await update(companies,{companies: {}})
+      // await this.props.setCompanies(newCompanies);
 
       // console.log('INVOICE EDIT ONSUBMIT newCompany', newCompany );
       // await this.props.invoiceUpdateDB(invoice,  route )

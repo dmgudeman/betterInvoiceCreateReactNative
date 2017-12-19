@@ -51,7 +51,8 @@ class InvoicesScreen extends Component {
     // data.createdAt = moment(data.createdAt).format("L");
     return  (
        <InvoiceDetailsRow
-         data = {data} 
+         data = {data}
+      
          onPress={() => this.goToInvoiceEdit(data)}/>
     )
   }
@@ -77,13 +78,14 @@ const mapStateToProps = state => {
   const coInvoices = state.companies.company.invoices || '';
   const coName = state.companies.company.name || '';
   const fUserId = state.auth.fUserId;
+  const invoice = state.invoice.invoice || '';
 
   const invoices = _.map(state.companies.company.invoices, (val, id) => {
     return { ...val, id};
   });
 
   // const invoices = state.invoice.invoices || '';
-  return { company, companyKey, coInvoices, coName, fUserId, invoices};
+  return { company, companyKey, coInvoices, coName, fUserId, invoice, invoices};
 } return state;
 }
 const styles = StyleSheet.create ({
