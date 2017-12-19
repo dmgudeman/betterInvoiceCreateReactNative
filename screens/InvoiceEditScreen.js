@@ -153,6 +153,7 @@ class invoiceEditScreen extends Component {
             }
           }
         />
+
         <FormLabel>Description</FormLabel>
         <FormInput 
           value={description}
@@ -183,12 +184,14 @@ class invoiceEditScreen extends Component {
 
 const mapStateToProps = (state) => {
   // console.log('INVOICE EDIT MSTP state', state);
-  const invoices    = state.companies.company.invoices;
-  const invoice     = state.invoice.invoice;
 
   const companies   = state.companies
   const company     = state.companies.company;
+  const invoices    = state.companies.company.invoices;
+  const items       = state.companies.company.items;
 
+
+  const invoice     = state.invoice.invoice;
   const beginDate   = state.invoice.invoice.beginDate;
   const companyKey  = state.invoice.invoice.companyKey;
   const description = state.invoice.invoice.description;
@@ -196,7 +199,7 @@ const mapStateToProps = (state) => {
   const endDate     = state.invoice.invoice.endDate;
   const fUserId     = state.invoice.invoice.fUserId;
   const invoiceKey  = state.invoice.invoice.invoiceKey;
-  const items       = state.companies.company.items;
+  
   return { beginDate, companies, company, companyKey,  description, discount, endDate, fUserId, invoice, invoices, invoiceKey, items};
 }
 export default connect(mapStateToProps, actions )(invoiceEditScreen);
