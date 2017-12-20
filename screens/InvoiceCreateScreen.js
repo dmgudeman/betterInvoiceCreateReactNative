@@ -191,7 +191,7 @@ const mapStateToProps = (state) => {
   const coItems      = state.companies.company.items             || '';
   const company      = state.companies.company                   || ''
   const companyKey   = state.companies.company.companyKey        || '' ;
-  const coLastDate   = state.companies.company.lastDate.lastDate || '';
+  const coLastDate   = state.companies.company.lastDate          || '';
   const coName       = state.companies.company.name              || '';
   const paymentTerms = state.companies.company.paymentTerms      || '';
 

@@ -64,14 +64,17 @@ class ListItem extends Component {
 
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               console.log('LISTITEM RENDER  INVOICES BUTTON this.props', this.props);
-              this.props.goToInvoices(this.props.company)}
+              this.props.goToInvoices(this.props.company)
+              }
             }
               >Invoices</Button>
 
             <Button style={ styles.buttonContentStyle } onPress={() => { 
               console.log('LISTITEM RENDER this.props', this.props);
-              this.props.setCompany(this.props.company)
-              navigate('invoiceCreate')} }>+Invoice</Button>
+              this.props.goToInvoiceCreate(this.props.company);
+              }
+            }
+            >+Invoice</Button>
           </View>
         </CardSection>
       </Card>

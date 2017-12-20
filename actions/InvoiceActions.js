@@ -43,26 +43,25 @@ export const invoiceEdit = ({
   return dispatch => {type: INVOICE_EDIT, {invoice: payload}}
  }
  
-export const invoiceCreateClear = ({ companyKey, coItems, coName,  fUserId, lastDate, paymentTerms, })=>{
+export const invoiceCreateClear = (company)=>{
   let invoice = {
-    beginDate: lastDate, // 
-    coItems, 
-    companyKey, 
-    coName, 
+    beginDate: company.lastDate || moment().format(DATE_RFC2822), // 
+    coItems: company.items || '', 
+    companyKey: company.companyKey, 
+    coName: company.name, 
     createdAt: moment().format(DATE_RFC2822),
     description: '',
     discount: '',
     dueDate: '',
     endDate: moment().format(DATE_RFC2822),
-    fUserId,
+    fUserId: company.fUserId,
     invoiceKey: '',
     items: '',
-    paymentTerms,
-    lastDate,
+    paymentTerms: company.paymentTerms,
+    lastDate: '',
     total: ''
   }
   return {type: INVOICE_CREATE_CLEAR, invoice}
-
 }
 
 export const invoiceUpdate = (prop, value)=> {
