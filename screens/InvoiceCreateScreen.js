@@ -26,17 +26,9 @@ import MyDatePicker             from '../components/MyDatePicker';
 import DATE_RFC2822             from '../assets/Date';
 
 class InvoiceCreateScreen extends Component {
-  
-  componentWillMount() {
-  //  this.props.invoiceCreateClear(this.props.company)
-  }
+  // componentWillMount() {
 
-  // console.log('INVOICE CREATE CWM 1 this.props', this.props);
-  //    const { companyKey, coItems, coLastDate, coName, fUserId, lastDate, paymentTerms } = this.props;
-  //    this.props.invoiceUpdate('lastDate', coLastDate)
-  //   this.props.invoiceCreateClear({ companyKey, coItems, coName, fUserId, lastDate, paymentTerms });
-  // console.log('INVOICE CREATE CWM 2 this.props', this.props);
-  
+  // }
 
   static navigationOptions = ({ navigation }) => {
     return {
@@ -49,7 +41,6 @@ class InvoiceCreateScreen extends Component {
         size={40}
         onPress= {  _.debounce(()=> navigation.goBack(null), 1000,{'leading':true, 'trailing':true}) }
       />,
-        
     }
   }
   calcDueDate(){
@@ -102,39 +93,21 @@ class InvoiceCreateScreen extends Component {
         itemsArray.forEach(i => {
           invoiceTotal = invoiceTotal + i.total;
       });
-      
     }
   }
   onSubmit = async () => {
-    
-    const {  
-      beginDate, coItems, company, companyKey, coLastDate, coName, createdAt, description, 
-      discount, dueDate, endDate, fUserId, invoiceKey, items, lastDate, total} = this.props
-      
 
-    this.props.invoiceUpdate('lastDate', endDate )
-    console.log('INVOICE CREATE 1 ONSUBMIT this.props', this.props);
-    await this.filterByDateRange(beginDate, endDate, items);
-    console.log('INVOICE CREATE 2 ONSUBMIT this.props', this.props);
+    const x = {...this.props.invoice}
+    this.props.invoiceUpdate('lastDate', x.endDate )
+    // console.log('INVOICE CREATE 1 ONSUBMIT this.props', this.props);
+    await this.filterByDateRange(x.beginDate, x.endDate, x.items);
+    // console.log('INVOICE CREATE 2 ONSUBMIT this.props', this.props);
     await this.filteredItemsAlert();
     await this.calcDueDate();
-    console.log('INVOICE CREATE 3 ONSUBMIT this.props', this.props);
-  
-    let invoice = {
-      beginDate, 
-      companyKey, 
-      createdAt, 
-      description: this.props.description, 
-      discount, 
-      dueDate: this.props.dueDate, 
-      endDate, 
-      fUserId, 
-      invoiceKey, 
-      items: this.props.items, 
-      lastDate,
-      total: this.props.total
-    }
-    await this.props.invoiceCreate({invoice})
+   
+    let y = Object.assign({}, {...this.props.invoice}, {coItems: null})
+    // console.log('INVOICE CREATE ONSUBMIT y', y);
+    await this.props.invoiceCreate({invoice: y})
     await this.props.navigation.goBack();
   }
   render() {
@@ -164,7 +137,6 @@ class InvoiceCreateScreen extends Component {
         <FormInput 
           value={this.props.discount}
           onChangeText={(value) => { 
-            // console.log('invoicecreate coName input', value);
             this.props.invoiceUpdate('discount', value)
             }
           }
@@ -193,7 +165,6 @@ const mapStateToProps = (state) => {
   const company      = state.companies.company                   || ''
   const companyKey   = state.companies.company.companyKey        || '' ;
   const coLastDate   = state.companies.company.lastDate          || '';
-  const coName       = state.companies.company.name              || '';
   const paymentTerms = state.companies.company.paymentTerms      || '';
   const invoice     = state.invoice
   const beginDate   = state.invoice.beginDate   || moment().format();
@@ -207,7 +178,7 @@ const mapStateToProps = (state) => {
   const lastDate    = state.invoice.lastDate    || moment().format();
   const total       = state.invoice.total       || '';
   return { 
-    beginDate, company, companyKey, coItems, coLastDate, coName, createdAt, description, 
+    beginDate, company, companyKey, coItems, coLastDate, createdAt, description, 
     discount, dueDate, endDate, fUserId, invoiceKey, items, invoice, lastDate, paymentTerms, total};
 } 
 export default connect(mapStateToProps, actions)(InvoiceCreateScreen);
