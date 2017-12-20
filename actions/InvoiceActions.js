@@ -5,6 +5,7 @@ import {
   INVOICE_CREATE_CLEAR,
   INVOICE_EDIT,
   INVOICE_UPDATE, 
+  INVOICE_UPDATE_2, 
   INVOICE_UPDATE_DB, 
   SET_INVOICE,
   SET_INVOICES,
@@ -43,7 +44,7 @@ export const invoiceEdit = ({
   return dispatch => {type: INVOICE_EDIT, {invoice: payload}}
  }
  
-export const invoiceCreateClear = (company)=>{
+export const invoiceCreateClear = (company )=>{
   let invoice = {
     beginDate: company.lastDate || moment().format(DATE_RFC2822), // 
     coItems: company.items || '', 
@@ -63,17 +64,31 @@ export const invoiceCreateClear = (company)=>{
   }
   return {type: INVOICE_CREATE_CLEAR, invoice}
 }
-
+// export const invoiceCreateClear = (company )=>{
+//   return { type: INVOICE_CREATE_CLEAR, invoice:{}}
+// }
 export const invoiceUpdate = (prop, value)=> {
-  if (prop === 'createdAt' || prop === 'beginDate' || prop === 'endDate'){
-     value = moment(value).format(DATE_RFC2822);
-  }
   return {
     type: INVOICE_UPDATE,
     payload: { prop, value}
   };
 }
-
+export const invoiceUpdate2 = (prop, value)=> {
+    console.log('INVOICE ACTIONS prop', prop);
+    console.log('INVOICE ACTIONS value', value );
+    // console.log('INVOICE ACTIONS invoice', invoice);
+    // console.log('INVOICE ACTIONS invoice.invoice', invoice.invoice);
+    // console.log('INVOICE ACTIONS ...invoice.invoice', {...invoice.invoice});
+    // console.log('INVOICE ACTIONA invoice.invoice[prop]', invoice.invoice[prop]);
+    // console.log('INVOICE ACTIONA (prop ==="endDate")', (prop === 'endDate'));
+// let x =    Object.assign({}, {...invoice.invoice}, {[prop]: value})
+    // console.log('INVOICE ACTIONS x', x);
+  return {
+    
+    type: INVOICE_UPDATE_2,
+    payload: { prop, value}
+  };
+}
 export const invoiceUpdateDB = (invoice, route)=> {
   console.log('INVOICE ACTIONS INVOICEUPDATEDB value', invoice);
   console.log('INVOICE ACTIONS INVOICEUPDATEDB route', route);

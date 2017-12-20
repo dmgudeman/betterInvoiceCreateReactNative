@@ -26,6 +26,7 @@ export const INVOICE_CREATE_CLEAR = 'INVOICE_CREATE_CLEAR';
 export const INVOICE_CREATE = 'invoice_create';
 export const INVOICE_EDIT = 'invoice_edit';
 export const INVOICE_UPDATE = 'invoice_update';
+export const INVOICE_UPDATE_2 = 'invoice_update_2';
 export const INVOICE_UPDATE_DB = 'invoice_update_db';
 export const SET_INVOICE = 'SET_INVOICE';
 export const SET_INVOICES = 'SET_INVOICES';

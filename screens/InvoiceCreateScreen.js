@@ -28,15 +28,16 @@ import DATE_RFC2822             from '../assets/Date';
 class InvoiceCreateScreen extends Component {
   
   componentWillMount() {
-
-
-  console.log('INVOICE CREATE CWM 1 this.props', this.props);
-     const { companyKey, coItems, coLastDate, coName, fUserId, lastDate, paymentTerms } = this.props;
-     this.props.invoiceUpdate('lastDate', coLastDate)
-    this.props.invoiceCreateClear({ companyKey, coItems, coName, fUserId, lastDate, paymentTerms });
-  console.log('INVOICE CREATE CWM 2 this.props', this.props);
-  
+  //  this.props.invoiceCreateClear(this.props.company)
   }
+
+  // console.log('INVOICE CREATE CWM 1 this.props', this.props);
+  //    const { companyKey, coItems, coLastDate, coName, fUserId, lastDate, paymentTerms } = this.props;
+  //    this.props.invoiceUpdate('lastDate', coLastDate)
+  //   this.props.invoiceCreateClear({ companyKey, coItems, coName, fUserId, lastDate, paymentTerms });
+  // console.log('INVOICE CREATE CWM 2 this.props', this.props);
+  
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Create Invoice',
@@ -138,7 +139,6 @@ class InvoiceCreateScreen extends Component {
     await this.props.navigation.goBack();
   }
   render() {
-  
     return (
       
         <View>
@@ -146,7 +146,7 @@ class InvoiceCreateScreen extends Component {
         <MyDatePicker 
           date={ moment(this.props.beginDate).format('MM/DD/YYYY') }
           onDateChange={(value) => {
-            this.props.invoiceUpdate('beginDate',moment(value).toDate().toUTCString() )
+            this.props.invoiceUpdate2('beginDate',moment(value).toDate().toUTCString() )
             }
           }
         />
@@ -154,7 +154,9 @@ class InvoiceCreateScreen extends Component {
         <MyDatePicker 
            date={ moment(this.props.endDate).format('MM/DD/YYYY') }
            onDateChange={(value) => {
-             this.props.invoiceUpdate('endDate',moment(value).toDate().toUTCString() )
+            //  this.props.invoiceUpdate('endDate',moment(value).toDate().toUTCString() )
+            //  this.props.invoiceUpdate2(this.props.invoice, 'endDate', moment(value).toDate().toUTCString() )
+             this.props.invoiceUpdate2( 'endDate', moment(value).toDate().toUTCString() )
              }
           }
         />
@@ -164,14 +166,14 @@ class InvoiceCreateScreen extends Component {
           value={this.props.discount}
           onChangeText={(value) => { 
             // console.log('invoicecreate coName input', value);
-            this.props.invoiceUpdate('discount', value)
+            this.props.invoiceUpdate2('discount', value)
             }
           }
         />
         <FormLabel>Description</FormLabel>
         <FormInput 
           value={this.props.description}
-          onChangeText={(value) => this.props.invoiceUpdate('description', value)}
+          onChangeText={(value) => this.props.invoiceUpdate2('description', value)}
         />
        
         <Button
@@ -194,7 +196,7 @@ const mapStateToProps = (state) => {
   const coLastDate   = state.companies.company.lastDate          || '';
   const coName       = state.companies.company.name              || '';
   const paymentTerms = state.companies.company.paymentTerms      || '';
-
+  const invoice     = state.invoice
   const beginDate   = state.invoice.beginDate   || moment().format();
   const createdAt   = state.invoice.createdAt   || moment().format();
   const description = state.invoice.description || '';
@@ -207,6 +209,6 @@ const mapStateToProps = (state) => {
   const total       = state.invoice.total       || '';
   return { 
     beginDate, company, companyKey, coItems, coLastDate, coName, createdAt, description, 
-    discount, dueDate, endDate, fUserId, invoiceKey, items, lastDate, paymentTerms, total};
+    discount, dueDate, endDate, fUserId, invoiceKey, items, invoice, lastDate, paymentTerms, total};
 } 
 export default connect(mapStateToProps, actions)(InvoiceCreateScreen);
