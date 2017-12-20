@@ -123,7 +123,6 @@ class InvoiceCreateScreen extends Component {
     let invoice = {
       beginDate, 
       companyKey, 
-      coName, 
       createdAt, 
       description: this.props.description, 
       discount, 
@@ -146,7 +145,7 @@ class InvoiceCreateScreen extends Component {
         <MyDatePicker 
           date={ moment(this.props.beginDate).format('MM/DD/YYYY') }
           onDateChange={(value) => {
-            this.props.invoiceUpdate2('beginDate',moment(value).toDate().toUTCString() )
+            this.props.invoiceUpdate('beginDate',moment(value).toDate().toUTCString() )
             }
           }
         />
@@ -156,7 +155,7 @@ class InvoiceCreateScreen extends Component {
            onDateChange={(value) => {
             //  this.props.invoiceUpdate('endDate',moment(value).toDate().toUTCString() )
             //  this.props.invoiceUpdate2(this.props.invoice, 'endDate', moment(value).toDate().toUTCString() )
-             this.props.invoiceUpdate2( 'endDate', moment(value).toDate().toUTCString() )
+             this.props.invoiceUpdate( 'endDate', moment(value).toDate().toUTCString() )
              }
           }
         />
@@ -166,14 +165,14 @@ class InvoiceCreateScreen extends Component {
           value={this.props.discount}
           onChangeText={(value) => { 
             // console.log('invoicecreate coName input', value);
-            this.props.invoiceUpdate2('discount', value)
+            this.props.invoiceUpdate('discount', value)
             }
           }
         />
         <FormLabel>Description</FormLabel>
         <FormInput 
           value={this.props.description}
-          onChangeText={(value) => this.props.invoiceUpdate2('description', value)}
+          onChangeText={(value) => this.props.invoiceUpdate('description', value)}
         />
        
         <Button

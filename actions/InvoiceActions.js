@@ -20,6 +20,11 @@ export const invoiceCreate = ({invoice})=> {
  
   let newInvoiceKey =  firebase.database().ref().child('companies').child('invoices').push().key;
   payload.invoiceKey = newInvoiceKey
+  let updates = {};
+  console.log('/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + newInvoiceKey);
+  updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey ] = invoice;
+  firebase.database().ref().update(updates);
+
   
    return {
     type: INVOICE_CREATE,
