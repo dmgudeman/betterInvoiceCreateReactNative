@@ -37,7 +37,6 @@ class ItemsScreen extends Component {
   }
 
   goToItemEdit = (data) => {
-    console.log('1     IIIIIIIIIIIIIIIIIIIIIIIIIIIIITEMS RENDERITEM data', data);
     const { amount, companyKey, company, name, date, description, fUserId, goBackKey, hours, total, id } = data;
     const item = { amount, companyKey, company, name, date, description, fUserId, goBackKey, hours, total, id };
 
@@ -49,8 +48,6 @@ class ItemsScreen extends Component {
 
   renderItem =(item)=> {
     const data = this.props.items[item.index];
-    console.log('IIIIIIIIIIIIIIIIIIIIIIIIIIIIITEMS RENDERITEM data, ', data);
-    console.log('IIIIIIIIIIIIIIIIIIIIIIIIIIIIITEMS RENDERITEM this.props.goBackKey, ', this.props.goBackKey);
     data.goBackKey = this.props.goBackKey;
     return  (
       <ItemDetailsRow

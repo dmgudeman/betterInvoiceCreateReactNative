@@ -48,73 +48,80 @@ class invoiceEditScreen extends Component {
   calcDueDate(){
     let a = moment(this.props.createdAt);
     a.add(this.props.paymentTerms *1, 'days');
-    return a.format(DATE_RFC2822); 
-  }
-  
-  filterItems(beginDate, endDate, items) {
-      // console.log('INVOICE EDIT FILTERITEMS items', items);
-    let filteredItems = [];
-    if(items) {
-      let imDate = '';
-      let bmDate = moment(beginDate).format();
-      let emDate = moment(endDate).format();
-      let itemsArray = (Object).values(items);
-      itemsArray.forEach(i => {
-        imDate = moment(i.date);
-        if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
-          filteredItems.push(i);
-        }
-      })
-    }
-    return filteredItems;
+    let dueDate = a.format(DATE_RFC2822); 
+    this.props.invoiceUpdate('dueDate', dueDate)
   }
 
-  filteredItemsAlert(itemsArray){
-    if(!itemsArray.length >0){
+  
+  filterByDateRange(beginDate, endDate, coItems) {
+    let imDate = '';
+    let bmDate = moment(beginDate).format();
+    let emDate = moment(endDate).format();
+    let filteredItems = [];
+    let itemsArray = (Object).values(this.props.coItems);
+    itemsArray.forEach(i => {
+      imDate = moment(i.date);
+      if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
+        filteredItems.push(i);
+      }
+      console.log('INVOICECREATESCREEN FILTERBYDATERANGE filteredItems', filteredItems);
+    })
+    if (!filteredItems) this.props.invoiceUpdate('items', "0")
+    this.props.invoiceUpdate('items', filteredItems);
+  }
+  filteredItemsAlert(){
+    if(this.props.coItems && this.props.coItems.length === 0) {
       Alert.alert(
         'Invoice Items',
         'There are no invoice items for this date range'
         ,[{text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}]
       )
+
+    } else {
+      let invoiceTotal = 0;
+
+      console.log('INVOICE EDIT this.props.items', this.props.items);
+      let itemsArray = Object.values(this.props.items);
+      itemsArray.forEach(i => {
+        invoiceTotal = invoiceTotal + i.total;
+        });
+      console.log('invoiceTotal', invoiceTotal);
+      this.props.invoiceUpdate('total', invoiceTotal);
     }
   }
 
-  calcInvoiceTotal =  (itemsArray) => {
-    let invoiceTotal = 0;
-    itemsArray.forEach(i => {
-      invoiceTotal = invoiceTotal + i.total;
-    });
-    return invoiceTotal;
+  calcInvoiceTotal =  () => {
+    if (this.props.items){
+      let invoiceTotal = 0;
+      let itemsArray = (Object).values(this.props.items);
+        itemsArray.forEach(i => {
+          invoiceTotal = invoiceTotal + i.total;
+      });
+    }
   }
-  
-  
   onSubmit = async () => {
-    // for updating this screen
-    const { beginDate, companies, company, companyKey, endDate, fUserId, 
-            invoiceKey, invoices, invoiceUpdate, invoiceUpdateDB, items, navigation 
-          } = this.props;
-    
-    // for updating state and DB
-    let invoice = { ...this.props.invoice };
-    const route = { companyKey, fUserId, invoiceKey };
 
-    invoice.items = await this.filterItems(beginDate, endDate, items);
-    await this.filteredItemsAlert(invoice.items);
+    const x = {...this.props.invoice}
+    this.props.invoiceUpdate('lastDate', x.endDate )
+    // console.log('INVOICE CREATE 1 ONSUBMIT this.props', this.props);
+    await this.filterByDateRange(x.beginDate, x.endDate, x.items);
+    // console.log('INVOICE CREATE 2 ONSUBMIT this.props', this.props);
+    await this.filteredItemsAlert();
+    await this.calcDueDate();
+   
+    // let y = Object.assign({}, {...this.props.invoice}, {coItems: null})
+    // // console.log('INVOICE CREATE ONSUBMIT y', y);
+    // await this.props.invoiceCreate({invoice: y})
 
-    if (invoice.items && invoice.items.length > 0) {
+
+    //   await invoiceUpdateDB( invoice, route );
+    //   await invoiceUpdate('invoice', invoice );
      
-      invoice.total = await this.calcInvoiceTotal(invoice.items);
-      invoice.dueDate = await this.calcDueDate(invoice.endDate);
-      invoice.lastDate = invoice.endDate;
-
-      await invoiceUpdateDB( invoice, route );
-      await invoiceUpdate('invoice', invoice );
-     
-      const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: invoice }}});
-      await this.props.setCompany(newCompany);
-      await navigation.goBack();
+    //   const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: invoice }}});
+    //   await this.props.setCompany(newCompany);
+    //   await navigation.goBack();
     }
-  }
+  
 
 
   render() {
@@ -123,45 +130,35 @@ class invoiceEditScreen extends Component {
           } = this.props;
     
     return (
-        <View>
+      <View>
         <FormLabel>Start Date</FormLabel>
         <MyDatePicker 
-          date={ moment(beginDate).format('MM/DD/YYYY') }
-          onDateChange={ async (value) => {
-            let x = await update(invoice, {beginDate:{$set: moment(value).format(DATE_RFC2822)}})
-            await invoiceUpdate('invoice', x )
+          date={ moment(this.props.beginDate).format('MM/DD/YYYY') }
+          onDateChange={(value) => {
+            this.props.invoiceUpdate('beginDate',moment(value).toDate().toUTCString() )
             }
           }
         />
-       
         <FormLabel>Stop Date</FormLabel>
         <MyDatePicker 
-          date={ moment(endDate).format('MM/DD/YYYY') }
-          onDateChange={ async (value) => {
-            let x = await update(invoice, {endDate:{$set: moment(value).format(DATE_RFC2822)}})
-            await invoiceUpdate('invoice', x );
-            }
+           date={ moment(this.props.endDate).format('MM/DD/YYYY') }
+           onDateChange={(value) => {
+             this.props.invoiceUpdate( 'endDate', moment(value).toDate().toUTCString() )
+             }
           }
         />
       
         <FormLabel>Discount</FormLabel>
         <FormInput 
-          value={discount}
-          onChangeText={ async (value) => { 
-            let x = await update(invoice, {discount:{$set: value}})
-            await setInvoice( x  );
-            }
+          value={this.props.discount}
+          onChangeText={(value) => { 
+            this.props.invoiceUpdate('discount', value) }
           }
         />
-
         <FormLabel>Description</FormLabel>
         <FormInput 
-          value={description}
-          onChangeText={ async (value) => {
-            let x = await update(invoice, {description:{$set: value}})
-            invoiceUpdate('invoice', x )
-            }
-          } 
+          value={this.props.description}
+          onChangeText={(value) => this.props.invoiceUpdate('description', value)}
         />
        
         <Button
@@ -183,23 +180,27 @@ class invoiceEditScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log('INVOICE EDIT MSTP state', state);
-
-  const companies   = state.companies
-  const company     = state.companies.company;
-  const invoices    = state.companies.company.invoices;
-  const items       = state.companies.company.items;
-
-
-  const invoice     = state.invoice.invoice;
-  const beginDate   = state.invoice.invoice.beginDate;
-  const companyKey  = state.invoice.invoice.companyKey;
-  const description = state.invoice.invoice.description;
-  const discount    = state.invoice.invoice.discount;
-  const endDate     = state.invoice.invoice.endDate;
-  const fUserId     = state.invoice.invoice.fUserId;
-  const invoiceKey  = state.invoice.invoice.invoiceKey;
+  console.log('INVOICE CREATE MSTP state', state);
+  const fUserId      = state.auth.fUserId || '';
   
-  return { beginDate, companies, company, companyKey,  description, discount, endDate, fUserId, invoice, invoices, invoiceKey, items};
-}
+  const coItems      = state.companies.company.items             || '';
+  const company      = state.companies.company                   || ''
+  const companyKey   = state.companies.company.companyKey        || '' ;
+  const coLastDate   = state.companies.company.lastDate          || '';
+  const paymentTerms = state.companies.company.paymentTerms      || '';
+  const invoice     = state.invoice
+  const beginDate   = state.invoice.beginDate   || moment().format();
+  const createdAt   = state.invoice.createdAt   || moment().format();
+  const description = state.invoice.description || '';
+  const discount    = state.invoice.discount    || '';
+  const dueDate     = state.invoice.dueDate     || '';
+  const endDate     = state.invoice.endDate     || moment().format();
+  const invoiceKey  = state.invoice.invoiceKey  || '';
+  const items       = state.invoice.items       || '';
+  const lastDate    = state.invoice.lastDate    || moment().format();
+  const total       = state.invoice.total       || '';
+  return { 
+    beginDate, company, companyKey, coItems, coLastDate, createdAt, description, 
+    discount, dueDate, endDate, fUserId, invoiceKey, items, invoice, lastDate, paymentTerms, total};
+} 
 export default connect(mapStateToProps, actions )(invoiceEditScreen);

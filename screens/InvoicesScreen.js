@@ -54,14 +54,14 @@ class InvoicesScreen extends Component {
          onPress={() => this.goToInvoiceEdit(data)}/>
     )
   }
-
+  _keyExtractor = (item, index) => index;
   render() {
     // console.log('INVOICES RENDER this.props', this.props);
     return (
       <View style={{height: '100%'}} >
         <FlatList 
           data = {this.props.invoices}
-          keyExtractor = {(item) => item.invoiceKey}
+          keyExtractor = {this._keyExtractor}
           renderItem={this.renderItem}
         />
     </View>
