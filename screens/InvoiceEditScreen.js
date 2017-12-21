@@ -78,7 +78,10 @@ class invoiceEditScreen extends Component {
         ,[{text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}]
       )
 
-    } else {
+    } 
+  }
+  calcTotal( ){
+
       let invoiceTotal = 0;
 
       console.log('INVOICE EDIT this.props.items', this.props.items);
@@ -89,38 +92,41 @@ class invoiceEditScreen extends Component {
       console.log('invoiceTotal', invoiceTotal);
       this.props.invoiceUpdate('total', invoiceTotal);
     }
-  }
+  
 
-  calcInvoiceTotal =  () => {
-    if (this.props.items){
-      let invoiceTotal = 0;
-      let itemsArray = (Object).values(this.props.items);
-        itemsArray.forEach(i => {
-          invoiceTotal = invoiceTotal + i.total;
-      });
-    }
-  }
+  // calcInvoiceTotal =  () => {
+  //   if (this.props.items){
+  //     let invoiceTotal = 0;
+  //     let itemsArray = (Object).values(this.props.items);
+  //       itemsArray.forEach(i => {
+  //         invoiceTotal = invoiceTotal + i.total;
+  //     });
+  //   }
+  // }
   onSubmit = async () => {
    const {company, invoice, invoiceKey, invoiceEdit, invoiceUpdate, invoicesUpdate, invoices,  navigation, setCompany} = this.props
 
-    const x = {...invoice}
-    await this.props.invoiceUpdate('lastDate', x.lastDate )
-    console.log('INVOICE CREATE 1 ONSUBMIT x.lastDate', x.lastDate );
-    console.log('INVOICE CREATE 1 ONSUBMIT .lastDate', invoice.lastDate );
-    await this.filterByDateRange(x.beginDate, x.endDate, x.items);
+    
+    await this.props.invoiceUpdate('lastDate', this.props.invoice.lastDate )
+    await console.log('INVOICE EDIT 1 ONSUBMIT .lastDate', invoice.lastDate );
+    await this.filterByDateRange(this.props.invoice.beginDate, this.props.invoice.endDate, this.props.invoice.items);
     // console.log('INVOICE CREATE 2 ONSUBMIT this.props', this.props);
     await this.filteredItemsAlert();
+    await this.calcTotal();
+    await console.log('INVOICE EDIT  LLLLLLLLLLLLLLl this.props.invoice ', this.props.invoice);
+    await console.log('INVOICE EDIT  LLLLLLLLLLLLLLl invoice ', invoice);
     await this.calcDueDate();
-    console.log('KKKKKKKKKKKKKKKKKKKK invoice', invoice);
-    let newInvoice = await Object.assign({}, {...invoice}, {coItems: null})
-
-    await invoiceEdit({newInvoice})
+    await console.log('KKKKKKKKKKKKKKKKKKKK invoice', invoice);
+    let newInvoice = await Object.assign({}, {...this.props.invoice}, {coItems: null})
+    await console.log('NNNNNNNNNNNNNNNNNNNNNNNN', newInvoice)
+    await invoiceEdit(newInvoice)
 
      let a = {[invoiceKey]:newInvoice}
-    await invoicesUpdate( invoices, a );
+    await invoicesUpdate( this.props.invoices, a );
      
       const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: newInvoice }}});
-      await setCompany(newCompany);
+      console.log('nnnnnnnnnnnnnnnnnnnewwwwwwwwwcompany', newCompany);
+      await this.props.setCompany(newCompany);
       await navigation.goBack();
     }
   
@@ -191,7 +197,7 @@ const mapStateToProps = (state) => {
   const coLastDate   = state.companies.company.lastDate          || '';
   const paymentTerms = state.companies.company.paymentTerms      || '';
   
-  const invoice     = state.invoice
+  // const invoice     = state.invoice
   const beginDate   = state.invoice.beginDate   || moment().format();
   const createdAt   = state.invoice.createdAt   || moment().format();
   const description = state.invoice.description || '';
@@ -204,6 +210,8 @@ const mapStateToProps = (state) => {
   const total       = state.invoice.total       || '';
 
   const invoices    = state.invoices            || '';
+  const invoice = {beginDate, company, companyKey, coItems, coLastDate, createdAt, description, 
+    discount, dueDate, endDate, fUserId, invoiceKey, items, invoices, lastDate, paymentTerms, total}
   return { 
     beginDate, company, companyKey, coItems, coLastDate, createdAt, description, 
     discount, dueDate, endDate, fUserId, invoiceKey, items, invoice, invoices, lastDate, paymentTerms, total};

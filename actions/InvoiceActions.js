@@ -32,7 +32,7 @@ export const invoiceCreate = ({invoice})=> {
 }
 
  // used upon Submit
-export const invoiceEdit = ({invoice}) => {
+export const invoiceEdit = (invoice) => {
   console.log('INVOICE ACTIONS invoiceEdit invoice', invoice);
   let payload = {...invoice};
   console.log('INVOICE ACTIONS EDIT payload', payload);

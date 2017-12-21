@@ -10,6 +10,7 @@ import DATE_RFC2822 from '../assets/Date';
 
 
 export const invoicesUpdate = (invoices, invoice)=> {
+  console.log('INVOICES ACTIONS INVOICESUPDATE invoice', invoice);
   return {
     type: INVOICES_UPDATE,
     payload: {invoices, invoice}
