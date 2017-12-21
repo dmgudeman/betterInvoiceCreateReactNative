@@ -22,7 +22,6 @@ import * as _                   from 'lodash';
 import * as actions             from '../actions';
 import MyDatePicker             from '../components/MyDatePicker';
 import DATE_RFC2822             from '../assets/Date';
-import { invoiceUpdate, invoicesUpdate, invoiceEdit} from '../actions';
 
 
 class invoiceEditScreen extends Component {
@@ -102,27 +101,27 @@ class invoiceEditScreen extends Component {
     }
   }
   onSubmit = async () => {
-   const {invoiceKey} = this.props
+   const {company, invoice, invoiceKey, invoiceEdit, invoiceUpdate, invoicesUpdate, invoices,  navigation, setCompany} = this.props
 
-    const x = {...this.props.invoice}
-    await this.props.invoiceUpdate('lastDate', x.endDate )
-    // console.log('INVOICE CREATE 1 ONSUBMIT this.props', this.props);
+    const x = {...invoice}
+    await this.props.invoiceUpdate('lastDate', x.lastDate )
+    console.log('INVOICE CREATE 1 ONSUBMIT x.lastDate', x.lastDate );
+    console.log('INVOICE CREATE 1 ONSUBMIT .lastDate', invoice.lastDate );
     await this.filterByDateRange(x.beginDate, x.endDate, x.items);
     // console.log('INVOICE CREATE 2 ONSUBMIT this.props', this.props);
     await this.filteredItemsAlert();
     await this.calcDueDate();
-   
-    let y = await Object.assign({}, {...this.props.invoice}, {coItems: null})
-    console.log('INVOICE CREATE ONSUBMIT y', y);
-    await this.props.invoiceEdit({invoice: y})
-    console.log('INVOICE CREATE ONSUBMIT adter invoiceEdit');
+    console.log('KKKKKKKKKKKKKKKKKKKK invoice', invoice);
+    let newInvoice = await Object.assign({}, {...invoice}, {coItems: null})
 
-     let a = {[invoiceKey]:y}
-    await this.props.invoicesUpdate( this.props.invoices, a );
+    await invoiceEdit({newInvoice})
+
+     let a = {[invoiceKey]:newInvoice}
+    await invoicesUpdate( invoices, a );
      
-    //   const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: invoice }}});
-    //   await this.props.setCompany(newCompany);
-    //   await navigation.goBack();
+      const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: newInvoice }}});
+      await setCompany(newCompany);
+      await navigation.goBack();
     }
   
 
@@ -150,7 +149,6 @@ class invoiceEditScreen extends Component {
              }
           }
         />
-      
         <FormLabel>Discount</FormLabel>
         <FormInput 
           value={this.props.discount}
@@ -186,13 +184,13 @@ const mapStateToProps = (state) => {
   console.log('INVOICE CREATE MSTP state', state);
   const fUserId      = state.auth.fUserId || '';
   
-  const invoices     = state.companies.company.invoices          || '';
+  // const coInvoices     = state.companies.company.invoices          || '';
   const coItems      = state.companies.company.items             || '';
   const company      = state.companies.company                   || ''
   const companyKey   = state.companies.company.companyKey        || '' ;
   const coLastDate   = state.companies.company.lastDate          || '';
   const paymentTerms = state.companies.company.paymentTerms      || '';
-
+  
   const invoice     = state.invoice
   const beginDate   = state.invoice.beginDate   || moment().format();
   const createdAt   = state.invoice.createdAt   || moment().format();
@@ -204,13 +202,14 @@ const mapStateToProps = (state) => {
   const items       = state.invoice.items       || '';
   const lastDate    = state.invoice.lastDate    || moment().format();
   const total       = state.invoice.total       || '';
+
+  const invoices    = state.invoices            || '';
   return { 
     beginDate, company, companyKey, coItems, coLastDate, createdAt, description, 
     discount, dueDate, endDate, fUserId, invoiceKey, items, invoice, invoices, lastDate, paymentTerms, total};
 } 
-const mapDispatchToProps = (dispatch) => {
-  const {invoicesUpdate, invoiceUpdate } = actions;
-  return bindActionCreators({invoicesUpdate, invoiceUpdate, invoiceEdit}, dispatch)
-}
-mapDispatchToProps 
-export default connect(mapStateToProps, mapDispatchToProps )(invoiceEditScreen)
+// const mapDispatchToProps = (dispatch) => {
+//   const {invoicesUpdate, invoiceUpdate } = actions;
+//   return bindActionCreators({invoicesUpdate, invoiceUpdate, invoiceEdit}, dispatch)
+// }
+export default connect(mapStateToProps, actions )(invoiceEditScreen)
