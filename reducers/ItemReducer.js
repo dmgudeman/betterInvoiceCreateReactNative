@@ -27,9 +27,10 @@ export default (state = INITIAL_STATE, action) => {
     }
 
     case SET_ITEM: {
-      const {amount, companyKey, date, description, fUserId, hours, total, id}= action.item
-      const data = {amount, companyKey, date, description, fUserId, hours, total, id} 
-      return Object.assign({}, state.item, data )
+      // const {amount, companyKey, date, description, fUserId, hours, total, id}= action.item
+      // const data = {amount, companyKey, date, description, fUserId, hours, total, id} 
+      // return Object.assign({}, state.item, data )
+      return {...state, ...action.item}
     }
    
     default:{

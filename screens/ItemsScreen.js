@@ -28,10 +28,11 @@ class ItemsScreen extends Component {
   }
 
   goToItemEdit = (data) => {
-    const { amount, companyKey, company, name, date, description, fUserId, goBackKey, hours, total, id } = data;
-    const item = { amount, companyKey, company, name, date, description, fUserId, goBackKey, hours, total, id };
+    console.log('ITEMS SCREEN GOTOITEMEDIT data', data);
+    const { amount, companyKey,  date, description, fUserId, goBackKey, hours, total, itemKey } = data;
+    const item = { amount, companyKey, date, description, fUserId, goBackKey, hours, total, itemKey };
 
-    this.props.selectItem(item)
+    this.props.setItem(item)
   
     const { navigate } = this.props.navigation
     navigate('itemEdit', {'goBackKey': goBackKey })

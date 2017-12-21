@@ -74,10 +74,26 @@ class itemEditHoursScreen extends Component {
   }
   onSubmit = () => {
     const { amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total} = this.props
-    const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
+    item = {amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total}
+    const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0) ;
     this.props.itemUpdate('total', data);
-    this.props.itemEdit({ amount, companyKey, date, description, fUserId, hourly, hours, itemKey, total, name  })
-    this.props.navigation.goBack(this.props.navigation.state.params.goBackKey);
+    console.log('ITEM EDIT HOURS onSubmit item', item);
+
+    this.props.itemEdit(item)
+    // let a = {[invoiceKey]:newInvoice}
+    // await invoicesUpdate( this.props.invoices, a );
+    // const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: newInvoice }}});
+    // await this.props.setCompany(newCompany);
+
+
+
+
+    // this.props.itemEdit({ amount, companyKey, date, description, fUserId, hourly, hours, itemKey, total, name  })
+
+
+
+
+    // this.props.navigation.goBack(this.props.navigation.state.params.goBackKey);
   }
 
 
@@ -142,17 +158,18 @@ class itemEditHoursScreen extends Component {
 
 const mapStateToProps = (state) => {
   // console.log('ITEMEDIT HOURS MSTP', state);
-  const amount       = state.item.amount || '';
+  const fUserId      = state.auth.fUserId || '';
+
   const companyKey   = state.companies.company.companyKey || '';
+  const hourly       = state.companies.company.hourly || '';
+  const name         = state.companies.company.name || '';  
+
+  const amount       = state.item.amount || '';
   const date         = state.item.date || '';
   const description  = state.item.description || '';
-  const fUserId      = state.auth.fUserId || '';
-  const hourly       = state.companies.company.hourly || '';
-
   const hours        = state.item.hours || '';
   const item         = state.item || '';
   const itemKey      = state.item.itemKey || '';
-  const name         = state.companies.company.name || '';  
   const total        = state.item.total || '';
   // const item = { amount, companyKey, date, description, fUserId, hourly, hours, itemKey, name, total}
   
