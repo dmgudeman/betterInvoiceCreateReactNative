@@ -72,12 +72,10 @@ class itemEditAmountScreen extends Component {
     }
   }
   onSubmit = () => {
-    const { amount, companyKey, date, description, fUserId, goBackKey, hours, id, total, hourly } = this.props
-    
+    const { amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total} = this.props
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
     this.props.itemUpdate('total', data);
-   
-    this.props.itemEdit({ amount, companyKey, date, description, fUserId, hours, id, total, hourly })
+    this.props.itemEdit({ amount, companyKey, date, description, fUserId, hourly, hours, itemKey, total, name  })
     this.props.navigation.goBack(goBackKey);
   }
 
@@ -141,21 +139,21 @@ class itemEditAmountScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('ITEMEDIT AMOUNT MSTP state', state);
   const amount       = state.item.amount || '';
   const companyKey   = state.companies.company.companyKey || '';
   const date         = state.item.date || '';
   const description  = state.item.description || '';
   const fUserId      = state.auth.fUserId || '';
-  const goBackKey    = state.item.goBackKey
   const hourly       = state.companies.company.hourly || '';
 
   const hours        = state.item.hours || '';
-  const id           = state.item.id || '';
-  const name        = state.companies.company.name || '';  
+  const item         = state.item || '';
+  const itemKey      = state.item.itemKey || '';
+  const name         = state.companies.company.name || '';  
   const total        = state.item.total || '';
-  const item = { amount, companyKey, date, description, fUserId, hourly, hours, id, name, total}
+  // const item = { amount, companyKey, date, description, fUserId, hourly, hours, itemKey, name, total}
   
-  return { amount, companyKey, date, description, fUserId, hourly, hours, id, name, total, item };
+  return { amount, companyKey, date, description, fUserId, hourly, hours, item, itemKey, name, total, item };
 }
+
 export default connect(mapStateToProps, actions)(itemEditAmountScreen);

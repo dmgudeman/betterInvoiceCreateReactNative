@@ -50,31 +50,25 @@ class ListItem extends Component {
         <CardSection>
           <View style={styles.buttonRowStyle}>
             <Button style={ styles.buttonContentStyle } 
-              onPress={ 
-              _.debounce(()=> navigate('items', {'company': this.props.company}), 2000,{'leading':true, 'trailing':true}) 
-              }
-                // navigate('items')}} 
-            >Items</Button>
+              onPress={()=> { this.props.goToItems(this.props.company); }}
+            >Items
+            </Button>
               
             <Button style={ styles.buttonContentStyle } onPress={() => { 
-              console.log('LISTITEM RENDER this.props', this.props);
               this.props.setCompany(this.props.company)
-              navigate('itemCreate',{'goBackKey': navigation.state.key})}}>+Item</Button>
-              
+              navigate('itemCreate',{'goBackKey': navigation.state.key}); }}
+            >+Item
+            </Button>
 
-            <Button style={ styles.buttonContentStyle } onPress={() => { 
-              console.log('LISTITEM RENDER  INVOICES BUTTON this.props', this.props);
-              this.props.goToInvoices(this.props.company)
-              }
-            }
-              >Invoices</Button>
+            <Button style={ styles.buttonContentStyle } 
+              onPress={() => { this.props.goToInvoices(this.props.company); }}
+              >Invoices
+            </Button>
 
-            <Button style={ styles.buttonContentStyle } onPress={() => { 
-              console.log('LISTITEM RENDER this.props', this.props);
-              this.props.goToInvoiceCreate(this.props.company);
-              }
-            }
-            >+Invoice</Button>
+            <Button style={ styles.buttonContentStyle } 
+              onPress={() => { this.props.goToInvoiceCreate(this.props.company); }}
+            >+Invoice
+            </Button>
           </View>
         </CardSection>
       </Card>

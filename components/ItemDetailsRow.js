@@ -8,21 +8,7 @@ import moment from 'moment';
 import DATE_RFC2822 from '../assets/Date'
 
 class  ItemDetailsRow extends Component { 
-  componentWillMount() {
-    console.log('ITEM DETAILS ROW WILL MOUNT this.props', this.props );
-  }
-  componentWillUpdate() {
-    console.log('WILL UPDATE this.props', this.props );
-  }
-  componentDidUpdate() {
-    console.log('DID UPDATE this.props', this.props );
-  }
-  componentWillReceiveProps () {
-    console.log('WILL RECEIVE PROPS this.props', this.props );
-  }
-  componentDidCatch () {
-    console.log('DID CATCH this.props', this.props );
-  }
+ 
      render() {
        const {onPress } = this.props
        const { date, amount, hours, total, description } = this.props.data;

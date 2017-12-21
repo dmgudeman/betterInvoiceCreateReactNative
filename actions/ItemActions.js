@@ -15,13 +15,12 @@ import {
 
 export const itemCreate = ({amount, companyKey, date, description, fUserId, hourly, hours, name, total}) => async dispatch => {
   let payload = { amount, companyKey, date, description, fUserId, hourly, hours, name, total} 
-  payload.date = moment(payload.date).format(DATE_RFC2822);
-  payload.total = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
 
   let newItemKey = await firebase.database().ref().child('companies').child(companyKey).child('items').push().key;
   payload.itemKey = newItemKey;
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/items/' + payload.itemKey] = payload;
+  console.log('ITEM ACTIONS ITEMCREATE update', updates);
   await firebase.database().ref().update(updates);
   dispatch => {type: ITEM_CREATE, { item: payload }}
  }
@@ -30,11 +29,10 @@ export const itemCreate = ({amount, companyKey, date, description, fUserId, hour
 export const itemEdit = ({amount, companyKey, date, description, fUserId, hourly, hours,itemKey, name, total}) => async dispatch => {
   
   let payload = { amount, companyKey, date, description, fUserId, hours, itemKey, name, total, hourly }
-  payload.date = moment(payload.date).format(DATE_RFC2822);
-  payload.total = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
  
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/items/' + payload.itemKey] = payload;
+  console.log('ITEM ACTIONS UPDATES ', updates);
   await firebase.database().ref().update(updates);
   dispatch => {type: ITEM_EDIT, { item: payload }}
  }

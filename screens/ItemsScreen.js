@@ -77,7 +77,7 @@ const mapStateToProps = state => {
   const name = state.companies.company.name || '';
   const fUserId = state.auth.fUserId || '';
   const goBackKey = state.utils.goBackKey || '';
-  const items = _.map(state.item.items, (val, id) => {
+  const items = _.map(state.companies.company.items, (val, id) => {
     return { ...val, id};
   });
   return { company, companyKey, fUserId, goBackKey, items, name};

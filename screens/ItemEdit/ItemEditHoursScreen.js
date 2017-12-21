@@ -54,7 +54,7 @@ class itemEditHoursScreen extends Component {
   }
   
   componentWillMount(){
-    console.log('ITEMEDIT HOURS CWM this.props', this.props);
+    // console.log('ITEMEDIT HOURS CWM this.props', this.props);
   }
   
   static navigationOptions = ({ navigation }) => {
@@ -76,11 +76,10 @@ class itemEditHoursScreen extends Component {
     const { amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total} = this.props
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
     this.props.itemUpdate('total', data);
-   
-    this.props.itemEdit({ amount, companyKey, date, description, fUserId, hourly, hours, itemKey, total, name,  })
-
-    this.props.navigation.goBack(navigation.state.params.goBackKey);
+    this.props.itemEdit({ amount, companyKey, date, description, fUserId, hourly, hours, itemKey, total, name  })
+    this.props.navigation.goBack(this.props.navigation.state.params.goBackKey);
   }
+
 
   render() {
     const { amount, date,  hourly, hours, description, name, total, itemUpdate, itemTotalUpdate, itemCreate } = this.props;
@@ -142,7 +141,7 @@ class itemEditHoursScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('ITEMEDIT HOURS MSTP', state);
+  // console.log('ITEMEDIT HOURS MSTP', state);
   const amount       = state.item.amount || '';
   const companyKey   = state.companies.company.companyKey || '';
   const date         = state.item.date || '';

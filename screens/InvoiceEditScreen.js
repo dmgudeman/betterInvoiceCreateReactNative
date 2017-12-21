@@ -26,12 +26,7 @@ import DATE_RFC2822             from '../assets/Date';
 
 class invoiceEditScreen extends Component {
   componentWillMount() {
-    console.log('INVOICE EDIT CWM actions', actions );
   }
-  // componentWillMount() {
-    
-  //   console.log('invoiceEditScreen componentWillMount this.props ', this.props);
-  // }
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Edit Invoice',
@@ -42,7 +37,6 @@ class invoiceEditScreen extends Component {
         size={40}
         onPress= {  _.debounce(()=> navigation.goBack(), 1000,{'leading':true, 'trailing':true}) }
       />,
-        
     }
   }
   
@@ -52,7 +46,6 @@ class invoiceEditScreen extends Component {
     let dueDate = a.format(DATE_RFC2822); 
     this.props.invoiceUpdate('dueDate', dueDate)
   }
-
   
   filterByDateRange(beginDate, endDate, coItems) {
     let imDate = '';
@@ -65,7 +58,6 @@ class invoiceEditScreen extends Component {
       if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
         filteredItems.push(i);
       }
-      console.log('INVOICECREATESCREEN FILTERBYDATERANGE filteredItems', filteredItems);
     })
     if (!filteredItems) this.props.invoiceUpdate('items', "0")
     this.props.invoiceUpdate('items', filteredItems);
@@ -77,62 +69,36 @@ class invoiceEditScreen extends Component {
         'There are no invoice items for this date range'
         ,[{text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}]
       )
-
     } 
   }
   calcTotal( ){
-
       let invoiceTotal = 0;
 
-      console.log('INVOICE EDIT this.props.items', this.props.items);
+      // console.log('INVOICE EDIT this.props.items', this.props.items);
       let itemsArray = Object.values(this.props.items);
       itemsArray.forEach(i => {
         invoiceTotal = invoiceTotal + i.total;
         });
-      console.log('invoiceTotal', invoiceTotal);
+      // console.log('invoiceTotal', invoiceTotal);
       this.props.invoiceUpdate('total', invoiceTotal);
-    
     }
   
-
-  // calcInvoiceTotal =  () => {
-  //   if (this.props.items){
-  //     let invoiceTotal = 0;
-  //     let itemsArray = (Object).values(this.props.items);
-  //       itemsArray.forEach(i => {
-  //         invoiceTotal = invoiceTotal + i.total;
-  //     });
-  //   }
-  // }
   onSubmit = async () => {
-   const {company, invoice, invoiceKey, invoiceEdit, invoiceUpdate, invoicesUpdate, invoices,  navigation, setCompany} = this.props
-
+    const {company, invoiceKey, invoiceEdit, invoiceUpdate, invoicesUpdate,  navigation} = this.props
     
     await this.props.invoiceUpdate('lastDate', this.props.invoice.lastDate )
-    await console.log('INVOICE EDIT 1 ONSUBMIT .lastDate', invoice.lastDate );
     await this.filterByDateRange(this.props.invoice.beginDate, this.props.invoice.endDate, this.props.invoice.items);
-    // console.log('INVOICE CREATE 2 ONSUBMIT this.props', this.props);
     await this.filteredItemsAlert();
     await this.calcTotal();
-    await console.log('INVOICE EDIT  LLLLLLLLLLLLLLl this.props.invoice ', this.props.invoice);
-    await console.log('INVOICE EDIT  LLLLLLLLLLLLLLl invoice ', invoice);
     await this.calcDueDate();
-    console.log('JJJJJJJJJJJJJ dueDate', this.props.dueDate);
-    await console.log('KKKKKKKKKKKKKKKKKKKK invoice', invoice);
     let newInvoice = await Object.assign({}, {...this.props.invoice}, {coItems: null}, {company: null},{coLastDate: null}, {invoices: null})
-    await console.log('NNNNNNNNNNNNNNNNNNNNNNNN', newInvoice)
     await invoiceEdit(newInvoice)
-
-     let a = {[invoiceKey]:newInvoice}
+    let a = {[invoiceKey]:newInvoice}
     await invoicesUpdate( this.props.invoices, a );
-     
-      const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: newInvoice }}});
-      console.log('nnnnnnnnnnnnnnnnnnnewwwwwwwwwcompany', newCompany);
-      await this.props.setCompany(newCompany);
-      await navigation.goBack();
-    }
-  
-
+    const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: newInvoice }}});
+    await this.props.setCompany(newCompany);
+    await navigation.goBack();
+  }
 
   render() {
     const {  beginDate, createdAt, description, discount, dueDate, endDate, 
