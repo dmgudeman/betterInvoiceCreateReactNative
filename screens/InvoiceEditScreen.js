@@ -91,6 +91,7 @@ class invoiceEditScreen extends Component {
         });
       console.log('invoiceTotal', invoiceTotal);
       this.props.invoiceUpdate('total', invoiceTotal);
+    
     }
   
 
@@ -116,8 +117,9 @@ class invoiceEditScreen extends Component {
     await console.log('INVOICE EDIT  LLLLLLLLLLLLLLl this.props.invoice ', this.props.invoice);
     await console.log('INVOICE EDIT  LLLLLLLLLLLLLLl invoice ', invoice);
     await this.calcDueDate();
+    console.log('JJJJJJJJJJJJJ dueDate', this.props.dueDate);
     await console.log('KKKKKKKKKKKKKKKKKKKK invoice', invoice);
-    let newInvoice = await Object.assign({}, {...this.props.invoice}, {coItems: null})
+    let newInvoice = await Object.assign({}, {...this.props.invoice}, {coItems: null}, {company: null},{coLastDate: null}, {invoices: null})
     await console.log('NNNNNNNNNNNNNNNNNNNNNNNN', newInvoice)
     await invoiceEdit(newInvoice)
 
