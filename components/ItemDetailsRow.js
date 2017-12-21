@@ -20,7 +20,7 @@ class  ItemDetailsRow extends Component {
           <View style={ styles.topRowContentStyle}>
             <View style={styles.topRowSectionStyle}>
               <Text>DATE</Text>
-              <Text style={styles.topRowTextStyle}>{moment(date).format('DD/MM/YYYY')}</Text>
+              <Text style={styles.topRowTextStyle}>{moment(date).format('MM/DD/YYYY')}</Text>
             </View>
             <View style={styles.topRowSectionStyle}>
               <Text>HOURS</Text>

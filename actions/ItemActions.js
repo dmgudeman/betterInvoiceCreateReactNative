@@ -6,10 +6,9 @@ import {
   ITEM_TOTAL_UPDATE, 
   ITEM_EDIT,
   ITEM_CREATE, 
-  CHANGE_SELECTED_ITEM,
-  CHANGE_ITEM_HOURS,
-  SELECT_ITEM,
-
+  CHANGE_SETED_ITEM,
+  SET_ITEM,
+  CHANGE_ITEM_HOURS, 
  } from './types';
  import DATE_RFC2822 from '../assets/Date';
 
@@ -52,17 +51,11 @@ export const itemUpdate = (prop, value)=> {
   };
 }
 
-export const changeItemHours = (value) => {
-  const prop = 'hours'
-  return {
-    type: CHANGE_ITEM_HOURS,
-     hours: value
-  }
-}
 
-export const selectItem = (item) => {
+export const setItem = (item) => {
   return {
-    type: SELECT_ITEM,
+    type: SET_ITEM,
     item
   }
 } 
+
