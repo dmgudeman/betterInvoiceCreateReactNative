@@ -185,7 +185,7 @@ const mapStateToProps = (state) => {
   console.log('INVOICE CREATE MSTP state', state);
   const fUserId      = state.auth.fUserId || '';
   
-  const invoices    = state.companies.company.invoices           || '';
+  const invoices     = state.companies.company.invoices          || '';
   const coItems      = state.companies.company.items             || '';
   const company      = state.companies.company                   || ''
   const companyKey   = state.companies.company.companyKey        || '' ;
