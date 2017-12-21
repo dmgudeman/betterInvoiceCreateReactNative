@@ -40,6 +40,7 @@ class InvoicesScreen extends Component {
   }
   goToInvoiceEdit = (invoice) => {
     // const invoice = {...data};
+    console.log('goToINvoiceEdit invoice', invoice);
     this.props.setInvoice(invoice)
     const { navigate } = this.props.navigation
     navigate('invoiceEdit' )
@@ -73,7 +74,6 @@ const mapStateToProps = state => {
   if (state.companies.company){
     const company = state.companies.company || '';
     const companyKey = state.companies.company.companyKey || state.companies.company.id;
-    const coInvoices = state.companies.company.invoices || '';
     const coName = state.companies.company.name || '';
     const fUserId = state.auth.fUserId;
     const invoice = state.invoice.invoice || '';
@@ -83,7 +83,7 @@ const mapStateToProps = state => {
     });
 
     // const invoices = state.invoice.invoices || '';
-    return { company, companyKey, coInvoices, coName, fUserId, invoice, invoices};
+    return { company, companyKey, coName, fUserId, invoice, invoices};
 } return state;
 }
 const styles = StyleSheet.create ({

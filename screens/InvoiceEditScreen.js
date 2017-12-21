@@ -109,12 +109,12 @@ class invoiceEditScreen extends Component {
     await this.filteredItemsAlert();
     await this.calcDueDate();
    
-    // let y = Object.assign({}, {...this.props.invoice}, {coItems: null})
-    // // console.log('INVOICE CREATE ONSUBMIT y', y);
-    // await this.props.invoiceCreate({invoice: y})
+    let y = Object.assign({}, {...this.props.invoice}, {coItems: null})
+    console.log('INVOICE CREATE ONSUBMIT y', y);
+    await this.props.invoiceEdit({invoice: y})
 
 
-    //   await invoiceUpdateDB( invoice, route );
+      // await invoiceUpdateDB( y );
     //   await invoiceUpdate('invoice', invoice );
      
     //   const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: invoice }}});
@@ -188,6 +188,7 @@ const mapStateToProps = (state) => {
   const companyKey   = state.companies.company.companyKey        || '' ;
   const coLastDate   = state.companies.company.lastDate          || '';
   const paymentTerms = state.companies.company.paymentTerms      || '';
+
   const invoice     = state.invoice
   const beginDate   = state.invoice.beginDate   || moment().format();
   const createdAt   = state.invoice.createdAt   || moment().format();

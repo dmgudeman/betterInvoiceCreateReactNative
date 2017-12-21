@@ -47,14 +47,16 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, invoice: action.invoice }
     }
     case INVOICE_EDIT: { // For submitting an edited invoice
-      // console.log('INVOICEREDUCERS INVOICE_EDIT action.payload', action.invoice);
-      return { ...state, invoice: action.invoice }
+      console.log('INVOICEREDUCERS INVOICE_EDIT action.payload', action.invoice);
+      console.log('INVOICEREDUCERS INVOICE_EDIT state.invoice', state.invoice);
+      
+      return { ...state, ...action.invoice }
     }
     
     
     case SET_INVOICE: {
       // console.log('INVOICEREDUCERS SET_INVOICE action.invoice', action.invoice);
-      return { ...state, invoice: action.invoice }
+      return { ...state, ...action.invoice }
     }
 
     case SET_INVOICES: {
