@@ -24,7 +24,7 @@ class CompaniesScreen extends Component {
   }
   goToInvoices=(company)=>{
     this.props.setCompany(company);
-    this.props.setInvoices(company.invoices);
+    // this.props.setInvoices(company.invoices);
     this.props.navigation.navigate('invoices');
   }
   goToInvoiceCreate=(company)=>{

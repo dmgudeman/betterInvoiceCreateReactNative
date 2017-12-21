@@ -8,7 +8,6 @@ import {
   INVOICE_UPDATE_DB, 
   INVOICE_UPDATE_DB_CREATE,
   SET_INVOICE,
-  SET_INVOICES
 } from '../actions/types';
 
 const INITIAL_STATE = { }
@@ -28,39 +27,29 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, invoice: action.item};
     }
     case INVOICE_UPDATE: { // For updating invoice fields
-      console.log('INVOICEREDUCERS  invoice UPDATE [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);
+      // console.log('INVOICEREDUCERS  invoice UPDATE [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);
       return { ...state, [action.payload.prop]: action.payload.value};
     }
     case INVOICE_UPDATE_2: { // For updating invoice fields
-      console.log('2 INVOICE REDUCERS  invoice UPDATE [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);
+      // console.log('2 INVOICE REDUCERS  invoice UPDATE [action.payload.prop]: action.payload.value', action.payload.prop, action.payload.value);
       // return { ...state.invoice.invoice, [action.payload.prop]: action.payload.value};
-      console.log('2 INVOICE REDUCERS ...state.invoice', ...state.invoice);
-      console.log('2 INVOICE REDUCERS ...state.invoice', {...state.invoice});
       return Object.assign({},{...state.invoice},{[action.payload.prop]: action.payload.value} )
     }
     case INVOICE_UPDATE_DB: {
-      console.log('INVOICEREDUCERS  INVOICE_UPDATE_DB fired');
+      // console.log('INVOICEREDUCERS  INVOICE_UPDATE_DB fired');
       return { ...state, invoice: action.invoice }
     }
     case INVOICE_UPDATE_DB_CREATE: {
-      console.log('INVOICEREDUCERS  INVOICE_UPDATE_DB_CREATE fired');
+      // console.log('INVOICEREDUCERS  INVOICE_UPDATE_DB_CREATE fired');
       return { ...state, invoice: action.invoice }
     }
     case INVOICE_EDIT: { // For submitting an edited invoice
-      console.log('INVOICEREDUCERS INVOICE_EDIT action.payload', action.invoice);
-      console.log('INVOICEREDUCERS INVOICE_EDIT state.invoice', state.invoice);
-      
+      // console.log('INVOICEREDUCERS INVOICE_EDIT action.payload', action.invoice);
       return { ...state, ...action.invoice }
     }
-    
-    
     case SET_INVOICE: {
       // console.log('INVOICEREDUCERS SET_INVOICE action.invoice', action.invoice);
       return { ...state, ...action.invoice }
-    }
-
-    case SET_INVOICES: {
-      return { ...state, invoices: action.invoices}
     }
     default:{
       return state;

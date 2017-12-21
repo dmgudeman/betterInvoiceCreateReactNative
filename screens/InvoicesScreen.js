@@ -9,9 +9,9 @@ import store from '../store'
 import InvoiceDetailsRow from '../components/InvoiceDetailsRow';
 
 class InvoicesScreen extends Component {
-  // componentWillMount() {
-  //   console.log('INVOICES WILL MOUNT this.props', this.props );
-  // }
+  componentWillMount() {
+    console.log('INVOICES WILL MOUNT actions', actions );
+  }
   // componentWillUpdate() {
   //   console.log('INVOICES WILL UPDATE this.props', this.props );
   // }
@@ -40,6 +40,7 @@ class InvoicesScreen extends Component {
   }
   goToInvoiceEdit = (invoice) => {
     // const invoice = {...data};
+    const {invoices } = this.props
     console.log('goToINvoiceEdit invoice', invoice);
     this.props.setInvoice(invoice)
     const { navigate } = this.props.navigation

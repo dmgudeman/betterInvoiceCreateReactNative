@@ -8,7 +8,6 @@ import {
   INVOICE_UPDATE_2, 
   INVOICE_UPDATE_DB, 
   SET_INVOICE,
-  SET_INVOICES,
  } from './types';
 import moment from 'moment';
 import DATE_RFC2822 from '../assets/Date';
@@ -114,10 +113,7 @@ export const setInvoice = (invoice) => {
     invoice
   }
 } 
-export const setInvoices = (invoices) => {
-  return {
-    type: SET_INVOICES,
-    invoices
-  }
-}
+
+
+
 

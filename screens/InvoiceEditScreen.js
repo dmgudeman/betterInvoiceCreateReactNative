@@ -22,11 +22,13 @@ import * as _                   from 'lodash';
 import * as actions             from '../actions';
 import MyDatePicker             from '../components/MyDatePicker';
 import DATE_RFC2822             from '../assets/Date';
-import { invoiceUpdateDB } from '../actions';
+import { invoiceUpdate, invoicesUpdate } from '../actions';
 
 
 class invoiceEditScreen extends Component {
-  
+  componentWillMount() {
+    console.log('INVOICE EDIT CWM actions', actions );
+  }
   // componentWillMount() {
     
   //   console.log('invoiceEditScreen componentWillMount this.props ', this.props);
@@ -100,6 +102,7 @@ class invoiceEditScreen extends Component {
     }
   }
   onSubmit = async () => {
+   const {invoiceKey} = this.props
 
     const x = {...this.props.invoice}
     this.props.invoiceUpdate('lastDate', x.endDate )
@@ -113,9 +116,8 @@ class invoiceEditScreen extends Component {
     console.log('INVOICE CREATE ONSUBMIT y', y);
     await this.props.invoiceEdit({invoice: y})
 
-
-      // await invoiceUpdateDB( y );
-    //   await invoiceUpdate('invoice', invoice );
+     let a = {[invoiceKey]:y}
+    await invoicesUpdate( this.props.invoices, a );
      
     //   const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: invoice }}});
     //   await this.props.setCompany(newCompany);
@@ -183,6 +185,7 @@ const mapStateToProps = (state) => {
   console.log('INVOICE CREATE MSTP state', state);
   const fUserId      = state.auth.fUserId || '';
   
+  const invoices    = state.companies.company.invoices           || '';
   const coItems      = state.companies.company.items             || '';
   const company      = state.companies.company                   || ''
   const companyKey   = state.companies.company.companyKey        || '' ;
@@ -202,6 +205,7 @@ const mapStateToProps = (state) => {
   const total       = state.invoice.total       || '';
   return { 
     beginDate, company, companyKey, coItems, coLastDate, createdAt, description, 
-    discount, dueDate, endDate, fUserId, invoiceKey, items, invoice, lastDate, paymentTerms, total};
+    discount, dueDate, endDate, fUserId, invoiceKey, items, invoice, invoices, lastDate, paymentTerms, total};
 } 
-export default connect(mapStateToProps, actions )(invoiceEditScreen);
+mapDispatchToProps 
+export default connect(mapStateToProps, {invoiceUpdate, invoicesUpdate} )(invoiceEditScreen)
