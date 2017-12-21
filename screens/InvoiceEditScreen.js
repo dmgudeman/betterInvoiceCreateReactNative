@@ -22,7 +22,7 @@ import * as _                   from 'lodash';
 import * as actions             from '../actions';
 import MyDatePicker             from '../components/MyDatePicker';
 import DATE_RFC2822             from '../assets/Date';
-import { invoiceUpdate, invoicesUpdate } from '../actions';
+import { invoiceUpdate, invoicesUpdate, invoiceEdit} from '../actions';
 
 
 class invoiceEditScreen extends Component {
@@ -105,19 +105,20 @@ class invoiceEditScreen extends Component {
    const {invoiceKey} = this.props
 
     const x = {...this.props.invoice}
-    this.props.invoiceUpdate('lastDate', x.endDate )
+    await this.props.invoiceUpdate('lastDate', x.endDate )
     // console.log('INVOICE CREATE 1 ONSUBMIT this.props', this.props);
     await this.filterByDateRange(x.beginDate, x.endDate, x.items);
     // console.log('INVOICE CREATE 2 ONSUBMIT this.props', this.props);
     await this.filteredItemsAlert();
     await this.calcDueDate();
    
-    let y = Object.assign({}, {...this.props.invoice}, {coItems: null})
+    let y = await Object.assign({}, {...this.props.invoice}, {coItems: null})
     console.log('INVOICE CREATE ONSUBMIT y', y);
     await this.props.invoiceEdit({invoice: y})
+    console.log('INVOICE CREATE ONSUBMIT adter invoiceEdit');
 
      let a = {[invoiceKey]:y}
-    await invoicesUpdate( this.props.invoices, a );
+    await this.props.invoicesUpdate( this.props.invoices, a );
      
     //   const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: invoice }}});
     //   await this.props.setCompany(newCompany);
@@ -207,5 +208,9 @@ const mapStateToProps = (state) => {
     beginDate, company, companyKey, coItems, coLastDate, createdAt, description, 
     discount, dueDate, endDate, fUserId, invoiceKey, items, invoice, invoices, lastDate, paymentTerms, total};
 } 
+const mapDispatchToProps = (dispatch) => {
+  const {invoicesUpdate, invoiceUpdate } = actions;
+  return bindActionCreators({invoicesUpdate, invoiceUpdate, invoiceEdit}, dispatch)
+}
 mapDispatchToProps 
-export default connect(mapStateToProps, {invoiceUpdate, invoicesUpdate} )(invoiceEditScreen)
+export default connect(mapStateToProps, mapDispatchToProps )(invoiceEditScreen)

@@ -6,20 +6,24 @@ import {
 const INITIAL_STATE = { }
 
 export default (state = INITIAL_STATE, action) => {
+  let newInvoices;
+    console.log('INVOICES REDUCER HAS BEEN CAALLED action.type', action.type);
   switch (action.type) {
     case INVOICES_UPDATE: {
-      console.log('INVOICES REDUCER INVOICES UPDATEEEEEE');
+      console.log('INVOICES REDUCER INVOICES UPDATEEEEEE', action.payload.invoice);
+      let invoices = action.payload.invoices
+      let invoice = action.payload.invoice
       if(invoices){
         Object.keys(invoices).forEach((k, i) => {
             if (k === Object.keys(invoice)[0]){
             
-            let newInvoices = Object.assign({}, {...invoices}, {...invoice}  )
+            newInvoices = Object.assign({}, {...invoices}, {...invoice}  )
             console.log('newInvoices', newInvoices);
            
             }
         });
       }
-     return {...state, ...invoices}
+     return {...state, ...newInvoices}
     }
     case SET_INVOICES: {
       return { ...state, ...invoices }
