@@ -60,7 +60,6 @@ class ItemCreateAmountScreen extends Component {
     // this.props.itemTotalUpdate('','', this.props.hourly)
   }
 
-
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Create Item',
@@ -70,15 +69,16 @@ class ItemCreateAmountScreen extends Component {
         color="gray" 
         size={40}
         onPress= {()=> {
-          resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-              NavigationActions.navigate({ routeName: 'itemCreate'})
-            ],
-            key: null
-          });
-          navigation.dispatch(resetAction);
-          // navigation.goBack();
+          // resetAction = NavigationActions.reset({
+          //   index: 0,
+          //   actions: [
+          //     NavigationActions.navigate({ routeName: 'companies'})
+          //   ],
+          //   key: null
+          // });
+          // navigation.dispatch(resetAction);
+          // navigation.goBack(null);
+          navigation.navigate('companies');
         }
         }/>,
       tabBarLabel:"Amount",
@@ -92,15 +92,16 @@ class ItemCreateAmountScreen extends Component {
     await this.props.itemUpdate('total', data);
     await this.props.itemCreate(item)
     console.log('ITEM CREATE AMOUNT ONSUBMIT navigation ', this.props.navigation);
-    resetAction = await NavigationActions.reset({
-     index: 0,
-      actions: [ 
-        NavigationActions.navigate({ routeName: 'companies'}), 
-        // NavigationActions.navigate({ routeName: 'auth'}), 
-      ]
-    })
-    await this.props.navigation.dispatch(resetAction);
+    // resetAction = await NavigationActions.reset({
+    //  index: 0,
+    //   actions: [ 
+    //     NavigationActions.navigate({ routeName: 'companies'}), 
+    //     // NavigationActions.navigate({ routeName: 'auth'}), 
+    //   ]
+    // })
+    // await this.props.navigation.dispatch(resetAction);
   //   await this.props.navigation.goBack('itemCreateHoursScreen')
+    await this.props.navigation.navigate('companies');
   }
  
 
