@@ -16,6 +16,7 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, item: action.item}
     }
     case ITEM_UPDATE:  { // For updating item fields
+      console.log('REDUCERS ITEM_UPDATE FIRED');
       return { ...state, [action.payload.prop]: action.payload.value}
     }
 

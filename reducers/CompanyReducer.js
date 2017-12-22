@@ -12,7 +12,10 @@ const INITIAL_STATE ={}
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case COMPANY_UPDATE:{
-      return Object.assign({}, state, {[action.payload.prop]: action.payload.value});
+      console.log('REDUCERS COMPANY_UPDATE [action.payload.prop]:action.payload.value', {[action.payload.prop]:action.payload.value});
+      console.log('REDUCERS COMPANY_UPDATE action', action);
+      // return Object.assign({}, state, {[action.payload.prop]: action.payload.value});
+      return {...state, [action.payload.prop]:action.payload.value }
     }
     case COMPANY_CREATE:{
       return { ...state, company: action.payload };

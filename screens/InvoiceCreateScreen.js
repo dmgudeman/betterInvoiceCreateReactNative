@@ -158,11 +158,11 @@ const mapStateToProps = (state) => {
   console.log('INVOICE CREATE MSTP state', state);
   const fUserId      = state.auth.fUserId || '';
   
-  const coItems      = state.companies.company.items             || '';
-  const company      = state.companies.company                   || ''
-  const companyKey   = state.companies.company.companyKey        || '' ;
-  const coLastDate   = state.companies.company.lastDate          || '';
-  const paymentTerms = state.companies.company.paymentTerms      || '';
+  const coItems      = state.company.items             || '';
+  const company      = state.company                   || ''
+  const companyKey   = state.company.companyKey        || '' ;
+  const coLastDate   = state.company.lastDate          || '';
+  const paymentTerms = state.company.paymentTerms      || '';
   const invoice     = state.invoice
   const beginDate   = state.invoice.beginDate   || moment().format();
   const createdAt   = state.invoice.createdAt   || moment().format();

@@ -94,7 +94,7 @@ class ItemCreateHoursScreen extends Component {
     // const newCompany = await update(this.props.company,  {items: {[itemKey]:{$set: item }}});
     // await this.props.setCompany(newCompany);
     // // this.props.navigation.goBack(this.props.navigation.state.params.goBackKey);
-    // this.props.navigation.goBack(null);
+    this.props.navigation.goBack(null);
     // this.props.navigation.goBack(null);
   }
 
@@ -156,10 +156,10 @@ class ItemCreateHoursScreen extends Component {
 
 const mapStateToProps = (state) => {
   const fUserId      = state.auth.fUserId || '';
-  const company      = state.companies.company || '';
-  const companyKey   = state.companies.company.companyKey || '';
-  const hourly       = state.companies.company.hourly || '';
-  const name         = state.companies.company.name || '';  
+  const company      = state.company || '';
+  const companyKey   = state.company.companyKey || '';
+  const hourly       = state.company.hourly || '';
+  const name         = state.company.name || '';  
 
   const amount       = state.item.amount || '';
   const date         = state.item.date || '';
@@ -173,28 +173,5 @@ const mapStateToProps = (state) => {
   
   return { amount, company, companyKey, date, description, fUserId, hourly, hours, item, items, itemKey, name, total, item };
 }
-
-// const styles = {
-//   datePicker: {
-//     marginLeft: 10,
-//     backgroundColor: 'blue'
-//   },
-//   totalLabel: {
-//     marginTop: 15,
-//     marginLeft: 20,
-//     color: 'gray',
-//     fontWeight: 'bold'
-
-
-//   },
-//   totalValue: {
-//     fontSize: 18,
-//     marginTop: 15,
-//     marginBottom: 15,
-//     marginLeft: 20,
-//     color: 'gray'
-//   }
-// }
-
 
 export default connect(mapStateToProps, actions)(ItemCreateHoursScreen);

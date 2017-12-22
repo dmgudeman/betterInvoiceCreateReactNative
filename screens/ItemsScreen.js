@@ -65,13 +65,13 @@ class ItemsScreen extends Component {
 }
 const mapStateToProps = state => {
   console.log('ITEMS MSTP state', state);
-  if (state.companies.company){
-  const company = state.companies.company || '';
-  const companyKey = state.companies.company.companyKey || state.companies.company.id;
-  const name = state.companies.company.name || '';
+  if (state.company){
+  const company = state.company || '';
+  const companyKey = state.company.companyKey || state.company.id;
+  const name = state.company.name || '';
   const fUserId = state.auth.fUserId || '';
   const goBackKey = state.utils.goBackKey || '';
-  const items = _.map(state.companies.company.items, (val, id) => {
+  const items = _.map(state.company.items, (val, id) => {
     return { ...val, id};
   });
   return { company, companyKey, fUserId, goBackKey, items, name};

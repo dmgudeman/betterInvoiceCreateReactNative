@@ -78,14 +78,9 @@ const mapStateToProps = state => {
     const companyKey = state.companyKey || state.company.id;
     const coName     = state.company.name || '';
     const invoice    = state.invoice || '';
-    // const invoices   = state.company.invoices
     const invoices = _.map(state.company.invoices, (val, id) => {
       return { ...val, id};
     });
-    console.log('INVOCIES SCREEN state.company.invoices', state.company.invoices);
-
-    // const invoices = Object.keys(state.company.invoices).map(function (key) { return state.company.invoices[key]; });
-    // const invoices = state.invoice.invoices || '';
     return { company, companyKey, coName, fUserId, invoice, invoices};
 } return state;
 }

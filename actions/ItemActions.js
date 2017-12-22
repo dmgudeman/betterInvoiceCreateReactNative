@@ -12,10 +12,11 @@ import {
  } from './types';
  import DATE_RFC2822 from '../assets/Date';
 
-export const itemCreate = ({amount, company, companyKey, date, description, fUserId, hourly, hours, items, name, total}) => async dispatch => {
-  let payload = { amount, companyKey, date, description, fUserId, hourly, hours, name, total} 
-  let newItemKey = await firebase.database().ref().child('companies').child(companyKey).child('items').push().key;
-  payload.itemKey = newItemKey;
+export const itemCreate = ({amount, company, companyKey, date, description, fUserId, hourly, hours, itemKey, items, name, total}) => async dispatch => {
+  let payload = { amount, companyKey, date, description, fUserId, hourly, hours, itemKey, name, total} 
+  if(!itemKey){
+    payload.itemKey = await firebase.database().ref().child('companies').child(companyKey).child('items').push().key;
+  }
   console.log('ITEM ACTIONS ITEMCREATE payload.itemKey', payload.itemKey);
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/items/' + payload.itemKey] = payload;
@@ -23,14 +24,17 @@ export const itemCreate = ({amount, company, companyKey, date, description, fUse
   await firebase.database().ref().update(updates);
   console.log('ITEM ACTIONS ITEMCREATE payload', payload);
   console.log('ITEM ACTIONS ITEMCREATE items', items);
+  console.log('ITEM ACTIONS ITEMCREATE [payload.itemKey].payload', {[payload.itemKey]:payload});
   // let item = payload
-  let newItems = Object.assign({}, ...items, {[newItemKey]: payload} )
+  let newItems ={ ...items, ...[payload.itemKey].payload}
   console.log('ITEM ACTIONS ITEMCREATE newItems', newItems);
   dispatch({type: SET_ITEM, item:payload } )
   // dispatch({type: ITEM_CREATE, item: payload })
   dispatch({type: SET_ITEMS, items:newItems })
   let prop = 'items'
-  dispatch({type: COMPANY_UPDATE, payload:{prop, newItems} })
+  console.log('ACTIONS ITEM CREATE newItems', newItems);
+  let value = newItems
+  dispatch({type: COMPANY_UPDATE, payload:{prop, value} })
  }
 
  // used upon Submit
@@ -54,10 +58,8 @@ export const itemEdit = ({amount, companyKey, date, description, fUserId, hourly
 }
 
 export const itemUpdate = (prop, value)=> {
-  return {
-    type: ITEM_UPDATE,
-    payload: { prop, value}
-  };
+
+  return { type: ITEM_UPDATE, payload: { prop, value} };
 }
 
 

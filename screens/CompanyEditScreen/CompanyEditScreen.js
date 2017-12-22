@@ -222,21 +222,21 @@ class CompanyEditScreen extends Component {
 
 const mapStateToProps = (state) => {
   console.log('COMPANYEDIT MSTP state', state);
-  if (state.companies.company) {
+  if (state.company) {
     // const active = state.companies.active || true;
     
-    const address = state.companies.company.address || '';
-    const color = state.companies.company.color || '';
-    const companyKey = state.companies.company.companyKey|| '';
-    const company = state.companies.company || '';
+    const address = state.company.address || '';
+    const color = state.company.color || '';
+    const companyKey = state.company.companyKey|| '';
+    const company = state.company || '';
     const fUserId = state.auth.fUserId || '';
-    const hex = state.companies.company.hex || '';
-    const hourly = state.companies.company.hourly || '';
-    const invoices = state.companies.company.invoices || '';
-    const items = state.companies.company.items || '';
+    const hex = state.company.hex || '';
+    const hourly = state.company.hourly || '';
+    const invoices = state.company.invoices || '';
+    const items = state.company.items || '';
     const location = state.location || null;
-    const name = state.companies.company.name || '';
-    const paymentTerms = state.companies.company.paymentTerms || '30';
+    const name = state.company.name || '';
+    const paymentTerms = state.company.paymentTerms || '30';
     const userId = state.auth.userId || '';
     return { 
       address, location, color, companyKey, company,

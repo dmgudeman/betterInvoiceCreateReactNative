@@ -75,19 +75,19 @@ class itemEditHoursScreen extends Component {
     }
   }
   onSubmit = async () => {
-    const { amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total} = this.props
-    item = {amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total}
+    const { amount, company, companyKey, date, description, fUserId,  hourly, hours, itemKey, items, name, total} = this.props
+    item = {amount, company, companyKey, date, description, fUserId,  hourly, hours, itemKey, items, name, total}
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0) ;
     await this.props.itemUpdate('total', data);
     // console.log('ITEM EDIT HOURS onSubmit item', item);
     // console.log('ITEM EDIT HOURS onSubmit item', this.props.items);
 
-    await this.props.itemEdit(item)
-    let a = {[itemKey]: item}
-    await this.props.itemsUpdate( this.props.items, a );
-    const newCompany = await update(this.props.company,  {items: {[itemKey]:{$set: item }}});
-    await this.props.setCompany(newCompany);
-    // this.props.navigation.goBack(this.props.navigation.state.params.goBackKey);
+    await this.props.itemCreate(item)
+    // let a = {[itemKey]: item}
+    // await this.props.itemsUpdate( this.props.items, a );
+    // const newCompany = await update(this.props.company,  {items: {[itemKey]:{$set: item }}});
+    // await this.props.setCompany(newCompany);
+    // // this.props.navigation.goBack(this.props.navigation.state.params.goBackKey);
     this.props.navigation.goBack(null);
   }
 
@@ -154,10 +154,10 @@ class itemEditHoursScreen extends Component {
 const mapStateToProps = (state) => {
   // console.log('ITEMEDIT HOURS MSTP', state);
   const fUserId      = state.auth.fUserId || '';
-  const company      = state.companies.company || '';
-  const companyKey   = state.companies.company.companyKey || '';
-  const hourly       = state.companies.company.hourly || '';
-  const name         = state.companies.company.name || '';  
+  const company      = state.company || '';
+  const companyKey   = state.company.companyKey || '';
+  const hourly       = state.company.hourly || '';
+  const name         = state.company.name || '';  
 
   const amount       = state.item.amount || '';
   const date         = state.item.date || '';

@@ -86,8 +86,8 @@ class CompaniesScreen extends Component {
 
 const mapStateToProps = state => {
   const fUserId = state.auth.fUserId || '';
-  const company = state.companies.company || '';
-  const companies = _.map(state.companies.companies, (val, id) => {
+  const company = state.company || '';
+  const companies = _.map(state.companies, (val, id) => {
     return { ...val, id};
   });
 

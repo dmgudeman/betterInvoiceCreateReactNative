@@ -164,10 +164,10 @@ class ItemCreateAmountScreen extends Component {
 
 const mapStateToProps = (state) => {
   const fUserId      = state.auth.fUserId || '';
-  const company      = state.companies.company || '';
-  const companyKey   = state.companies.company.companyKey || '';
-  const hourly       = state.companies.company.hourly || '';
-  const name         = state.companies.company.name || '';  
+  const company      = state.company || '';
+  const companyKey   = state.company.companyKey || '';
+  const hourly       = state.company.hourly || '';
+  const name         = state.company.name || '';  
 
   const amount       = state.item.amount || '';
   const date         = state.item.date || '';

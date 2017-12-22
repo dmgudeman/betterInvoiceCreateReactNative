@@ -11,6 +11,7 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, ...action.items }
     }
     case  ITEMS_UPDATE: {
+      console.log('REDUCERS ITEMS_UPDATE FIRED');
       let items = action.payload.items;
       let item = action.payload.item;
       let newItems;
