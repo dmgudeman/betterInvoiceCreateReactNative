@@ -114,7 +114,7 @@ class CompanyEditScreen extends Component {
             touched={this.state.controls.name.touched}
             onChangeText={(value) => {
               companyUpdate('name', value)
-              // this.updateInputState('name', value)
+              this.updateInputState('name', value)
               }
             }
           />
@@ -134,7 +134,7 @@ class CompanyEditScreen extends Component {
             keyboardType= 'numeric'
             onChangeText={(value) => {
               companyUpdate('hourly', value)
-              // this.updateInputState('hourly', value)
+              this.updateInputState('hourly', value)
             }
           }
           />

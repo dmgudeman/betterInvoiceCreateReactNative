@@ -132,12 +132,8 @@ class CompanyCreateScreen extends Component {
             value={name}
             touched={this.state.controls.name.touched}
             onChangeText={(value) => {
-              company.name = value;
-              companyUpdate( 'company', company)
+              companyUpdate( 'name', value)
               this.updateInputState('name', value)
-              // console.log('COMPANY CREAATE name', name);
-              // console.log('COMPANY CREAATE company.anme', company.name);
-              // console.log('COMPANY CREAATE this.props.name', this.props.name);
             }
             }
           />
@@ -156,12 +152,8 @@ class CompanyCreateScreen extends Component {
             touched={this.state.controls.hourly.touched}
             keyboardType= 'numeric'
             onChangeText={(value) => {
-              company.hourly = value
-              companyUpdate('company', company)
+              companyUpdate('hourly', value)
               this.updateInputState('hourly', value)
-              // console.log('COMPANY CREAATE hourly', {hourly});
-              // console.log('COMPANY CREAATE company.hourly', company.hourly);
-              // console.log('COMPANY CREAATE this.props.hourly', this.props.hourly);
             }
           }
           />
@@ -179,8 +171,7 @@ class CompanyCreateScreen extends Component {
             index={0}
             data={paymentTermsOptions}
             onChange={(option)=>{ 
-              company.paymentTerms = option.label
-              companyUpdate('company', company)
+              companyUpdate('paymentTerms', option.label)
               }
             }
           >
@@ -199,9 +190,8 @@ class CompanyCreateScreen extends Component {
             // index={0}
             data={colorOptions}
             onChange={(option)=>{
-              company.hex =  colorHexUpdater(option.label)
-              company.color = option.label 
-              companyUpdate('company', company)
+              companyUpdate('color', option.label)
+              companyUpdate('hex', colorHexUpdater(option.label))
               }
             }
           >
@@ -219,8 +209,7 @@ class CompanyCreateScreen extends Component {
             value={address}
             onFocus={(value) => { 
               // using a workaround here because companyUpdate returns a proxy for address instead of a string
-              company.address = value
-              companyUpdate('company', company)
+              companyUpdate('address', value)
               this.props.navigation.navigate('googlePlacesInput', {'company': company})
             }} 
             editable={true}
