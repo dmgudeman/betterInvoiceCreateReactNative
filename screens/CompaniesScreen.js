@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { debounce } from 'underscore';
 import { Button } from 'react-native-elements';
 import Icon                     from 'react-native-vector-icons/FontAwesome';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, NavigationActions } from 'react-navigation';
 
 import { AsyncStorage } from 'react-native';
 import * as actions from '../actions';
@@ -14,13 +14,23 @@ import ListItem from '../components/ListItem'
 
 class CompaniesScreen extends Component {
   componentWillMount() {
-    // console.log('COMPANIES CWM this.props', this.props);
+    console.log('COMPANIES CWM this.props.navigation', this.props.navigation);
     this.props.fetchCompanies(this.props.fUserId);
+    this.props.navigation.setParams({
+      setCompany: this.props.setCompany,
+      key: 'companies'
+    });
+
+    console.log('COMPANIES CWM this.props.navigation', this.props.navigation);
   }
 
 
   componentDidMount() {
     this.props.fetchCompanies(this.props.fUserId)
+  }
+  goToCompanyCreate = () =>{
+    this.props.setCompany({});
+    this.props.navigation.navigate('companyCreate');
   }
   goToInvoices=(company)=>{
     this.props.setCompany(company);
@@ -62,7 +72,13 @@ class CompaniesScreen extends Component {
     headerRight:
         <Button
           title= "+Business"
-          onPress= {_.debounce(()=>navigation.navigate('companyCreate'), 2000,{'leading':true, 'trailing':false})}
+          // onPress= {_.debounce(()=>navigation.navigate('companyCreate'), 2000,{'leading':true, 'trailing':false})}
+          onPress={()=>{
+            console.log('COMPANIES NAV OPTIONS navigation', navigation);
+            navigation.state.params.setCompany();
+            navigation.navigate('companyCreate');
+           }
+          }
         />
         ,
         headerLeft: null
