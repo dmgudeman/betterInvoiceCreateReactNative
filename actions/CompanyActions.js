@@ -45,7 +45,6 @@ export const companyEditSubmit = (company) => {
   }
 }
 
-
 export const companyUpdate = (prop, value)=> {
   console.log( 'COMPANYACTIONS COMPANYUPDATE prop', prop);
   console.log( 'COMPANYACTIONS COMPANYUPDATE value', value);

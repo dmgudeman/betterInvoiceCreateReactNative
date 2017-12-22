@@ -28,10 +28,11 @@ class CompaniesScreen extends Component {
   componentDidMount() {
     this.props.fetchCompanies(this.props.fUserId)
   }
-  goToCompanyCreate = () =>{
-    this.props.setCompany({});
-    this.props.navigation.navigate('companyCreate');
+  goToCompanyEdit = (company) =>{
+    this.props.setCompany(company);
+    this.props.navigation.navigate('companyEdit');
   }
+
   goToInvoices=(company)=>{
     this.props.setCompany(company);
     this.props.setInvoices(company.invoices);
@@ -62,6 +63,7 @@ class CompaniesScreen extends Component {
         goToInvoiceCreate={this.goToInvoiceCreate}
         goToItems={this.goToItems}
         goToItemCreate={this.goToItemCreate}
+        goToCompanyEdit={this.goToCompanyEdit}
       />
     )
   }
@@ -75,7 +77,7 @@ class CompaniesScreen extends Component {
           // onPress= {_.debounce(()=>navigation.navigate('companyCreate'), 2000,{'leading':true, 'trailing':false})}
           onPress={()=>{
             console.log('COMPANIES NAV OPTIONS navigation', navigation);
-            navigation.state.params.setCompany();
+            navigation.state.params.setCompany({});
             navigation.navigate('companyCreate');
            }
           }

@@ -18,10 +18,10 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, [action.payload.prop]:action.payload.value }
     }
     case COMPANY_CREATE:{
-      return { ...state, company: action.payload };
+      return { ...state, ...action.payload };
     }
     case COMPANY_CREATE_CLEAR:{
-      return { ...state, company: action.payload };
+      return { ...state, ...action.payload };
     }
     case COMPANY_EDIT_SUBMIT: {
     }

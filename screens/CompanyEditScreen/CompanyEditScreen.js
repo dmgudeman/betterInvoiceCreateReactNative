@@ -74,9 +74,9 @@ class CompanyEditScreen extends Component {
     }
   }
   componentWillMount(){
-    console.log('COMPANYEDIT CWM this.props', this.props);
-    console.log('COMPANYEDIT CWM his.props.navigation.state.params.company', this.props.navigation.state.params.company);
-    this.props.companyUpdate('company', this.props.navigation.state.params.company);
+    // console.log('COMPANYEDIT CWM this.props', this.props);
+    // console.log('COMPANYEDIT CWM his.props.navigation.state.params.company', this.props.navigation.state.params.company);
+    // this.props.companyUpdate('company', this.props.navigation.state.params.company);
     
   }
   onSubmit() {
@@ -113,9 +113,8 @@ class CompanyEditScreen extends Component {
             value={name}
             touched={this.state.controls.name.touched}
             onChangeText={(value) => {
-              company.name = value;
-              companyUpdate('company', company)
-              this.updateInputState('name', value)
+              companyUpdate('name', value)
+              // this.updateInputState('name', value)
               }
             }
           />
@@ -134,9 +133,8 @@ class CompanyEditScreen extends Component {
             touched={this.state.controls.hourly.touched}
             keyboardType= 'numeric'
             onChangeText={(value) => {
-              company.hourly = value
-              companyUpdate('company', company)
-              this.updateInputState('hourly', value)
+              companyUpdate('hourly', value)
+              // this.updateInputState('hourly', value)
             }
           }
           />
@@ -153,10 +151,7 @@ class CompanyEditScreen extends Component {
             index={0}
             data={paymentTermsOptions}
             onChange={(option)=>{ 
-
-
-              company.paymentTerms = option.label
-              companyUpdate('company', company)
+              companyUpdate('paymentTerms', option.label)
               }
             }
           >
@@ -175,9 +170,8 @@ class CompanyEditScreen extends Component {
             // index={0}
             data={colorOptions}
             onChange={(option)=>{
-              company.hex =  colorHexUpdater(option.label)
-              company.color = option.label
-              companyUpdate('company', company)
+              companyUpdate('color', option.label)
+              companyUpdate('hex', colorHexUpdater(option.label))
               }
             }
           >
@@ -193,10 +187,7 @@ class CompanyEditScreen extends Component {
           <FormInput 
             value={address}
             onFocus={(value) => { 
-              // using a workaround here because companyUpdate returns a proxy for address instead of a string
-              console.log('COMPANYEDIT ADDRESS address', address);
-              company.address = value
-              companyUpdate('company', company)
+              companyUpdate('address', value)
               this.props.navigation.navigate('googlePlacesInput', {'company': company})
             }} 
             editable={true}

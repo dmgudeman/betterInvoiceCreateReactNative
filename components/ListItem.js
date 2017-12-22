@@ -41,9 +41,9 @@ class ListItem extends Component {
       <Card color={cardColor}>
         <CardSection>
           <View style={ styles.headerContentStyle}>
-            <Text style={styles.headerTextStyle} onPress={
-              _.debounce(()=> navigate('companyEdit', {'company': this.props.company}), 2000,{'leading':true, 'trailing':true}) 
-            }
+            <Text style={styles.headerTextStyle} 
+            onPress={() => { this.props.goToCompanyEdit(this.props.company)}}
+              // _.debounce(()=> navigate('companyEdit', {'company': this.props.company}), 2000,{'leading':true, 'trailing':true}) 
               >{ this.props.company.name }</Text>
           </View>
         </CardSection>
