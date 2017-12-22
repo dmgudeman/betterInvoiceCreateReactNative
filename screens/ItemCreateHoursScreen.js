@@ -61,6 +61,7 @@ class ItemCreateHoursScreen extends Component {
     this.props.itemUpdate('description', '');
     this.props.itemUpdate('hours', '');
     this.props.itemTotalUpdate('','', this.props.hourly)
+    this.props.utilsUpdate('goBackKey', this.props.navigation.state.key)
     // console.log('COMPONENTWILL this.props.navigation.state.key', this.props.navigation.state.key);
   }
   static navigationOptions = ({ navigation }) => {

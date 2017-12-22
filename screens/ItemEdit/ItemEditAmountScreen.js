@@ -14,6 +14,7 @@ import {
   FormValidationMessage, 
 }                               from 'react-native-elements';
 import Icon                     from 'react-native-vector-icons/FontAwesome';
+import update                   from 'immutability-helper';
 import { NavigationActions }    from 'react-navigation';
 import DatePicker               from 'react-native-datepicker';
 import Moment                   from 'react-moment';
@@ -71,12 +72,21 @@ class itemEditAmountScreen extends Component {
       tabBarIcon: ({ tintColor }) => <Icon name="dollar" size={20} color="#3498db" />
     }
   }
-  onSubmit = () => {
+  onSubmit = async () => {
     const { amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total} = this.props
-    const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0);
-    this.props.itemUpdate('total', data);
-    this.props.itemEdit({ amount, companyKey, date, description, fUserId, hourly, hours, itemKey, total, name  })
-    this.props.navigation.goBack(goBackKey);
+    item = {amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total}
+    const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0) ;
+    await this.props.itemUpdate('total', data);
+    // console.log('ITEM EDIT HOURS onSubmit item', item);
+    // console.log('ITEM EDIT HOURS onSubmit item', this.props.items);
+
+    await this.props.itemEdit(item)
+    let a = {[itemKey]: item}
+    await this.props.itemsUpdate( this.props.items, a );
+    const newCompany = await update(this.props.company,  {items: {[itemKey]:{$set: item }}});
+    await this.props.setCompany(newCompany);
+    this.props.navigation.goBack(this.props.navigation.state.params.goBackKey);
+    // this.props.navigation.goBack('itemEditHoursScreen');
   }
 
   render() {
@@ -139,21 +149,27 @@ class itemEditAmountScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const amount       = state.item.amount || '';
+  // console.log('ITEMEDIT HOURS MSTP', state);
+  const fUserId      = state.auth.fUserId || '';
+  const goBackKey    = state.utils.goBackKey || '';
+
+  const company      = state.companies.company || '';
   const companyKey   = state.companies.company.companyKey || '';
+  const hourly       = state.companies.company.hourly || '';
+  const name         = state.companies.company.name || '';  
+
+  const amount       = state.item.amount || '';
   const date         = state.item.date || '';
   const description  = state.item.description || '';
-  const fUserId      = state.auth.fUserId || '';
-  const hourly       = state.companies.company.hourly || '';
-
   const hours        = state.item.hours || '';
   const item         = state.item || '';
   const itemKey      = state.item.itemKey || '';
-  const name         = state.companies.company.name || '';  
   const total        = state.item.total || '';
+
+  const items        = state.items
   // const item = { amount, companyKey, date, description, fUserId, hourly, hours, itemKey, name, total}
   
-  return { amount, companyKey, date, description, fUserId, hourly, hours, item, itemKey, name, total, item };
+  return { amount, company, companyKey, date, description, fUserId, hourly, hours, item, items, itemKey, name, total, item };
 }
 
 export default connect(mapStateToProps, actions)(itemEditAmountScreen);

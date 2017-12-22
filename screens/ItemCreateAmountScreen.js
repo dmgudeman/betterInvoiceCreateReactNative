@@ -20,8 +20,6 @@ import MyDatePicker from '../components/MyDatePicker';
 import { validate }             from '../utility/Validation';
 
 
-// 
-
 class ItemCreateAmountScreen extends Component {
    // Validation
    state = {
