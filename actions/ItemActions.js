@@ -14,7 +14,6 @@ import {
 
 export const itemCreate = ({amount, bag, company, companyKey, date, description, fUserId, hourly, hours, itemKey, items, name, total}) => async dispatch => {
   let payload = { amount, companyKey, date, description, fUserId, hourly, hours, itemKey, name, total} 
-  console.log('ACTIONS ITEM CREATE bag',bag);
   console.log('ITEM ACTIONS ITEMCREATE payload', payload);
   if(!itemKey){
     payload.itemKey = await firebase.database().ref().child('companies').child(companyKey).child('items').push().key;
@@ -26,10 +25,10 @@ export const itemCreate = ({amount, bag, company, companyKey, date, description,
   await firebase.database().ref().update(updates);
   // console.log('ITEM ACTIONS ITEMCREATE payload', payload);
   // console.log('ITEM ACTIONS ITEMCREATE items', items);
-  // console.log('ITEM ACTIONS ITEMCREATE [payload.itemKey].payload', {[payload.itemKey]:payload});
+  console.log('ITEM ACTIONS ITEMCREATE [payload.itemKey].payload', {[payload.itemKey]:payload});
   // let item = payload
-  let newItems ={ ...items, ...[payload.itemKey].payload}
-  // console.log('ITEM ACTIONS ITEMCREATE newItems', newItems);
+  let newItems ={ ...items, ...{[payload.itemKey]:payload}}
+  console.log('ITEM ACTIONS ITEMCREATE newItems', newItems);
   dispatch({type: SET_ITEM, item:payload } )
   // dispatch({type: ITEM_CREATE, item: payload })
   dispatch({type: SET_ITEMS, items:newItems })

@@ -79,9 +79,6 @@ class itemEditHoursScreen extends Component {
     item = {amount, company, companyKey, date, description, fUserId,  hourly, hours, itemKey, items, name, total}
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0) ;
     await this.props.itemUpdate('total', data);
-    // console.log('ITEM EDIT HOURS onSubmit item', item);
-    // console.log('ITEM EDIT HOURS onSubmit item', this.props.items);
-
     await this.props.itemCreate(item)
     // let a = {[itemKey]: item}
     // await this.props.itemsUpdate( this.props.items, a );

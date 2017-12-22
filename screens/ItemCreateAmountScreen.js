@@ -83,19 +83,11 @@ class ItemCreateAmountScreen extends Component {
     }
   }
   onSubmit = async () => {
-    const { amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total} = this.props
-    item = {amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total}
+    const { amount, company, companyKey, date, description, fUserId,  hourly, hours, itemKey, items, name, total} = this.props
+    item = {amount, company, companyKey, date, description, fUserId,  hourly, hours, itemKey, items, name, total}
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0) ;
     await this.props.itemUpdate('total', data);
-    // console.log('ITEM EDIT HOURS onSubmit item', item);
-    // console.log('ITEM EDIT HOURS onSubmit item', this.props.items);
-
-    await this.props.itemEdit(item)
-    let a = {[itemKey]: item}
-    await this.props.itemsUpdate( this.props.items, a );
-    const newCompany = await update(this.props.company,  {items: {[itemKey]:{$set: item }}});
-    await this.props.setCompany(newCompany);
-    // this.props.navigation.goBack(this.props.navigation.state.params.goBackKey);
+    await this.props.itemCreate(item)
     resetAction = await NavigationActions.reset({
       index: 0,
       actions: [ NavigationActions.navigate({ routeName: 'companies'}), ]

@@ -80,13 +80,10 @@ class ItemCreateHoursScreen extends Component {
   }
    
   onSubmit = async () => {
-    console.log('ITEMCREATEHOURS ONSUBMIT this.props', this.props);
     const { amount, company, companyKey, date, description, fUserId,  hourly, hours, itemKey, items, name, total} = this.props
     item = {amount, company, companyKey, date, description, fUserId,  hourly, hours, itemKey, items, name, total}
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0) ;
     await this.props.itemUpdate('total', data);
-    // console.log('ITEM EDIT HOURS onSubmit item', item);
-
     await this.props.itemCreate(item)
     console.log('ITEM CREATE HOURS ONSUBMIT this.props.itemKey', this.props.itemKey);
     // let a = {[itemKey]: item}

@@ -84,7 +84,7 @@ const styles = {
 }
 
 const MapStateToProps = (state) => {
-  console.log('ITEMDETAILSROW MSTP state ', state);
+  // console.log('ITEMDETAILSROW MSTP state ', state);
 
 return {
    state
