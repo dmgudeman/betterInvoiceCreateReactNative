@@ -56,6 +56,7 @@ class itemEditHoursScreen extends Component {
   
   componentWillMount(){
     // console.log('ITEMEDIT HOURS CWM this.props', this.props);
+    console.log('ITEM EDIT CWM this.props.navigation', this.props.navigation);
   }
   
   static navigationOptions = ({ navigation }) => {

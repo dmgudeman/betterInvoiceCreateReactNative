@@ -17,6 +17,7 @@ export const itemCreate = ({amount, companyKey, date, description, fUserId, hour
 
   let newItemKey = await firebase.database().ref().child('companies').child(companyKey).child('items').push().key;
   payload.itemKey = newItemKey;
+  console.log('ITEM ACTIONS ITEMCREATE payload.itemKey', payload.itemKey);
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/items/' + payload.itemKey] = payload;
   console.log('ITEM ACTIONS ITEMCREATE update', updates);

@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component }           from 'react';
 import { Keyboard, View, Text }       from 'react-native';
-import { connect } from 'react-redux';
+import { connect }                    from 'react-redux';
 import { 
   Button,
   FormLabel, 
   FormInput, 
   FormValidationMessage, 
-}                           from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { NavigationActions } from 'react-navigation';
-import DatePicker from 'react-native-datepicker';
-import Moment from 'react-moment';
-import moment from 'moment';
-import * as _                   from 'lodash';
-import * as actions from '../actions';
-import Styles from './Styles';
+}                                     from 'react-native-elements';
+import Icon                           from 'react-native-vector-icons/FontAwesome';
+import update                         from 'immutability-helper';
+import { NavigationActions }          from 'react-navigation';
+import DatePicker                     from 'react-native-datepicker';
+import Moment                         from 'react-moment';
+import moment                         from 'moment';
+import * as _                         from 'lodash';
+import * as actions                   from '../actions';
+import Styles                         from './Styles';
 
-import MyDatePicker from '../components/MyDatePicker';
-import { validate }             from '../utility/Validation';
+import MyDatePicker                   from '../components/MyDatePicker';
+import { validate }                   from '../utility/Validation';
 
 
 class ItemCreateAmountScreen extends Component {
@@ -82,12 +83,19 @@ class ItemCreateAmountScreen extends Component {
     }
   }
   onSubmit = async () => {
-    const{navigation}= this.props;
-    const {amount, companyKey, date, description, fUserId, hourly, hours, name, total} = this.props
-    const data  = ( (hours - 0 || 0 ) * (hourly - 0 || 0)) + (amount - 0 || 0);
+    const { amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total} = this.props
+    item = {amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total}
+    const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0) ;
     await this.props.itemUpdate('total', data);
+    // console.log('ITEM EDIT HOURS onSubmit item', item);
+    // console.log('ITEM EDIT HOURS onSubmit item', this.props.items);
 
-    await this.props.itemCreate({amount, companyKey, date, description, fUserId, hourly, hours, name, total});
+    await this.props.itemEdit(item)
+    let a = {[itemKey]: item}
+    await this.props.itemsUpdate( this.props.items, a );
+    const newCompany = await update(this.props.company,  {items: {[itemKey]:{$set: item }}});
+    await this.props.setCompany(newCompany);
+    // this.props.navigation.goBack(this.props.navigation.state.params.goBackKey);
     resetAction = await NavigationActions.reset({
       index: 0,
       actions: [ NavigationActions.navigate({ routeName: 'companies'}), ]
@@ -154,21 +162,24 @@ class ItemCreateAmountScreen extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  // console.log('ITEMCREATESCREEN MAPSTATETOPROPS state', state);
-  const fUserId     = state.auth.fUserId || '';
-  
-  const companyKey  = state.companies.company.companyKey || '';
-  const hourly      = state.companies.company.hourly || '';
-  const name        = state.companies.company.name || '';  
-  
-  const amount      = state.item.amount      || '';
-  const date        = state.item.date        || '';
-  const description = state.item.description || '';
-  const hours       = state.item.hours       || '';
-  const total       = state.item.total       || '';
+const mapStateToProps = (state) => {
+  const fUserId      = state.auth.fUserId || '';
+  const company      = state.companies.company || '';
+  const companyKey   = state.companies.company.companyKey || '';
+  const hourly       = state.companies.company.hourly || '';
+  const name         = state.companies.company.name || '';  
 
-  return { amount, companyKey, date, description, fUserId, hourly, hours,  name, total};
+  const amount       = state.item.amount || '';
+  const date         = state.item.date || '';
+  const description  = state.item.description || '';
+  const hours        = state.item.hours || '';
+  const item         = state.item || '';
+  const itemKey      = state.item.itemKey || '';
+  const total        = state.item.total || '';
+
+  const items        = state.items
+  
+  return { amount, company, companyKey, date, description, fUserId, hourly, hours, item, items, itemKey, name, total, item };
 }
 
 // const Styles = {

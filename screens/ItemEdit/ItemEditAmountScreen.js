@@ -86,7 +86,7 @@ class itemEditAmountScreen extends Component {
     const newCompany = await update(this.props.company,  {items: {[itemKey]:{$set: item }}});
     await this.props.setCompany(newCompany);
     this.props.navigation.goBack(this.props.navigation.state.params.goBackKey);
-    // this.props.navigation.goBack('itemEditHoursScreen');
+    // this.props.navigation.goBack("itemEditHoursScreen");
   }
 
   render() {
