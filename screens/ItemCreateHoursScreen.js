@@ -81,6 +81,7 @@ class ItemCreateHoursScreen extends Component {
    
   onSubmit = async () => {
     console.log('ITEMCREATEHOURS ONSUBMIT this.props', this.props);
+    try {
     const { amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total} = this.props
     item = {amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total}
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0) ;
@@ -94,8 +95,11 @@ class ItemCreateHoursScreen extends Component {
     const newCompany = await update(this.props.company,  {items: {[itemKey]:{$set: item }}});
     await this.props.setCompany(newCompany);
     // this.props.navigation.goBack(this.props.navigation.state.params.goBackKey);
-    this.props.navigation.goBack(null);
     // this.props.navigation.goBack(null);
+    // this.props.navigation.goBack(null);
+    } catch(e) {
+      console.log('error in ItemCreateHours onSubmit ', e);
+    }
   }
 
   render() {
