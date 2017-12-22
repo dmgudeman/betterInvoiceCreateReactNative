@@ -9,12 +9,19 @@ import DATE_RFC2822 from '../assets/Date';
 INITIAL_STATE = {}
 export const setItems = (items=INITIAL_STATE) => {
   console.log('ACTIONS SET ITEMS items', items);
-  return {
-    type: SET_ITEMS,
-    items
+  if (items) {
+    return {
+      type: SET_ITEMS,
+      items
+    }
+  } else {
+    return {
+      type: SET_ITEMS,
+      items: {}
+
+   }
   }
 }
-
 export const itemsUpdate = ( items=INITIAL_STATE, item ) => {
   return {
     type:  ITEMS_UPDATE,
