@@ -71,7 +71,7 @@ class ItemCreateAmountScreen extends Component {
           resetAction = NavigationActions.reset({
             index: 0,
             actions: [
-              NavigationActions.navigate({ routeName: 'companies'}),
+              NavigationActions.navigate({ routeName: 'itemCreate'}),
              
             ]
           });
