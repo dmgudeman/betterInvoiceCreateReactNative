@@ -50,6 +50,8 @@ class ItemCreateAmountScreen extends Component {
     })
   }   
   componentWillMount() {
+    console.log('ITEM CREATE AMOUNT CWM this.props.navigation.state.key', this.props.navigation.state.key);
+
     // console.log('ITEMSCREATESCREEN COMPONENTWILLMOUNT this.props', this.props);
     // this.props.itemUpdate('amount', '');
     // this.props.itemUpdate('date', moment().format()  )
@@ -88,11 +90,16 @@ class ItemCreateAmountScreen extends Component {
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0) ;
     await this.props.itemUpdate('total', data);
     await this.props.itemCreate(item)
+    console.log('ITEM CREATE AMOUNT ONSUBMIT navigation ', this.props.navigation);
     resetAction = await NavigationActions.reset({
-      index: 0,
-      actions: [ NavigationActions.navigate({ routeName: 'itemCreateHoursScreen'}), ]
-    });
+     index: 1,
+      actions: [ 
+        NavigationActions.navigate({ routeName: 'companies'}), 
+        NavigationActions.navigate({ routeName: 'auth'}), 
+      ]
+    })
     await this.props.navigation.dispatch(resetAction);
+  //   await this.props.navigation.goBack('itemCreateHoursScreen')
   }
  
 

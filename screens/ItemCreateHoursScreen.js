@@ -57,6 +57,7 @@ class ItemCreateHoursScreen extends Component {
     })
   }
   componentWillMount() {
+    console.log('ITEM CREATE HOURS CWM this.props.navigation.state.key', this.props.navigation.state.key);
     // this.props.itemUpdate('amount', '');
     // this.props.itemUpdate('date', moment().format()  )
     // this.props.itemUpdate('description', '');

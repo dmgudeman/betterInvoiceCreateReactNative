@@ -14,7 +14,7 @@ import ListItem from '../components/ListItem'
 
 class CompaniesScreen extends Component {
   componentWillMount() {
-    console.log('COMPANIES CWM this.props.navigation', this.props.navigation);
+    console.log('COMPANIES CWM this.props.navigation.state.key', this.props.navigation.state.key);
     this.props.fetchCompanies(this.props.fUserId);
     this.props.navigation.setParams({
       clearCompany: this.props.clearCompany,
