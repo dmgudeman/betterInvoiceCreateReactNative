@@ -10,7 +10,7 @@ import InvoiceDetailsRow from '../components/InvoiceDetailsRow';
 
 class InvoicesScreen extends Component {
   componentWillMount() {
-    console.log('INVOICES WILL MOUNT actions', actions );
+    console.log('INVOICES WILL MOUNT invoices', this.props.invoices );
   }
   // componentWillUpdate() {
   //   console.log('INVOICES WILL UPDATE this.props', this.props );
@@ -71,18 +71,20 @@ class InvoicesScreen extends Component {
   }
 }
 const mapStateToProps = state => {
-  // console.log('INVOICES MSTP state', state);
-  if (state.companies.company){
-    const company = state.companies.company || '';
-    const companyKey = state.companies.company.companyKey || state.companies.company.id;
-    const coName = state.companies.company.name || '';
-    const fUserId = state.auth.fUserId;
-    const invoice = state.invoice.invoice || '';
-
-    const invoices = _.map(state.companies.company.invoices, (val, id) => {
+  console.log('INVOICES MSTP state', state);
+  const fUserId    = state.auth.fUserId;
+  if (state.company){
+    const company    = state.company || '';
+    const companyKey = state.companyKey || state.company.id;
+    const coName     = state.company.name || '';
+    const invoice    = state.invoice || '';
+    // const invoices   = state.company.invoices
+    const invoices = _.map(state.company.invoices, (val, id) => {
       return { ...val, id};
     });
+    console.log('INVOCIES SCREEN state.company.invoices', state.company.invoices);
 
+    // const invoices = Object.keys(state.company.invoices).map(function (key) { return state.company.invoices[key]; });
     // const invoices = state.invoice.invoices || '';
     return { company, companyKey, coName, fUserId, invoice, invoices};
 } return state;
