@@ -76,10 +76,10 @@ class CompaniesScreen extends Component {
         <Button
           title= "+Business"
           // onPress= {_.debounce(()=>navigation.navigate('companyCreate'), 2000,{'leading':true, 'trailing':false})}
-          onPress={()=>{
-            console.log('COMPANIES NAV OPTIONS navigation', navigation);
-            navigation.state.params.clearCompany();
-            navigation.navigate('companyCreate');
+          onPress={async()=>{
+            await console.log('COMPANIES NAV OPTIONS navigation', navigation);
+            await navigation.state.params.clearCompany();
+            await navigation.navigate('companyCreate');
            }
           }
         />

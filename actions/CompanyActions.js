@@ -64,7 +64,7 @@ export const setCompany = (company) => {
 }
 
 
-export const clearCompany = (fUserId) => {
+// export const clearCompany = (fUserId) => {
   // company = {
   // address:'',
   // color: 'blue',
@@ -79,7 +79,8 @@ export const clearCompany = (fUserId) => {
   // name: '',
   // paymentTerms: '30',
   // }
-   
+  export const clearCompany =() => { 
+    console.log('ACTIONS CLEAR_COMPANY FIRED');
   return {
     type: CLEAR_COMPANY,
     // payload: company

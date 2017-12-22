@@ -68,7 +68,7 @@ class CompanyCreateScreen extends Component {
 
   componentWillMount() {
     // this.props.companyClearCreate(this.props.fUserId);
-    // console.log('COMPANYCREATE COMPONENTWILLMOUNT this.props', this.props);
+    console.log('COMPANYCREATE COMPONENTWILLMOUNT this.props', this.props);
     // console.log('COMPANYCREATE COMPONENTWILLMOUNT company', company);
   }
 
@@ -114,7 +114,7 @@ class CompanyCreateScreen extends Component {
     const paymentTermsOptions = paymentTermsOptionsList;
     const navigation = this.props.navigation
     const {companyUpdate, } = this.props;
-    const {  address, color, hex, hourly, invoice, items, name, paymentTerms} = this.props.company
+    const {  address, color, hex, hourly, invoice, items, name, paymentTerms} = this.props
 
     const company = { ...this.props.company }   
               console.log('COMPANYCREAATE RENDER name', (name === ''));
@@ -276,10 +276,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  // console.log('COMPANYCREATE MSTP state', state);
+  console.log('COMPANYCREATE MSTP state', state);
  if (state.company) {
   const address = state.company.address || '';
-  const color = state.company.color || '';
+  const color = state.company.color || 'blue';
   const companyKey = state.company.companyKey|| '';
   const company = state.company || '';
   const fUserId = state.auth.fUserId || '';
@@ -289,7 +289,6 @@ const mapStateToProps = (state) => {
   const items = state.company.items || '';
   const lastDate = state.company.lasteDate || '';
   const location = state.location || null;
-
   const name = state.company.name || '';
   const paymentTerms = state.company.paymentTerms || '30';
   return { 

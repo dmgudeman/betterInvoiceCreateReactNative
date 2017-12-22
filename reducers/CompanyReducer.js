@@ -21,7 +21,9 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, ...action.payload };
     }
     case CLEAR_COMPANY:{
-      return { ...state.company, ...{} };
+      // return { state,  };
+      let x ={'item':{}}
+     return  Object.assign({}, ...state, ...x )
     }
     case COMPANY_EDIT_SUBMIT: {
     }
