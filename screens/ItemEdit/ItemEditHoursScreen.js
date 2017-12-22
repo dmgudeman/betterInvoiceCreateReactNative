@@ -13,6 +13,7 @@ import {
   FormInput, 
   FormValidationMessage, 
 }                               from 'react-native-elements';
+import update                   from 'immutability-helper';
 import Icon                     from 'react-native-vector-icons/FontAwesome';
 import { NavigationActions }    from 'react-navigation';
 import DatePicker               from 'react-native-datepicker';
@@ -83,18 +84,10 @@ class itemEditHoursScreen extends Component {
     await this.props.itemEdit(item)
     let a = {[itemKey]: item}
     await this.props.itemsUpdate( this.props.items, a );
-    // const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: newInvoice }}});
-    // await this.props.setCompany(newCompany);
-
-
-
-
-    // this.props.itemEdit({ amount, companyKey, date, description, fUserId, hourly, hours, itemKey, total, name  })
-
-
-
-
+    const newCompany = await update(this.props.company,  {items: {[itemKey]:{$set: item }}});
+    await this.props.setCompany(newCompany);
     // this.props.navigation.goBack(this.props.navigation.state.params.goBackKey);
+    this.props.navigation.goBack(null);
   }
 
 
@@ -160,7 +153,7 @@ class itemEditHoursScreen extends Component {
 const mapStateToProps = (state) => {
   // console.log('ITEMEDIT HOURS MSTP', state);
   const fUserId      = state.auth.fUserId || '';
-
+  const company      = state.companies.company || '';
   const companyKey   = state.companies.company.companyKey || '';
   const hourly       = state.companies.company.hourly || '';
   const name         = state.companies.company.name || '';  
@@ -176,6 +169,6 @@ const mapStateToProps = (state) => {
   const items        = state.items
   // const item = { amount, companyKey, date, description, fUserId, hourly, hours, itemKey, name, total}
   
-  return { amount, companyKey, date, description, fUserId, hourly, hours, item, items, itemKey, name, total, item };
+  return { amount, company, companyKey, date, description, fUserId, hourly, hours, item, items, itemKey, name, total, item };
 }
 export default connect(mapStateToProps, actions)(itemEditHoursScreen);
