@@ -12,27 +12,29 @@ import {
  } from './types';
  import DATE_RFC2822 from '../assets/Date';
 
-export const itemCreate = ({amount, company, companyKey, date, description, fUserId, hourly, hours, itemKey, items, name, total}) => async dispatch => {
+export const itemCreate = ({amount, bag, company, companyKey, date, description, fUserId, hourly, hours, itemKey, items, name, total}) => async dispatch => {
   let payload = { amount, companyKey, date, description, fUserId, hourly, hours, itemKey, name, total} 
+  console.log('ACTIONS ITEM CREATE bag',bag);
+  console.log('ITEM ACTIONS ITEMCREATE payload', payload);
   if(!itemKey){
     payload.itemKey = await firebase.database().ref().child('companies').child(companyKey).child('items').push().key;
   }
-  console.log('ITEM ACTIONS ITEMCREATE payload.itemKey', payload.itemKey);
+  // console.log('ITEM ACTIONS ITEMCREATE payload.itemKey', payload.itemKey);
   let updates = {};
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/items/' + payload.itemKey] = payload;
-  console.log('ITEM ACTIONS ITEMCREATE update', updates);
+  // console.log('ITEM ACTIONS ITEMCREATE update', updates);
   await firebase.database().ref().update(updates);
-  console.log('ITEM ACTIONS ITEMCREATE payload', payload);
-  console.log('ITEM ACTIONS ITEMCREATE items', items);
-  console.log('ITEM ACTIONS ITEMCREATE [payload.itemKey].payload', {[payload.itemKey]:payload});
+  // console.log('ITEM ACTIONS ITEMCREATE payload', payload);
+  // console.log('ITEM ACTIONS ITEMCREATE items', items);
+  // console.log('ITEM ACTIONS ITEMCREATE [payload.itemKey].payload', {[payload.itemKey]:payload});
   // let item = payload
   let newItems ={ ...items, ...[payload.itemKey].payload}
-  console.log('ITEM ACTIONS ITEMCREATE newItems', newItems);
+  // console.log('ITEM ACTIONS ITEMCREATE newItems', newItems);
   dispatch({type: SET_ITEM, item:payload } )
   // dispatch({type: ITEM_CREATE, item: payload })
   dispatch({type: SET_ITEMS, items:newItems })
   let prop = 'items'
-  console.log('ACTIONS ITEM CREATE newItems', newItems);
+  // console.log('ACTIONS ITEM CREATE newItems', newItems);
   let value = newItems
   dispatch({type: COMPANY_UPDATE, payload:{prop, value} })
  }
