@@ -4,13 +4,11 @@ import firebase from 'firebase';
 import thunk from 'redux-thunk';
 
 import {
-  FETCH_COMPANIES_SUCCESS,
   SELECT_ITEM,
   COMPANY_UPDATE,
   COMPANY_CREATE_CLEAR,
   COMPANY_CREATE,
   COMPANY_EDIT_SUBMIT,
-  SET_COMPANIES,
   SET_COMPANY,
   UPDATE_OBJECT_EDIT,
 } from './types';
@@ -46,15 +44,7 @@ export const companyEditSubmit = (company) => {
     payload
   }
 }
-export const fetchCompanies = (fUserId) => async dispatch => {
-  let companies = await firebase.database().ref('/users/' + fUserId + '/companies')
-    .on('value', snapshot => {
-      if (snapshot.val()) {
-        dispatch({type: FETCH_COMPANIES_SUCCESS, payload:snapshot.val() })};
-      }
-    )
-  return { }
-} 
+
 
 export const companyUpdate = (prop, value)=> {
   console.log( 'COMPANYACTIONS COMPANYUPDATE prop', prop);
@@ -74,12 +64,7 @@ export const setCompany = (company) => {
   }
 }
 
-export const setCompanies = (companies) => {
-  return {
-    type: SET_COMPANIES,
-    companies
-  }
-}
+
 export const companyClearCreate = (fUserId) => {
   company = {
   address:'',

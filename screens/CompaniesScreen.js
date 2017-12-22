@@ -37,6 +37,11 @@ class CompaniesScreen extends Component {
     this.props.setItems(company.items);
     this.props.navigation.navigate('items');
   }
+  goToItemCreate=(company)=>{
+    this.props.setCompany(company);
+    this.props.setItems(company.items);
+    this.props.navigation.navigate('itemCreate');
+  }
   renderItem =({item, index})=> {
     // console.log('COMPANIES RENDERITEM  item', item );
     return  (
@@ -46,6 +51,7 @@ class CompaniesScreen extends Component {
         goToInvoices={this.goToInvoices}
         goToInvoiceCreate={this.goToInvoiceCreate}
         goToItems={this.goToItems}
+        goToItemCreate={this.goToItemCreate}
       />
     )
   }

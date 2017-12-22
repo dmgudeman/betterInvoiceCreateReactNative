@@ -2,19 +2,18 @@ import firebase from 'firebase';
 import thunk from 'redux-thunk';
 import moment from 'moment';
 import {
+  COMPANY_UPDATE,
   ITEM_UPDATE,
   ITEM_TOTAL_UPDATE, 
   ITEM_EDIT,
   ITEM_CREATE, 
-  CHANGE_SETED_ITEM,
   SET_ITEM,
-  CHANGE_ITEM_HOURS, 
+  SET_ITEMS,
  } from './types';
  import DATE_RFC2822 from '../assets/Date';
 
-export const itemCreate = ({amount, companyKey, date, description, fUserId, hourly, hours, name, total}) => async dispatch => {
+export const itemCreate = ({amount, company, companyKey, date, description, fUserId, hourly, hours, items, name, total}) => async dispatch => {
   let payload = { amount, companyKey, date, description, fUserId, hourly, hours, name, total} 
-
   let newItemKey = await firebase.database().ref().child('companies').child(companyKey).child('items').push().key;
   payload.itemKey = newItemKey;
   console.log('ITEM ACTIONS ITEMCREATE payload.itemKey', payload.itemKey);
@@ -22,7 +21,16 @@ export const itemCreate = ({amount, companyKey, date, description, fUserId, hour
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/items/' + payload.itemKey] = payload;
   console.log('ITEM ACTIONS ITEMCREATE update', updates);
   await firebase.database().ref().update(updates);
-  dispatch => {type: ITEM_CREATE, { item: payload }}
+  console.log('ITEM ACTIONS ITEMCREATE payload', payload);
+  console.log('ITEM ACTIONS ITEMCREATE items', items);
+  // let item = payload
+  let newItems = Object.assign({}, ...items, {[newItemKey]: payload} )
+  console.log('ITEM ACTIONS ITEMCREATE newItems', newItems);
+  dispatch({type: SET_ITEM, item:payload } )
+  // dispatch({type: ITEM_CREATE, item: payload })
+  dispatch({type: SET_ITEMS, items:newItems })
+  let prop = 'items'
+  dispatch({type: COMPANY_UPDATE, payload:{prop, newItems} })
  }
 
  // used upon Submit
@@ -54,6 +62,7 @@ export const itemUpdate = (prop, value)=> {
 
 
 export const setItem = (item) => {
+  console.log('SSEEEEEEEETTTTTTTTTTTTTTT ITTTTTTTTTTTTTTTTTM fired', item);
   return {
     type: SET_ITEM,
     item

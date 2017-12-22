@@ -54,9 +54,9 @@ class ListItem extends Component {
             >Items
             </Button>
               
-            <Button style={ styles.buttonContentStyle } onPress={() => { 
-              this.props.setCompany(this.props.company)
-              navigate('itemCreate',{'goBackKey': navigation.state.key}); }}
+            <Button style={ styles.buttonContentStyle } 
+            onPress={() => { this.props.goToItemCreate(this.props.company)}}
+              // navigate('itemCreate',{'goBackKey': navigation.state.key}); }}
             >+Item
             </Button>
 

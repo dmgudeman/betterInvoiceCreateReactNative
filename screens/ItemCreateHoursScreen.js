@@ -81,25 +81,21 @@ class ItemCreateHoursScreen extends Component {
    
   onSubmit = async () => {
     console.log('ITEMCREATEHOURS ONSUBMIT this.props', this.props);
-    try {
-    const { amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total} = this.props
-    item = {amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total}
+    const { amount, company, companyKey, date, description, fUserId,  hourly, hours, itemKey, items, name, total} = this.props
+    item = {amount, company, companyKey, date, description, fUserId,  hourly, hours, itemKey, items, name, total}
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0) ;
     await this.props.itemUpdate('total', data);
     // console.log('ITEM EDIT HOURS onSubmit item', item);
-    // console.log('ITEM EDIT HOURS onSubmit item', this.props.items);
 
     await this.props.itemCreate(item)
-    let a = {[itemKey]: item}
-    await this.props.itemsUpdate( this.props.items, a );
-    const newCompany = await update(this.props.company,  {items: {[itemKey]:{$set: item }}});
-    await this.props.setCompany(newCompany);
-    // this.props.navigation.goBack(this.props.navigation.state.params.goBackKey);
+    console.log('ITEM CREATE HOURS ONSUBMIT this.props.itemKey', this.props.itemKey);
+    // let a = {[itemKey]: item}
+    // await this.props.itemsUpdate( this.props.items, a );
+    // const newCompany = await update(this.props.company,  {items: {[itemKey]:{$set: item }}});
+    // await this.props.setCompany(newCompany);
+    // // this.props.navigation.goBack(this.props.navigation.state.params.goBackKey);
     // this.props.navigation.goBack(null);
     // this.props.navigation.goBack(null);
-    } catch(e) {
-      console.log('error in ItemCreateHours onSubmit ', e);
-    }
   }
 
   render() {

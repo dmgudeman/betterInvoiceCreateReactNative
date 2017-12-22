@@ -27,6 +27,7 @@ export default (state = INITIAL_STATE, action) => {
     }
 
     case SET_ITEM: {
+      console.log('ITEM REDUCERS SET_ITEM action.item', action.item);
       // const {amount, companyKey, date, description, fUserId, hours, total, id}= action.item
       // const data = {amount, companyKey, date, description, fUserId, hours, total, id} 
       // return Object.assign({}, state.item, data )
