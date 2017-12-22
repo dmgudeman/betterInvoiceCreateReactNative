@@ -8,6 +8,7 @@ import {
 import DATE_RFC2822 from '../assets/Date';
 INITIAL_STATE = {}
 export const setItems = (items=INITIAL_STATE) => {
+  console.log('ACTIONS SET ITEMS items', items);
   return {
     type: SET_ITEMS,
     items

@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import {
   SELECT_ITEM,
   COMPANY_UPDATE,
-  COMPANY_CREATE_CLEAR,
+  CLEAR_COMPANY,
   COMPANY_CREATE,
   COMPANY_EDIT_SUBMIT,
   SET_COMPANY,
@@ -64,25 +64,25 @@ export const setCompany = (company) => {
 }
 
 
-export const companyClearCreate = (fUserId) => {
-  company = {
-  address:'',
-  color: 'blue',
-  companyKey: '',
-  company: '',
-  fUserId: fUserId || '',
-  hex: '',
-  hourly: '',
-  invoices: '',
-  items: '',
-  location: null,
-  name: '',
-  paymentTerms: '30',
-  }
+export const clearCompany = (fUserId) => {
+  // company = {
+  // address:'',
+  // color: 'blue',
+  // companyKey: '',
+  // company: '',
+  // fUserId: fUserId || '',
+  // hex: '',
+  // hourly: '',
+  // invoices: '',
+  // items: '',
+  // location: null,
+  // name: '',
+  // paymentTerms: '30',
+  // }
    
   return {
-    type: COMPANY_CREATE_CLEAR,
-    payload: company
+    type: CLEAR_COMPANY,
+    // payload: company
   }
 }
 

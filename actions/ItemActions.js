@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import thunk from 'redux-thunk';
 import moment from 'moment';
 import {
+  CLEAR_ITEM,
   COMPANY_UPDATE,
   ITEM_UPDATE,
   ITEM_TOTAL_UPDATE, 
@@ -11,6 +12,12 @@ import {
   SET_ITEMS,
  } from './types';
  import DATE_RFC2822 from '../assets/Date';
+
+export const clearItem = () =>{
+  return {
+    type: CLEAR_ITEM
+  }
+}
 
 export const itemCreate = ({amount, bag, company, companyKey, date, description, fUserId, hourly, hours, itemKey, items, name, total}) => async dispatch => {
   let payload = { amount, companyKey, date, description, fUserId, hourly, hours, itemKey, name, total} 
@@ -24,16 +31,17 @@ export const itemCreate = ({amount, bag, company, companyKey, date, description,
   // console.log('ITEM ACTIONS ITEMCREATE update', updates);
   await firebase.database().ref().update(updates);
   // console.log('ITEM ACTIONS ITEMCREATE payload', payload);
-  // console.log('ITEM ACTIONS ITEMCREATE items', items);
+  console.log('ITEM ACTIONS ITEMCREATE items', payload.items);
   console.log('ITEM ACTIONS ITEMCREATE [payload.itemKey].payload', {[payload.itemKey]:payload});
   // let item = payload
-  let newItems ={ ...items, ...{[payload.itemKey]:payload}}
+  
+  let newItems ={ ...items, [payload.itemKey]:payload}
   console.log('ITEM ACTIONS ITEMCREATE newItems', newItems);
   dispatch({type: SET_ITEM, item:payload } )
   // dispatch({type: ITEM_CREATE, item: payload })
   dispatch({type: SET_ITEMS, items:newItems })
   let prop = 'items'
-  // console.log('ACTIONS ITEM CREATE newItems', newItems);
+  console.log('ACTIONS ITEM CREATE newItems', newItems);
   let value = newItems
   dispatch({type: COMPANY_UPDATE, payload:{prop, value} })
  }

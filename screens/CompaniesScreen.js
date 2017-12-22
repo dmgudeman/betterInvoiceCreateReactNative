@@ -17,7 +17,7 @@ class CompaniesScreen extends Component {
     console.log('COMPANIES CWM this.props.navigation', this.props.navigation);
     this.props.fetchCompanies(this.props.fUserId);
     this.props.navigation.setParams({
-      setCompany: this.props.setCompany,
+      clearCompany: this.props.clearCompany,
       key: 'companies'
     });
 
@@ -51,6 +51,7 @@ class CompaniesScreen extends Component {
   goToItemCreate=(company)=>{
     this.props.setCompany(company);
     this.props.setItems(company.items);
+    this.props.clearItem();
     this.props.navigation.navigate('itemCreate');
   }
   renderItem =({item, index})=> {
@@ -77,7 +78,7 @@ class CompaniesScreen extends Component {
           // onPress= {_.debounce(()=>navigation.navigate('companyCreate'), 2000,{'leading':true, 'trailing':false})}
           onPress={()=>{
             console.log('COMPANIES NAV OPTIONS navigation', navigation);
-            navigation.state.params.setCompany({});
+            navigation.state.params.clearCompany();
             navigation.navigate('companyCreate');
            }
           }

@@ -67,7 +67,7 @@ class CompanyCreateScreen extends Component {
   }
 
   componentWillMount() {
-    this.props.companyClearCreate(this.props.fUserId);
+    // this.props.companyClearCreate(this.props.fUserId);
     // console.log('COMPANYCREATE COMPONENTWILLMOUNT this.props', this.props);
     // console.log('COMPANYCREATE COMPONENTWILLMOUNT company', company);
   }
@@ -278,9 +278,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   // console.log('COMPANYCREATE MSTP state', state);
  if (state.company) {
-  // const active = state.companies.active || true;
-  
-
   const address = state.company.address || '';
   const color = state.company.color || '';
   const companyKey = state.company.companyKey|| '';
@@ -295,16 +292,12 @@ const mapStateToProps = (state) => {
 
   const name = state.company.name || '';
   const paymentTerms = state.company.paymentTerms || '30';
-  const userId = state.auth.userId || '';
   return { 
     address, location, color, companyKey, company,
-    fUserId, hex, hourly, invoices, items,  lastDate, name, paymentTerms, userId
+    fUserId, hex, hourly, invoices, items,  lastDate, name, paymentTerms
     };
   }
-  const company = { address: '', color:'', companyKey: '', fUserId: state.auth.fUserId, 
-    hex: '', hourly:'', invoices: '', items: '',lastDate: '', 
-    location:'', name:'', paymentTerms: '', userId: state.auth.userId};
-  return {company};
+  return state ;
 }
 
 export default connect(mapStateToProps, actions )(CompanyCreateScreen);

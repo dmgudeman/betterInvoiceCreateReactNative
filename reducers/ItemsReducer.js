@@ -10,7 +10,7 @@ export default (state = INITIAL_STATE, action) => {
     case SET_ITEMS: {
       console.log('REDUCER ITEMS_UPDATE ...state', ...state);
       console.log('REDUCER ITEMS_UPDATE ...action.items', action.items);
-      return {...state=INITIAL_STATE, ...action.items=INITIAL_STATE }
+      return {...state, ...action.items }
     }
     case  ITEMS_UPDATE: {
       console.log('REDUCERS ITEMS_UPDATE FIRED');

@@ -1,7 +1,7 @@
 import {
   COMPANY_UPDATE,
   COMPANY_CREATE,
-  COMPANY_CREATE_CLEAR,
+  CLEAR_COMPANY,
   COMPANY_EDIT_SUBMIT,
   SET_COMPANY,
   UPDATE_OBJECT_EDIT,
@@ -20,8 +20,8 @@ export default (state = INITIAL_STATE, action) => {
     case COMPANY_CREATE:{
       return { ...state, ...action.payload };
     }
-    case COMPANY_CREATE_CLEAR:{
-      return { ...state, ...action.payload };
+    case CLEAR_COMPANY:{
+      return { ...state.company, ...{} };
     }
     case COMPANY_EDIT_SUBMIT: {
     }

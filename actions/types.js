@@ -7,12 +7,13 @@ export const FACEBOOK_LOGIN_FAIL = 'facebook_login_fail';
 export const FETCH_COMPANIES_SUCCESS ='fetch_companies_success';
 export const COMPANY_UPDATE = 'COMPANY_UPDATE';
 export const COMPANY_CREATE = 'COMPANY_CREATE';
-export const COMPANY_CREATE_CLEAR = 'COMPANY_CREATE_CLEAR';
+export const CLEAR_COMPANY = 'CLEAR_COMPANY';
 export const COMPANY_EDIT_SUBMIT = 'companyEditSubmit';
 export const SET_COMPANIES = 'SET_COMPANIES';
 export const SET_COMPANY = 'SET_COMPANY';
 export const UPDATE_OBJECT_EDIT = 'UPDATE_OBJECT_EDIT';
 
+export const CLEAR_ITEM = ' CLEAR_ITEM';
 export const ITEM_CREATE = 'item_create';
 export const ITEM_EDIT = 'ITEM_EDIT';
 export const ITEM_UPDATE = 'item_update';

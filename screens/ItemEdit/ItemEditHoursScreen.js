@@ -157,7 +157,7 @@ const mapStateToProps = (state) => {
   const name         = state.company.name || '';  
 
   const amount       = state.item.amount || '';
-  const date         = state.item.date || '';
+  const date         = state.item.date || moment().format(DATE_RFC2822);
   const description  = state.item.description || '';
   const hours        = state.item.hours || '';
   const item         = state.item || '';
