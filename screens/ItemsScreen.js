@@ -73,7 +73,7 @@ const mapStateToProps = state => {
   const goBackKey = state.utils.goBackKey || '';
   const items = _.map(state.company.items, (val, id) => {
     return { ...val, id};
-  });
+  }) || {};
   return { company, companyKey, fUserId, goBackKey, items, name};
 }
 return state;

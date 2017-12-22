@@ -51,11 +51,11 @@ class ItemCreateAmountScreen extends Component {
   }   
   componentWillMount() {
     // console.log('ITEMSCREATESCREEN COMPONENTWILLMOUNT this.props', this.props);
-    this.props.itemUpdate('amount', '');
-    this.props.itemUpdate('date', moment().format()  )
-    this.props.itemUpdate('description', '');
-    this.props.itemUpdate('hours', '');
-    this.props.itemTotalUpdate('','', this.props.hourly)
+    // this.props.itemUpdate('amount', '');
+    // this.props.itemUpdate('date', moment().format()  )
+    // this.props.itemUpdate('description', '');
+    // this.props.itemUpdate('hours', '');
+    // this.props.itemTotalUpdate('','', this.props.hourly)
   }
 
 

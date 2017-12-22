@@ -57,12 +57,12 @@ class ItemCreateHoursScreen extends Component {
     })
   }
   componentWillMount() {
-    this.props.itemUpdate('amount', '');
-    this.props.itemUpdate('date', moment().format()  )
-    this.props.itemUpdate('description', '');
-    this.props.itemUpdate('hours', '');
-    this.props.itemTotalUpdate('','', this.props.hourly)
-    this.props.utilsUpdate('goBackKey', this.props.navigation.state.key)
+    // this.props.itemUpdate('amount', '');
+    // this.props.itemUpdate('date', moment().format()  )
+    // this.props.itemUpdate('description', '');
+    // this.props.itemUpdate('hours', '');
+    // this.props.itemTotalUpdate('','', this.props.hourly)
+    // this.props.utilsUpdate('goBackKey', this.props.navigation.state.key)
     // console.log('COMPONENTWILL this.props.navigation.state.key', this.props.navigation.state.key);
   }
   static navigationOptions = ({ navigation }) => {
@@ -159,7 +159,7 @@ const mapStateToProps = (state) => {
   const name         = state.company.name || '';  
 
   const amount       = state.item.amount || '';
-  const date         = state.item.date || '';
+  const date         = state.item.date || moment().format(DATE_RFC2822);
   const description  = state.item.description || '';
   const hours        = state.item.hours || '';
   const item         = state.item || '';

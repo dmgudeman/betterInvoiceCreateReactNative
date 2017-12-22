@@ -8,7 +8,9 @@ const INITIAL_STATE = {}
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_ITEMS: {
-      return {...state, ...action.items }
+      console.log('REDUCER ITEMS_UPDATE ...state', ...state);
+      console.log('REDUCER ITEMS_UPDATE ...action.items', action.items);
+      return {...state=INITIAL_STATE, ...action.items=INITIAL_STATE }
     }
     case  ITEMS_UPDATE: {
       console.log('REDUCERS ITEMS_UPDATE FIRED');

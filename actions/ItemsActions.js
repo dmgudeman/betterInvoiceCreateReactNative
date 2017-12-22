@@ -6,15 +6,15 @@ import {
   SET_ITEMS,
  } from './types';
 import DATE_RFC2822 from '../assets/Date';
-
-export const setItems = (items) => {
+INITIAL_STATE = {}
+export const setItems = (items=INITIAL_STATE) => {
   return {
     type: SET_ITEMS,
     items
   }
 }
 
-export const itemsUpdate = ( items, item ) => {
+export const itemsUpdate = ( items=INITIAL_STATE, item ) => {
   return {
     type:  ITEMS_UPDATE,
     payload: {items, item}
