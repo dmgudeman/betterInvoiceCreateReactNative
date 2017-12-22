@@ -90,9 +90,9 @@ class ItemCreateAmountScreen extends Component {
     await this.props.itemCreate(item)
     resetAction = await NavigationActions.reset({
       index: 0,
-      actions: [ NavigationActions.navigate({ routeName: 'companies'}), ]
+      actions: [ NavigationActions.navigate({ routeName: 'itemCreateHoursScreen'}), ]
     });
-    await navigation.dispatch(resetAction);
+    await this.props.navigation.dispatch(resetAction);
   }
  
 
@@ -162,7 +162,7 @@ const mapStateToProps = (state) => {
   const name         = state.company.name || '';  
 
   const amount       = state.item.amount || '';
-  const date         = state.item.date || '';
+  const date         = state.item.date || moment().format(DATE_RFC2822);;
   const description  = state.item.description || '';
   const hours        = state.item.hours || '';
   const item         = state.item || '';
