@@ -73,11 +73,12 @@ class ItemCreateAmountScreen extends Component {
           resetAction = NavigationActions.reset({
             index: 0,
             actions: [
-              NavigationActions.navigate({ routeName: 'itemCreate'}),
-             
-            ]
+              NavigationActions.navigate({ routeName: 'itemCreate'})
+            ],
+            key: null
           });
           navigation.dispatch(resetAction);
+          // navigation.goBack();
         }
         }/>,
       tabBarLabel:"Amount",
@@ -92,10 +93,10 @@ class ItemCreateAmountScreen extends Component {
     await this.props.itemCreate(item)
     console.log('ITEM CREATE AMOUNT ONSUBMIT navigation ', this.props.navigation);
     resetAction = await NavigationActions.reset({
-     index: 1,
+     index: 0,
       actions: [ 
         NavigationActions.navigate({ routeName: 'companies'}), 
-        NavigationActions.navigate({ routeName: 'auth'}), 
+        // NavigationActions.navigate({ routeName: 'auth'}), 
       ]
     })
     await this.props.navigation.dispatch(resetAction);

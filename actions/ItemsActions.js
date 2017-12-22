@@ -18,7 +18,6 @@ export const setItems = (items=INITIAL_STATE) => {
     return {
       type: SET_ITEMS,
       items: {}
-
    }
   }
 }
