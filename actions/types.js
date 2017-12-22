@@ -19,6 +19,8 @@ export const ITEM_UPDATE = 'item_update';
 export const ITEM_TOTAL_UPDATE = 'ITEM_TOTAL_UPDATE';
 export const CHANGE_SELECTED_ITEM = 'change_selected_item';
 export const SET_ITEM = 'SET_ITEM';
+
+export const ITEMS_UPDATE = 'ITEMS_UPDATE';
 export const SET_ITEMS = 'SET_ITEMS';
 
 export const INVOICE_CREATE_CLEAR = 'INVOICE_CREATE_CLEAR';

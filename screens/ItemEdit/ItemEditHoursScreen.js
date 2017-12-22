@@ -72,16 +72,17 @@ class itemEditHoursScreen extends Component {
       tabBarIcon: ({ tintColor }) => <Icon name="hourglass" size={20} color="#3498db" />
     }
   }
-  onSubmit = () => {
+  onSubmit = async () => {
     const { amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total} = this.props
     item = {amount, companyKey, date, description, fUserId,  hourly, hours, itemKey, name, total}
     const data  = ( (hours - 0 ) * (hourly - 0)) + (amount - 0) ;
-    this.props.itemUpdate('total', data);
+    await this.props.itemUpdate('total', data);
     console.log('ITEM EDIT HOURS onSubmit item', item);
+    console.log('ITEM EDIT HOURS onSubmit item', this.props.items);
 
-    this.props.itemEdit(item)
-    // let a = {[invoiceKey]:newInvoice}
-    // await invoicesUpdate( this.props.invoices, a );
+    await this.props.itemEdit(item)
+    let a = {[itemKey]: item}
+    await this.props.itemsUpdate( this.props.items, a );
     // const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: newInvoice }}});
     // await this.props.setCompany(newCompany);
 
@@ -171,8 +172,10 @@ const mapStateToProps = (state) => {
   const item         = state.item || '';
   const itemKey      = state.item.itemKey || '';
   const total        = state.item.total || '';
+
+  const items        = state.items
   // const item = { amount, companyKey, date, description, fUserId, hourly, hours, itemKey, name, total}
   
-  return { amount, companyKey, date, description, fUserId, hourly, hours, item, itemKey, name, total, item };
+  return { amount, companyKey, date, description, fUserId, hourly, hours, item, items, itemKey, name, total, item };
 }
 export default connect(mapStateToProps, actions)(itemEditHoursScreen);
