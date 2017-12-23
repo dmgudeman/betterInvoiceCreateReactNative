@@ -24,6 +24,6 @@ export const fetchCompanies = (fUserId) => async dispatch => {
 export const setCompanies = (companies) => {
   return {
     type: SET_COMPANIES,
-    companies
+    companies: companies || {}
   }
 }

@@ -19,10 +19,9 @@ export const invoicesUpdate = (invoices, invoice)=> {
 
 export const setInvoices = (invoices ) => {
   console.log('INVOICE ACTIONS setInvoices invoices', invoices);
- 
-  return {
-    type: SET_INVOICES,
-    invoices
-  }
-}
-
+  // if (invoices) {
+    return {
+      type: SET_INVOICES,
+      invoices: invoices || {}
+    }
+  } 
