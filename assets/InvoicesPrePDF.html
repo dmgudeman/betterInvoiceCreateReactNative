@@ -92,14 +92,13 @@
     
     <div id="root">
           <!-- This element's contents will be replaced with your component. -->
-    </div> 
     <script type="text/babel">
-      const ListItem = (props) => {
-  // Correct! There is no need to specify the key here:
-        return <li>{props.value}</li>;
+  //     const ListItem = (props) => {
+  // // Correct! There is no need to specify the key here:
+  //       return <li>{props.value}</li>;
 
-      }
-      const test=()=><li>3. Hi there </li>
+  //     }
+  //     const test=()=><li>3. Hi there </li>
 
       document.addEventListener("message", function(event) {
         let x = JSON.parse(event.data);
@@ -170,10 +169,9 @@
           </div>
           ,
           document.getElementById('root')
-      );
-       
+        );
       }, false);
-     
     </script>
+    </div> 
 </body>
 </html>

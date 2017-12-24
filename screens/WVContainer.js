@@ -44,7 +44,7 @@ class WVContainer extends Component {
   }
 
   sendPostMessage() {
-    console.log( 'REACTNATIVE sendPostMessage this.props.invoice', JSON.stringify(this.props.invoice) );
+    console.log( 'REACTNATIVE sendPostMessage JSON.stringify(this.props.invoice)', JSON.stringify(this.props.invoice) );
     let x = JSON.stringify(this.props.invoice)
     this.webView.postMessage(x);
   }
