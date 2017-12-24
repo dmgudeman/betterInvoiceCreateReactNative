@@ -23,7 +23,6 @@ import * as actions             from '../actions';
 import MyDatePicker             from '../components/MyDatePicker';
 import DATE_RFC2822             from '../assets/Date';
 
-
 class invoiceEditScreen extends Component {
   componentWillMount() {
   }

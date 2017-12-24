@@ -9,8 +9,7 @@ import { StackNavigator, NavigationActions } from 'react-navigation';
 
 import { AsyncStorage } from 'react-native';
 import * as actions from '../actions';
-import ListItem from '../components/ListItem'
-
+import ListItem from '../components/ListItem';
 
 class CompaniesScreen extends Component {
   componentWillMount() {
