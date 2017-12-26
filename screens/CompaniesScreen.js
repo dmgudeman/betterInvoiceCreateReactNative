@@ -6,10 +6,11 @@ import { debounce } from 'underscore';
 import { Button } from 'react-native-elements';
 import Icon                     from 'react-native-vector-icons/FontAwesome';
 import { StackNavigator, NavigationActions } from 'react-navigation';
-
 import { AsyncStorage } from 'react-native';
 import * as actions from '../actions';
 import ListItem from '../components/ListItem';
+
+
 
 class CompaniesScreen extends Component {
   componentWillMount() {
@@ -19,8 +20,7 @@ class CompaniesScreen extends Component {
       clearCompany: this.props.clearCompany,
       key: 'companies'
     });
-
-    console.log('COMPANIES CWM this.props.navigation', this.props.navigation);
+   
   }
 
 

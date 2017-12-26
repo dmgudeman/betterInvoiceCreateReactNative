@@ -23,6 +23,7 @@ import * as actions             from '../actions';
 import MyDatePicker             from '../components/MyDatePicker';
 import DATE_RFC2822             from '../assets/Date';
 
+
 class invoiceEditScreen extends Component {
   componentWillMount() {
   }
@@ -96,6 +97,7 @@ class invoiceEditScreen extends Component {
     await invoicesUpdate( this.props.invoices, a );
     const newCompany = await update(company,  {invoices: {[invoiceKey]:{$set: newInvoice }}});
     await this.props.setCompany(newCompany);
+    https://us-central1-better-invoice-firebase.cloudfunctions.net/helloWorld
     await navigation.goBack();
   }
 

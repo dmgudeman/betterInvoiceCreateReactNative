@@ -6,7 +6,6 @@
     <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style>
     .invoice-box{
         max-width:800px;
@@ -92,7 +91,6 @@
   
     
     <div id="root">
-  <button id='first_button' name="button">Click me</button> 
           <!-- This element's contents will be replaced with your component. -->
     <script type="text/babel">
   //     const ListItem = (props) => {
@@ -105,7 +103,6 @@
       document.addEventListener("message", function(event) {
         let x = JSON.parse(event.data);
         ReactDOM.render(
-          <div> Hi THere </div>
           <div class="invoice-box">
               <table cellpadding="0" cellspacing="0">
                   <tr class="top">
@@ -174,14 +171,6 @@
           document.getElementById('root')
         );
       }, false);
-      document.getElementById("first_button").addEventListener("click",()=> {
-        var markup = document.documentElement.innerHTML;
-        axios.post('https://us-central1-better-invoice-firebase.cloudfunctions.net/pdfMaker',{markup})
-        .then((response)=>{
-          console.log(responsee);
-        })
-        .catch((err)=> {console.log(err);});
-        })
     </script>
     </div> 
 </body>

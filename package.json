@@ -26,6 +26,7 @@
     "expo": "^21.0.0",
     "firebase": "^4.6.0",
     "immutability-helper": "^2.6.2",
+    "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "moment": "^2.19.1",
     "native-base": "^2.3.3",
