@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { WebView, TouchableHighlight, Text, View, StyleSheet, Dimensions } from 'react-native';
-import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import _ from 'lodash';
 import * as actions from '../actions';
 import axios from 'axios';
-import webapp from '../assets/InvoicesPrePDF.html';
 
 // const webapp = require('../assets/MyWebView2/index.html');
-// const webapp = require('../assets/InvoicesPrePDF.html')
+const webapp = require('../assets/InvoicesPrePDF.html')
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
@@ -20,6 +18,10 @@ class WVContainer extends Component {
     this.webView = null;
   }
 
+  componentWillMount() {
+    // this.props.companyUpdate('invoice', invoice);
+    // console.log('WVContainer COMPONENTWILLMOUNT this.props', this.props);
+  }
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Invoice',
@@ -34,7 +36,7 @@ class WVContainer extends Component {
     }
   }
   onMessage( event ) {
-    console.log( "REACTNATIVEonMessage  event.nativeEvent.data ", event.nativeEvent.data );
+    console.log( "REACTNATIVEEEEEEEEEEEEEEEEEEEonMessage  event.nativeEvent.data ", event.nativeEvent.data );
   }
 
   sendPostMessage() {
@@ -42,62 +44,14 @@ class WVContainer extends Component {
     let x = JSON.stringify(this.props.invoice)
     this.webView.postMessage(x);
   }
+  // sendPostMessage2() {
   //   console.log( "REACTNATIVE sendPostMessage this.props.description", `${this.props.description}` );
   //   this.webView.postMessage (`${this.props.description}` );
   //   this.webView.invoice =  this.props.invoice
   // }
-   sendWVtoCloud= async() => {
-    console.log('SENDWVtoCLOUD has fired');
-    // let x = await function(){
-      // const payload = this.props.invoice;
-      // const itemsArray = _.map(payload.items, (val, id) => { return { ...val, id}; });
-      // payload.itemsArray = itemsArray;
-      // console.log('WVContainer render payload', payload);
-       const x ={ data:
-        `<View style={{flex:1, alignItems: 'flex-end'}}> 
-         <WebView
-          ref={webView => {this.webView = webView; }}
-          onMessage={() =>this.onMessage}
-          source={ webapp}
-          style={styles.webview}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          startInLoadingState={true}
-          scalesPageToFit={true}
-          onLoad={()=>{
-            this.sendPostMessage();
-            invoice = payload
-            }
-          }
-          /><Button
-          title= "Make PDF"
-          onPress ={this.sendWVtoCloud} 
-        /> 
-          
-        </View>`
-      };
-    // }
-    console.log('DDDDDDDDDDDd', x);
-      axios({method: 'post',
-             url: 'https://us-central1-better-invoice-firebase.cloudfunctions.net/pdfMaker', 
-             data: x.data})
-      .then((response)=>{
-        console.log('WebView Sent ');
-        console.log('response', response);
-      })
-      .catch((error)=> {
-        console.log('ERRRORRR', error);
-      })
-  }
-
-  render() {
-    const payload = this.props.invoice;
-    const itemsArray = _.map(payload.items, (val, id) => { return { ...val, id}; });
-    payload.itemsArray = itemsArray;
-    console.log('WVContainer render payload', payload);
-    return (
-      <View style={{flex:1, alignItems: 'flex-end'}}> 
-       <WebView
+  sendWVtoCloud= () => {
+      axios.post ('https://us-central1-better-invoice-firebase.cloudfunctions.net/pdfMaker',
+      <WebView
         ref={webView => {this.webView = webView; }}
         onMessage={() =>this.onMessage}
         source={ webapp}
@@ -111,11 +65,31 @@ class WVContainer extends Component {
           invoice = payload
           }
         }
-        /><Button
-        title= "Make PDF"
-        onPress ={this.sendWVtoCloud} 
-      /> 
-        
+        />)
+        .then((response)=>{
+          console.log('WebView Sent ');
+          console.log('response', response);
+
+        })
+        .catch((error)=> {
+          console.log('ERRRORRR', error);
+        })
+  }
+
+  render() {
+    const payload = this.props.invoice;
+    const itemsArray = _.map(payload.items, (val, id) => { return { ...val, id}; });
+    payload.itemsArray = itemsArray;
+    console.log('WVContainer render payload', payload);
+    return (
+      <View style={{flex:1, alignItems: 'flex-end'}}> 
+         <Button
+          title= "Make PDF"
+          onPress ={this.sendWVtoCloud} 
+          backgroundColor={ 
+            this.state.controls.hours.valid 
+            ?'#bdc3c7':'#bdc3c745'}
+        /> 
       </View>
     );
   }
