@@ -99,14 +99,14 @@ class InvoiceCreateScreen extends Component {
 
     const x = {...this.props.invoice}
     this.props.invoiceUpdate('lastDate', x.endDate )
-    // console.log('INVOICE CREATE 1 ONSUBMIT this.props', this.props);
+    console.log('INVOICE CREATE 1 ONSUBMIT this.props', this.props);
     await this.filterByDateRange(x.beginDate, x.endDate, x.items);
-    // console.log('INVOICE CREATE 2 ONSUBMIT this.props', this.props);
+    console.log('INVOICE CREATE 2 ONSUBMIT this.props', this.props);
     await this.filteredItemsAlert();
     await this.calcDueDate();
    
     let y = Object.assign({}, {...this.props.invoice}, {coItems: null})
-    // console.log('INVOICE CREATE ONSUBMIT y', y);
+    console.log('INVOICE CREATE ONSUBMIT y', y);
     await this.props.invoiceCreate({invoice: y})
     await this.props.navigation.goBack();
   }

@@ -23,12 +23,14 @@ export default (state = INITIAL_STATE, action) => {
     case CLEAR_COMPANY:{
       // return { state,  };
       let x ={'item':{}}
+  
      return  Object.assign({}, ...state, ...x )
     }
     case COMPANY_EDIT_SUBMIT: {
     }
     case SET_COMPANY: {
-      return { ...state, ...action.company };
+      let x = {'invoice': {}}
+      return { ...state, ...action.company, ...x };
     }
     case UPDATE_OBJECT_EDIT: {
       // return Object.assign({}, state, {[action.payload.prop]: action.payload.value})
