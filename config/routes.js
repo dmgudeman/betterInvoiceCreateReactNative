@@ -17,7 +17,7 @@ import InvoicesScreen from '../screens/InvoicesScreen';
 import ListItem from '../components/ListItem';
 import MyDatePicker from '../components/MyDatePicker';
 import WVContainer from '../screens/WVContainer';
-import MyWebView from '../components/MyWebView.html'; 
+import MyWebView from '../components/MyWebView'; 
 
 
 
