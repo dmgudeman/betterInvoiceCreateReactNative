@@ -14,7 +14,7 @@ export default (state = INITIAL_STATE, action) => {
       let invoice = action.payload.invoice
       let newInvoices;
       if(invoices){
-        Object.keys(invoices).forEach((k, i) => {
+          Object.keys(invoices).forEach((k, i) => {
             if (k === Object.keys(invoice)[0]){
             
             newInvoices = Object.assign({}, {...invoices}, {...invoice}  )
