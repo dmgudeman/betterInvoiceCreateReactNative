@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { WebView, TouchableHighlight, Text, View, StyleSheet, Dimensions } from 'react-native';
 
-const webapp = require('../assets/MyWebView/index.html');
+const webapp = require('./MyWebView.html');
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
 
-class MyWebView extends Component {
+class MyWebViewContainer extends Component {
 
   constructor( props ) {
     super( props );
@@ -32,7 +32,7 @@ sendPostMessage() {
           // source={{uri: 'https://github.com/facebook/react-native'}}
           ref={webView => {this.webView = webView; }}
           onMessage={this.onMessage}
-          source={ webapp}
+          source={ webapp} // webapp is the index.html in assets/myWebView.html
           style={styles.webview}
           javaScriptEnabled={true}
           domStorageEnabled={true}
@@ -49,7 +49,7 @@ sendPostMessage() {
 
 
 
-export default MyWebView;
+export default MyWebViewContainer;
 
 const styles = {
   webview: {
