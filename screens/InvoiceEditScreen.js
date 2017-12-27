@@ -150,6 +150,10 @@ class invoiceEditScreen extends Component {
             }
           }
         />
+        <Button
+          title= "To WebView"
+          onPress ={ () => this.props.navigation.navigate('myWebView') }
+        />
       </View>
     )
   }

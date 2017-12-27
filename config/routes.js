@@ -17,6 +17,7 @@ import InvoicesScreen from '../screens/InvoicesScreen';
 import ListItem from '../components/ListItem';
 import MyDatePicker from '../components/MyDatePicker';
 import WVContainer from '../screens/WVContainer';
+import MyWebView from '../components/MyWebView.html'; 
 
 
 
@@ -39,7 +40,8 @@ export default StackNavigator(
     },
     datePicker:        { screen: MyDatePicker },
     googlePlacesInput: { screen: GooglePlacesInput },
-    wvContainer:       { screen: WVContainer }
+    wvContainer:       { screen: WVContainer },
+    myWebView:         { screen: MyWebView }
   },
   {
     headerMode: 'float'
