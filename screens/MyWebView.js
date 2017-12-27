@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { WebView, TouchableHighlight, Text, View, StyleSheet, Dimensions } from 'react-native';
+
 const webapp = require('../assets/MyWebView/index.html');
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
+
+
 class MyWebView extends Component {
 
   constructor( props ) {

@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import _ from 'lodash';
 import * as actions from '../actions';
 
-// const webapp = require('../assets/MyWebView2/index.html');
 const webapp = require('../assets/InvoicesPrePDF.html')
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
