@@ -85,10 +85,10 @@ class CompanyCreateScreen extends Component {
       lastDate,
       name,
       paymentTerms,
-    }
+    };
     await this.props.companyCreate(payload);
     await this.props.navigation.goBack();
-  }
+  };
   updateInputState=(key, value) => {
     // console.log('COMPANYCREATESCREEN UPDATEINPUTSTATE key', key);
     this.setState((prevState) => {
@@ -108,11 +108,10 @@ class CompanyCreateScreen extends Component {
   render() {
     const colorOptions = colorOptionsList;
     const paymentTermsOptions = paymentTermsOptionsList;
-    const navigation = this.props.navigation;
-    const { companyUpdate, } = this.props;
+    const { companyUpdate } = this.props;
     const {
       address, color, hex, hourly, invoice, items, name, paymentTerms,
-    } = this.props
+    } = this.props;
     const company = { ...this.props.company };
     console.log('COMPANYCREAATE RENDER name', (name === ''));
     return (

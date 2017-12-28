@@ -27,14 +27,14 @@ export const invoiceCreate = ({invoice})=> {
   
    return {
     type: INVOICE_CREATE,
-    invoice: payload
+    invoice: payload,
   };
 }
 
  // used upon Submit
 export const invoiceEdit = (invoice) => {
   console.log('INVOICE ACTIONS invoiceEdit invoice', invoice);
-  let payload = invoice;
+  const payload = invoice;
   console.log('INVOICE ACTIONS EDIT payload', payload);
  
   let updates = {};
@@ -42,19 +42,17 @@ export const invoiceEdit = (invoice) => {
   updates['/users/'+ payload.fUserId + '/companies/'+ payload.companyKey + '/invoices/' + payload.invoiceKey] = payload;
   console.log('NNNNNNNNNNNNN updates', updates);
   firebase.database().ref().update(updates);
-    
-  return { 
-    type: INVOICE_EDIT, 
-    invoice 
-  } 
- }
- 
-export const invoiceCreateClear = (company)=>{
-  let invoice = {
+  return {
+    type: INVOICE_EDIT,
+    invoice,
+  };
+ };
+export const invoiceCreateClear = (company) => {
+  const invoice = {
     beginDate: company.lastDate || moment().format(DATE_RFC2822), // 
-    coItems: company.items || '', 
-    companyKey: company.companyKey, 
-    coName: company.name, 
+    coItems: company.items || '',
+    companyKey: company.companyKey,
+    coName: company.name,
     createdAt: moment().format(DATE_RFC2822),
     description: '',
     discount: '',

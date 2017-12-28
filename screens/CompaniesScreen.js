@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
@@ -69,9 +70,9 @@ class CompaniesScreen extends Component {
     this.props.clearItem();
     this.props.navigation.navigate('itemCreate');
   };
-  renderItem = ({ item, index }) => {
+  renderItem =({item, index})=> {
     // console.log('COMPANIES RENDERITEM  item', item );
-    return (
+    return  (
       <ListItem
         company={item}
         navigation={this.props.navigation}
@@ -81,16 +82,18 @@ class CompaniesScreen extends Component {
         goToItemCreate={this.goToItemCreate}
         goToCompanyEdit={this.goToCompanyEdit}
       />
-    );
-  };
+    )
+  }
 
   render() {
+    const navigation = this.props.navigation
     return (
       <View style={styles.container}>
         <FlatList
           data={this.props.companies}
           renderItem={this.renderItem}
-          keyExtractor={(item) => { item.id; }}
+          keyExtractor={(item) =>  item.id }
+
         />
       </View>
     );

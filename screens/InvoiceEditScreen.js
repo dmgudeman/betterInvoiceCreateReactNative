@@ -67,31 +67,38 @@ class invoiceEditScreen extends Component {
       Alert.alert(
         'Invoice Items',
         'There are no invoice items for this date range'
-        ,[{text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}]
-      )
-    } 
-  }
-  calcTotal( ){
-      let invoiceTotal = 0;
-
-      // console.log('INVOICE EDIT this.props.items', this.props.items);
-      let itemsArray = Object.values(this.props.items);
-      itemsArray.forEach(i => {
-        invoiceTotal = invoiceTotal + i.total;
-        });
-      // console.log('invoiceTotal', invoiceTotal);
-      this.props.invoiceUpdate('total', invoiceTotal);
+        ,[ {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}]
+      );
     }
-  
+  }
+  calcTotal() {
+    let invoiceTotal = 0;
+    // console.log('INVOICE EDIT this.props.items', this.props.items);
+    let itemsArray = Object.values(this.props.items);
+    itemsArray.forEach(i => {
+      invoiceTotal = invoiceTotal + i.total;
+    });
+    // console.log('invoiceTotal', invoiceTotal);
+    this.props.invoiceUpdate('total', invoiceTotal);
+  }
   onSubmit = async () => {
-    const {company, invoiceKey, invoiceEdit, invoiceUpdate, invoicesUpdate,  navigation} = this.props
-    
-    await this.props.invoiceUpdate('lastDate', this.props.invoice.lastDate )
-    await this.filterByDateRange(this.props.invoice.beginDate, this.props.invoice.endDate, this.props.invoice.items);
+    const {
+      company, invoiceKey, invoiceEdit, invoiceUpdate, invoicesUpdate,  navigation
+    } = this.props;
+    await this.props.invoiceUpdate('lastDate', this.props.invoice.lastDate);
+    await this.filterByDateRange(
+      this.props.invoice.beginDate, this.props.invoice.endDate, this.props.invoice.items,
+      );
     await this.filteredItemsAlert();
     await this.calcTotal();
     await this.calcDueDate();
-    let newInvoice = await Object.assign({}, {...this.props.invoice}, {coItems: null}, {company: null},{coLastDate: null}, {invoices: null})
+    const newInvoice =
+      await Object.assign(
+        {}, {...this.props.invoice },
+        { coItems: null}, {company: null },
+        { coLastDate: null },
+        { invoices: null },
+      )
     await invoiceEdit(newInvoice)
     let a = {[invoiceKey]:newInvoice}
     await invoicesUpdate( this.props.invoices, a );
