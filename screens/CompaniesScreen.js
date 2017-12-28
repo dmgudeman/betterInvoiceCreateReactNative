@@ -24,12 +24,13 @@ class CompaniesScreen extends Component {
             await console.log('COMPANIES NAV OPTIONS navigation', navigation);
             await navigation.state.params.clearCompany();
             await navigation.navigate('companyCreate');
-          }
+            }
           }
         />,
       headerLeft: null,
     };
-  };
+  }
+
 
   componentWillMount() {
     console.log('COMPANIES CWM this.props.navigation.state.key', this.props.navigation.state.key);
@@ -70,9 +71,9 @@ class CompaniesScreen extends Component {
     this.props.clearItem();
     this.props.navigation.navigate('itemCreate');
   };
-  renderItem =({item, index})=> {
+  renderItem = ({ item, index }) => {
     // console.log('COMPANIES RENDERITEM  item', item );
-    return  (
+    return (
       <ListItem
         company={item}
         navigation={this.props.navigation}
@@ -92,7 +93,7 @@ class CompaniesScreen extends Component {
         <FlatList
           data={this.props.companies}
           renderItem={this.renderItem}
-          keyExtractor={(item) =>  item.id }
+          keyExtractor={(item) => item.id}
 
         />
       </View>

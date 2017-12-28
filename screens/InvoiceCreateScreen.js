@@ -65,7 +65,7 @@ class InvoiceCreateScreen extends Component {
       Alert.alert(
         'Invoice Items',
         'There are no invoice items for this date range',
-        [{ text: 'Cancel', onPress: () => { console.log('Cancel Pressed')}, style: 'cancel' }}]
+        [{ text: 'Cancel', onPress: () => { console.log('Cancel Pressed')}, style: 'cancel' }]
       );
     } else {
       let invoiceTotal = 0;
