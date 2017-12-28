@@ -5,11 +5,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import _ from 'lodash';
 import * as actions from '../../actions';
 
+
 const webapp = require('./MyWebView.html')
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
-class WVContainer extends Component {
+class MyWebViewContainer extends Component {
 
   constructor( props ) {
     super( props );
@@ -43,8 +44,17 @@ class WVContainer extends Component {
   }
 
   sendPostMessage() {
-    console.log( 'REACTNATIVE sendPostMessage this.props.invoice', JSON.stringify(this.props.invoice) );
-    let x = JSON.stringify(this.props.invoice)
+    // console.log( 'REACTNATIVE sendPostMessage this.props.invoice', JSON.stringify(this.props.invoice) );
+    // let x = JSON.stringify({"key":"value"})
+    let x ={"key": "value"}
+    console.log('INVOICEWEBVIEWCONTAINER  this.webView', this.webView);
+    this.webView.postMessage(x);
+  }
+  sendPDFMessage() {
+    // console.log( 'REACTNATIVE sendPostMessage this.props.invoice', JSON.stringify(this.props.invoice) );
+    // let x = JSON.stringify({"key":"value"})
+    let x ={"key": "value"}
+    console.log('INVOICEWEBVIEWCONTAINER  this.webView', this.webView);
     this.webView.postMessage(x);
   }
   // sendPostMessage2() {
@@ -94,6 +104,13 @@ class WVContainer extends Component {
         //   `
         // }
         />
+        <Button
+          title= "Send PDF"
+          onPress =  {() => {
+
+          }
+          }
+        /> 
         {/* <TouchableHighlight style={{padding: 10, backgroundColor: 'blue', marginTop: 20}} onPress={() => this.sendPostMessage()}>
           <Text style={{color: 'white', fontSize: 45}}>Send post message from react native</Text>
         </TouchableHighlight> */}
@@ -114,7 +131,7 @@ const MapStateToProps = (state) => {
   }
 }
 
-export default connect(MapStateToProps, actions)(WVContainer);
+export default connect(MapStateToProps, actions)(MyWebViewContainer);
 
 const styles = {
   webview: {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { WebView, TouchableHighlight, Text, View, StyleSheet, Dimensions } from 'react-native';
+import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import _ from 'lodash';
 import * as actions from '../../actions';
@@ -10,7 +11,7 @@ const webapp = require('./InvoiceWebView.html')
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
-class WVContainer extends Component {
+class InvoiceWebViewContainer extends Component {
 
   constructor( props ) {
     super( props );
@@ -45,14 +46,15 @@ class WVContainer extends Component {
 
   sendPostMessage() {
     console.log( 'REACTNATIVE sendPostMessage this.props.invoice', JSON.stringify(this.props.invoice) );
-    let x = JSON.stringify(this.props.invoice)
+    let x = JSON.stringify({type:'onLoad', invoice: this.props.invoice})
+    console.log('INVOICEWEBVIEWCONTAINER  this.webView', this.webView);
     this.webView.postMessage(x);
   }
-  // sendPostMessage2() {
-  //   console.log( "REACTNATIVE sendPostMessage this.props.description", `${this.props.description}` );
-  //   this.webView.postMessage (`${this.props.description}` );
-  //   this.webView.invoice =  this.props.invoice
-  // }
+  sendPDFMessage() {
+    let x = JSON.stringify({type:'pdf'})
+    this.webView.postMessage(x);
+  }
+  
 
   render() {
     // this.webview.postMessage("Hello from RN");
@@ -95,6 +97,13 @@ class WVContainer extends Component {
         //   `
         // }
         />
+         <Button
+          title= "Send PDF"
+          onPress =  {() => {
+            this.sendPDFMessage();
+          }
+          }
+        /> 
         {/* <TouchableHighlight style={{padding: 10, backgroundColor: 'blue', marginTop: 20}} onPress={() => this.sendPostMessage()}>
           <Text style={{color: 'white', fontSize: 45}}>Send post message from react native</Text>
         </TouchableHighlight> */}
@@ -115,7 +124,7 @@ const MapStateToProps = (state) => {
   }
 }
 
-export default connect(MapStateToProps, actions)(WVContainer);
+export default connect(MapStateToProps, actions)(InvoiceWebViewContainer);
 
 const styles = {
   webview: {

@@ -17,8 +17,8 @@ import InvoicesScreen from '../screens/InvoicesScreen';
 import ListItem from '../components/ListItem';
 import MyDatePicker from '../components/MyDatePicker';
 import WVContainer from '../screens/WVContainer';
-import MyWebView from '../screens/MyWebView/MyWebViewContainer'; 
-import InvoiceWebView from '../screens/InvoiceWebView/InvoiceWebViewContainer';
+import MyWebViewContainer from '../screens/MyWebView/MyWebViewContainer'; 
+import InvoiceWebViewContainer from '../screens/InvoiceWebView/InvoiceWebViewContainer';
 
 
 
@@ -41,8 +41,8 @@ export default StackNavigator(
     },
     datePicker:        { screen: MyDatePicker },
     googlePlacesInput: { screen: GooglePlacesInput },
-    invoiceWebView:       { screen: InvoiceWebView },
-    myWebView:         { screen: MyWebView }
+    invoiceWebView:       { screen: InvoiceWebViewContainer },
+    myWebView:         { screen: MyWebViewContainer }
   },
   {
     headerMode: 'float'
