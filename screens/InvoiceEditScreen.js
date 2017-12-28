@@ -146,7 +146,7 @@ class invoiceEditScreen extends Component {
           title= "Publish Invoice"
           onPress = { () =>{
             // let invoice = this.props.invoice
-            this.props.navigation.navigate('wvContainer')
+            this.props.navigation.navigate('invoiceWebView')
             }
           }
         />
