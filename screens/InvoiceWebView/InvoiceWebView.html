@@ -91,13 +91,10 @@
 <body>
 
     <div id="root">
-
           <!-- This element's contents will be replaced with your component. -->
-         
     <script type="text/babel">
       document.addEventListener("message", function(event) {
         // var markup = document.documentElement.innerHTML;
-       
       //  {axios.post('https://us-central1-better-invoice-firebase.cloudfunctions.net/pdfMaker',{markup})
         // .then((response)=>{
         //   console.log(response);
@@ -106,8 +103,6 @@
         // })
         let y  = JSON.parse(event.data);
         let x = y.invoice
-        // let clickHandler = () => {console.log('HI THERE');}
-        // {let handlePDFclick = () => {console.log(' CLLLICKED');}}
         
         if(y.type === 'onLoad'){
         ReactDOM.render(
@@ -185,7 +180,6 @@
         )
       } else {
         var markup = document.documentElement.innerHTML;
-       
         axios.post('https://us-central1-better-invoice-firebase.cloudfunctions.net/pdfMaker',{markup})
           .then((response)=>{
             console.log(response);
