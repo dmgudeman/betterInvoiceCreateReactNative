@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { WebView, TouchableHighlight, Text, View, StyleSheet, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import _ from 'lodash';
-import * as actions from '../../actions';
+import * as actions from '../actions';
 
-const webapp = require('./MyWebView.html')
+const webapp = require('../assets/InvoicesPrePDF.html')
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 

@@ -40,7 +40,7 @@ export default StackNavigator(
     },
     datePicker:        { screen: MyDatePicker },
     googlePlacesInput: { screen: GooglePlacesInput },
-    wvContainer:       { screen: WVContainer },
+    // wvContainer:       { screen: WVContainer },
     myWebView:         { screen: MyWebView }
   },
   {
