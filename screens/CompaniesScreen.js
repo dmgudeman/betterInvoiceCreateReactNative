@@ -82,7 +82,7 @@ class CompaniesScreen extends Component {
         goToCompanyEdit={this.goToCompanyEdit}
       />
     );
-  }
+  };
 
   render() {
     return (
