@@ -134,35 +134,34 @@ class invoiceEditScreen extends Component {
         <FormLabel>Discount</FormLabel>
         <FormInput 
           value={this.props.discount}
-          onChangeText={(value) => { 
+          onChangeText={(value) => {
             this.props.invoiceUpdate('discount', value) }
           }
         />
         <FormLabel>Description</FormLabel>
-        <FormInput 
+        <FormInput
           value={this.props.description}
           onChangeText={(value) => this.props.invoiceUpdate('description', value)}
         />
-       
         <Button
           title= "Submit"
           onPress =  {this.onSubmit }
         />
 
         <Button
-          title= "Publish Invoice"
-          onPress = { () =>{
+          title="Publish Invoice"
+          onPress={ () => {
             // let invoice = this.props.invoice
-            this.props.navigation.navigate('invoiceWebView')
+            this.props.navigation.navigate('invoiceWebView');
             }
           }
         />
         <Button
-          title= "To WebView"
-          onPress ={ () => this.props.navigation.navigate('myWebView') }
+          title="To WebView"
+          onPress={() => this.props.navigation.navigate('myWebView')}
         />
       </View>
-    )
+    );
   }
 }
 

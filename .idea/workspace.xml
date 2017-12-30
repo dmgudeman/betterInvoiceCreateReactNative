@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c3df144-f1d8-4c8a-9f68-47c4172565b2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/screens/CompaniesScreen.js" afterPath="$PROJECT_DIR$/screens/CompaniesScreen.js" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/screens/InvoiceEditScreen.js" afterPath="$PROJECT_DIR$/screens/InvoiceEditScreen.js" />
+      <change beforePath="$PROJECT_DIR$/screens/InvoiceWebView/InvoiceWebView.html" afterPath="$PROJECT_DIR$/screens/InvoiceWebView/InvoiceWebView.html" />
+      <change beforePath="$PROJECT_DIR$/screens/InvoiceWebView/InvoiceWebViewContainer.js" afterPath="$PROJECT_DIR$/screens/InvoiceWebView/InvoiceWebViewContainer.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,14 +16,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CompaniesScreen.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CompaniesScreen.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/screens/CompaniesScreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
+            <state relative-caret-position="15">
               <caret line="22" column="18" lean-forward="false" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
-              <folding>
-                <element signature="e#9#50#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -38,11 +39,46 @@
       <file leaf-file-name="InvoiceEditScreen.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/screens/InvoiceEditScreen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1365">
-              <caret line="91" column="28" lean-forward="false" selection-start-line="91" selection-start-column="28" selection-end-line="91" selection-end-column="28" />
+            <state relative-caret-position="2162">
+              <caret line="146" column="25" lean-forward="true" selection-start-line="146" selection-start-column="25" selection-end-line="146" selection-end-column="25" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
-                <marker date="1514493204000" expanded="true" signature="2231:2344" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InvoiceWebView.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/screens/InvoiceWebView/InvoiceWebView.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="431">
+              <caret line="182" column="96" lean-forward="false" selection-start-line="182" selection-start-column="96" selection-end-line="182" selection-end-column="96" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InvoiceWebViewContainer.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/screens/InvoiceWebView/InvoiceWebViewContainer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="382">
+              <caret line="114" column="19" lean-forward="true" selection-start-line="114" selection-start-column="19" selection-end-line="114" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+                <marker date="1514665407000" expanded="true" signature="3436:3555" ph="..." />
+                <marker date="1514665407000" expanded="true" signature="3462:3529" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WVContainer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/screens/WVContainer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="401">
+              <caret line="67" column="29" lean-forward="false" selection-start-line="67" selection-start-column="29" selection-end-line="67" selection-end-column="29" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -53,6 +89,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>&quot;</find>
+      <find>axios</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -66,15 +103,16 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/.eslintrc.js" />
-        <option value="$PROJECT_DIR$/screens/InvoiceWebView/InvoiceWebViewContainer.js" />
         <option value="$PROJECT_DIR$/screens/CompanyCreateScreen/styles.js" />
         <option value="$PROJECT_DIR$/screens/CompanyCreateScreen/index.js" />
         <option value="$PROJECT_DIR$/screens/CompanyCreateScreen/CompanyCreateScreen.js" />
         <option value="$PROJECT_DIR$/actions/InvoiceActions.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/screens/InvoiceEditScreen.js" />
         <option value="$PROJECT_DIR$/screens/InvoiceCreateScreen.js" />
         <option value="$PROJECT_DIR$/screens/CompaniesScreen.js" />
+        <option value="$PROJECT_DIR$/screens/InvoiceEditScreen.js" />
+        <option value="$PROJECT_DIR$/screens/InvoiceWebView/InvoiceWebView.html" />
+        <option value="$PROJECT_DIR$/screens/InvoiceWebView/InvoiceWebViewContainer.js" />
       </list>
     </option>
   </component>
@@ -119,6 +157,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -131,12 +171,16 @@
               <item name="betterInvoiceCreateReactNative" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="screens" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
+            <path>
+              <item name="betterInvoiceCreateReactNative" type="b2602c69:ProjectViewProjectNode" />
+              <item name="betterInvoiceCreateReactNative" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="screens" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="InvoiceWebView" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -182,11 +226,12 @@
       <workItem from="1514489615120" duration="821000" />
       <workItem from="1514492369882" duration="606000" />
       <workItem from="1514493483876" duration="590000" />
+      <workItem from="1514657577540" duration="2968000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16138000" />
+    <option name="totallyTimeSpent" value="19106000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="3200" y="-130" width="1366" height="768" extended-state="0" />
@@ -199,7 +244,7 @@
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Flow" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.45461202" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2532943" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -234,13 +279,21 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/screens/InvoiceEditScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1365">
+          <caret line="91" column="28" lean-forward="false" selection-start-line="91" selection-start-column="28" selection-end-line="91" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/screens/CompaniesScreen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#9#50#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -258,7 +311,6 @@
           <caret line="91" column="28" lean-forward="false" selection-start-line="91" selection-start-column="28" selection-end-line="91" selection-end-column="28" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
-            <marker date="1514493204000" expanded="true" signature="2231:2344" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -269,7 +321,6 @@
           <caret line="77" column="23" lean-forward="false" selection-start-line="77" selection-start-column="23" selection-end-line="77" selection-end-column="23" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
-            <marker date="1514493204000" expanded="true" signature="2231:2344" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -288,7 +339,6 @@
           <caret line="77" column="23" lean-forward="false" selection-start-line="77" selection-start-column="23" selection-end-line="77" selection-end-column="23" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
-            <marker date="1514493204000" expanded="true" signature="2231:2344" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -305,9 +355,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1455">
           <caret line="97" column="13" lean-forward="true" selection-start-line="97" selection-start-column="13" selection-end-line="97" selection-end-column="13" />
-          <folding>
-            <element signature="e#9#50#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -361,7 +409,6 @@
           <caret line="94" column="22" lean-forward="false" selection-start-line="94" selection-start-column="22" selection-end-line="94" selection-end-column="22" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
-            <marker date="1514493204000" expanded="true" signature="2231:2344" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -384,9 +431,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1170">
           <caret line="84" column="3" lean-forward="false" selection-start-line="84" selection-start-column="3" selection-end-line="84" selection-end-column="3" />
-          <folding>
-            <element signature="e#9#50#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -432,7 +477,6 @@
           <caret line="94" column="22" lean-forward="false" selection-start-line="94" selection-start-column="22" selection-end-line="94" selection-end-column="22" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
-            <marker date="1514493204000" expanded="true" signature="2231:2344" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -514,9 +558,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="491">
           <caret line="98" column="10" lean-forward="true" selection-start-line="89" selection-start-column="2" selection-end-line="101" selection-end-column="3" />
-          <folding>
-            <element signature="e#9#50#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -532,13 +574,6 @@
         <state relative-caret-position="375">
           <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/screens/InvoiceWebView/InvoiceWebViewContainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -592,17 +627,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/screens/InvoiceEditScreen.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1365">
-          <caret line="91" column="28" lean-forward="false" selection-start-line="91" selection-start-column="28" selection-end-line="91" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-            <marker date="1514493204000" expanded="true" signature="2231:2344" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/screens/InvoiceCreateScreen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1020">
@@ -613,10 +637,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/screens/CompaniesScreen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
+        <state relative-caret-position="15">
           <caret line="22" column="18" lean-forward="false" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screens/WVContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="67" column="29" lean-forward="false" selection-start-line="67" selection-start-column="29" selection-end-line="67" selection-end-column="29" />
           <folding>
-            <element signature="e#9#50#0" expanded="true" />
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screens/InvoiceEditScreen.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2162">
+          <caret line="146" column="25" lean-forward="true" selection-start-line="146" selection-start-column="25" selection-end-line="146" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screens/InvoiceWebView/InvoiceWebView.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="182" column="96" lean-forward="false" selection-start-line="182" selection-start-column="96" selection-end-line="182" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screens/InvoiceWebView/InvoiceWebViewContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="114" column="19" lean-forward="true" selection-start-line="114" selection-start-column="19" selection-end-line="114" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <marker date="1514665407000" expanded="true" signature="3436:3555" ph="..." />
+            <marker date="1514665407000" expanded="true" signature="3462:3529" ph="..." />
           </folding>
         </state>
       </provider>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { WebView, View, Dimensions } from 'react-native';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import axios from 'axios';
 import _ from 'lodash';
 import * as actions from '../../actions';
 
@@ -101,7 +102,27 @@ class InvoiceWebViewContainer extends Component {
           title="Send PDF"
           onPress={() => {
             console.log('Inside onPress');
-            this.sendPDFMessage();
+            // this.sendPDFMessage();
+            axios.post(
+              'https://jjgb7mjmt0.execute-api.us-west-1.amazonaws.com/dev/make-pdf',
+              {
+                message: `
+                  <html>
+                    <div>
+                      <h1>Hi there</h1>
+                    </div>
+                  </html>
+                  `
+                ,
+              },
+            )
+              .then(function (response) {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+            ;
           }}
         />
         {/* <TouchableHighlight style={{padding: 10, backgroundColor: 'blue', marginTop: 20}} onPress={() => this.sendPostMessage()}>
