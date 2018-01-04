@@ -69,7 +69,6 @@ class InvoiceWebViewContainer extends Component {
   }
 
   sendPDFMessage = () => {
-    const x = JSON.stringify({ type: 'pdf' });
     console.log('inside sendPDFmessage x', x);
     // this.webView.postMessage(x);
     // axios.post("https://it8sgn3kx5.execute-api.us-east-1.amazonaws.com/dev/makepdf", {"html_base64" : "PGJvZHk+SGVsbG8gd29ybGQ8L2JvZHk+"})
@@ -81,8 +80,17 @@ class InvoiceWebViewContainer extends Component {
     //
     // `
     // console.log(typeof x === 'string');
-     this.webView.injectJavaScript(' axios.post("https://it8sgn3kx5.execute-api.us-east-1.amazonaws.com/dev/makepdf", {"html_base64" : "PGJvZHk+SGVsbG8gd29ybGQ8L2JvZHk+"})');
+    const x = `
+      var markup = document.documentElement.innerHTML;
+      var encodedData = btoa(markup).toString();
+      console.log('ENCODED DATA', encodedData);
+
+      axios.post("https://it8sgn3kx5.execute-api.us-east-1.amazonaws.com/dev/makepdf", 
+      {"html_base64" : encodedData})
+      `;
+    this.webView.injectJavaScript(x);
   }
+  
 
   render() {
     // this.webview.postMessage("Hello from RN");
