@@ -40,6 +40,7 @@ class InvoiceWebViewContainer extends Component {
   }
 
   componentWillMount() {
+    console.log('CWM      INNNNNNNNNNNNN INVOICEWEBVIEWCONTAITNER');
     // let navigator = this.props.navigation.state.params;
     // // console.log('WVContainer COMPONENTWILLMOUNT navigator', navigator);
     // const invoice = navigator.invoice;
@@ -60,6 +61,7 @@ class InvoiceWebViewContainer extends Component {
 
   sendPDFMessage() {
     const x = JSON.stringify({ type: 'pdf' });
+    console.log('inside sendPDFmessage x', x);
     this.webView.postMessage(x);
   }
 
@@ -71,7 +73,7 @@ class InvoiceWebViewContainer extends Component {
       return { ...val, id };
     });
     payload.itemsArray = itemsArray;
-    console.log('WVContainer render payload', payload);
+    console.log('INVOICEWVContainer render payload', payload);
     return (
 
       <View style={{ flex: 1, alignItems: 'flex-end' }}>
@@ -102,18 +104,19 @@ class InvoiceWebViewContainer extends Component {
           title="Send PDF"
           onPress={() => {
             console.log('Inside onPress');
-            // this.sendPDFMessage();
-            axios.post(
-              'https://jjgb7mjmt0.execute-api.us-west-1.amazonaws.com/dev/make-pdf',
-              {
-                message: `
+            this.sendPDFMessage();
+            const data = btoa(`
                   <html>
                     <div>
                       <h1>Hi there</h1>
                     </div>
                   </html>
-                  `
-                ,
+                  `);
+            axios.post(
+              'https://it8sgn3kx5.execute-api.us-east-1.amazonaws.com/dev/makepdf',
+          //     // 'https://sw9cyyeshd.execute-api.us-east-1.amazonaws.com/dev/mp-create8?url=https://github.com/adieuadieu/serverless-chrome',
+              {
+                html_base64: data,
               },
             )
               .then(function (response) {
@@ -123,8 +126,10 @@ class InvoiceWebViewContainer extends Component {
                 console.log(error);
               });
             ;
-          }}
+            }
+          }
         />
+
         {/* <TouchableHighlight style={{padding: 10, backgroundColor: 'blue', marginTop: 20}} onPress={() => this.sendPostMessage()}>
           <Text style={{color: 'white', fontSize: 45}}>Send post message from react native</Text>
         </TouchableHighlight> */}
@@ -134,7 +139,7 @@ class InvoiceWebViewContainer extends Component {
 }
 
 const MapStateToProps = (state) => {
-  console.log('WVContainer MAPSTATETOPROPS state', state);
+  console.log('INVOICEWVContainer MAPSTATETOPROPS state', state);
   if (state.invoice) {
     const { invoice } = state;
     const description = state.invoice.description || '';

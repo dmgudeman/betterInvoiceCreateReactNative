@@ -45,7 +45,7 @@ export default StackNavigator(
     myWebView:         { screen: MyWebViewContainer }
   },
   {
-    headerMode: 'float'
+    headerMode: 'float',
   }
 );
 

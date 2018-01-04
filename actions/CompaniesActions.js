@@ -12,18 +12,18 @@ import moment from 'moment';
 
 
 export const fetchCompanies = (fUserId) => async dispatch => {
-  let companies = await firebase.database().ref('/users/' + fUserId + '/companies')
-    .on('value', snapshot => {
+  const companies = await firebase.database().ref('/users/' + fUserId + '/companies')
+    .on('value', (snapshot) => {
       if (snapshot.val()) {
-        dispatch({type: FETCH_COMPANIES_SUCCESS, payload:snapshot.val() })};
+        dispatch({ type: FETCH_COMPANIES_SUCCESS, payload: snapshot.val() });
       }
-    )
-  return { }
-} 
+    });
+  return { };
+};
 
 export const setCompanies = (companies) => {
   return {
     type: SET_COMPANIES,
-    companies: companies || {}
-  }
-}
+    companies: companies || {},
+  };
+};
