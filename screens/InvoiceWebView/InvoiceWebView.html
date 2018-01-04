@@ -177,18 +177,8 @@
           ,
           document.getElementById('root')
         )
-      } else {
-        var markup = document.documentElement.innerHTML;
-        var encodedData = btoa(markup);
-        console.log('ENCODED DATA', encodedData);
-        axios.post('https://it8sgn3kx5.execute-api.us-east-1.amazonaws.com/dev/htmlpdf', {"html_base64": encodedData })
-          .then((response)=>{
-            console.log(response);
-          })
-          .catch((err)=> {console.log(err);
-          });
-         }
-      }, false);
+      }
+      }, false )
     </script>
 </body>
 </html>

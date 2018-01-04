@@ -58,11 +58,30 @@ class InvoiceWebViewContainer extends Component {
     console.log('INVOICEWEBVIEWCONTAINER  this.webView', this.webView);
     this.webView.postMessage(x);
   }
+  tempAlert(msg,duration) {
+    const el = document.createElement("div");
+    el.setAttribute("style","position:absolute;top:40%;left:20%;background-color:white;");
+    el.innerHTML = msg;
+    setTimeout(function(){
+      el.parentNode.removeChild(el);
+    },duration);
+    document.body.appendChild(el);
+  }
 
-  sendPDFMessage() {
+  sendPDFMessage = () => {
     const x = JSON.stringify({ type: 'pdf' });
     console.log('inside sendPDFmessage x', x);
-    this.webView.postMessage(x);
+    // this.webView.postMessage(x);
+    // axios.post("https://it8sgn3kx5.execute-api.us-east-1.amazonaws.com/dev/makepdf", {"html_base64" : "PGJvZHk+SGVsbG8gd29ybGQ8L2JvZHk+"})
+     // axios.post('https://it8sgn3kx5.execute-api.us-east-1.amazonaws.com/dev/makepdf', {"html_base64" : "PGJvZHk+SGVsbG8gd29ybGQ8L2JvZHk+"})
+    // const x = `
+    //
+    //     axios.post("https://it8sgn3kx5.execute-api.us-east-1.amazonaws.com/dev/makepdf", {"html_base64" : "PGJvZHk+SGVsbG8gd29ybGQ8L2JvZHk+"})
+    //   alert("after axios");
+    //
+    // `
+    // console.log(typeof x === 'string');
+     this.webView.injectJavaScript(' axios.post("https://it8sgn3kx5.execute-api.us-east-1.amazonaws.com/dev/makepdf", {"html_base64" : "PGJvZHk+SGVsbG8gd29ybGQ8L2JvZHk+"})');
   }
 
   render() {
@@ -105,27 +124,27 @@ class InvoiceWebViewContainer extends Component {
           onPress={() => {
             console.log('Inside onPress');
             this.sendPDFMessage();
-            const data = btoa(`
-                  <html>
-                    <div>
-                      <h1>Hi there</h1>
-                    </div>
-                  </html>
-                  `);
-            axios.post(
-              'https://it8sgn3kx5.execute-api.us-east-1.amazonaws.com/dev/makepdf',
-          //     // 'https://sw9cyyeshd.execute-api.us-east-1.amazonaws.com/dev/mp-create8?url=https://github.com/adieuadieu/serverless-chrome',
-              {
-                html_base64: data,
-              },
-            )
-              .then(function (response) {
-                console.log(response);
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-            ;
+          //   const data = btoa(`
+          //         <html>
+          //           <div>
+          //             <h1>Hi there</h1>
+          //           </div>
+          //         </html>
+          //         `);
+          //   axios.post(
+          //     'https://it8sgn3kx5.execute-api.us-east-1.amazonaws.com/dev/makepdf',
+          // //     // 'https://sw9cyyeshd.execute-api.us-east-1.amazonaws.com/dev/mp-create8?url=https://github.com/adieuadieu/serverless-chrome',
+          //     {
+          //       html_base64: data,
+          //     },
+          //   )
+          //     .then(function (response) {
+          //       console.log(response);
+          //     })
+          //     .catch(function (error) {
+          //       console.log(error);
+          //     });
+          //   ;
             }
           }
         />
