@@ -1,24 +1,41 @@
 
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage } from 'react-native';
+import { View, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
-import { Spinner } from '../components/common'
+import { Spinner } from '../components/common';
 import * as actions from '../actions';
+
+const AWS = require('aws-sdk/dist/aws-sdk-react-native');
+
+const IDENTITY_POOL_ID = 'us-east-1:92ee94bb-b679-45b6-8fce-93030e8d9406';
 
 class AuthScreen extends Component {
   componentDidMount() {
     this.props.facebookLogin();
-    if (this.props.token){
-    this.onAuthComplete(this.props);
+    if (this.props.token) {
+      // aws
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IndentityPoolId: IDENTITY_POOL_ID,
+        Logins: {
+          'graph.facebook.com': this.props.token,
+        },
+      });
+      // Obtain AWS credentials
+      AWS.config.credentials.get(() => {
+        // Access AWS resources here.
+        console.log(AWS.config.credentials);
+      });
+      // Original
+      this.onAuthComplete(this.props);
+    } else {
+      console.log('There was a problem signing you in');
     }
     // uncomment to clear token from local storage//////////////////////
-  
     // AsyncStorage.removeItem('fb_token');
-    
     // console.log("AuthScreen componentDidMount this.props",this.props);
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     // console.log('AuthScreen componentWillReceiveProps nextProps =', nextProps);
     this.onAuthComplete(nextProps);
   }
@@ -32,7 +49,7 @@ class AuthScreen extends Component {
   }
   render() {
     return (
-      <View style={{ flex: 1,justifyContent: 'center', alignItems:'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems:'center' }}>
       <Spinner />
       </View>
       // <View>
@@ -43,11 +60,11 @@ class AuthScreen extends Component {
 
       //   <Text> auth screen </Text>
       //   </View>
-    )
+    );
   }
 }
 function mapStateToProps({ auth }) {
-  return {token: auth.token}
+  return { token: auth.token };
 }
 
 export default connect(mapStateToProps, actions)(AuthScreen);

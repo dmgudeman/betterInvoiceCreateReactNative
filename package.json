@@ -27,6 +27,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "aws-sdk": "^2.177.0",
     "axios": "^0.17.1",
     "babel-eslint": "^8.1.2",
     "eslint": "^4.14.0",

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { WebView, View, Dimensions } from 'react-native';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import axios from 'axios';
 import _ from 'lodash';
 import * as actions from '../../actions';
 
@@ -46,6 +47,8 @@ class InvoiceWebViewContainer extends Component {
   }
   sendPDFMessage = () => {
     console.log('inside sendPDFmessage ');
+    const apiUrl = 'axios.post("https://it8sgn3kx5.execute-api.us-east-1.amazonaws.com/dev/makepdf';
+    axios.get(apiUrl, { headers: { "Authorization": `Bearer-${this.props.token}` } });
     const x = `
       var markup = document.documentElement.innerHTML;
       var encodedData = btoa(markup).toString();
