@@ -14,17 +14,25 @@ class AuthScreen extends Component {
     this.props.facebookLogin();
     if (this.props.token) {
       // aws
+      // Set the region where your identity pool exists (us-east-1, eu-west-1)
+      AWS.config.region = 'us-east-1';
+
+// Configure the credentials provider to use your identity pool
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IndentityPoolId: IDENTITY_POOL_ID,
-        Logins: {
-          'graph.facebook.com': this.props.token,
-        },
+        IdentityPoolId: 'IDENTITY_POOL_ID',
       });
-      // Obtain AWS credentials
-      AWS.config.credentials.get(() => {
-        // Access AWS resources here.
-        console.log(AWS.config.credentials);
+
+// Make the call to obtain credentials
+      AWS.config.credentials.get(function(){
+
+        // Credentials will be available when this function is called.
+        var accessKeyId = AWS.config.credentials.accessKeyId;
+        var secretAccessKey = AWS.config.credentials.secretAccessKey;
+        var sessionToken = AWS.config.credentials.sessionToken;
       });
+      var identityId = AWS.config.credentials.identityId;
+
+      console.logi('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhidentityId', identityId)
       // Original
       this.onAuthComplete(this.props);
     } else {
